@@ -19,6 +19,7 @@ namespace testMonogame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            //test
 
             base.Initialize();
         }
