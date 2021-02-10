@@ -18,8 +18,8 @@ namespace testMonogame
          * how we use it, but since every object will have some rule for interaction
          * we might as well have it hear for now at least.
          */
-        public void Interact();
-        //TODO: Add IPlayer player as a parameter once the player interface is implemented.
+        public void Interact(IPlayer player);
+        
 
     }
 }
