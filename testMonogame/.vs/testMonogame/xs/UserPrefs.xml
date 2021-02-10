@@ -3,15 +3,28 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/ICommand.cs">
     <Files>
       <File FileName="testMonogame/Game1.cs" Line="1" Column="1" />
-      <File FileName="testMonogame/ICommand.cs" Line="7" Column="12" />
-      <File FileName="testMonogame/IEnemy.cs" Line="4" Column="14" />
-      <File FileName="testMonogame/ISprite.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/IPlayer.cs" />
+      <File FileName="testMonogame/IObject.cs" />
+      <File FileName="testMonogame/ISprite.cs" />
+      <File FileName="testMonogame/IEnemy.cs" />
+      <File FileName="testMonogame/ICommand.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="testMonogame" expanded="True">
             <Node name="testMonogame" expanded="True">
+              <Node name="Dependencies" expanded="True">
+                <Node name="FrameworkReferences" expanded="True" />
+                <Node name="PackageDependencies" expanded="True" />
+              </Node>
+              <Node name="Content" expanded="True">
+                <Node name="obj" expanded="True">
+                  <Node name="DesktopGL" expanded="True">
+                    <Node name="Content" expanded="True" />
+                  </Node>
+                </Node>
+              </Node>
               <Node name="ICommand.cs" selected="True" />
             </Node>
           </Node>

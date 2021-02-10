@@ -4,7 +4,7 @@ using System.Text;
 
 namespace testMonogame
 {
-    interface IObject
+    public interface IObject
     {
         //Something will typically implement both an object and a sprite. so this interface doesnt handle drawing.
 

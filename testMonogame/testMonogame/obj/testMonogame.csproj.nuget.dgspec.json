@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/tylerliu/Zelda CSE3902/testMonogame/testMonogame/testMonogame.csproj": {}
+    "/Users/jerryqiu/Zelda/testMonogame/testMonogame/testMonogame.csproj": {}
   },
   "projects": {
-    "/Users/tylerliu/Zelda CSE3902/testMonogame/testMonogame/testMonogame.csproj": {
+    "/Users/jerryqiu/Zelda/testMonogame/testMonogame/testMonogame.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/tylerliu/Zelda CSE3902/testMonogame/testMonogame/testMonogame.csproj",
+        "projectUniqueName": "/Users/jerryqiu/Zelda/testMonogame/testMonogame/testMonogame.csproj",
         "projectName": "testMonogame",
-        "projectPath": "/Users/tylerliu/Zelda CSE3902/testMonogame/testMonogame/testMonogame.csproj",
-        "packagesPath": "/Users/tylerliu/.nuget/packages/",
-        "outputPath": "/Users/tylerliu/Zelda CSE3902/testMonogame/testMonogame/obj/",
+        "projectPath": "/Users/jerryqiu/Zelda/testMonogame/testMonogame/testMonogame.csproj",
+        "packagesPath": "/Users/jerryqiu/.nuget/packages/",
+        "outputPath": "/Users/jerryqiu/Zelda/testMonogame/testMonogame/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/tylerliu/.config/NuGet/NuGet.Config"
+          "/Users/jerryqiu/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -24,6 +24,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -35,6 +36,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "MonoGame.Content.Builder.Task": {
               "target": "Package",
@@ -60,7 +62,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.401/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.103/RuntimeIdentifierGraph.json"
         }
       }
     }
