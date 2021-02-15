@@ -174,23 +174,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tr1cr\\.nuget\\packages\\": {},
+    "C:\\Users\\logan\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\CSE 3902\\3902GitHubDesktopClone\\Zelda\\testMonogame\\testMonogame\\testMonogame.csproj",
+      "projectUniqueName": "E:\\SP21\\CSE3902\\3902Project\\Zelda\\testMonogame\\testMonogame\\testMonogame.csproj",
       "projectName": "testMonogame",
-      "projectPath": "D:\\CSE 3902\\3902GitHubDesktopClone\\Zelda\\testMonogame\\testMonogame\\testMonogame.csproj",
-      "packagesPath": "C:\\Users\\tr1cr\\.nuget\\packages\\",
-      "outputPath": "D:\\CSE 3902\\3902GitHubDesktopClone\\Zelda\\testMonogame\\testMonogame\\obj\\",
+      "projectPath": "E:\\SP21\\CSE3902\\3902Project\\Zelda\\testMonogame\\testMonogame\\testMonogame.csproj",
+      "packagesPath": "C:\\Users\\logan\\.nuget\\packages\\",
+      "outputPath": "E:\\SP21\\CSE3902\\3902Project\\Zelda\\testMonogame\\testMonogame\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\tr1cr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\logan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -241,7 +241,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
