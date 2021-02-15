@@ -1,2 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"E:/SP21/CSE3902/3902Project/Zelda/testMonogame/testMonogame/Content/fire.png","E:/SP21/CSE3902/3902Project/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/fire.xnb","TextureProcessor","Texture2DContent",338,2133,0.1119743
 "E:/SP21/CSE3902/3902Project/Zelda/testMonogame/testMonogame/Content/itemset.png","E:/SP21/CSE3902/3902Project/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/itemset.xnb","TextureProcessor","Texture2DContent",1201,8485,0.1295728
