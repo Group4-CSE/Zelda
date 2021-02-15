@@ -1,2 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"/Users/tylerliu/Zelda CSE3902/testMonogame/testMonogame/Content/tileset.png","/Users/tylerliu/Zelda CSE3902/testMonogame/testMonogame/Content/bin/DesktopGL/Content/tileset.xnb","TextureProcessor","Texture2DContent",1004,13485,0.389919
+"D:/CSE 3902/3902GitHubDesktopClone/Zelda/testMonogame/testMonogame/Content/doors.png","D:/CSE 3902/3902GitHubDesktopClone/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/doors.xnb","TextureProcessor","Texture2DContent",2814,68729,0.2233652
+"D:/CSE 3902/3902GitHubDesktopClone/Zelda/testMonogame/testMonogame/Content/tileset.png","D:/CSE 3902/3902GitHubDesktopClone/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/tileset.xnb","TextureProcessor","Texture2DContent",1004,13485,0.0705514

@@ -5,7 +5,7 @@ namespace testMonogame
     {
         //update controller
         public void Update();
-        //figure out what to do w/ input
-        public void RegisterCommand(Keys key, ICommand command);
+        
+        
     }
 }
