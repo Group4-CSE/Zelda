@@ -21,5 +21,8 @@ namespace testMonogame
 
         //damage player
         public void takeDamage(float damage);
+
+        //use key
+        public Boolean useKey(int keyType);
     }
 }
