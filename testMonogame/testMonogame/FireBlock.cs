@@ -47,9 +47,9 @@ namespace testMonogame
                 framedelay = 0;
             }
             sourceRect = new Rectangle(16*currentframe, 0, 16, 16);
-            spriteBatch.Begin();
+          
             spriteBatch.Draw(texture, destRect, sourceRect, color);
-            spriteBatch.End();
+            
         }
 
         public void Interact(IPlayer player)

@@ -37,9 +37,9 @@ namespace testMonogame
 
            
             
-            spriteBatch.Begin();
+            
             spriteBatch.Draw(texture, destRect, sourceRect, color);
-            spriteBatch.End();
+            
         }
 
         public void Interact(IPlayer player)
