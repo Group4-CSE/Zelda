@@ -87,6 +87,13 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*testMonogame/testMonogame/Content/obj/DesktopGL/Content/.mgstats
+*testMonogame/testMonogame/obj/Debug/netcoreapp3.1/testMonogame.assets.cache
+*testMonogame/testMonogame/obj/Debug/netcoreapp3.1/testMonogame.csprojAssemblyReference.cache
+*testMonogame/testMonogame/obj/project.assets.json
+*testMonogame/testMonogame/obj/project.nuget.cache
+*testMonogame/testMonogame/obj/testMonogame.csproj.nuget.dgspec.json
+*testMonogame/testMonogame/obj/testMonogame.csproj.nuget.g.props
 
 # Chutzpah Test files
 _Chutzpah*

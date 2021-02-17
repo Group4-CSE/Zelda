@@ -46,7 +46,7 @@ namespace testMonogame
 
             if (!isClosed)
             {
-                unlockDoor();
+                openDoor();
             }
         }
 
@@ -69,10 +69,10 @@ namespace testMonogame
             spriteBatch.Draw(texture, destRect, sourceRect, Color.Green);
         }
 
-        public void unlockDoor()
+        public void openDoor()
         {
             isClosed = false;
-            sourceRect.X = sourceRect.X - 66;
+            sourceRect.X = 0;
         }
     }
 }
