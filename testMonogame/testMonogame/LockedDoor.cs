@@ -80,7 +80,7 @@ namespace testMonogame
         public void unlockDoor()
         {
             isLocked = false;
-            sourceRect.X = sourceRect.X - 33;
+            sourceRect.X = 0;
         }
     }
 }
