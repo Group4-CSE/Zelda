@@ -6,45 +6,59 @@ using System.Text;
 
 namespace testMonogame
 {
-    class TriforceItem : IObject, ISprite
+    class HeartItem : IObject, ISprite
     {
         //drawing stuff
         Texture2D texture;
-        Rectangle sourceRect = new Rectangle(0, 0, 10, 10);
+        Rectangle sourceRect;
         Rectangle destRect;
         Color color = Color.White;
-        
+        int currentFrame;
+        int frameDelay;
 
         //location stuff
         int x;
         int y;
-        const int width = 10;
-        const int height = 10;
+        const int width = 7;
+        const int height = 8;
 
 
-        public TriforceItem(Texture2D inTexture, Vector2 position)
+        public HeartItem(Texture2D inTexture, Vector2 position)
         {
             texture = inTexture;
             x = (int)position.X;
             y = (int)position.Y;
 
-            //Non-moving block so instantiate dest rectangle
+            //Non-moving item so instantiate dest rectangle
             destRect = new Rectangle(x, y, width, height);
+
+            currentFrame = 0;
+            frameDelay = 0;
 
         }
         public void Draw(SpriteBatch spriteBatch)
         {
+            frameDelay++;
+            if (frameDelay >= 15)
+            {
+                currentFrame++;
+                if (currentFrame > 1) currentFrame = 0;
+                frameDelay = 0;
+            }
 
-           
-            
-            
+            //MAYBE ADD DESPAWNING RULES HERE. IDK IF IT DESPAWNS OR NOT 
+
+
+            sourceRect =  new Rectangle(37+(currentFrame*8), 0, 7, 8);
+
+
             spriteBatch.Draw(texture, destRect, sourceRect, color);
-            
+
         }
 
         public void Interact(IPlayer player)
         {
-            //TODO: Add code for picking up triforce (probably just ends game since that is when u finish dungeon)
+            //TODO: Add code for picking up heart (heal player)
         }
 
         public void Update(Game1 game)

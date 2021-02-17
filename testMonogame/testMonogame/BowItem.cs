@@ -6,23 +6,23 @@ using System.Text;
 
 namespace testMonogame
 {
-    class TriforceItem : IObject, ISprite
+    class BowItem : IObject, ISprite
     {
         //drawing stuff
         Texture2D texture;
-        Rectangle sourceRect = new Rectangle(0, 0, 10, 10);
+        Rectangle sourceRect = new Rectangle(18, 13, 8, 17);
         Rectangle destRect;
         Color color = Color.White;
-        
+
 
         //location stuff
         int x;
         int y;
-        const int width = 10;
-        const int height = 10;
+        const int width = 8;
+        const int height = 17;
 
 
-        public TriforceItem(Texture2D inTexture, Vector2 position)
+        public BowItem(Texture2D inTexture, Vector2 position)
         {
             texture = inTexture;
             x = (int)position.X;
@@ -35,16 +35,16 @@ namespace testMonogame
         public void Draw(SpriteBatch spriteBatch)
         {
 
-           
-            
-            
+
+
+
             spriteBatch.Draw(texture, destRect, sourceRect, color);
-            
+
         }
 
         public void Interact(IPlayer player)
         {
-            //TODO: Add code for picking up triforce (probably just ends game since that is when u finish dungeon)
+            //TODO: Add code for adding bow to inventory
         }
 
         public void Update(Game1 game)

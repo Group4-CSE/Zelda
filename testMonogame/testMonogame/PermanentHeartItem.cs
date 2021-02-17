@@ -6,23 +6,23 @@ using System.Text;
 
 namespace testMonogame
 {
-    class TriforceItem : IObject, ISprite
+    class PermanentHeartItem : IObject, ISprite
     {
         //drawing stuff
         Texture2D texture;
-        Rectangle sourceRect = new Rectangle(0, 0, 10, 10);
+        Rectangle sourceRect = new Rectangle(23, 0, 13, 13);
         Rectangle destRect;
         Color color = Color.White;
-        
+
 
         //location stuff
         int x;
         int y;
-        const int width = 10;
-        const int height = 10;
+        const int width = 13;
+        const int height = 13;
 
 
-        public TriforceItem(Texture2D inTexture, Vector2 position)
+        public PermanentHeartItem(Texture2D inTexture, Vector2 position)
         {
             texture = inTexture;
             x = (int)position.X;
@@ -35,16 +35,16 @@ namespace testMonogame
         public void Draw(SpriteBatch spriteBatch)
         {
 
-           
-            
-            
+
+
+
             spriteBatch.Draw(texture, destRect, sourceRect, color);
-            
+
         }
 
         public void Interact(IPlayer player)
         {
-            //TODO: Add code for picking up triforce (probably just ends game since that is when u finish dungeon)
+            //TODO: Add code for picking up heart (Player health increase by 1)
         }
 
         public void Update(Game1 game)
