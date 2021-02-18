@@ -10,7 +10,7 @@ namespace testMonogame
         //Get the HP to see how many more attacks left of the player
         public void getHP();
         //Attack the player
-        public void Attack();
+        public void Attack(IPlayer player);
     }
 }
 
