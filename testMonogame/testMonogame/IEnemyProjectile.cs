@@ -4,10 +4,10 @@ using System.Text;
 
 namespace testMonogame
 {
-    interface IEnemyProjectile
+    public interface IEnemyProjectile
     {
         public void Move();
         public void doDamage(IPlayer player);
-        public void delete();
+        public void delete(Game1 game);
     }
 }

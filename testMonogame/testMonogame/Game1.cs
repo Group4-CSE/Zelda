@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace testMonogame
 {
@@ -9,6 +10,24 @@ namespace testMonogame
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+
+
+        List<ISprite> activeEnemyProjectiles= new List<ISprite>();
+        List<ISprite> removedEnemyProjectiles = new List<ISprite>();
+
+        public void AddEnemyProjectile(ISprite projectile){activeEnemyProjectiles.Add(projectile); }
+        public void RemoveEnemyProjectile(ISprite projectile) { removedEnemyProjectiles.Add(projectile); }
+         void removeProjectiles()
+        {
+            foreach(ISprite removed in removedEnemyProjectiles)
+            {
+                activeEnemyProjectiles.Remove(removed);
+            }
+        }
+
+
+
+
         ISprite TestObject;
         public Game1()
         {
@@ -16,6 +35,8 @@ namespace testMonogame
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
+
+
 
         protected override void Initialize()
         {
@@ -34,7 +55,7 @@ namespace testMonogame
             // TODO: use this.Content to load your game content here
 
 
-            TestObject = new GelEnemy(Content.Load<Texture2D>("basicenemy"), new Vector2(200, 200));
+            TestObject = new AquamentusEnemy(Content.Load<Texture2D>("aquamentus"), new Vector2(200, 200));
         }
 
         protected override void Update(GameTime gameTime)
@@ -45,7 +66,12 @@ namespace testMonogame
             // TODO: Add your update logic here
 
             TestObject.Update(this);
+            foreach(ISprite enemyProjectile in activeEnemyProjectiles){
+                enemyProjectile.Update(this);
+            }
+            removeProjectiles();
 
+            
             base.Update(gameTime);
         }
 
@@ -58,6 +84,11 @@ namespace testMonogame
             _spriteBatch.Begin();
 
             TestObject.Draw(_spriteBatch);
+            foreach (ISprite enemyProjectile in activeEnemyProjectiles)
+            {
+                enemyProjectile.Draw(_spriteBatch);
+            }
+
 
             _spriteBatch.End();
 
