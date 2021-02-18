@@ -74,3 +74,4 @@ E:\SP21\CSE3902\3902Project\Zelda\testMonogame\testMonogame\bin\Debug\netcoreapp
 E:\SP21\CSE3902\3902Project\Zelda\testMonogame\testMonogame\bin\Debug\netcoreapp3.1\Content\itemset.xnb
 E:\SP21\CSE3902\3902Project\Zelda\testMonogame\testMonogame\bin\Debug\netcoreapp3.1\Content\oldman.xnb
 E:\SP21\CSE3902\3902Project\Zelda\testMonogame\testMonogame\obj\Debug\netcoreapp3.1\testMonogame.csprojAssemblyReference.cache
+E:\SP21\CSE3902\3902Project\Zelda\testMonogame\testMonogame\bin\Debug\netcoreapp3.1\Content\wallmasters.xnb
