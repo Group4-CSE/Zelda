@@ -17,44 +17,63 @@ namespace testMonogame
         int xRand;
         int yRand;
         int modifier;
+        int directionFrame;
+        int directionCounter;
 
         int enemyVel = 3;
         Random randomNumber = new Random();
         int frame = 1;
         const int width = 16;
         const int height = 16;
-        Rectangle sourceRect = new Rectangle(70, 0, 86, 16);
+        Rectangle sourceRect = new Rectangle(70, 0, 16, 16);
         Color color = Color.White;
 
-        Rectangle frame1 = new Rectangle(70, 0, 86, 16);
-        Rectangle frame2 = new Rectangle(87, 0, 103, 16);
+        Rectangle frame1 = new Rectangle(70, 0, 16, 16);
+        Rectangle frame2 = new Rectangle(87, 0, 16, 16);
 
         public StalfosEnemy(Texture2D inTexture, Vector2 position)
         {
+            // Stuff for drawing
             texture = inTexture;
             x = (int)position.X;
             y = (int)position.Y;
-            destRect = new Rectangle(width, height, x, y);
+            destRect = new Rectangle(x, y, width, height);
+
+            // Stuff for state
             health = 100;
+
+            // Stuff for movement
+            directionFrame = randomNumber.Next(200);
+            directionCounter = 0;
+            xRand = randomNumber.Next(enemyVel);
+            yRand = randomNumber.Next(enemyVel);
+            modifier = randomNumber.Next(enemyVel);
+            xRand -= modifier;
+            yRand -= modifier;
         }
 
         public void Move()
         {
             // Code for making sure the stalfos is on a solid block and can move will be here
             // TEMP: No walk off screen
-            if (x > 0 && x < 800 && y > 0 && y < 480)
-            {
-                xRand = randomNumber.Next(enemyVel);
-                yRand = randomNumber.Next(enemyVel);
-                modifier = randomNumber.Next(enemyVel);
-                xRand -= modifier;
-                yRand -= modifier;
+                if (directionCounter > directionFrame)
+                {
+                    xRand = randomNumber.Next(enemyVel);
+                    yRand = randomNumber.Next(enemyVel);
+                    modifier = randomNumber.Next(enemyVel);
+                    xRand -= modifier;
+                    yRand -= modifier;
+                    directionFrame = randomNumber.Next(200);
+                    directionCounter = 0;
+                } else
+                {
+                    directionCounter += 1;
+                }
 
-                if (x + xRand < 0 || x + xRand > 800) xRand *= -1;
-                if (y + yRand < 0 || y + yRand > 480) yRand *= -1;
+                if (x + xRand < 0 || x + width + xRand > 800) xRand *= -1;
+                if (y + yRand < 0 || y + height + yRand > 480) yRand *= -1;
                 x += xRand;
                 y += yRand;
-            }
         }
 
         public void Attack(IPlayer player)
@@ -69,6 +88,7 @@ namespace testMonogame
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            destRect = new Rectangle(x, y, width, height);
             frame += 1;
             if (frame > 60) frame = 0;
             if (frame < 30)
