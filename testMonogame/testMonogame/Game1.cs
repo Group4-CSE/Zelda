@@ -9,6 +9,7 @@ namespace testMonogame
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        ISprite TestObject;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -21,6 +22,8 @@ namespace testMonogame
             // TODO: Add your initialization logic here
             //test
 
+
+
             base.Initialize();
         }
 
@@ -29,6 +32,9 @@ namespace testMonogame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+
+
+            TestObject = new GelEnemy(Content.Load<Texture2D>("basicenemy"), new Vector2(200, 200));
         }
 
         protected override void Update(GameTime gameTime)
@@ -38,6 +44,8 @@ namespace testMonogame
 
             // TODO: Add your update logic here
 
+            TestObject.Update(this);
+
             base.Update(gameTime);
         }
 
@@ -46,6 +54,12 @@ namespace testMonogame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+
+            _spriteBatch.Begin();
+
+            TestObject.Draw(_spriteBatch);
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
