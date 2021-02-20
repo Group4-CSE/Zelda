@@ -11,7 +11,7 @@ namespace testMonogame
     {
         Texture2D texture;
         Rectangle destRect;
-        Rectangle sourceRect = new Rectangle(0, 0, 16, 16);
+        Rectangle sourceRect;
         const int width = 16;
         const int height = 16;
         Color color = Color.White;
@@ -20,16 +20,19 @@ namespace testMonogame
         int y;
         int randX;
         int randY;
-        int directionFrame;
-        int directionCounter;
+        int updateFrame;
+        int curFrame;
         int health;
         Random randomNumber = new Random();
         int enemyVel = 3;
         int modifier;
-        int frame = 1;
 
-        Rectangle frame1 = new Rectangle(0, 0, 16, 16);
-
+        //Set these constraints for left and right movement (Consider up and down later)
+        int maxX = 600;
+        int minX = 300;
+        bool mHorizontal = false;
+        int maxFrame = 2;
+   
         public TrapEnemy(Texture2D eTexture, Vector2 position)
         {
             //Enemy sprite drawing
@@ -39,45 +42,52 @@ namespace testMonogame
             destRect = new Rectangle(x, y, width, height);
 
             //Enemy movement
-            directionFrame = randomNumber.Next(200);
-            directionCounter = 0;
+            updateFrame = randomNumber.Next(200);
+            curFrame = 0;
             randX = randomNumber.Next(enemyVel);
             randY = randomNumber.Next(enemyVel);
-            modifier = randomNumber.Next(enemyVel);
-            randX -= modifier;
-            randY -= modifier;
-            int frame = 1;
-
+            
             //Enemy state
             health = 100;
         }
 
         public void Move()
         {
-
-            if (directionCounter > directionFrame)
+            //Will Change this move later, for sprint 2 moves left and right
+            updateFrame++;
+            if (updateFrame == 10)
             {
-                randX = randomNumber.Next(enemyVel);
-                randY = randomNumber.Next(enemyVel);
-                modifier = randomNumber.Next(enemyVel);
-                //Might change this cuz trap goes towards another trap?
-                randX -= modifier;
-                randY -= modifier;
-                directionFrame = randomNumber.Next(200);
-                directionCounter = 0;
+                updateFrame = 0;
+                curFrame++;
 
-            }
-            else
-            {
-                directionCounter += 1;
+                if (curFrame == maxFrame)
+                {
+                    curFrame = 0;
+                }
+                //Changed this to move left and right
+                if (x == maxX)
+                {
+                    mHorizontal = true;
+
+                }
+                else if (x == minX)
+                {
+                    mHorizontal = false;
+                }
+
+                if (mHorizontal)
+                {
+                    x -= 50;
+                }
+                else
+                {
+                    x += 50;
+                }
             }
 
             //Prevents from going off screen
             if (x + randX < 0 || x + width + randX > 800) randX *= -1;
-            if (y + randY < 0 || y + height + randY > 480) randY *= -1;
             x += randX;
-            y += randY;
-
         }
 
         public void Attack(IPlayer player)
@@ -93,16 +103,9 @@ namespace testMonogame
         public void Draw(SpriteBatch spriteBatch)
         {
             destRect = new Rectangle(x, y, width, height);
-            frame += 1;
-            if (frame > 60)
-            {
-                frame = 0;
-            }
-            //No need to do frame since theres one sprite for animation
-            sourceRect = frame1;
-
+            sourceRect = new Rectangle(0, 0, 16, 16);
             spriteBatch.Draw(texture, destRect, sourceRect, color);
-
+            
         }
 
         public void Update(Game1 game)
