@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace testMonogame
 {
-    public class ClosedDoor : ISprite, IObject
+    public class OpenDoor: ISprite, IObject
     {
         int x;
         int y;
@@ -15,7 +15,7 @@ namespace testMonogame
         Rectangle destRect;
         Rectangle sourceRect;
 
-        public ClosedDoor(int direction, Vector2 pos, Texture2D texture, int key, Boolean closed)
+        public OpenDoor(int direction, Vector2 pos, Texture2D texture, int key, Boolean closed)
         {
             this.texture = texture;
             x = (int)pos.X;
@@ -27,27 +27,24 @@ namespace testMonogame
             switch (direction)
             {
                 case 0:     //north door
-                    sourceRect = new Rectangle(66, 0, 32, 32);
+                    sourceRect = new Rectangle(0, 0, 32, 32);
                     break;
                 case 1:     //west door
-                    sourceRect = new Rectangle(66, 33, 32, 32);
+                    sourceRect = new Rectangle(0, 33, 32, 32);
                     break;
                 case 2:     //east door
-                    sourceRect = new Rectangle(66, 66, 32, 32);
+                    sourceRect = new Rectangle(0, 66, 32, 32);
                     break;
                 case 3:     //south door
-                    sourceRect = new Rectangle(66, 99, 32, 32);
+                    sourceRect = new Rectangle(0, 99, 32, 32);
                     break;
                 default:
-                    sourceRect = new Rectangle(66, 0, 32, 32);
+                    sourceRect = new Rectangle(0, 0, 32, 32);
                     break;
 
             }
 
-            if (!isClosed)
-            {
-                openDoor();
-            }
+            
         }
 
         public void Update(Game1 game)
@@ -57,10 +54,9 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            if (!isClosed)
-            {
+            
                 // add level changing logic
-            }
+    
 
         }
 

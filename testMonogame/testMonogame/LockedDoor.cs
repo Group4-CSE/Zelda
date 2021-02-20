@@ -82,5 +82,10 @@ namespace testMonogame
             isLocked = false;
             sourceRect.X = 0;
         }
+
+        public Boolean getIsLocked()
+        {
+            return isLocked;
+        }
     }
 }
