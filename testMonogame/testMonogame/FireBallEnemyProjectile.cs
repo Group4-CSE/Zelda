@@ -51,7 +51,7 @@ namespace testMonogame
 
         public void doDamage(IPlayer player)
         {
-            player.takeDamage(1);
+            player.TakeDamage(1);
         }
 
         public void Draw(SpriteBatch spriteBatch)
