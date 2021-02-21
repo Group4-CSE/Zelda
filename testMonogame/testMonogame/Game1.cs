@@ -103,6 +103,7 @@ namespace testMonogame
             items.Add(new BowItem(itemSheet, new Vector2(100, 100)));
 
             enemies.Add(new AquamentusEnemy(aquaSheet, new Vector2(400, 200)));
+            enemies.Add(new TrapEnemy(basicEnemy, new Vector2(400, 200)));
 
 
             TestObject = new AquamentusEnemy(Content.Load<Texture2D>("aquamentus"), new Vector2(200, 200));
