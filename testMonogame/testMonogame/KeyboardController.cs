@@ -17,6 +17,7 @@ namespace testMonogame
 
         ICommand Idle;
         ICommand Move;
+
         public KeyboardController(Game1 game)
         {
             prevState = Keyboard.GetState();
@@ -34,10 +35,15 @@ namespace testMonogame
             ICommand Up = new PlayerChangeDirectionCommand(game.getPlayer(), game, 0);
             ICommand Down = new PlayerChangeDirectionCommand(game.getPlayer(), game, 1);
             ICommand Right = new PlayerChangeDirectionCommand(game.getPlayer(), game, 2);
+            ICommand quit = new Commands.QuitCommand(game);
+            ICommand block = new Commands.CycleBocksCommand(game);
+            ICommand item = new Commands.CycleItemCommand(game);
+            ICommand enemy = new Commands.CycleEnemyCommand(game);
+            ICommand s2reset = new Commands.S2Reset(game);
             //KeyMap.Add(Keys.A, new PlayerAttackCommand(game.player));
             KeyMap = new Dictionary<Keys, ICommand>();
             KeyMap.Add(Keys.Z, Attack);
-            KeyMap.Add(Keys.R, Attack);
+            KeyMap.Add(Keys.N, Attack);
             //KeyMap.Add(Keys.A, Move);
             KeyMap.Add(Keys.D1, Arrow);
             KeyMap.Add(Keys.D2, Bomb);
@@ -49,11 +55,22 @@ namespace testMonogame
             KeyMap.Add(Keys.D, Right);
             //KeyMap.Add(Keys.Y, Idle);
 
+            KeyMap.Add(Keys.Escape, quit);
+            KeyMap.Add(Keys.T, block);
+            KeyMap.Add(Keys.Y, block);
+            KeyMap.Add(Keys.U, item);
+            KeyMap.Add(Keys.I, item);
+            KeyMap.Add(Keys.O, enemy);
+            KeyMap.Add(Keys.P, enemy);
+            KeyMap.Add(Keys.R, s2reset);
+
             direcPriority = new Dictionary<Keys, int>();
             direcPriority.Add(Keys.W, 0);
             direcPriority.Add(Keys.A, 0);
             direcPriority.Add(Keys.S, 0);
             direcPriority.Add(Keys.D, 0);
+
+
 
             moveKeys = new List<Keys>();
             moveKeys.Add(Keys.W);
@@ -84,7 +101,7 @@ namespace testMonogame
                         direcPressed = k;
                     }
                 }
-                
+               
             }
             //            if ((!prevState.IsKeyDown(Keys.A) && !state.IsKeyUp(Keys.A)) ||
             //                (!prevState.IsKeyDown(Keys.W) && !state.IsKeyUp(Keys.W)) ||
