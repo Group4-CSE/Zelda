@@ -82,7 +82,7 @@ namespace testMonogame
         public void Attack(IPlayer player)
         {
             //Deal damage if you make contact
-            player.takeDamage(1);
+            player.TakeDamage(1);
         }
 
         public void Draw(SpriteBatch spriteBatch)

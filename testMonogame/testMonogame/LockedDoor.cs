@@ -59,7 +59,7 @@ namespace testMonogame
         {
             if (isLocked)
             {
-                if (player.useKey(keyType))
+                if (player.UseKey(keyType))
                 {
                     unlockDoor();
                 }

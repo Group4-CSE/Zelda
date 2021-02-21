@@ -21,25 +21,61 @@ namespace testMonogame
         private Texture2D tileSet;
         private Texture2D wallmaster;
 
-        private IController keyboard;
+        //private IController keyboard;
 
         List<ISprite> activeEnemyProjectiles= new List<ISprite>();
         List<ISprite> removedEnemyProjectiles = new List<ISprite>();
+        List<ISprite> addedEnemyProjectiles = new List<ISprite>();
+        List<ISprite> activePlayerProjectiles = new List<ISprite>();
+        List<ISprite> removedPlayerProjectiles = new List<ISprite>();
+        List<ISprite> addedPlayerProjectiles = new List<ISprite>();
 
-        public void AddEnemyProjectile(ISprite projectile){activeEnemyProjectiles.Add(projectile); }
+
+
+
+        public void AddEnemyProjectile(ISprite projectile){ addedEnemyProjectiles.Add(projectile); }
         public void RemoveEnemyProjectile(ISprite projectile) { removedEnemyProjectiles.Add(projectile); }
-         void removeProjectiles()
+        public void AddPlayerProjectile(ISprite projectile) { addedPlayerProjectiles.Add(projectile); }
+        public void RemovePlayerProjectile(ISprite projectile) { removedPlayerProjectiles.Add(projectile); }
+        void removeProjectiles()
         {
             foreach(ISprite removed in removedEnemyProjectiles)
             {
                 activeEnemyProjectiles.Remove(removed);
             }
+            removedEnemyProjectiles.Clear();
+            foreach (ISprite removed in removedPlayerProjectiles)
+            {
+                activeEnemyProjectiles.Remove(removed);
+            }
+            removedPlayerProjectiles.Clear();
+        }
+        void addProjectiles()
+        {
+            foreach (ISprite removed in addedEnemyProjectiles)
+            {
+                activeEnemyProjectiles.Add(removed);
+            }
+            addedEnemyProjectiles.Clear();
+            foreach (ISprite removed in addedPlayerProjectiles)
+            {
+                activeEnemyProjectiles.Add(removed);
+            }
+            addedPlayerProjectiles.Clear();
         }
 
 
 
 
+
+
         ISprite TestObject;
+        IPlayer player;
+
+        IController keyController;
+
+
+
 
         List<ISprite> blocks;
         List<ISprite> items;
@@ -49,6 +85,7 @@ namespace testMonogame
         int itemCounter;
         int enemyCounter;
 
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -56,6 +93,11 @@ namespace testMonogame
             IsMouseVisible = true;
         }
 
+        public IPlayer getPlayer()
+        {
+            return player;
+            
+        }
 
 
         protected override void Initialize()
@@ -63,12 +105,12 @@ namespace testMonogame
             // TODO: Add your initialization logic here
             //test
 
-
             blockCounter = 0;
             itemCounter = 0;
             enemyCounter = 0;
 
-            keyboard = new KeyboardController(this);
+            //keyboard = new KeyboardController(this);
+
 
             base.Initialize();
         }
@@ -107,6 +149,11 @@ namespace testMonogame
 
 
             TestObject = new AquamentusEnemy(Content.Load<Texture2D>("aquamentus"), new Vector2(200, 200));
+            player = new Player(Content.Load<Texture2D>("playersheet"), new Vector2(500, 200), Content.Load<Texture2D>("PlayerProjectiles"));
+
+            keyController = new KeyboardController(this);
+
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -116,13 +163,18 @@ namespace testMonogame
 
             // TODO: Add your update logic here
 
-            keyboard.Update();
+            //keyboard.Update();
 
+            player.Update(this);
             TestObject.Update(this);
             foreach(ISprite enemyProjectile in activeEnemyProjectiles){
                 enemyProjectile.Update(this);
             }
             removeProjectiles();
+            addProjectiles();
+
+
+            keyController.Update();
 
             foreach(ISprite enemy in enemies)
             {
@@ -130,6 +182,7 @@ namespace testMonogame
             }
 
             
+
             base.Update(gameTime);
         }
 
@@ -146,10 +199,18 @@ namespace testMonogame
             {
                 enemyProjectile.Draw(_spriteBatch);
             }
+            foreach (ISprite playerProjectile in activePlayerProjectiles)
+            {
+                playerProjectile.Draw(_spriteBatch);
+            }
+
+
+            player.Draw(_spriteBatch);
 
             blocks[blockCounter].Draw(_spriteBatch);
             items[itemCounter].Draw(_spriteBatch);
             enemies[enemyCounter].Draw(_spriteBatch);
+
 
 
 

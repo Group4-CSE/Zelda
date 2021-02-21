@@ -7,22 +7,40 @@ namespace testMonogame
     public interface IPlayer
     {
         //sets location of player object
-        public void setLocation(Vector2 location);
+        public void SetLocation(Vector2 location);
 
-        //sets direction for movement or still player
-        // 0 = north 2 = east 3 = south 4 = west --> this can be changed  
-        public void setDirection(int direction);
+        //change player state (0=left, 1=up, 2= right, 3=down)
+        public void ChangeState(int direction);
 
         //returns player HP
-        public float getHP();
+        public int GetHP();
 
         //passes in item to player
-        public void getItem(IObject item);
+        public void ObtainItem(String item);
 
         //damage player
-        public void takeDamage(float damage);
+        public void TakeDamage(int damage);
+        //deals damage to enemy
+        public void dealDamage(int damage);
 
         //use key
-        public Boolean useKey(int keyType);
+        public Boolean UseKey(int keyType);
+        //use bomb if player has one.
+        public void UseBomb(Game1 game);
+        //use boomerang if the player has it
+        public void UseBoomerang(Game1 game);
+        //ise bow if possible
+        public void UseBow(Game1 game);
+        //Draw
+        public void Draw(SpriteBatch spriteBatch);
+        //Update
+        public void Update(Game1 game);
+        //Move
+        public void Move(int xChange, int yChange);
+        //attack
+        public void Attack(Game1 game);
+        public int getX();
+        public int getY();
+        public IPlayerState getState();
     }
 }

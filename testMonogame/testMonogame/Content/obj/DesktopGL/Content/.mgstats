@@ -1,1 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/PlayerProjectiles.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/PlayerProjectiles.xnb","TextureProcessor","Texture2DContent",25468,42517,0.127614
+"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/playersheet.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/playersheet.xnb","TextureProcessor","Texture2DContent",15753,61405,0.18079

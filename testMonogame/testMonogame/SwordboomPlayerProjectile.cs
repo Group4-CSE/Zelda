@@ -6,25 +6,30 @@ using System.Text;
 
 namespace testMonogame
 {
-    class FireBallEnemyProjectile : IEnemyProjectile, ISprite
+    class SwordboomPlayerProjectile : IPlayerProjectile, ISprite
 
     {
         Texture2D texture;
         Rectangle destRect;
+
         int x;
         int y;
         int xVel;
         int yVel;
-        int width = 8;
-        int height = 16;
+
+        int frameWait;
+        int frameDelay = 4;
+
+        int frameCount;
+        int Lifetime = 12;
+
         Color color = Color.White;
 
 
         LinkedList<Rectangle> frames = new LinkedList<Rectangle>();
         LinkedListNode<Rectangle> currentFrame;
-        int frameWait;
-        int frameDelay = 2;
-        public FireBallEnemyProjectile(Texture2D inTexture, Vector2 position, Vector2 velocity)
+
+        public SwordboomPlayerProjectile(Texture2D inTexture, Vector2 position, Vector2 velocity, int direction)
         {
             texture = inTexture;
             x = (int)position.X;
@@ -32,39 +37,48 @@ namespace testMonogame
             xVel = (int)velocity.X;
             yVel = (int)velocity.Y;
 
-            frames.AddLast(new Rectangle(75, 33, 8, 16));
-            frames.AddLast(new Rectangle(84, 33, 8, 16));
-            frames.AddLast(new Rectangle(93, 33, 8, 16));
-            frames.AddLast(new Rectangle(102, 33, 8, 16));
-            currentFrame = frames.First;
 
+
+            //directions, up, down, right, left
+            //if 
+            
+            direction = direction++;
+            //frames
+            frames.AddLast(new Rectangle(55, 19 + (17 * (direction)), 8 , 16));
+            frames.AddLast(new Rectangle(55 +9, 19 + (17 * (direction)), 8 , 16));
+            frames.AddLast(new Rectangle(55 +18, 19 + (17 * (direction)), 8, 16));
 
             frameWait = 0;
+            frameCount = 0;
+
+            currentFrame = frames.First;
+
 
 
         }
 
         public void delete(Game1 game)
         {
-            game.RemoveEnemyProjectile(this);
+            game.RemovePlayerProjectile(this);
         }
 
-        public void doDamage(IPlayer player)
+        public void doDamage(IEnemy target)
         {
-            player.TakeDamage(1);
+            //Visual projectile only
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            destRect = new Rectangle(x, y, width, height);
+
+            destRect = new Rectangle(x, y, currentFrame.Value.Width * 2, currentFrame.Value.Height * 2);
             frameWait++;
             if (frameWait > frameDelay)
             {
+                frameCount++;
                 if (currentFrame.Next != null) currentFrame = currentFrame.Next;
                 else currentFrame = frames.First;
                 frameWait = 0;
             }
-
             spriteBatch.Draw(texture, destRect, currentFrame.Value, color);
 
 
@@ -82,8 +96,8 @@ namespace testMonogame
         public void Update(Game1 game)
         {
             Move();
-            //TEMP collision stuff
-            if(x<0 || x > 800 || y < 0 || y > 480)
+            //dissapear
+            if (frameCount > Lifetime)
             {
                 delete(game);
             }

@@ -86,3 +86,4 @@ E:/SP21/CSE3902/3902Project/Zelda/testMonogame/testMonogame/bin/Debug/netcoreapp
 /Users/jerryqiu/Zelda/testMonogame/testMonogame/bin/Debug/netcoreapp3.1/Content/clock.xnb
 /Users/jerryqiu/Zelda/testMonogame/testMonogame/bin/Debug/netcoreapp3.1/Content/playersheet.xnb
 /Users/jerryqiu/Zelda/testMonogame/testMonogame/bin/Debug/netcoreapp3.1/Content/wallmasters.xnb
+/Users/jerryqiu/Zelda/testMonogame/testMonogame/bin/Debug/netcoreapp3.1/Content/PlayerProjectiles.xnb
