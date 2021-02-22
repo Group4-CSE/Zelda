@@ -2,7 +2,7 @@ Sprint 2 Reflection
 Team 4 (10:30) 
 
 Timeline: 
-As a team, we decided it was best to start with designing the interfaces for Player, Enemies, Blocks, Projectiles, Controller, etc. During our first week, we spent majority of the time implementing these different interfaces from easiest to hardest. (Blocks -> Player). This is evident in our code frequency graph shown below. 
+As a team, we decided it was best to start with designing the interfaces for Player, Enemies, Blocks, Projectiles, Controller, etc. During our first week, we spent majority of the time implementing these different interfaces from easiest to hardest. (Blocks -> Player). This is evident in our code frequency graph shown under the insight tab of Github. 
 
 During our second week, we tried to implement the concrete classes starting with the Blocks. All team members were busy with other schoolwork, therefore, in the graph it appears that we did less work than week 1. 
 
@@ -14,10 +14,10 @@ Highlights:
 Negatives:
 1. Lots of problems with version control using Github in the beginning. Some members were not able to push or pull. Now, this is not a problems as we are all more familiar with using Gitbub.
 
-Goals for Sprint 3: 
-1. 
+Goal for Sprint 3:
+1. Start earlier
 
-Code Review (Friday) Notes Tyler Version: 
+Notes from In-class Code Review (Friday): 
 1. Separate Blocks from Sprite Drawing 
 2. Change open-door in constructor 
 3. Anything not moving - down need to separate drawing details into another class 
@@ -30,7 +30,3 @@ Code Review (Friday) Notes Tyler Version:
 10. Make command of projectiles and items 
 11. Declare as IEnemy or IObject (ISprite is for drawing) 
 12. Keep it simple for future
-
-CODE FREQUENCY GRAPH 
-
-
