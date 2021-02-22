@@ -19,8 +19,8 @@ namespace testMonogame
         //location stuff
         int x;
         int y;
-        const int width = 7;
-        const int height = 8;
+        const int width = 14;
+        const int height = 16;
 
 
         public HeartItem(Texture2D inTexture, Vector2 position)

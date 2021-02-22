@@ -14,15 +14,15 @@ namespace testMonogame
         int x;
         int y;
 
-        Rectangle sourceRect = new Rectangle(18, 0, 34, 16);
-        Color color = Color.Green;
+        Rectangle sourceRect = new Rectangle(17, 0, 16, 16);
+        Color color = Color.White;
 
         public DungeonBlock(Texture2D incTexture, Vector2 pos)
         {
             texture = incTexture;
             x = (int)pos.X;
             y = (int)pos.Y;
-            destRect = new Rectangle(x, y, 16, 16);
+            destRect = new Rectangle(x, y, 32, 32);
         }
 
         public void Update(Game1 game)

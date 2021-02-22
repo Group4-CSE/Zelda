@@ -18,8 +18,8 @@ namespace testMonogame
         //location stuff
         int x;
         int y;
-        const int width = 13;
-        const int height = 13;
+        const int width = 26;
+        const int height = 26;
 
 
         public PermanentHeartItem(Texture2D inTexture, Vector2 position)

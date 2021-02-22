@@ -9,15 +9,15 @@ namespace testMonogame
         //Initialize
         Texture2D texture;
         Rectangle destRect;
-        Rectangle sourceRect = new Rectangle(18, 18, 34, 16);
-        Color color = Color.Green;
+        Rectangle sourceRect = new Rectangle(17, 17, 16, 16);
+        Color color = Color.White;
 
         //Might need to change these cordinates depending on where to place.
         int xPosition;
         int yPosition;
         Vector2 location;
-        const int width = 16;
-        const int height = 16;
+        const int width = 32;
+        const int height = 32;
 
         public BlueSandBlock(Texture2D BlockTexture, Vector2 pos)
         {
@@ -31,7 +31,7 @@ namespace testMonogame
 
         public void Update(Game1 game)
         {
-            throw new NotImplementedException();
+            //N/A
         }
 
         public void Draw(SpriteBatch spriteBatch)

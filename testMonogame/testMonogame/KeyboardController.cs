@@ -36,9 +36,13 @@ namespace testMonogame
             ICommand Down = new PlayerChangeDirectionCommand(game.getPlayer(), game, 1);
             ICommand Right = new PlayerChangeDirectionCommand(game.getPlayer(), game, 2);
             ICommand quit = new Commands.QuitCommand(game);
-            ICommand block = new Commands.CycleBocksCommand(game);
-            ICommand item = new Commands.CycleItemCommand(game);
-            ICommand enemy = new Commands.CycleEnemyCommand(game);
+            ICommand nextBlock = new Commands.CycleBocksCommand(game,1);
+            ICommand prevBlock = new Commands.CycleBocksCommand(game,-1);
+            ICommand nextItem = new Commands.CycleItemCommand(game,1);
+            ICommand prevItem = new Commands.CycleItemCommand(game,-1);
+            ICommand nextEnemy = new Commands.CycleEnemyCommand(game,1);
+            ICommand prevEnemy = new Commands.CycleEnemyCommand(game,-1);
+
             ICommand s2reset = new Commands.S2Reset(game);
             //KeyMap.Add(Keys.A, new PlayerAttackCommand(game.player));
             KeyMap = new Dictionary<Keys, ICommand>();
@@ -56,13 +60,14 @@ namespace testMonogame
             //KeyMap.Add(Keys.Y, Idle);
 
             KeyMap.Add(Keys.Escape, quit);
-            KeyMap.Add(Keys.T, block);
-            KeyMap.Add(Keys.Y, block);
-            KeyMap.Add(Keys.U, item);
-            KeyMap.Add(Keys.I, item);
-            KeyMap.Add(Keys.O, enemy);
-            KeyMap.Add(Keys.P, enemy);
+            KeyMap.Add(Keys.T, prevBlock);
+            KeyMap.Add(Keys.Y, nextBlock);
+            KeyMap.Add(Keys.U, prevItem);
+            KeyMap.Add(Keys.I, nextItem);
+            KeyMap.Add(Keys.O, prevEnemy);
+            KeyMap.Add(Keys.P, nextEnemy);
             KeyMap.Add(Keys.R, s2reset);
+            KeyMap.Add(Keys.Q, quit);
 
             direcPriority = new Dictionary<Keys, int>();
             direcPriority.Add(Keys.W, 0);

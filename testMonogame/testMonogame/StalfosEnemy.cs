@@ -23,12 +23,12 @@ namespace testMonogame
         int enemyVel = 3;
         Random randomNumber = new Random();
         int frame = 1;
-        const int width = 16;
-        const int height = 16;
+        const int width = 32;
+        const int height = 32;
         Rectangle sourceRect = new Rectangle(70, 0, 16, 16);
         Color color = Color.White;
 
-        Rectangle frame1 = new Rectangle(70, 0, 16, 16);
+        Rectangle frame1 = new Rectangle(69, 0, 16, 16);
         Rectangle frame2 = new Rectangle(87, 0, 16, 16);
 
         public StalfosEnemy(Texture2D inTexture, Vector2 position)

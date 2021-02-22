@@ -18,8 +18,8 @@ namespace testMonogame
         //location stuff
         int x;
         int y;
-        const int width = 5;
-        const int height = 8;
+        const int width = 10;
+        const int height = 16;
 
 
         public BoomerangItem(Texture2D inTexture, Vector2 position)

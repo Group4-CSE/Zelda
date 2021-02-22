@@ -12,8 +12,8 @@ namespace testMonogame
         Texture2D texture;
         Rectangle destRect;
         Rectangle sourceRect;
-        const int width = 16;
-        const int height = 16;
+        const int width = 32;
+        const int height = 32;
         Color color = Color.White;
 
         int x;

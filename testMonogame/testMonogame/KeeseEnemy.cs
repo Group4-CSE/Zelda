@@ -23,8 +23,8 @@ namespace testMonogame
         int enemyVel = 3;
         Random randomNumber = new Random();
         int frame = 1;
-        const int width = 16;
-        const int height = 16;
+        const int width = 32;
+        const int height = 32;
         Rectangle sourceRect = new Rectangle(17, 0, 16, 16);
         Color color = Color.White;
 

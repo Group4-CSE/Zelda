@@ -19,8 +19,8 @@ namespace testMonogame
         //location stuff
         int x;
         int y;
-        const int width = 16;
-        const int height = 16;
+        const int width = 32;
+        const int height = 32;
 
 
         public FireBlock(Texture2D inTexture, Vector2 position)

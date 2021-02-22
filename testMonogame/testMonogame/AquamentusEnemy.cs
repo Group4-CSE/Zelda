@@ -18,10 +18,10 @@ namespace testMonogame
 
 
         //drawing stuff
-        int frame = 1;
+
         const int width = 48;
         const int height = 64;
-        Rectangle sourceRect;
+
         Color color = Color.White;
         LinkedList<Rectangle> frames = new LinkedList<Rectangle>();
         LinkedList<Rectangle> hurtFrames = new LinkedList<Rectangle>();
@@ -48,7 +48,7 @@ namespace testMonogame
         int moveDelay = 6;
         int moveDelayCount;
 
-        int fireDelay = 120;
+        int fireDelay = 240;
         int fireDelayCount;
         public  AquamentusEnemy(Texture2D inTexture, Vector2 position)
         {

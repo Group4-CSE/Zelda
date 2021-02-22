@@ -18,8 +18,8 @@ namespace testMonogame
         //location stuff
         int x;
         int y;
-        const int width = 7;
-        const int height = 17;
+        const int width = 14;
+        const int height = 34;
 
 
         public MapItem(Texture2D inTexture, Vector2 position)

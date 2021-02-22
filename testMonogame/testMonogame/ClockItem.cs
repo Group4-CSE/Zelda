@@ -13,8 +13,8 @@ namespace testMonogame
         int x;
         int y;
 
-        const int width = 11;
-        const int height = 15;
+        const int width = 22;
+        const int height = 30;
         Rectangle sourceRect = new Rectangle(0, 0, width, height);
         Color color = Color.White;
 

@@ -69,7 +69,6 @@ namespace testMonogame
 
 
 
-        ISprite TestObject;
         IPlayer player;
 
         IController keyController;
@@ -140,15 +139,35 @@ namespace testMonogame
             blocks.Add(new LockedDoor(0, new Vector2(40, 40), doors, 0, true));
             blocks.Add(new OpenDoor(0, new Vector2(40, 40), doors, 0, false));
             blocks.Add(new CaveDoor(0, new Vector2(40, 40), doors));
+            blocks.Add(new BlueSandBlock(tileSet, new Vector2(40, 40)));
+            blocks.Add(new DragonBlock(tileSet, new Vector2(40, 40)));
+            blocks.Add(new DungeonBlock(tileSet, new Vector2(40, 40)));
+            blocks.Add(new FishBlock(tileSet, new Vector2(40, 40)));
+            blocks.Add(new FireBlock(fire, new Vector2(40, 40))); ;
 
             items.Add(new BombItem(itemSheet, new Vector2(100, 100)));
             items.Add(new BowItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new TriforceItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new CompassItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new PermanentHeartItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new HeartItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new BoomerangItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new KeyItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new FairyItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new MapItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new RupeeItem(itemSheet, new Vector2(100, 100)));
+
 
             enemies.Add(new AquamentusEnemy(aquaSheet, new Vector2(400, 200)));
             enemies.Add(new TrapEnemy(basicEnemy, new Vector2(400, 200)));
+            enemies.Add(new GelEnemy(basicEnemy, new Vector2(400, 200)));
+            enemies.Add(new StalfosEnemy(basicEnemy, new Vector2(400, 200)));
+            enemies.Add(new KeeseEnemy(basicEnemy, new Vector2(400, 200)));
+            enemies.Add(new WallmasterEnemy(wallmaster, new Vector2(400, 200)));
+            enemies.Add(new OldMan(oldMan, new Vector2(400, 200)));
 
 
-            TestObject = new AquamentusEnemy(Content.Load<Texture2D>("aquamentus"), new Vector2(200, 200));
+
             player = new Player(Content.Load<Texture2D>("playersheet"), new Vector2(500, 200), Content.Load<Texture2D>("PlayerProjectiles"));
 
             keyController = new KeyboardController(this);
@@ -166,7 +185,7 @@ namespace testMonogame
             //keyboard.Update();
 
             player.Update(this);
-            TestObject.Update(this);
+
             foreach(ISprite enemyProjectile in activeEnemyProjectiles){
                 enemyProjectile.Update(this);
             }
@@ -181,7 +200,9 @@ namespace testMonogame
                 enemy.Update(this);
             }
 
-            
+            blocks[blockCounter].Update(this);
+            items[itemCounter].Update(this);
+            enemies[enemyCounter].Update(this);
 
             base.Update(gameTime);
         }
@@ -194,7 +215,7 @@ namespace testMonogame
 
             _spriteBatch.Begin();
 
-            TestObject.Draw(_spriteBatch);
+
             foreach (ISprite enemyProjectile in activeEnemyProjectiles)
             {
                 enemyProjectile.Draw(_spriteBatch);
@@ -225,34 +246,30 @@ namespace testMonogame
             this.Initialize();
         }
 
-        public void cycleBlock()
+        public void cycleBlock(int incDec)
         {
-            blockCounter++;
+            blockCounter+=incDec;
 
-            if(blockCounter == blocks.Count)
-            {
-                blockCounter = 0;
-            }
+            if (blockCounter == blocks.Count) blockCounter = 0;
+            else if (blockCounter < 0) blockCounter = blocks.Count - 1;
         }
 
-        public void cycleItem()
+        public void cycleItem(int incDec)
         {
-            itemCounter++;
+            itemCounter += incDec;
 
-            if (itemCounter == items.Count)
-            {
-                itemCounter = 0;
-            }
+
+            if (itemCounter == items.Count) itemCounter = 0;
+            else if (itemCounter < 0) itemCounter = items.Count - 1;
         }
 
-        public void cycleEnemy()
+        public void cycleEnemy(int incDec)
         {
-            enemyCounter++;
+            enemyCounter+=incDec;
 
-            if (enemyCounter == enemies.Count)
-            {
-                enemyCounter = 0;
-            }
+            if (enemyCounter == enemies.Count) enemyCounter = 0;
+            else if (enemyCounter < 0) enemyCounter=enemies.Count-1;
+
         }
     }
 }

@@ -18,8 +18,8 @@ namespace testMonogame
         //location stuff
         int x;
         int y;
-        const int width = 8;
-        const int height = 17;
+        const int width = 16;
+        const int height = 34;
 
 
         public BombItem(Texture2D inTexture, Vector2 position)

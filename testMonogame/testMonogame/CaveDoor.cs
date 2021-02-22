@@ -52,7 +52,7 @@ namespace testMonogame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, destRect, sourceRect, Color.Green);
+            spriteBatch.Draw(texture, destRect, sourceRect, Color.White);
         }
     }
 }

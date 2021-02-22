@@ -10,15 +10,15 @@ namespace testMonogame
     {
         //drawing stuff
         Texture2D texture;
-        Rectangle sourceRect = new Rectangle(53, 0, 69, 16);
+        Rectangle sourceRect = new Rectangle(51, 0, 16, 16);
         Rectangle destRect;
-        Color color = Color.Green;
+        Color color = Color.White;
 
         //location stuff
         int x;
         int y;
-        const int width = 16;
-        const int height = 16;
+        const int width = 32;
+        const int height = 32;
 
 
         public DragonBlock(Texture2D inTexture, Vector2 position)

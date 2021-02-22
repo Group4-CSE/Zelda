@@ -14,15 +14,15 @@ namespace testMonogame
         int x;
         int y;
 
-        Rectangle sourceRect = new Rectangle(35, 0, 51, 16);
-        Color color = Color.Green;
+        Rectangle sourceRect = new Rectangle(34, 0, 16, 16);
+        Color color = Color.White;
 
         public FishBlock(Texture2D incTexture, Vector2 pos)
         {
             texture = incTexture;
             x = (int)pos.X;
             y = (int)pos.Y;
-            destRect = new Rectangle(x, y, 16, 16);
+            destRect = new Rectangle(x, y, 32, 32);
         }
 
         public void Update(Game1 game)

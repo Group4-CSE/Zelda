@@ -18,8 +18,8 @@ namespace testMonogame
         //location stuff
         int x;
         int y;
-        const int width = 11;
-        const int height = 12;
+        const int width = 22;
+        const int height = 24;
 
 
         public CompassItem(Texture2D inTexture, Vector2 position)

@@ -43,7 +43,7 @@ namespace testMonogame
         }
         public void AttackAnimation()
         {
-            frames.AddFirst(new Rectangle(51, 17, 16, 18));
+            frames.AddFirst(new Rectangle(51, 17, 16, 19));
             frames.AddFirst(new Rectangle(34, 17, 16, 26));
             frames.AddFirst(new Rectangle(17, 17, 16, 27));
         }

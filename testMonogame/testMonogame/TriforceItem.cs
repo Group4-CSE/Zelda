@@ -18,8 +18,8 @@ namespace testMonogame
         //location stuff
         int x;
         int y;
-        const int width = 10;
-        const int height = 10;
+        const int width = 20;
+        const int height = 20;
 
 
         public TriforceItem(Texture2D inTexture, Vector2 position)
