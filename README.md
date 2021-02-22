@@ -22,3 +22,7 @@ R- Reset program to initial state
 Known Bugs: Pressing a fourth key, while three are already held down results in the fourth key not being logged as a keypress.
 
 Our team used Trello for project management, Photoshop/GIMP for spritesheet creation, and Discord for communication.
+
+Here are the share links for the trello and the github:
+https://trello.com/invite/b/e9PPVWKM/d9c854c4f14d79490c3d390d754b1470/cse3902-project
+https://github.com/Group4-CSE/Zelda
