@@ -20,5 +20,6 @@ Q- Quit
 R- Reset program to initial state
 
 Known Bugs: Pressing a fourth key, while three are already held down results in the fourth key not being logged as a keypress.
+Spamming some player actions causes the sprite to lag behind. (specifically spamming attack causes some weird stuff until you move again)
 
 Our team used Trello for project management, Photoshop/GIMP for spritesheet creation, and Discord for communication.
