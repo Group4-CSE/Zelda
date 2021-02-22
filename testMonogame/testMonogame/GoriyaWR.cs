@@ -6,13 +6,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace testMonogame
 {
-    class GoriyaWR: IEnemy, ISprite
+    class GoriyaWR: IGoriyaState, ISprite
     {
         Texture2D texture;
         Rectangle destRect;
-        int x;
-        int y;
-        int health;
+        GoriyaEnemy goriya;
 
         int frame = 1;
         const int width = 13;
@@ -23,34 +21,30 @@ namespace testMonogame
         Rectangle frame1 = new Rectangle(0, 49, 13, 16);
         Rectangle frame2 = new Rectangle(15, 49, 13, 16);
 
-        public GoriyaWR(Texture2D inTexture, Vector2 position)
+        public GoriyaWR(Texture2D inText, Texture2D projText, GoriyaEnemy inGoriya)
         {
-            texture = inTexture;
-            x = (int)position.X;
-            y = (int)position.Y;
-            health = 3;
-            destRect = new Rectangle(x, y, width, height);
+            texture = inText;
+            goriya = inGoriya;
+            destRect = new Rectangle(goriya.getX(), goriya.getY(), width, height);
         }
         public void Attack(IPlayer player)
         {
-            // Attack player here if collides
-            // Also add attack animation here
-            // Boomerang as well
+            goriya.Attack(player);
         }
 
         public void Move()
         {
-            x += 1;
+            goriya.Move(1, 0);
         }
 
         public void takeDamage(int dmg)
         {
-            health -= dmg;
+            goriya.takeDamage(dmg);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            destRect = new Rectangle(x, y, width, height);
+            destRect = new Rectangle(goriya.getX(), goriya.getY(), width, height);
             frame += 1;
             if (frame > 60) frame = 0;
             if (frame < 30)

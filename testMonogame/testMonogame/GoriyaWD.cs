@@ -6,13 +6,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace testMonogame
 {
-    class GoriyaWD : IEnemy, ISprite
+    class GoriyaWD : IGoriyaState, ISprite
     {
         Texture2D texture;
+        Texture2D projTexture;
         Rectangle destRect;
-        int x;
-        int y;
-        int health;
+        GoriyaEnemy goriya;
 
         int frame = 1;
         const int width = 13;
@@ -23,34 +22,36 @@ namespace testMonogame
         Rectangle frame1 = new Rectangle(0, 0, 13, 16);
         Rectangle frame2 = new Rectangle(15, 0, 13, 16);
 
-        public GoriyaWD(Texture2D inTexture, Vector2 position)
+        public GoriyaWD(Texture2D inText, Texture2D projText, GoriyaEnemy inGoriya)
         {
-            texture = inTexture;
-            x = (int)position.X;
-            y = (int)position.Y;
-            health = 3;
-            destRect = new Rectangle(x, y, width, height);
+            texture = inText;
+            projTexture = projText;
+            goriya = inGoriya;
+            destRect = new Rectangle(goriya.getX(), goriya.getY(), width, height);
         }
         public void Attack(IPlayer player)
         {
-            // Attack player here if collides
-            // Also add attack animation here
-            // Boomerang as well
+            goriya.Attack(player);
         }
 
         public void Move()
         {
-            y += 1;
+            goriya.Move(0, 1);
         }
 
         public void takeDamage(int dmg)
         {
-            health -= dmg;
+            goriya.takeDamage(dmg);
+        }
+
+        public void spawnBoomerang(Game1 game)
+        {
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            destRect = new Rectangle(x, y, width, height);
+            destRect = new Rectangle(goriya.getX(), goriya.getY(), width, height);
             frame += 1;
             if (frame > 60) frame = 0;
             if (frame < 30)
