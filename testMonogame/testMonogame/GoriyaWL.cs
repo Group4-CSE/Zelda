@@ -9,6 +9,7 @@ namespace testMonogame
     class GoriyaWL : IGoriyaState, ISprite
     {
         Texture2D texture;
+        Texture2D projTexture;
         Rectangle destRect;
         GoriyaEnemy goriya;
 
@@ -17,6 +18,8 @@ namespace testMonogame
         const int height = 16;
         Rectangle sourceRect = new Rectangle(0, 33, 13, 16);
         Color color = Color.White;
+        float hProjectileOffset = 0;
+        float vProjectileOffset = 0;
 
         Rectangle frame1 = new Rectangle(0, 33, 13, 16);
         Rectangle frame2 = new Rectangle(14, 33, 13, 16);
@@ -24,6 +27,7 @@ namespace testMonogame
         public GoriyaWL(Texture2D inText, Texture2D projText, GoriyaEnemy inGoriya)
         {
             texture = inText;
+            projTexture = projText;
             goriya = inGoriya;
             destRect = new Rectangle(goriya.getX(), goriya.getY(), width, height);
         }
@@ -42,6 +46,13 @@ namespace testMonogame
             goriya.takeDamage(dmg);
         }
 
+        public void spawnBoomerang(Game1 game)
+        {
+            goriya.setThrow(true);
+            game.AddEnemyProjectile((ISprite)new BoomerangEnemyProjectile(projTexture, new Vector2((float)(goriya.getX() + hProjectileOffset),
+                (float)(goriya.getY() + vProjectileOffset)), new Vector2(-3, 0), 2));
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             destRect = new Rectangle(goriya.getX(), goriya.getY(), width, height);
@@ -52,6 +63,10 @@ namespace testMonogame
                 sourceRect = frame1;
             }
             else if (frame > 30 && frame < 60)
+            {
+                sourceRect = frame2;
+            }
+            else if (goriya.getThrow() == true)
             {
                 sourceRect = frame2;
             }

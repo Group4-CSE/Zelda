@@ -106,7 +106,7 @@ namespace testMonogame
             return res;
 
         }
-        public void Update(Game1 game)
+        public void Update(Game1 game, GoriyaEnemy goriya)
         {
             Move();
             //TEMP collision stuff
@@ -117,7 +117,7 @@ namespace testMonogame
             }
             if (testStop())
             {
-                game.getPlayer().ObtainItem("Boomerang");
+                goriya.setThrow(false);
                 delete(game);
             }
         }

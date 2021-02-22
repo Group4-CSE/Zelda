@@ -14,6 +14,7 @@ namespace testMonogame
         public IGoriyaState state;
         Texture2D texture;
         Texture2D projTexture;
+        bool throwing;
 
         public GoriyaEnemy(Texture2D inTexture, Texture2D inProjTexture)
         {
@@ -39,10 +40,25 @@ namespace testMonogame
             // Collide with player = attack
         }
 
+        public void setThrow(bool isThrow)
+        {
+            throwing = isThrow;
+        }
 
+        public bool getThrow()
+        {
+            return throwing;
+        }
 
         public void changeState(int direction)
         {
+            /*
+             * 1 = Down
+             * 2 = Up
+             * 3 = Right
+             * 4 = Left
+             * Default = Down
+             */
             switch (direction)
             {
                 case 1:

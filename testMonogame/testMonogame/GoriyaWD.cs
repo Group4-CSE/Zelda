@@ -18,6 +18,9 @@ namespace testMonogame
         const int height = 16;
         Rectangle sourceRect = new Rectangle(0, 0, 13, 16);
         Color color = Color.White;
+        float hProjectileOffset = 0;
+        float vProjectileOffset = 0;
+
 
         Rectangle frame1 = new Rectangle(0, 0, 13, 16);
         Rectangle frame2 = new Rectangle(15, 0, 13, 16);
@@ -46,7 +49,9 @@ namespace testMonogame
 
         public void spawnBoomerang(Game1 game)
         {
-
+            goriya.setThrow(true);
+            game.AddEnemyProjectile((ISprite)new BoomerangEnemyProjectile(projTexture, new Vector2((float)(goriya.getX() + hProjectileOffset),
+                (float)(goriya.getY() + vProjectileOffset)), new Vector2(0, 3), 2));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -59,6 +64,9 @@ namespace testMonogame
                 sourceRect = frame1;
             }
             else if (frame > 30 && frame < 60)
+            {
+                sourceRect = frame2;
+            } else if (goriya.getThrow() == true)
             {
                 sourceRect = frame2;
             }
