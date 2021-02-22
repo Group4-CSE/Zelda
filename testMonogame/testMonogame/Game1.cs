@@ -46,7 +46,7 @@ namespace testMonogame
             removedEnemyProjectiles.Clear();
             foreach (ISprite removed in removedPlayerProjectiles)
             {
-                activeEnemyProjectiles.Remove(removed);
+                activePlayerProjectiles.Remove(removed);
             }
             removedPlayerProjectiles.Clear();
         }
@@ -59,7 +59,7 @@ namespace testMonogame
             addedEnemyProjectiles.Clear();
             foreach (ISprite removed in addedPlayerProjectiles)
             {
-                activeEnemyProjectiles.Add(removed);
+                activePlayerProjectiles.Add(removed);
             }
             addedPlayerProjectiles.Clear();
         }
@@ -188,6 +188,10 @@ namespace testMonogame
 
             foreach(ISprite enemyProjectile in activeEnemyProjectiles){
                 enemyProjectile.Update(this);
+            }
+            foreach (ISprite playerProjectile in activePlayerProjectiles)
+            {
+                playerProjectile.Update(this);
             }
             removeProjectiles();
             addProjectiles();

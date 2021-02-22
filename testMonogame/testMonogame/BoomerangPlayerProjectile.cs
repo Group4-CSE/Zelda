@@ -64,7 +64,7 @@ namespace testMonogame
 
         public void delete(Game1 game)
         {
-            game.RemoveEnemyProjectile(this);
+            game.RemovePlayerProjectile(this);
         }
 
         public void doDamage(IEnemy target)
