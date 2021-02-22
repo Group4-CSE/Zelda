@@ -22,13 +22,14 @@ namespace testMonogame
         int initialY;
         int initialXVel;
         int initialYVel;
+        GoriyaEnemy goriya;
 
 
         LinkedList<Rectangle> frames = new LinkedList<Rectangle>();
         LinkedListNode<Rectangle> currentFrame;
         int frameWait;
         int frameDelay = 2;
-        public BoomerangEnemyProjectile(Texture2D inTexture, Vector2 position, Vector2 velocity, int frameOffSet)
+        public BoomerangEnemyProjectile(Texture2D inTexture, Vector2 position, Vector2 velocity, int frameOffSet, GoriyaEnemy inGoriya)
         {
             texture = inTexture;
             x = (int)position.X;
@@ -50,6 +51,8 @@ namespace testMonogame
             frames.AddLast(new Rectangle(63, 0, 8, 16));
 
             currentFrame = frames.First;
+
+            goriya = inGoriya;
 
             for (int i = 0; i < frameOffSet; i++)
             {
@@ -106,7 +109,7 @@ namespace testMonogame
             return res;
 
         }
-        public void Update(Game1 game, GoriyaEnemy goriya)
+        public void Update(Game1 game)
         {
             Move();
             //TEMP collision stuff

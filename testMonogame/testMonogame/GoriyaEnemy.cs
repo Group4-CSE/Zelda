@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace testMonogame
 {
-    class GoriyaEnemy
+    class GoriyaEnemy : ISprite
     {
         int x;
         int y;
@@ -15,19 +15,39 @@ namespace testMonogame
         Texture2D texture;
         Texture2D projTexture;
         bool throwing;
+        int throwCounter;
 
-        public GoriyaEnemy(Texture2D inTexture, Texture2D inProjTexture)
+        public GoriyaEnemy(Texture2D inTexture, Texture2D inProjTexture, Vector2 position)
         {
             texture = inTexture;
             projTexture = inProjTexture;
-            state = new GoriyaWD(texture, projTexture, this);
+            state = new GoriyaWL(texture, projTexture, this);
             health = 3;
+            x = (int)position.X;
+            y = (int)position.Y;
         }
 
         public void Move(int xChange, int yChange)
         {
             x += xChange;
             y += yChange;
+            // TEMP: To show off movement
+            if (x > 792) {
+                changeState(3);
+
+            } else if (x < 8)
+            {
+                changeState(4);
+
+            } else if (y > 472)
+            {
+                changeState(2);
+
+            } else if (y < 8)
+            {
+                changeState(1);
+
+            }
         }
 
         public void takeDamage(int dmg)
@@ -55,8 +75,8 @@ namespace testMonogame
             /*
              * 1 = Down
              * 2 = Up
-             * 3 = Right
-             * 4 = Left
+             * 4 = Right
+             * 3 = Left
              * Default = Down
              */
             switch (direction)
@@ -87,6 +107,23 @@ namespace testMonogame
         public int getY()
         {
             return y;
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            state.Draw(spriteBatch);
+        }
+
+        public void Update(Game1 game)
+        {
+            throwCounter += 1;
+            if (throwCounter > 600)
+            {
+                setThrow(true);
+                state.spawnBoomerang(game);
+                throwCounter = 0;
+            }
+            state.Update(game);
         }
     }
 }

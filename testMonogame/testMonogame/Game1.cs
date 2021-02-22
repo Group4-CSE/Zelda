@@ -20,8 +20,7 @@ namespace testMonogame
         private Texture2D playerSheet;
         private Texture2D tileSet;
         private Texture2D wallmaster;
-
-        //private IController keyboard;
+        private Texture2D playerProjectiles;
 
         List<ISprite> activeEnemyProjectiles= new List<ISprite>();
         List<ISprite> removedEnemyProjectiles = new List<ISprite>();
@@ -101,15 +100,11 @@ namespace testMonogame
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             //test
 
             blockCounter = 0;
             itemCounter = 0;
             enemyCounter = 0;
-
-            //keyboard = new KeyboardController(this);
-
 
             base.Initialize();
         }
@@ -118,18 +113,17 @@ namespace testMonogame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-
             aquaSheet = Content.Load<Texture2D>("aquamentus");
             basicEnemy = Content.Load<Texture2D>("basicenemy");
             doors = Content.Load<Texture2D>("doors");
             fire = Content.Load<Texture2D>("fire");
-            goriya = Content.Load<Texture2D>("goriya");
+            goriya = Content.Load<Texture2D>("goriyav2");
             itemSheet = Content.Load<Texture2D>("itemset");
             oldMan = Content.Load<Texture2D>("oldman");
             playerSheet = Content.Load<Texture2D>("playersheet");
             tileSet = Content.Load<Texture2D>("tileset");
             wallmaster = Content.Load<Texture2D>("wallmasters");
+            playerProjectiles = Content.Load<Texture2D>("PlayerProjectiles");
 
             blocks = new List<ISprite>();
             items = new List<ISprite>();
@@ -165,10 +159,11 @@ namespace testMonogame
             enemies.Add(new KeeseEnemy(basicEnemy, new Vector2(400, 200)));
             enemies.Add(new WallmasterEnemy(wallmaster, new Vector2(400, 200)));
             enemies.Add(new OldMan(oldMan, new Vector2(400, 200)));
+            enemies.Add(new GoriyaEnemy(goriya, playerProjectiles, new Vector2(400, 200)));
 
 
 
-            player = new Player(Content.Load<Texture2D>("playersheet"), new Vector2(500, 200), Content.Load<Texture2D>("PlayerProjectiles"));
+            player = new Player(Content.Load<Texture2D>("playersheet"), new Vector2(500, 200), playerProjectiles);
 
             keyController = new KeyboardController(this);
 
@@ -177,12 +172,6 @@ namespace testMonogame
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
-
-            //keyboard.Update();
 
             player.Update(this);
 
@@ -196,13 +185,7 @@ namespace testMonogame
             removeProjectiles();
             addProjectiles();
 
-
             keyController.Update();
-
-            foreach(ISprite enemy in enemies)
-            {
-                enemy.Update(this);
-            }
 
             blocks[blockCounter].Update(this);
             items[itemCounter].Update(this);
@@ -214,8 +197,6 @@ namespace testMonogame
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
 
             _spriteBatch.Begin();
 

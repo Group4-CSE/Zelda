@@ -14,8 +14,8 @@ namespace testMonogame
         GoriyaEnemy goriya;
 
         int frame = 1;
-        const int width = 13;
-        const int height = 16;
+        const int width = 26;
+        const int height = 32;
         Rectangle sourceRect = new Rectangle(0, 33, 13, 16);
         Color color = Color.White;
         float hProjectileOffset = 0;
@@ -50,7 +50,7 @@ namespace testMonogame
         {
             goriya.setThrow(true);
             game.AddEnemyProjectile((ISprite)new BoomerangEnemyProjectile(projTexture, new Vector2((float)(goriya.getX() + hProjectileOffset),
-                (float)(goriya.getY() + vProjectileOffset)), new Vector2(-3, 0), 2));
+                (float)(goriya.getY() + vProjectileOffset)), new Vector2(-3, 0), 2, goriya));
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -58,17 +58,20 @@ namespace testMonogame
             destRect = new Rectangle(goriya.getX(), goriya.getY(), width, height);
             frame += 1;
             if (frame > 60) frame = 0;
-            if (frame < 30)
-            {
-                sourceRect = frame1;
-            }
-            else if (frame > 30 && frame < 60)
+            if (goriya.getThrow() == true)
             {
                 sourceRect = frame2;
             }
-            else if (goriya.getThrow() == true)
+            else
             {
-                sourceRect = frame2;
+                if (frame < 30)
+                {
+                    sourceRect = frame1;
+                }
+                else
+                {
+                    sourceRect = frame2;
+                }
             }
 
             spriteBatch.Draw(texture, destRect, sourceRect, color);
@@ -76,7 +79,10 @@ namespace testMonogame
 
         public void Update(Game1 game)
         {
-            Move();
+            if (goriya.getThrow() == false)
+            {
+                Move();
+            }
             // Attack();
             // takeDamage();
         }
