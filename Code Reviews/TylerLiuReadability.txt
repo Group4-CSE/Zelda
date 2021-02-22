@@ -1,0 +1,31 @@
+Code Review Readability
+
+Author of the code review: 
+Tyler Liu
+
+Date of the code review: 
+02/22/21
+
+Sprint number: 
+Sprint 2
+
+Name of the .cs file being reviewed:
+AqumentusEnemy.cs
+
+Author of the .cs file being reviewed:
+Noah Hufnagel
+
+Number of minutes taken to complete the review:
+~30 Minutes
+
+Specific comments on what is readable and what is not:
+
+Off the back, most of the functions and variables are self explanatory, which is ideal. Starting with line 11, I know this block of initializing variables are for the contractor of Aquamentus. These variables are for the sprite drawing and health of the enemy. 
+
+Following that I see a block of code that contains variables for drawing the sprite. This section is particularly interesting due to the use of Linked List. Luckily, this is also readable and understandable as one of the goals for this enemy is to cycle between the animation. Its really well implemented as in the constructor all frames are set. Then during the draw function, the frames get deleted out added based on the current node frame. 
+
+After the drawing variables, I see the Movement ones. The comments are self-explanatory and explains what each variable is supposed to hold or represent. 
+
+One thing that I noticed is that all functions names are also self explanatory and are all extended from the IEnemy and ISprite interfaces. Each function does exactly one thing. For example, the Attack() function has player take damage. The Draw() function has player take damage. 
+
+One thing that I did notice that is hard to read is the nested if-else statements inside the Draw function. As a team member, I understand what this code does, however, to a random person It might be somewhat difficult to comprehend. The indentations helped make this more clearer. 
