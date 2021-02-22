@@ -1,0 +1,20 @@
+Author of the code review: Noah Hufnagel
+Date of the code review: 02/22/2021
+Sprint number: 2
+Name of the .cs file being reviewed: TrapEnemy.cs
+Author of the .cs file being reviewed: Tyler Liu
+
+Specific comments on code quality:
+Code has a lot of variables, and uses very few magic numbers. Nice!
+Sprite could potentially be seperated and stored as a variable, but the class isnt overtly long.
+Notes about what will be updated for future sprints make sense and are thoughtful.
+The random generation seems like a relic from previous enemies, doesnt actually appear to be relevant to trap.
+sourceRect could probably be set at the beginning since the trap is not animated.
+Attack is currently not set up, we need to remember to add this when we do collision.
+max health is hard coded. it would probably be better to set this as a constant.
+enemyVel is not actually used for movement.
+certain variables are never used.
+
+A hypothetical change to make to the game related to file being reviewed and how the current implementation could or could not easily support that change
+If we wanted to make the trap larger or smaller then we could easily adjust width and height.
+Velocity appears to be hard coded, so we cant easily change that without refactoring.
