@@ -24,6 +24,6 @@ Spamming some player actions causes the sprite to lag behind. (specifically spam
 
 Our team used Trello for project management, Photoshop/GIMP for spritesheet creation, and Discord for communication.
 
-Here are the share links for the trello and the github:
+Here are the share links for the trello and the github, to document our workflow:
 https://trello.com/invite/b/e9PPVWKM/d9c854c4f14d79490c3d390d754b1470/cse3902-project
 https://github.com/Group4-CSE/Zelda
