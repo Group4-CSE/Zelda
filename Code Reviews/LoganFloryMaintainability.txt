@@ -1,0 +1,17 @@
+Author: Logan Flory
+Date: 2-22-2021
+Sprint #2
+Name of .cs being reviewed: AquamentusEnemy.cs
+Author of .cs being reviewed: Noah Hufnagel
+Minutes taken to complete: 
+Specific Comments: 15
+- Variables declared and defined at top make for less refactoring
+- Good layering allows more efficient changing of the class as a whole since 
+  methods like Attack are offloaded to the player class
+- Draw is difficult to read and would be difficult for other people to maintain
+- spawnFireBalls is a good helper method and makes the class more modular
+Hypothetical Change:
+- Like all of our classes, if we wanted to alter the spritesheet in any way almost,
+  this class would require a lot of refactoring since the rectangles use magic numbers
+  and are specific to one spritesheet. This could be a bit easier if / when we separate
+  drawing from the enemy class(es). 
