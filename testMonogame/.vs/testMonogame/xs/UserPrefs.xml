@@ -2,12 +2,12 @@
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/KeyboardController.cs">
     <Files>
-      <File FileName="testMonogame/Game1.cs" Line="24" Column="11" />
+      <File FileName="testMonogame/Game1.cs" Line="24" Column="1" />
       <File FileName="testMonogame/IPlayer.cs" />
       <File FileName="testMonogame/IObject.cs" />
       <File FileName="testMonogame/ISprite.cs" />
       <File FileName="testMonogame/IEnemy.cs" />
-      <File FileName="testMonogame/KeyboardController.cs" Line="104" Column="16" />
+      <File FileName="testMonogame/KeyboardController.cs" Line="40" Column="47" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -28,9 +28,6 @@
             </Node>
           </Node>
         </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

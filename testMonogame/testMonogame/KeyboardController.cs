@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using testMonogame.Commands;
 namespace testMonogame
 {
     public class KeyboardController : IController
@@ -35,15 +36,15 @@ namespace testMonogame
             ICommand Up = new PlayerChangeDirectionCommand(game.getPlayer(), game, 0);
             ICommand Down = new PlayerChangeDirectionCommand(game.getPlayer(), game, 1);
             ICommand Right = new PlayerChangeDirectionCommand(game.getPlayer(), game, 2);
-            ICommand quit = new Commands.QuitCommand(game);
-            ICommand nextBlock = new Commands.CycleBocksCommand(game,1);
-            ICommand prevBlock = new Commands.CycleBocksCommand(game,-1);
-            ICommand nextItem = new Commands.CycleItemCommand(game,1);
-            ICommand prevItem = new Commands.CycleItemCommand(game,-1);
-            ICommand nextEnemy = new Commands.CycleEnemyCommand(game,1);
-            ICommand prevEnemy = new Commands.CycleEnemyCommand(game,-1);
+            ICommand quit = new QuitCommand(game);
+            ICommand nextBlock = new CycleBocksCommand(game,1);
+            ICommand prevBlock = new CycleBocksCommand(game,-1);
+            ICommand nextItem = new CycleItemCommand(game,1);
+            ICommand prevItem = new CycleItemCommand(game,-1);
+            ICommand nextEnemy = new CycleEnemyCommand(game,1);
+            ICommand prevEnemy = new CycleEnemyCommand(game,-1);
 
-            ICommand s2reset = new Commands.S2Reset(game);
+            ICommand s2reset = new S2Reset(game);
             //KeyMap.Add(Keys.A, new PlayerAttackCommand(game.player));
             KeyMap = new Dictionary<Keys, ICommand>();
             KeyMap.Add(Keys.Z, Attack);
