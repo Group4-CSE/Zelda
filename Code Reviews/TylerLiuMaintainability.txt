@@ -1,0 +1,21 @@
+Author of the code review: Tyler Liu
+Date of the code review: 02/22/21
+Sprint number: 2
+Name of the .cs file being reviewed: KeyBoardController.cs
+Author of the .cs file being reviewed: Jerry Qiu
+
+Specific comments on code quality:
+Great use of Dictionaries and Lists to organize the key mappings between the Key 
+and movement of Player, Items, Blocks, and Projectiles. In the contructor, all 
+initializations and definitions were separated and self readible, which is nice.
+One thing that I did notice, however, is the use of deeply nested if-else statements. 
+In the future, it may cuase problems, but since I know what this code is doing, its
+quite easy to maintain. The use of dictionary for commands and keys are a great touch
+as we can always add new keys or commands base on what we would like to add in the
+future. Some code were also commented out. It may be good to delete it entirely, 
+if it isn't useful. In the adjustCurDirec, you could set the magic number 5 as a
+constant? Should'nt really impact anything too much. 
+
+
+A hypothetical change to make to the game related to file being reviewed and how the current implementation could or could not easily support that change:
+If we wanted to add new commands and key mappings, it definitely doable by adding it to the dictionary and the list. 
