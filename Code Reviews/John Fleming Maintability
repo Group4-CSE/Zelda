@@ -1,0 +1,12 @@
+Author of the code review: John Fleming
+Date of the code review: 02/22/2021
+Sprint number: 2
+Name of the .cs file being reviewed: BombItem.cs
+Author of the .cs file being reviewed: Noah Hufnagel
+
+Specific comments on code quality:
+
+Magic numbered rectangles could be dangerous.
+No extra long sections.
+The interact method is currently not set up. 
+

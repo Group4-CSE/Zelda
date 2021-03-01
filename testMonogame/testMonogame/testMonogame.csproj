@@ -30,5 +30,12 @@
   <ItemGroup>
     <Folder Include="Block\" />
     <Folder Include="Commands\" />
+    <Folder Include="Items\" />
+    <Folder Include="Enemies\" />
+    <Folder Include="Projectiles\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Player\" />
+    <Folder Include="Player\States\" />
+    <Folder Include="Player\Sprites\" />
   </ItemGroup>
 </Project>

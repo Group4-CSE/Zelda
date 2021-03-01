@@ -6,14 +6,16 @@ namespace testMonogame.Commands
     public class CycleBocksCommand : ICommand
     {
         Game1 game;
-        public CycleBocksCommand(Game1 game)
+        int incDec;
+        public CycleBocksCommand(Game1 game, int incDecIn)
         {
             this.game = game;
+            incDec = incDecIn;
         }
 
         public void Execute()
         {
-            game.cycleBlock();
+            game.cycleBlock(incDec);
         }
     }
 }

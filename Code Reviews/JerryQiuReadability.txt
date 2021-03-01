@@ -1,0 +1,11 @@
+Sprint 2 Readability 
+Author: Jerry Qiu
+2/22/2021
+
+TrapEnemy.cs
+Tyler Liu
+
+Overall code is fairly readable. Only thing to say is the mHorizontal variable I think is weirdly named as it is being used for direction. Though for this sprint since the trap only moves two directions it works.
+
+
+10 mins

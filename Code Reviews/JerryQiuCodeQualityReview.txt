@@ -1,0 +1,12 @@
+Sprint 2 Code Quality 
+Author: Jerry Qiu
+2/22/2021
+
+KeeseEnemy.cs
+Logan Flory
+
+Code looks good. Class isn't too long and doesn't depend on too many things. There are a few hard coded values for variables but those look fine and are obvious what they are for.
+
+Class looks like it has all the stuff required for sprint 2 implementation.
+
+Recommended changes: the source rectangle variable seems unnecessary. just put frames into a list and have a int keep track of what frame to draw.

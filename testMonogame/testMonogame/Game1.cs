@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
+
 namespace testMonogame
 {
     public class Game1 : Game
@@ -20,8 +21,7 @@ namespace testMonogame
         private Texture2D playerSheet;
         private Texture2D tileSet;
         private Texture2D wallmaster;
-
-        //private IController keyboard;
+        private Texture2D playerProjectiles;
 
         List<ISprite> activeEnemyProjectiles= new List<ISprite>();
         List<ISprite> removedEnemyProjectiles = new List<ISprite>();
@@ -46,7 +46,7 @@ namespace testMonogame
             removedEnemyProjectiles.Clear();
             foreach (ISprite removed in removedPlayerProjectiles)
             {
-                activeEnemyProjectiles.Remove(removed);
+                activePlayerProjectiles.Remove(removed);
             }
             removedPlayerProjectiles.Clear();
         }
@@ -59,7 +59,7 @@ namespace testMonogame
             addedEnemyProjectiles.Clear();
             foreach (ISprite removed in addedPlayerProjectiles)
             {
-                activeEnemyProjectiles.Add(removed);
+                activePlayerProjectiles.Add(removed);
             }
             addedPlayerProjectiles.Clear();
         }
@@ -69,7 +69,6 @@ namespace testMonogame
 
 
 
-        ISprite TestObject;
         IPlayer player;
 
         IController keyController;
@@ -102,15 +101,11 @@ namespace testMonogame
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             //test
 
             blockCounter = 0;
             itemCounter = 0;
             enemyCounter = 0;
-
-            //keyboard = new KeyboardController(this);
-
 
             base.Initialize();
         }
@@ -119,18 +114,17 @@ namespace testMonogame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-
             aquaSheet = Content.Load<Texture2D>("aquamentus");
             basicEnemy = Content.Load<Texture2D>("basicenemy");
             doors = Content.Load<Texture2D>("doors");
             fire = Content.Load<Texture2D>("fire");
-            goriya = Content.Load<Texture2D>("goriya");
+            goriya = Content.Load<Texture2D>("goriyav2");
             itemSheet = Content.Load<Texture2D>("itemset");
             oldMan = Content.Load<Texture2D>("oldman");
             playerSheet = Content.Load<Texture2D>("playersheet");
             tileSet = Content.Load<Texture2D>("tileset");
             wallmaster = Content.Load<Texture2D>("wallmasters");
+            playerProjectiles = Content.Load<Texture2D>("PlayerProjectiles");
 
             blocks = new List<ISprite>();
             items = new List<ISprite>();
@@ -140,15 +134,37 @@ namespace testMonogame
             blocks.Add(new LockedDoor(0, new Vector2(40, 40), doors, 0, true));
             blocks.Add(new OpenDoor(0, new Vector2(40, 40), doors, 0, false));
             blocks.Add(new CaveDoor(0, new Vector2(40, 40), doors));
+            blocks.Add(new BlueSandBlock(tileSet, new Vector2(40, 40)));
+            blocks.Add(new DragonBlock(tileSet, new Vector2(40, 40)));
+            blocks.Add(new DungeonBlock(tileSet, new Vector2(40, 40)));
+            blocks.Add(new FishBlock(tileSet, new Vector2(40, 40)));
+            blocks.Add(new FireBlock(fire, new Vector2(40, 40))); ;
 
             items.Add(new BombItem(itemSheet, new Vector2(100, 100)));
             items.Add(new BowItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new TriforceItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new CompassItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new PermanentHeartItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new HeartItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new BoomerangItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new KeyItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new FairyItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new MapItem(itemSheet, new Vector2(100, 100)));
+            items.Add(new RupeeItem(itemSheet, new Vector2(100, 100)));
+
 
             enemies.Add(new AquamentusEnemy(aquaSheet, new Vector2(400, 200)));
+            enemies.Add(new TrapEnemy(basicEnemy, new Vector2(400, 200)));
+            enemies.Add(new GelEnemy(basicEnemy, new Vector2(400, 200)));
+            enemies.Add(new StalfosEnemy(basicEnemy, new Vector2(400, 200)));
+            enemies.Add(new KeeseEnemy(basicEnemy, new Vector2(400, 200)));
+            enemies.Add(new WallmasterEnemy(wallmaster, new Vector2(400, 200)));
+            enemies.Add(new OldMan(oldMan, new Vector2(400, 200)));
+            enemies.Add(new GoriyaEnemy(goriya, playerProjectiles, new Vector2(400, 200)));
 
 
-            TestObject = new AquamentusEnemy(Content.Load<Texture2D>("aquamentus"), new Vector2(200, 200));
-            player = new Player(Content.Load<Texture2D>("playersheet"), new Vector2(500, 200), Content.Load<Texture2D>("PlayerProjectiles"));
+
+            player = new Player(Content.Load<Texture2D>("playersheet"), new Vector2(500, 200), playerProjectiles);
 
             keyController = new KeyboardController(this);
 
@@ -157,30 +173,24 @@ namespace testMonogame
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
-
-            //keyboard.Update();
 
             player.Update(this);
-            TestObject.Update(this);
+
             foreach(ISprite enemyProjectile in activeEnemyProjectiles){
                 enemyProjectile.Update(this);
+            }
+            foreach (ISprite playerProjectile in activePlayerProjectiles)
+            {
+                playerProjectile.Update(this);
             }
             removeProjectiles();
             addProjectiles();
 
-
             keyController.Update();
 
-            foreach(ISprite enemy in enemies)
-            {
-                enemy.Update(this);
-            }
-
-            
+            blocks[blockCounter].Update(this);
+            items[itemCounter].Update(this);
+            enemies[enemyCounter].Update(this);
 
             base.Update(gameTime);
         }
@@ -189,11 +199,9 @@ namespace testMonogame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-
             _spriteBatch.Begin();
 
-            TestObject.Draw(_spriteBatch);
+
             foreach (ISprite enemyProjectile in activeEnemyProjectiles)
             {
                 enemyProjectile.Draw(_spriteBatch);
@@ -224,34 +232,30 @@ namespace testMonogame
             this.Initialize();
         }
 
-        public void cycleBlock()
+        public void cycleBlock(int incDec)
         {
-            blockCounter++;
+            blockCounter+=incDec;
 
-            if(blockCounter == blocks.Count)
-            {
-                blockCounter = 0;
-            }
+            if (blockCounter == blocks.Count) blockCounter = 0;
+            else if (blockCounter < 0) blockCounter = blocks.Count - 1;
         }
 
-        public void cycleItem()
+        public void cycleItem(int incDec)
         {
-            itemCounter++;
+            itemCounter += incDec;
 
-            if (itemCounter == items.Count)
-            {
-                itemCounter = 0;
-            }
+
+            if (itemCounter == items.Count) itemCounter = 0;
+            else if (itemCounter < 0) itemCounter = items.Count - 1;
         }
 
-        public void cycleEnemy()
+        public void cycleEnemy(int incDec)
         {
-            enemyCounter++;
+            enemyCounter+=incDec;
 
-            if (enemyCounter == enemies.Count)
-            {
-                enemyCounter = 0;
-            }
+            if (enemyCounter == enemies.Count) enemyCounter = 0;
+            else if (enemyCounter < 0) enemyCounter=enemies.Count-1;
+
         }
     }
 }
