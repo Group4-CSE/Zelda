@@ -10,8 +10,8 @@ namespace testMonogame
     {
         Texture2D texture;
         Rectangle destRect;
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
 
         const int width = 22;
         const int height = 30;
@@ -23,9 +23,9 @@ namespace testMonogame
         public ClockItem(Texture2D inTexture, Vector2 position)
         {
             texture = inTexture;
-            x = (int)position.X;
-            y = (int)position.Y;
-            destRect = new Rectangle(width, height, x, y);
+            X = (int)position.X;
+            Y = (int)position.Y;
+            destRect = new Rectangle(width, height, X, Y);
         }
 
         public void Draw(SpriteBatch spriteBatch)

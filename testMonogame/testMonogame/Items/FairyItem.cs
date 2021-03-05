@@ -17,8 +17,8 @@ namespace testMonogame
         int frameDelay;
 
         //location stuff
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
         const int width = 16;
         const int height = 34;
         //movement
@@ -29,8 +29,8 @@ namespace testMonogame
         public FairyItem(Texture2D inTexture, Vector2 position)
         {
             texture = inTexture;
-            x = (int)position.X;
-            y = (int)position.Y;
+            X = (int)position.X;
+            Y = (int)position.Y;
 
             
             
@@ -56,7 +56,7 @@ namespace testMonogame
 
 
             sourceRect = new Rectangle(27 + (currentFrame * 9), 13, 8, 17);
-            destRect = new Rectangle(x, y, width, height);
+            destRect = new Rectangle(X, Y, width, height);
 
             spriteBatch.Draw(texture, destRect, sourceRect, color);
 
@@ -90,11 +90,11 @@ namespace testMonogame
 
             //TODO: add collision later
             //Temporary collision for this window
-            if (y < 0 || y+height > 480) yVelocity *= -1;
+            if (Y < 0 || Y+height > 480) yVelocity *= -1;
 
 
-            x += xVelocity;
-            y += yVelocity;
+            X += xVelocity;
+            Y += yVelocity;
 
 
            
