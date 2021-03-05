@@ -11,8 +11,8 @@ namespace testMonogame
     {
         Texture2D texture;
         Rectangle destRect;
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
         int xVel;
         int yVel;
 
@@ -24,8 +24,8 @@ namespace testMonogame
         public ArrowPlayerProjectile(Texture2D inTexture, Vector2 position, Vector2 velocity, int direction)
         {
             texture = inTexture;
-            x = (int)position.X;
-            y = (int)position.Y;
+            X = (int)position.X;
+            Y = (int)position.Y;
             xVel = (int)velocity.X;
             yVel = (int)velocity.Y;
 
@@ -55,7 +55,7 @@ namespace testMonogame
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            destRect = new Rectangle(x, y, sourceRect.Width*2, sourceRect.Height*2);
+            destRect = new Rectangle(X, Y, sourceRect.Width*2, sourceRect.Height*2);
             spriteBatch.Draw(texture, destRect, sourceRect, color);
 
 
@@ -65,8 +65,8 @@ namespace testMonogame
 
         public void Move()
         {
-            x += xVel;
-            y += yVel;
+            X += xVel;
+            Y += yVel;
         }
 
 
@@ -74,7 +74,7 @@ namespace testMonogame
         {
             Move();
             //TEMP collision stuff
-            if (x < 0 || x > 800 || y < 0 || y > 480)
+            if (X < 0 || X > 800 || Y < 0 || Y > 480)
             {
                 delete(game);
             }

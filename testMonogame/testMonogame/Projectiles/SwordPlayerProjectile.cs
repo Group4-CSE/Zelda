@@ -11,9 +11,9 @@ namespace testMonogame
     {
         Texture2D texture;
         Rectangle destRect;
-        
-        int x;
-        int y;
+
+        public int X { get; set; }
+        public int Y { get; set; }
         int xVel;
         int yVel;
 
@@ -29,8 +29,8 @@ namespace testMonogame
         public SwordPlayerProjectile(Texture2D inTexture, Vector2 position, Vector2 velocity, int direction)
         {
             texture = inTexture;
-            x = (int)position.X;
-            y = (int)position.Y;
+            X = (int)position.X;
+            Y = (int)position.Y;
             xVel = (int)velocity.X;
             yVel = (int)velocity.Y;
 
@@ -66,7 +66,7 @@ namespace testMonogame
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            destRect = new Rectangle(x, y, currentFrame.Value.Width * 2, currentFrame.Value.Height * 2);
+            destRect = new Rectangle(X, Y, currentFrame.Value.Width * 2, currentFrame.Value.Height * 2);
             frameWait++;
             if (frameWait > frameDelay)
             {
@@ -83,8 +83,8 @@ namespace testMonogame
 
         public void Move()
         {
-            x += xVel;
-            y += yVel;
+            X += xVel;
+            Y += yVel;
         }
 
 
@@ -92,12 +92,12 @@ namespace testMonogame
         {
             Move();
             //TEMP collision stuff
-            if (x < 0 || x > 800 || y < 0 || y > 480)
+            if (X < 0 || X > 800 || Y < 0 || Y > 480)
             {
-                game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(x, y), new Vector2(-1, -1), 0));
-                game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(x, y), new Vector2(1, 1), 1));
-                game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(x, y), new Vector2(1, -1), 2));
-                game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(x, y), new Vector2(-1, 1), 3));
+                game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(-1, -1), 0));
+                game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(1, 1), 1));
+                game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(1, -1), 2));
+                game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(-1, 1), 3));
                 delete(game);
             }
         }
