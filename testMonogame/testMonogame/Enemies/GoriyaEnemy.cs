@@ -8,8 +8,8 @@ namespace testMonogame
 {
     class GoriyaEnemy : ISprite
     {
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
         int health;
         public IGoriyaState state;
         Texture2D texture;
@@ -23,27 +23,27 @@ namespace testMonogame
             projTexture = inProjTexture;
             state = new GoriyaWL(texture, projTexture, this);
             health = 3;
-            x = (int)position.X;
-            y = (int)position.Y;
+            X = (int)position.X;
+            Y = (int)position.Y;
         }
 
         public void Move(int xChange, int yChange)
         {
-            x += xChange;
-            y += yChange;
+            X += xChange;
+            Y += yChange;
             // TEMP: To show off movement
-            if (x > 792) {
+            if (X > 792) {
                 changeState(3);
 
-            } else if (x < 8)
+            } else if (X < 8)
             {
                 changeState(4);
 
-            } else if (y > 472)
+            } else if (Y > 472)
             {
                 changeState(2);
 
-            } else if (y < 8)
+            } else if (Y < 8)
             {
                 changeState(1);
 
@@ -99,15 +99,15 @@ namespace testMonogame
             }
         }
 
-        public int getX()
-        {
-            return x;
-        }
+        //public int getX()
+        //{
+        //    return x;
+        //}
 
-        public int getY()
-        {
-            return y;
-        }
+        //public int getY()
+        //{
+        //    return y;
+        //}
 
         public void Draw(SpriteBatch spriteBatch)
         {

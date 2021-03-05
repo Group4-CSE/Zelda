@@ -11,8 +11,8 @@ namespace testMonogame
     {
         Texture2D texture;
         Rectangle destRect;
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
         int health;
         int xRand;
         int yRand;
@@ -35,9 +35,9 @@ namespace testMonogame
         {
             // Stuff for drawing
             texture = inTexture;
-            x = (int)position.X;
-            y = (int)position.Y;
-            destRect = new Rectangle(x, y, width, height);
+            X = (int)position.X;
+            Y = (int)position.Y;
+            destRect = new Rectangle(X, Y, width, height);
 
             // Stuff for state
             health = 100;
@@ -70,10 +70,10 @@ namespace testMonogame
                     directionCounter += 1;
                 }
 
-                if (x + xRand < 0 || x + width + xRand > 800) xRand *= -1;
-                if (y + yRand < 0 || y + height + yRand > 480) yRand *= -1;
-                x += xRand;
-                y += yRand;
+                if (X + xRand < 0 || X + width + xRand > 800) xRand *= -1;
+                if (Y + yRand < 0 || Y + height + yRand > 480) yRand *= -1;
+                X += xRand;
+                Y += yRand;
         }
 
         public void Attack(IPlayer player)
@@ -88,7 +88,7 @@ namespace testMonogame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            destRect = new Rectangle(x, y, width, height);
+            destRect = new Rectangle(X, Y, width, height);
             frame += 1;
             if (frame > 60) frame = 0;
             if (frame < 30)

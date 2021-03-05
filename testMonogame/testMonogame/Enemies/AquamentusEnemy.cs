@@ -10,8 +10,8 @@ namespace testMonogame
     {
         Texture2D texture;
         Rectangle destRect;
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
         int health;
 
         int maxHealth = 6;
@@ -54,8 +54,8 @@ namespace testMonogame
         {
             // Stuff for drawing
             texture = inTexture;
-            x = (int)position.X;
-            y = (int)position.Y; 
+            X = (int)position.X;
+            Y = (int)position.Y; 
             frameWait = 0;
             frames.AddLast(new Rectangle(0, 0, 24, 32));
             frames.AddLast(new Rectangle(25, 0, 24, 32));
@@ -87,7 +87,7 @@ namespace testMonogame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            destRect = new Rectangle(x, y, width, height);
+            destRect = new Rectangle(X, Y, width, height);
             frameWait++;
             if (frameWait >= frameDelay) {
                 if (hurtFlash == 0)
@@ -122,7 +122,7 @@ namespace testMonogame
                 xVel *= -1;
                 directionWait = 0;
             }
-            x += xVel;
+            X += xVel;
         }
 
         public void takeDamage(int dmg)
@@ -135,9 +135,9 @@ namespace testMonogame
         }
         void spawnFireBalls(Game1 game)
         {
-            game.AddEnemyProjectile((ISprite)new FireBallEnemyProjectile(texture, new Vector2(x + width / 4, y + height / 4), new Vector2(-1, 1)));
-            game.AddEnemyProjectile((ISprite)new FireBallEnemyProjectile(texture, new Vector2(x + width / 4, y + height / 4), new Vector2(-1, 0)));
-            game.AddEnemyProjectile((ISprite)new FireBallEnemyProjectile(texture, new Vector2(x + width / 4, y + height / 4), new Vector2(-1, -1)));
+            game.AddEnemyProjectile((ISprite)new FireBallEnemyProjectile(texture, new Vector2(X + width / 4, Y + height / 4), new Vector2(-1, 1)));
+            game.AddEnemyProjectile((ISprite)new FireBallEnemyProjectile(texture, new Vector2(X + width / 4, Y + height / 4), new Vector2(-1, 0)));
+            game.AddEnemyProjectile((ISprite)new FireBallEnemyProjectile(texture, new Vector2(X + width / 4, Y + height / 4), new Vector2(-1, -1)));
 
         }
         public void Update(Game1 game)
