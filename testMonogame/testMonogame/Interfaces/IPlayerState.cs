@@ -7,8 +7,8 @@ namespace testMonogame
 {
     public interface IPlayerState
     {
-
-       //call sprite.draw
+        
+        //call sprite.draw
         public void Draw(SpriteBatch spriteBatch);
 
         //move according to the state
