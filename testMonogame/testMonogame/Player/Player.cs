@@ -37,7 +37,10 @@ namespace testMonogame
             health = maxHealth;
         }
 
-       
+       public Rectangle getDestRect()
+        {
+            return state.getDestRect();
+        }
 
         public void Attack(Game1 game)
         {

@@ -7,8 +7,8 @@ namespace testMonogame
     public interface IPlayer
     {
         //Had to Set this here
-        int X { get; set; }
-        int Y { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
         //sets location of player object
         public void SetLocation(Vector2 location);
@@ -46,5 +46,7 @@ namespace testMonogame
         public int getX();
         public int getY();
         public IPlayerState getState();
+        //returns the destination rectangle of the sprite associated with this entity
+        public Rectangle getDestRect();
     }
 }

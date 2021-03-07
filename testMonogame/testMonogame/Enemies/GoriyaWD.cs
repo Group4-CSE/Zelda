@@ -32,6 +32,10 @@ namespace testMonogame
             goriya = inGoriya;
             destRect = new Rectangle(goriya.X, goriya.Y, width, height);
         }
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Attack(IPlayer player)
         {
             goriya.Attack(player);

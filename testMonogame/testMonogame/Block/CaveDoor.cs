@@ -5,8 +5,8 @@ namespace testMonogame
 {
     public class CaveDoor : ISprite, IObject
     {
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
 
         Texture2D texture;
         Rectangle destRect;
@@ -15,9 +15,9 @@ namespace testMonogame
         public CaveDoor(int direction, Vector2 pos, Texture2D texture)
         {
             this.texture = texture;
-            x = (int)pos.X;
-            y = (int)pos.Y;
-            destRect = new Rectangle(x, y, 33, 33);
+            X = (int)pos.X;
+            Y = (int)pos.Y;
+            destRect = new Rectangle(X, Y, 33, 33);
 
             switch (direction)
             {
@@ -39,7 +39,10 @@ namespace testMonogame
 
             }
         }
-
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Update(Game1 game)
         {
             //collision

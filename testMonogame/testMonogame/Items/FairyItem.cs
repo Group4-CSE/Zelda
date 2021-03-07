@@ -42,6 +42,10 @@ namespace testMonogame
             //start it moving up. if it hits a wall it will reverse
             yVelocity = -1;
         }
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             frameDelay++;

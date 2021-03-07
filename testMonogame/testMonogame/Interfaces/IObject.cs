@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,7 +9,8 @@ namespace testMonogame
     {
         //Something will typically implement both an object and a sprite. so this interface doesnt handle drawing.
 
-
+        public int X { get; set; }
+        public int Y { get; set; }
         public void Update(Game1 game);
 
 
@@ -19,7 +21,9 @@ namespace testMonogame
          * we might as well have it hear for now at least.
          */
         public void Interact(IPlayer player);
-        
+        //returns the destination rectangle of the sprite associated with this entity
+        public Rectangle getDestRect();
+
 
     }
 }
