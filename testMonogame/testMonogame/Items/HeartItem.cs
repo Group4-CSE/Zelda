@@ -36,6 +36,10 @@ namespace testMonogame
             frameDelay = 0;
 
         }
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             frameDelay++;

@@ -79,5 +79,10 @@ namespace testMonogame
                 delete(game);
             }
         }
+
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace testMonogame
 {
-    class GoriyaEnemy : ISprite
+    class GoriyaEnemy : ISprite, IEnemy
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -26,7 +26,7 @@ namespace testMonogame
             X = (int)position.X;
             Y = (int)position.Y;
         }
-
+        
         public void Move(int xChange, int yChange)
         {
             X += xChange;
@@ -124,6 +124,16 @@ namespace testMonogame
                 throwCounter = 0;
             }
             state.Update(game);
+        }
+
+        public void Move()
+        {
+            //Do Nothing, movement is handled by the other move method recieving values that are passed in by states
+        }
+
+        public Rectangle getDestRect()
+        {
+            return state.getDestRect();
         }
     }
 }

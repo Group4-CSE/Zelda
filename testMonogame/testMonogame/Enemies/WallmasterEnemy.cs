@@ -51,7 +51,10 @@ namespace testMonogame
             xRand -= modifier;
             yRand -= modifier;
         }
-
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Move()
         {
             // Code for making sure the stalfos is on a solid block and can move will be here

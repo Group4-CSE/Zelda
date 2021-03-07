@@ -43,7 +43,10 @@ namespace testMonogame
 
 
         }
-
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void delete(Game1 game)
         {
             game.RemoveEnemyProjectile(this);

@@ -78,7 +78,10 @@ namespace testMonogame
 
             
         }
-
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Attack(IPlayer player)
         {
             //Deal damage if you make contact

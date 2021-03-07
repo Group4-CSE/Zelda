@@ -44,7 +44,10 @@ namespace testMonogame
         {
             game.RemovePlayerProjectile(this);
         }
-
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void doDamage(IEnemy target)
         {
             target.takeDamage(1);

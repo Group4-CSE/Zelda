@@ -27,7 +27,10 @@ namespace testMonogame
             Y = (int)position.Y;
             destRect = new Rectangle(width, height, X, Y);
         }
-
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, destRect, sourceRect, color);

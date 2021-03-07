@@ -50,7 +50,10 @@ namespace testMonogame
             //Enemy state
             health = 100;
         }
-
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Move()
         {
             //Will Change this move later, for sprint 2 moves left and right

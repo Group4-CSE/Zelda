@@ -32,6 +32,10 @@ namespace testMonogame
             destRect = new Rectangle(X, Y, width, height);
 
         }
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
 

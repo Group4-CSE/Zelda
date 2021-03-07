@@ -33,6 +33,10 @@ namespace testMonogame
             destRect = new Rectangle(X, Y, width, height);
 
         }
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Attack(IPlayer player)
         {
             //Nothing to put here

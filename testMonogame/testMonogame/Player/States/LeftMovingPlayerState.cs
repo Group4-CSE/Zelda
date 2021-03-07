@@ -35,7 +35,10 @@ namespace testMonogame
 
             sprite = new LeftMovingPlayerSprite(inTexture, this);
         }
-
+        public Rectangle getDestRect()
+        {
+            return sprite.getDestRect();
+        }
         public void Attack()
         {
             if (!stasis) sprite.AttackAnimation();
