@@ -14,5 +14,6 @@ namespace testMonogame
         public void Draw(SpriteBatch spriteBatch);
         public void Update(Game1 game);
         public void spawnBoomerang(Game1 game);
+        public Rectangle getDestRect();
     }
 }

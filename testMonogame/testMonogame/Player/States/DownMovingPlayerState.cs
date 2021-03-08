@@ -35,7 +35,10 @@ namespace testMonogame
 
             sprite = new DownMovingPlayerSprite(inTexture, this);
         }
-
+        public Rectangle getDestRect()
+        {
+            return sprite.getDestRect();
+        }
         public void Attack()
         {
             if (!stasis) sprite.AttackAnimation();
@@ -44,11 +47,11 @@ namespace testMonogame
 
         public int getX()
         {
-            return player.getX();
+            return player.X;
         }
         public int getY()
         {
-            return player.getY();
+            return player.Y;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -77,26 +80,26 @@ namespace testMonogame
 
         public void spawnBomb(Game1 game)
         {
-            if (!stasis) game.AddPlayerProjectile((ISprite)new BombPlayerProjectile(projectiles, new Vector2((float)(player.getX()),
-                (float)(player.getY() + 20))));
+            if (!stasis) game.AddPlayerProjectile((ISprite)new BombPlayerProjectile(projectiles, new Vector2((float)(player.X),
+                (float)(player.Y + 20))));
         }
 
         public void spawnArrow(Game1 game)
         {
-            if (!stasis) game.AddPlayerProjectile((ISprite)new ArrowPlayerProjectile(projectiles, new Vector2((float)(player.getX() + hProjectileOffset),
-                (float)(player.getY() + vProjectileOffset)), new Vector2(0, 5), 1));
+            if (!stasis) game.AddPlayerProjectile((ISprite)new ArrowPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
+                (float)(player.Y + vProjectileOffset)), new Vector2(0, 5), 1));
         }
 
         public void spawnBoomerang(Game1 game)
         {
-            if (!stasis) game.AddPlayerProjectile((ISprite)new BoomerangPlayerProjectile(projectiles, new Vector2((float)(player.getX() + hProjectileOffset),
-                (float)(player.getY() + vProjectileOffset)), new Vector2(0, 3), 6));
+            if (!stasis) game.AddPlayerProjectile((ISprite)new BoomerangPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
+                (float)(player.Y + vProjectileOffset)), new Vector2(0, 3), 6));
         }
 
         public void spawnSwordProjectile(Game1 game)
         {
-            if (!stasis) game.AddPlayerProjectile((ISprite)new SwordPlayerProjectile(projectiles, new Vector2((float)(player.getX() + hProjectileOffset),
-                  (float)(player.getY() + vProjectileOffset)), new Vector2(0, 3), 1));
+            if (!stasis) game.AddPlayerProjectile((ISprite)new SwordPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
+                  (float)(player.Y + vProjectileOffset)), new Vector2(0, 3), 1));
         }
         public void damage()
         {

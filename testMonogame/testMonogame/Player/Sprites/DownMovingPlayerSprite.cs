@@ -41,6 +41,10 @@ namespace testMonogame
             moving = false;
 
         }
+        public Rectangle getDestRect()
+        {
+            return currentFrame.Value;
+        }
         public void AttackAnimation()
         {
             frames.AddFirst(new Rectangle(51, 17, 16, 19));

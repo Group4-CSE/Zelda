@@ -6,8 +6,8 @@ namespace testMonogame
 {
     public class ClosedDoor : ISprite, IObject
     {
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
         int keyType;
         Boolean isClosed;
 
@@ -18,9 +18,9 @@ namespace testMonogame
         public ClosedDoor(int direction, Vector2 pos, Texture2D texture, int key, Boolean closed)
         {
             this.texture = texture;
-            x = (int)pos.X;
-            y = (int)pos.Y;
-            destRect = new Rectangle(x, y, 33, 33);
+            X = (int)pos.X;
+            Y = (int)pos.Y;
+            destRect = new Rectangle(X, Y, 33, 33);
             keyType = key;
             isClosed = closed;
 
@@ -49,7 +49,10 @@ namespace testMonogame
                 openDoor();
             }
         }
-
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Update(Game1 game)
         {
             //collision

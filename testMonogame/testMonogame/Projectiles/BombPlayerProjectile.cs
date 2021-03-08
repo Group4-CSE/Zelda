@@ -12,9 +12,8 @@ namespace testMonogame
         Texture2D texture;
         Rectangle destRect;
         Rectangle sourceRect;
-        int x;
-        int y;
-
+        public int X { get; set; }
+        public int Y { get; set; }
 
         Color color = Color.White;
 
@@ -26,8 +25,8 @@ namespace testMonogame
         public BombPlayerProjectile(Texture2D inTexture, Vector2 position)
         {
             texture = inTexture;
-            x = (int)position.X;
-            y = (int)position.Y;
+            X = (int)position.X;
+            Y = (int)position.Y;
 
 
 
@@ -45,7 +44,10 @@ namespace testMonogame
         {
             game.RemovePlayerProjectile(this);
         }
-
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void doDamage(IEnemy target)
         {
             target.takeDamage(1);
@@ -54,7 +56,7 @@ namespace testMonogame
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            destRect = new Rectangle(x, y, sourceRect.Width * 2, sourceRect.Height * 2);
+            destRect = new Rectangle(X, Y, sourceRect.Width * 2, sourceRect.Height * 2);
             spriteBatch.Draw(texture, destRect, sourceRect, color);
 
 
@@ -76,15 +78,15 @@ namespace testMonogame
             if (countdown>fuse)
             {
                 //Boom
-                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)x , (float)y)));
-                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)x + explosionInc, (float)y + explosionInc)));
-                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)x , (float)y + explosionInc)));
-                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)x - explosionInc, (float)y + explosionInc)));
-                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)x - explosionInc, (float)y )));
-                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)x - explosionInc, (float)y - explosionInc)));
-                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)x , (float)y - explosionInc)));
-                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)x+ explosionInc, (float)y - explosionInc)));
-                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)x + explosionInc, (float)y)));
+                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)X , (float)Y)));
+                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)X + explosionInc, (float)Y + explosionInc)));
+                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)X , (float)Y + explosionInc)));
+                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)X - explosionInc, (float)Y + explosionInc)));
+                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)X - explosionInc, (float)Y )));
+                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)X - explosionInc, (float)Y - explosionInc)));
+                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)X , (float)Y - explosionInc)));
+                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)X+ explosionInc, (float)Y - explosionInc)));
+                game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)X + explosionInc, (float)Y)));
 
                 delete(game);
             }

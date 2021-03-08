@@ -16,8 +16,8 @@ namespace testMonogame
         const int height = 32;
         Color color = Color.White;
 
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
         int randX;
         int randY;
         int updateFrame;
@@ -37,9 +37,9 @@ namespace testMonogame
         {
             //Enemy sprite drawing
             texture = eTexture;
-            x = (int)position.X;
-            y = (int)position.Y;
-            destRect = new Rectangle(x, y, width, height);
+            X = (int)position.X;
+            Y = (int)position.Y;
+            destRect = new Rectangle(X, Y, width, height);
 
             //Enemy movement
             updateFrame = randomNumber.Next(200);
@@ -50,7 +50,10 @@ namespace testMonogame
             //Enemy state
             health = 100;
         }
-
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Move()
         {
             //Will Change this move later, for sprint 2 moves left and right
@@ -65,29 +68,29 @@ namespace testMonogame
                     curFrame = 0;
                 }
                 //Changed this to move left and right
-                if (x == maxX)
+                if (X == maxX)
                 {
                     mHorizontal = true;
 
                 }
-                else if (x == minX)
+                else if (X == minX)
                 {
                     mHorizontal = false;
                 }
 
                 if (mHorizontal)
                 {
-                    x -= 50;
+                    X -= 50;
                 }
                 else
                 {
-                    x += 50;
+                    X += 50;
                 }
             }
 
             //Prevents from going off screen
-            if (x + randX < 0 || x + width + randX > 800) randX *= -1;
-            x += randX;
+            if (X + randX < 0 || X + width + randX > 800) randX *= -1;
+            X += randX;
         }
 
         public void Attack(IPlayer player)
@@ -102,7 +105,7 @@ namespace testMonogame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            destRect = new Rectangle(x, y, width, height);
+            destRect = new Rectangle(X, Y, width, height);
             sourceRect = new Rectangle(0, 0, 16, 16);
             spriteBatch.Draw(texture, destRect, sourceRect, color);
             

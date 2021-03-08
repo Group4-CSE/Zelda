@@ -11,8 +11,8 @@ namespace testMonogame
 
         Texture2D texture;
         Rectangle destRect;
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
 
         Rectangle sourceRect = new Rectangle(34, 0, 16, 16);
         Color color = Color.White;
@@ -20,16 +20,19 @@ namespace testMonogame
         public FishBlock(Texture2D incTexture, Vector2 pos)
         {
             texture = incTexture;
-            x = (int)pos.X;
-            y = (int)pos.Y;
-            destRect = new Rectangle(x, y, 32, 32);
+            X = (int)pos.X;
+            Y = (int)pos.Y;
+            destRect = new Rectangle(X, Y, 32, 32);
         }
 
         public void Update(Game1 game)
         {
             // COLLISION WILL GO HERE
         }
-
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, destRect, sourceRect, color);

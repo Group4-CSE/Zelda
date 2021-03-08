@@ -13,11 +13,11 @@ namespace testMonogame
         Rectangle sourceRect = new Rectangle(0, 0, 10, 10);
         Rectangle destRect;
         Color color = Color.White;
-        
+
 
         //location stuff
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
         const int width = 20;
         const int height = 20;
 
@@ -25,12 +25,16 @@ namespace testMonogame
         public TriforceItem(Texture2D inTexture, Vector2 position)
         {
             texture = inTexture;
-            x = (int)position.X;
-            y = (int)position.Y;
+            X = (int)position.X;
+            Y = (int)position.Y;
 
             //Non-moving block so instantiate dest rectangle
-            destRect = new Rectangle(x, y, width, height);
+            destRect = new Rectangle(X, Y, width, height);
 
+        }
+        public Rectangle getDestRect()
+        {
+            return destRect;
         }
         public void Draw(SpriteBatch spriteBatch)
         {

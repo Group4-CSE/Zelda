@@ -12,8 +12,8 @@ namespace testMonogame
         Texture2D texture;
         Rectangle destRect;
 
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
         int xVel;
         int yVel;
 
@@ -32,8 +32,8 @@ namespace testMonogame
         public SwordboomPlayerProjectile(Texture2D inTexture, Vector2 position, Vector2 velocity, int direction)
         {
             texture = inTexture;
-            x = (int)position.X;
-            y = (int)position.Y;
+            X = (int)position.X;
+            Y = (int)position.Y;
             xVel = (int)velocity.X;
             yVel = (int)velocity.Y;
 
@@ -56,7 +56,10 @@ namespace testMonogame
 
 
         }
-
+        public Rectangle getDestRect()
+        {
+            return destRect;
+        }
         public void delete(Game1 game)
         {
             game.RemovePlayerProjectile(this);
@@ -70,7 +73,7 @@ namespace testMonogame
         public void Draw(SpriteBatch spriteBatch)
         {
 
-            destRect = new Rectangle(x, y, currentFrame.Value.Width * 2, currentFrame.Value.Height * 2);
+            destRect = new Rectangle(X, Y, currentFrame.Value.Width * 2, currentFrame.Value.Height * 2);
             frameWait++;
             if (frameWait > frameDelay)
             {
@@ -88,8 +91,8 @@ namespace testMonogame
 
         public void Move()
         {
-            x += xVel;
-            y += yVel;
+            X += xVel;
+            Y += yVel;
         }
 
 

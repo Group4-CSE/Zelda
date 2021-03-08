@@ -29,7 +29,11 @@ namespace testMonogame
             texture = inText;
             projTexture = projText;
             goriya = inGoriya;
-            destRect = new Rectangle(goriya.getX(), goriya.getY(), width, height);
+            destRect = new Rectangle(goriya.X, goriya.Y, width, height);
+        }
+        public Rectangle getDestRect()
+        {
+            return destRect;
         }
         public void Attack(IPlayer player)
         {
@@ -49,13 +53,13 @@ namespace testMonogame
         public void spawnBoomerang(Game1 game)
         {
             goriya.setThrow(true);
-            game.AddEnemyProjectile((ISprite)new BoomerangEnemyProjectile(projTexture, new Vector2((float)(goriya.getX() + hProjectileOffset),
-                (float)(goriya.getY() + vProjectileOffset)), new Vector2(-3, 0), 2, goriya));
+            game.AddEnemyProjectile((ISprite)new BoomerangEnemyProjectile(projTexture, new Vector2((float)(goriya.X + hProjectileOffset),
+                (float)(goriya.Y + vProjectileOffset)), new Vector2(-3, 0), 2, goriya));
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            destRect = new Rectangle(goriya.getX(), goriya.getY(), width, height);
+            destRect = new Rectangle(goriya.X, goriya.Y, width, height);
             frame += 1;
             if (frame > 60) frame = 0;
             if (goriya.getThrow() == true)

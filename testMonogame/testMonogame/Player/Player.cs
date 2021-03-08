@@ -9,8 +9,8 @@ namespace testMonogame
     class Player : IPlayer
     {
         Texture2D texture;
-        int x;
-        int y;
+        public int X { get; set; }
+        public int Y { get; set; }
         int health;
         int maxHealth=10;
 
@@ -22,11 +22,11 @@ namespace testMonogame
         public Player(Texture2D inTexture, Vector2 position, Texture2D inProjectiles)
         {
             texture = inTexture;
-            x = (int)position.X;
-            y = (int)position.Y;
+            X = (int)position.X;
+            Y = (int)position.Y;
 
             projectiles = inProjectiles;
-            state = new LeftMovingPlayerState(texture, new Vector2(x, y),this, inProjectiles);
+            state = new LeftMovingPlayerState(texture, new Vector2(X, Y),this, inProjectiles);
 
 
             inventory.Add("Bomb");
@@ -37,7 +37,10 @@ namespace testMonogame
             health = maxHealth;
         }
 
-       
+       public Rectangle getDestRect()
+        {
+            return state.getDestRect();
+        }
 
         public void Attack(Game1 game)
         {
@@ -47,10 +50,10 @@ namespace testMonogame
 
         public void ChangeState(int direction)
         {
-            if(direction==0) state= new UpMovingPlayerState(texture, new Vector2(x, y), this, projectiles);
-            else if (direction == 1) state = new DownMovingPlayerState(texture, new Vector2(x, y), this, projectiles);
-            else if (direction == 2) state = new RightMovingPlayerState(texture, new Vector2(x, y), this, projectiles);
-            else if (direction == 3) state = new LeftMovingPlayerState(texture, new Vector2(x, y), this, projectiles);
+            if(direction==0) state= new UpMovingPlayerState(texture, new Vector2(X, Y), this, projectiles);
+            else if (direction == 1) state = new DownMovingPlayerState(texture, new Vector2(X, Y), this, projectiles);
+            else if (direction == 2) state = new RightMovingPlayerState(texture, new Vector2(X, Y), this, projectiles);
+            else if (direction == 3) state = new LeftMovingPlayerState(texture, new Vector2(X, Y), this, projectiles);
         }
 
         public void dealDamage(int damage)
@@ -69,8 +72,8 @@ namespace testMonogame
 
         public void Move(int xChange, int yChange)
         {
-            x += xChange;
-            y += yChange;
+            X += xChange;
+            Y += yChange;
         }
 
         public void ObtainItem(String item)
@@ -80,8 +83,8 @@ namespace testMonogame
 
         public void SetLocation(Vector2 location)
         {
-            x = (int)location.X;
-            y = (int)location.Y;
+            X = (int)location.X;
+            Y = (int)location.Y;
         }
 
         public void TakeDamage(int damage)
@@ -135,17 +138,20 @@ namespace testMonogame
             //Add logic for opening doors later
             return false;
         }
-        public int getX()
-        {
-            return x;
-        }
-        public int getY()
-        {
-            return y;
-        }
+
         public IPlayerState getState()
         {
             return state;
+        }
+
+        public int getX()
+        {
+            return X;
+        }
+
+        public int getY()
+        {
+            return Y;
         }
     }
 }

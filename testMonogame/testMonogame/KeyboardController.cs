@@ -58,6 +58,10 @@ namespace testMonogame
             KeyMap.Add(Keys.A, Left);
             KeyMap.Add(Keys.S, Down);
             KeyMap.Add(Keys.D, Right);
+            KeyMap.Add(Keys.Up, Up);
+            KeyMap.Add(Keys.Left, Left);
+            KeyMap.Add(Keys.Down, Down);
+            KeyMap.Add(Keys.Right, Right);
             //KeyMap.Add(Keys.Y, Idle);
 
             KeyMap.Add(Keys.Escape, quit);
@@ -75,7 +79,10 @@ namespace testMonogame
             direcPriority.Add(Keys.A, 0);
             direcPriority.Add(Keys.S, 0);
             direcPriority.Add(Keys.D, 0);
-
+            direcPriority.Add(Keys.Up, 0);
+            direcPriority.Add(Keys.Left, 0);
+            direcPriority.Add(Keys.Down, 0);
+            direcPriority.Add(Keys.Right, 0);
 
 
             moveKeys = new List<Keys>();
@@ -83,6 +90,10 @@ namespace testMonogame
             moveKeys.Add(Keys.A);
             moveKeys.Add(Keys.S);
             moveKeys.Add(Keys.D);
+            moveKeys.Add(Keys.Up);
+            moveKeys.Add(Keys.Left);
+            moveKeys.Add(Keys.Down);
+            moveKeys.Add(Keys.Right);
 
             direcPressed = Keys.I;
             moveTotal = 0;
@@ -102,7 +113,7 @@ namespace testMonogame
                 if (KeyMap.ContainsKey(k) && !prevState.IsKeyDown(k))
                 {
                     KeyMap[k].Execute();
-                    if(k.Equals(Keys.W)|| k.Equals(Keys.A) || k.Equals(Keys.S) || k.Equals(Keys.D))
+                    if(k.Equals(Keys.W)|| k.Equals(Keys.A) || k.Equals(Keys.S) || k.Equals(Keys.D)|| k.Equals(Keys.Up) || k.Equals(Keys.Left) || k.Equals(Keys.Right) || k.Equals(Keys.Down))
                     {
                         direcPressed = k;
                     }
@@ -127,8 +138,8 @@ namespace testMonogame
         {
             if (!direcPressed.Equals(Keys.I))
             {
-                direcPriority[direcPressed] = 5;
-                moveTotal += 5;
+                direcPriority[direcPressed] = 9;
+                moveTotal += 9;
                 Move.Execute();
             }
 
@@ -144,14 +155,14 @@ namespace testMonogame
 
                             if (direcPressed.Equals(Keys.I))
                             {
-                                if(direcPriority[direction] == 5)
+                                if(direcPriority[direction] == 9)
                                 {
                                     adjustCurDirec(direction);
                                 }
                             }
                             else
                             {
-                                if (!direction.Equals(direcPressed)&& direcPriority[direction]==5)
+                                if (!direction.Equals(direcPressed)&& direcPriority[direction]==9)
                                 {
                                     adjustCurDirec(direction);
                                 }
@@ -207,10 +218,21 @@ namespace testMonogame
                 }
                 if (!highestKey.Equals(Keys.I))
                 {   //change direction to current direction
-                    moveTotal = moveTotal - highest + 5;
-                    direcPriority[highestKey] = 5;
+                    moveTotal = moveTotal - highest + 9;
+                    direcPriority[highestKey] = 9;
                     KeyMap[highestKey].Execute();
                     Move.Execute();
+
+                    //up priority for keys still pressed
+                    foreach (Keys direction in moveKeys)
+                    {
+                        if (direcPriority[direction] !=9 && direcPriority[direction] !=0)
+                        {
+                            direcPriority[direction] = direcPriority[direction] +1 ;
+                            moveTotal++;
+
+                        }
+                    }
                 }
                 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,7 +16,7 @@ namespace testMonogame
         public void SetIsMoving(bool movingIn);
         public bool isMoving();
         public void damageFlash();
-
+        public Rectangle getDestRect();
 
     }
 }

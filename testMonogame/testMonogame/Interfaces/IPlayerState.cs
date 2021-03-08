@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,9 +8,10 @@ namespace testMonogame
 {
     public interface IPlayerState
     {
-
-       //call sprite.draw
+        
+        //call sprite.draw
         public void Draw(SpriteBatch spriteBatch);
+        public Rectangle getDestRect();
 
         //move according to the state
         public void Move();
