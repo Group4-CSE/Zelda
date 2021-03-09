@@ -23,28 +23,28 @@ namespace testMonogame
         private Texture2D wallmaster;
         private Texture2D playerProjectiles;
 
-        List<ISprite> activeEnemyProjectiles= new List<ISprite>();
-        List<ISprite> removedEnemyProjectiles = new List<ISprite>();
-        List<ISprite> addedEnemyProjectiles = new List<ISprite>();
-        List<ISprite> activePlayerProjectiles = new List<ISprite>();
-        List<ISprite> removedPlayerProjectiles = new List<ISprite>();
-        List<ISprite> addedPlayerProjectiles = new List<ISprite>();
+        List<IEnemyProjectile> activeEnemyProjectiles = new List<IEnemyProjectile>();
+        List<IEnemyProjectile> removedEnemyProjectiles = new List<IEnemyProjectile>();
+        List<IEnemyProjectile> addedEnemyProjectiles = new List<IEnemyProjectile>();
+        List<IPlayerProjectile> activePlayerProjectiles = new List<IPlayerProjectile>();
+        List<IPlayerProjectile> removedPlayerProjectiles = new List<IPlayerProjectile>();
+        List<IPlayerProjectile> addedPlayerProjectiles = new List<IPlayerProjectile>();
 
 
 
 
-        public void AddEnemyProjectile(ISprite projectile){ addedEnemyProjectiles.Add(projectile); }
-        public void RemoveEnemyProjectile(ISprite projectile) { removedEnemyProjectiles.Add(projectile); }
-        public void AddPlayerProjectile(ISprite projectile) { addedPlayerProjectiles.Add(projectile); }
-        public void RemovePlayerProjectile(ISprite projectile) { removedPlayerProjectiles.Add(projectile); }
+        public void AddEnemyProjectile(IEnemyProjectile projectile) { addedEnemyProjectiles.Add(projectile); }
+        public void RemoveEnemyProjectile(IEnemyProjectile projectile) { removedEnemyProjectiles.Add(projectile); }
+        public void AddPlayerProjectile(IPlayerProjectile projectile) { addedPlayerProjectiles.Add(projectile); }
+        public void RemovePlayerProjectile(IPlayerProjectile projectile) { removedPlayerProjectiles.Add(projectile); }
         void removeProjectiles()
         {
-            foreach(ISprite removed in removedEnemyProjectiles)
+            foreach (IEnemyProjectile removed in removedEnemyProjectiles)
             {
                 activeEnemyProjectiles.Remove(removed);
             }
             removedEnemyProjectiles.Clear();
-            foreach (ISprite removed in removedPlayerProjectiles)
+            foreach (IPlayerProjectile removed in removedPlayerProjectiles)
             {
                 activePlayerProjectiles.Remove(removed);
             }
@@ -52,12 +52,12 @@ namespace testMonogame
         }
         void addProjectiles()
         {
-            foreach (ISprite removed in addedEnemyProjectiles)
+            foreach (IEnemyProjectile removed in addedEnemyProjectiles)
             {
                 activeEnemyProjectiles.Add(removed);
             }
             addedEnemyProjectiles.Clear();
-            foreach (ISprite removed in addedPlayerProjectiles)
+            foreach (IPlayerProjectile removed in addedPlayerProjectiles)
             {
                 activePlayerProjectiles.Add(removed);
             }
@@ -95,7 +95,7 @@ namespace testMonogame
         public IPlayer getPlayer()
         {
             return player;
-            
+
         }
 
 
@@ -176,7 +176,8 @@ namespace testMonogame
 
             player.Update(this);
 
-            foreach(ISprite enemyProjectile in activeEnemyProjectiles){
+            foreach (ISprite enemyProjectile in activeEnemyProjectiles)
+            {
                 enemyProjectile.Update(this);
             }
             foreach (ISprite playerProjectile in activePlayerProjectiles)
@@ -234,7 +235,7 @@ namespace testMonogame
 
         public void cycleBlock(int incDec)
         {
-            blockCounter+=incDec;
+            blockCounter += incDec;
 
             if (blockCounter == blocks.Count) blockCounter = 0;
             else if (blockCounter < 0) blockCounter = blocks.Count - 1;
@@ -251,10 +252,10 @@ namespace testMonogame
 
         public void cycleEnemy(int incDec)
         {
-            enemyCounter+=incDec;
+            enemyCounter += incDec;
 
             if (enemyCounter == enemies.Count) enemyCounter = 0;
-            else if (enemyCounter < 0) enemyCounter=enemies.Count-1;
+            else if (enemyCounter < 0) enemyCounter = enemies.Count - 1;
 
         }
     }

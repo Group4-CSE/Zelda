@@ -53,7 +53,7 @@ namespace testMonogame
         public void spawnBoomerang(Game1 game)
         {
             goriya.setThrow(true);
-            game.AddEnemyProjectile((ISprite)new BoomerangEnemyProjectile(projTexture, new Vector2((float)(goriya.X + hProjectileOffset),
+            game.AddEnemyProjectile((IEnemyProjectile)new BoomerangEnemyProjectile(projTexture, new Vector2((float)(goriya.X + hProjectileOffset),
                 (float)(goriya.Y + vProjectileOffset)), new Vector2(0, -3), 2, goriya));
         }
 

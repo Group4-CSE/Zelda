@@ -80,25 +80,25 @@ namespace testMonogame
 
         public void spawnBomb(Game1 game)
         {
-            if (!stasis) game.AddPlayerProjectile((ISprite)new BombPlayerProjectile(projectiles, new Vector2((float)(player.X-20),
+            if (!stasis) game.AddPlayerProjectile(new BombPlayerProjectile(projectiles, new Vector2((float)(player.X-20),
                 (float)(player.Y ))));
         }
 
         public void spawnArrow(Game1 game)
         {
-            if (!stasis) game.AddPlayerProjectile((ISprite)new ArrowPlayerProjectile(projectiles, new Vector2((float)(player.X+hProjectileOffset), 
+            if (!stasis) game.AddPlayerProjectile(new ArrowPlayerProjectile(projectiles, new Vector2((float)(player.X+hProjectileOffset), 
                 (float)(player.Y+vProjectileOffset)), new Vector2(-5,0),3));
         }
 
         public void spawnBoomerang(Game1 game)
         {
-            if (!stasis) game.AddPlayerProjectile((ISprite)new BoomerangPlayerProjectile(projectiles, new Vector2((float)(player.X+hProjectileOffset), 
+            if (!stasis) game.AddPlayerProjectile(new BoomerangPlayerProjectile(projectiles, new Vector2((float)(player.X+hProjectileOffset), 
                 (float)(player.Y+vProjectileOffset)), new Vector2(-3,0),4));
         }
 
         public void spawnSwordProjectile(Game1 game)
         {
-            if(!stasis)game.AddPlayerProjectile((ISprite)new SwordPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
+            if(!stasis)game.AddPlayerProjectile(new SwordPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
                 (float)(player.Y + vProjectileOffset)), new Vector2(-3, 0), 3));
         }
         public void damage()

@@ -66,7 +66,7 @@ namespace testMonogame
             hurtFrames.AddLast(new Rectangle(50, 33, 24, 32));
             currentFrame = frames.First;
             hurtFlash = 0;
-
+            
 
             // Stuff for state
             health = maxHealth;
@@ -138,9 +138,9 @@ namespace testMonogame
         }
         void spawnFireBalls(Game1 game)
         {
-            game.AddEnemyProjectile((ISprite)new FireBallEnemyProjectile(texture, new Vector2(X + width / 4, Y + height / 4), new Vector2(-1, 1)));
-            game.AddEnemyProjectile((ISprite)new FireBallEnemyProjectile(texture, new Vector2(X + width / 4, Y + height / 4), new Vector2(-1, 0)));
-            game.AddEnemyProjectile((ISprite)new FireBallEnemyProjectile(texture, new Vector2(X + width / 4, Y + height / 4), new Vector2(-1, -1)));
+            game.AddEnemyProjectile(new FireBallEnemyProjectile(texture, new Vector2(X + width / 4, Y + height / 4), new Vector2(-1, 1)));
+            game.AddEnemyProjectile(new FireBallEnemyProjectile(texture, new Vector2(X + width / 4, Y + height / 4), new Vector2(-1, 0)));
+            game.AddEnemyProjectile(new FireBallEnemyProjectile(texture, new Vector2(X + width / 4, Y + height / 4), new Vector2(-1, -1)));
 
         }
         public void Update(Game1 game)
