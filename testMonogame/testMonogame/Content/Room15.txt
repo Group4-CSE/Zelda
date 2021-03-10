@@ -1,0 +1,17 @@
+BACKGROUND
+WALLS
+BLOCKS
+dungeonblock,6,3
+dungeonblock,7,3
+dungeonblock,6,4
+dungeonblock,7,4
+dungeonblock,6,5
+dungeonblock,7,5
+ITEMS
+ENEMIES
+stalfos,4,1
+stalfos,5,3
+stalfos,5,5
+DOORS
+locked,down
+open,up
