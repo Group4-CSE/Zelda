@@ -12,8 +12,17 @@ namespace testMonogame.Rooms
 
     class Room : IRoom
     {
-        const int screenX=100;
-        const int screenY=50;
+        const int screenX=200;
+        const int screenY=100;
+
+        const int mapScreenLocX = 0;
+        const int mapScreenLocY = 0;
+
+        int mapX;
+        int mapY;
+
+        const int mapXGrid = 8;
+        const int mapYGrid = 4;
 
         //The factor that each block is scaled up by
         const int blockSizeMod = 2;
@@ -40,7 +49,7 @@ namespace testMonogame.Rooms
         Rectangle floorDestRect = new Rectangle(screenX+(2*blockBaseDimension*blockSizeMod), screenY+(2*blockBaseDimension*blockSizeMod),
             12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
 
-        public Room(Texture2D inTexture, String sourceFile, Game1 inGame, Dictionary<String,Texture2D> spriteSheets)
+        public Room(Texture2D inTexture, String sourceFile, Dictionary<String,Texture2D> spriteSheets)
         {
             texture = inTexture;
             sprites = spriteSheets;
@@ -54,7 +63,12 @@ namespace testMonogame.Rooms
             PlayerProjectiles= new List<IPlayerProjectile> ();
             EnemyProjectiles= new List<IEnemyProjectile>();
 
-            loadRoomFromFile(sourceFile,inGame);
+            mapX = 0;
+            mapY = 1;
+
+
+
+            loadRoomFromFile(sourceFile);
 
 
         }
@@ -64,7 +78,7 @@ namespace testMonogame.Rooms
         public void AddPlayerProjectile(IPlayerProjectile projectile) { PlayerProjectiles.Add(projectile); }
         public void RemovePlayerProjectile(IPlayerProjectile projectile) { PlayerProjectiles.Remove(projectile); }
 
-        void loadRoomFromFile(String sourceFile, Game1 game)
+        void loadRoomFromFile(String sourceFile)
         {
             String rootDir = Directory.GetCurrentDirectory();
             rootDir = rootDir.Substring(0, rootDir.Length-24);
@@ -108,10 +122,19 @@ namespace testMonogame.Rooms
                         case "DOORS":
                             addDoor(line);
                             break;
+                        case "MAP":
+                            addMap(line);
+                            break;
                     }
                 }
 
             }
+        }
+        void addMap(String line)
+        {
+            String[] split = line.Split(',');
+            mapX = Int32.Parse(split[0]) - 1;
+            mapY = Int32.Parse(split[1]) - 1;
         }
         void addDoor(String line)
         {
@@ -326,6 +349,8 @@ namespace testMonogame.Rooms
                 projectile.Draw(spriteBatch);
             }
 
+
+            spriteBatch.Draw(sprites["Backgrounds"], new Rectangle((mapX * mapXGrid) + 2, (mapY + mapYGrid), 3, 3), new Rectangle(0, 200, 3, 3), Color.Gray);
 
 
         }
