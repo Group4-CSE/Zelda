@@ -1,0 +1,14 @@
+﻿BACKGROUND
+WALLS
+BLOCKS
+pushableblock,6,4
+ENEMIES
+gel,6,2
+gel,6,6
+gel,4,4
+DOORS
+closed,left
+locked,down
+open,right
+MAP
+2,3

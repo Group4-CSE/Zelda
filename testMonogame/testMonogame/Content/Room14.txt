@@ -19,3 +19,5 @@ keese,12,4
 DOORS
 open,left
 cave,up
+MAP
+4,4

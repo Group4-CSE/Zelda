@@ -18,3 +18,5 @@ keese,9,7
 DOORS
 locked,up
 closed,right
+MAP
+2,4

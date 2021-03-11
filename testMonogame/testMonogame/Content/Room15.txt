@@ -15,3 +15,5 @@ stalfos,5,5
 DOORS
 locked,down
 open,up
+MAP
+3,5

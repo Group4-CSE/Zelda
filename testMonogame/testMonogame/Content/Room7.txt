@@ -1,0 +1,10 @@
+﻿WALLS
+BLOCKS
+fireblock,3,3
+fireblock,9,3
+ENEMIES
+oldman,6,3
+DOORS
+open,left
+MAP
+1,3
