@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,16 +24,19 @@ namespace testMonogame
                 {
                     blockRect = block.getDestRect();
                     collision = Rectangle.Intersect(enemyRect, blockRect);
-                    if (!collision.IsEmpty) handleCollision(collision, enemy, block);
+                    //test to see if we ignore the collision
+                    bool isIgnored = false;
+                    if ((enemy is KeeseEnemy )&& (block is SolidBlock) ) isIgnored = true;
+                    if ((block is CaveDoor) || (block is LockedDoor) || (block is OpenDoor) || (block is ClosedDoor)) isIgnored = true;
+                    if (!collision.IsEmpty && !isIgnored ) handleCollision(collision, enemy, block);
                 }
             }
         }
 
         public void handleCollision(Rectangle collisionRect, IEnemy enemy, IObject block)
         {
-            xCollisionSize = collisionRect.X;
-            yCollisionSize = collisionRect.Y;
-
+            xCollisionSize = collisionRect.Width;
+            yCollisionSize = collisionRect.Height;
             // We are in a Top / Bottom style collision
             if (xCollisionSize > yCollisionSize)
             {
@@ -41,11 +45,11 @@ namespace testMonogame
                 // We are on the top
                 if ((enemyRect.Y + enemyRect.Height < blockRect.Y) && (enemyRect.Y + enemyRect.Height > blockRect.Y + blockRect.Height / 2))
                 {
-                    enemy.Y -= collisionRect.Y;
+                    enemy.Y -= yCollisionSize;
                 } 
                 else // We are on the bottom
                 {
-                    enemy.Y += collisionRect.Y;
+                    enemy.Y += yCollisionSize;
                 }
             } 
             else // We are in a Left / Right style collision
@@ -55,11 +59,11 @@ namespace testMonogame
                 // We are on the right
                 if ((enemyRect.X < blockRect.X + blockRect.Width) && (enemyRect.X > blockRect.X + blockRect.Width / 2))
                 {
-                    enemy.X += collisionRect.X;
+                    enemy.X += xCollisionSize;
                 }
                 else // We are on the left
                 {
-                    enemy.X -= collisionRect.X;
+                    enemy.X -= xCollisionSize;
                 }
             }
         }

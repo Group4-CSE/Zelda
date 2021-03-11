@@ -418,6 +418,10 @@ namespace testMonogame.Rooms
         {
             return Blocks;
         }
+        public Rectangle GetWallDestRect()
+        {
+            return wallDestRect;
+        }
 
         public List<IObject> GetItems()
         {
