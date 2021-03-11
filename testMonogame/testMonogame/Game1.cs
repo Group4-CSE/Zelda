@@ -31,7 +31,10 @@ namespace testMonogame
         List<IPlayerProjectile> addedPlayerProjectiles = new List<IPlayerProjectile>();
 
 
-
+        public void LoadRoom(int roomNum)
+        {
+            //NULL TEMP, check temp game1 sent for testing if u wanna be able to load rooms
+        }
 
         public void AddEnemyProjectile(IEnemyProjectile projectile) { addedEnemyProjectiles.Add(projectile); }
         public void RemoveEnemyProjectile(IEnemyProjectile projectile) { removedEnemyProjectiles.Add(projectile); }
