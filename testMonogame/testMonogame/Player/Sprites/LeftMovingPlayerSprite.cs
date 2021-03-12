@@ -43,7 +43,8 @@ namespace testMonogame
         }
         public Rectangle getDestRect()
         {
-            return currentFrame.Value;
+            //return currentFrame.Value;
+            return destRect;
         }
         public void AttackAnimation()
         {
