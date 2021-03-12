@@ -2,7 +2,7 @@
 WALLS
 BLOCKS
 stairsblock,7,4
-pushableblock,5,4
+pushableblock,5,4,bottom
 dungeonblock,6,3
 dungeonblock,6,5
 dungeonblock,8,3

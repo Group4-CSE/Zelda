@@ -1,7 +1,7 @@
 ﻿BACKGROUND
 WALLS
 BLOCKS
-pushableblock,6,4
+pushableblock,6,4,right
 ENEMIES
 gel,6,2
 gel,6,6

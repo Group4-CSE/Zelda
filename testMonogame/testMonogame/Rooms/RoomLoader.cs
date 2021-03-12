@@ -234,7 +234,7 @@ namespace testMonogame.Rooms
                     block = new DungeonBlock(sprites["tileset"], new Vector2(x, y));
                     break;
                 case "pushableblock":
-                    block = new PushableBlock(sprites["tileset"], new Vector2(x, y));
+                    block = new PushableBlock(sprites["tileset"], new Vector2(x, y),split[3]);
                     break;
                 case "stairsblock":
                     block = new StairsBlock(sprites["tileset"], new Vector2(x, y));
