@@ -17,7 +17,7 @@ namespace testMonogame
             this.texture = texture;
             X = (int)pos.X;
             Y = (int)pos.Y;
-            destRect = new Rectangle(X, Y, 33, 33);
+            destRect = new Rectangle(X, Y, 65, 65);
 
             switch (direction)
             {
