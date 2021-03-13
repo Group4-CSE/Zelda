@@ -52,6 +52,10 @@ namespace testMonogame
 
 
         }
+        public void collide(Game1 game)
+        {
+            delete(game);
+        }
         public Rectangle getDestRect()
         {
             return destRect;

@@ -120,7 +120,6 @@ namespace testMonogame.Rooms
 
             
             spriteBatch.Draw(sprites["map"], mapDestRect, mapSourceRect, Color.White);
-
             spriteBatch.Draw(sprites["Backgrounds"], new Rectangle((mapX * mapXGrid)+6, (mapY * mapYGrid), 9, 9), new Rectangle(40, 200, 3, 3), Color.Gray);
 
 
@@ -159,6 +158,10 @@ namespace testMonogame.Rooms
         public Rectangle GetWallDestRect()
         {
             return wallDestRect;
+        }
+        public Rectangle GetFloorDestRect()
+        {
+            return floorDestRect;
         }
 
         public List<IObject> GetItems()

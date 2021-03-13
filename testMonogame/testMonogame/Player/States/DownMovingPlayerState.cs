@@ -33,7 +33,7 @@ namespace testMonogame
 
             stasis = false;
 
-            sprite = new DownMovingPlayerSprite(inTexture, this);
+            sprite = new DownMovingPlayerSprite(inTexture, this,player.GetDamageFrames());
         }
         public Rectangle getDestRect()
         {
@@ -44,7 +44,10 @@ namespace testMonogame
             if (!stasis) sprite.AttackAnimation();
 
         }
-
+        public void SetDamaged(int framesRemaining)
+        {
+            player.SetDamageFrames(framesRemaining);
+        }
         public int getX()
         {
             return player.X;

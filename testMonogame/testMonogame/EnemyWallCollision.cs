@@ -8,32 +8,32 @@ using Microsoft.Xna.Framework.Input;
 
 namespace testMonogame
 {
-    class EnemyObjectCollision
+    class EnemyWallCollision
     {
         Rectangle enemyRect;
-        Rectangle blockRect;
-        Rectangle collision;
+        Rectangle wallRect;
+
+
         int xCollisionSize;
         int yCollisionSize;
-        public void detectCollision(List<IEnemy> enemies, List<IObject> blocks)
+        public void detectCollision(List<IEnemy> Enemies, Rectangle walls, Rectangle floor)
         {
-            foreach (var enemy in enemies)
+
+            
+            wallRect = walls;
+            foreach (IEnemy enemy in Enemies)
             {
                 enemyRect = enemy.getDestRect();
-                foreach (var block in blocks)
-                {
-                    blockRect = block.getDestRect();
-                    collision = Rectangle.Intersect(enemyRect, blockRect);
-                    //test to see if we ignore the collision
-                    bool isIgnored = false;
-                    if ((enemy is KeeseEnemy )&& (block is SolidBlock) ) isIgnored = true;
-                    if ((block is CaveDoor) || (block is LockedDoor) || (block is OpenDoor) || (block is ClosedDoor)) isIgnored = true;
-                    if (!collision.IsEmpty && !isIgnored ) handleCollision(collision, enemy, block);
-                }
+
+                Rectangle wallCollision = Rectangle.Intersect(enemyRect, walls);
+                Rectangle floorCollision = Rectangle.Intersect(enemyRect, floor);
+                //for true collision x and y are arbitrary, width and height matter
+                Rectangle trueCollision = new Rectangle(wallCollision.X, wallCollision.Y, floorCollision.Width - wallCollision.Width, floorCollision.Height - wallCollision.Height);
+                if (!wallCollision.Equals(floorCollision)) handleCollision(trueCollision, enemy);
             }
         }
 
-        public void handleCollision(Rectangle collisionRect, IEnemy enemy, IObject block)
+        public void handleCollision(Rectangle collisionRect, IEnemy enemy)
         {
             xCollisionSize = collisionRect.Width;
             yCollisionSize = collisionRect.Height;
@@ -43,21 +43,21 @@ namespace testMonogame
                 // IF the bottom left corner of our enemy is less than the the top left corner of the block
                 // AND the bottom left corner of our enemy is greater than the half way point of the height of the block
                 // We are on the top
-                if (enemyRect.Y<blockRect.Y)
+                if (enemyRect.Y < wallRect.Y + (wallRect.Height / 2))
                 {
                     enemy.Y -= yCollisionSize;
-                } 
+                }
                 else // We are on the bottom
                 {
                     enemy.Y += yCollisionSize;
                 }
-            } 
+            }
             else // We are in a Left / Right style collision
             {
                 // IF the top left corner of our enemy is less than the top right corner of the block
                 // AND the top left corner of our enemy is greater than the half way point of the width of the block
                 // We are on the left
-                if (enemyRect.X < blockRect.X)
+                if (enemyRect.X < wallRect.X + (wallRect.Width / 2))
                 {
                     enemy.X -= xCollisionSize;
                 }

@@ -48,5 +48,7 @@ namespace testMonogame
         public IPlayerState getState();
         //returns the destination rectangle of the sprite associated with this entity
         public Rectangle getDestRect();
+        public void SetDamageFrames(int frames);
+        public int GetDamageFrames();
     }
 }

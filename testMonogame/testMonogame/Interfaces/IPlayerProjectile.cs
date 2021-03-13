@@ -13,6 +13,7 @@ namespace testMonogame
         public void Move();
         public void doDamage(IEnemy target);
         public void delete(Game1 game);
+        public void collide(Game1 game);
         //returns the destination rectangle of the sprite associated with this entity
         public Rectangle getDestRect();
         //Draw

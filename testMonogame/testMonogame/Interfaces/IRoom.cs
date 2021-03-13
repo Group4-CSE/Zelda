@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +16,8 @@ namespace testMonogame.Interfaces
         public List<IEnemy> GetEnemies();
         public List<IPlayerProjectile> GetPlayerProjectiles();
         public List<IEnemyProjectile> GetEnemeyProjectile();
+        public Rectangle GetWallDestRect();
+        public Rectangle GetFloorDestRect();
 
         public void CloseRoom();
         public void AddEnemyProjectile(IEnemyProjectile projectile);

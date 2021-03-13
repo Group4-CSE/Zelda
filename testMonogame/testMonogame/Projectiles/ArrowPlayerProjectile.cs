@@ -41,6 +41,10 @@ namespace testMonogame
 
 
         }
+        public void collide(Game1 game)
+        {
+            delete(game);
+        }
 
         public void delete(Game1 game)
         {

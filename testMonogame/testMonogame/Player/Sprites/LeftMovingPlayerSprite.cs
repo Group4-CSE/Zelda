@@ -24,7 +24,7 @@ namespace testMonogame
         LinkedListNode<Rectangle> currentFrame;
 
         bool moving;
-        public LeftMovingPlayerSprite(Texture2D inTexture, IPlayerState inState)
+        public LeftMovingPlayerSprite(Texture2D inTexture, IPlayerState inState, int damageFramesRemaining)
         {
             texture = inTexture;
             state = inState;
@@ -39,7 +39,19 @@ namespace testMonogame
             damaged = 0;
 
             moving = false;
+            if (damageFramesRemaining != 0)
+            {
+                damageFlash();
+                //trim the list
+                for (int i = 0; i < damageFramesRemaining; i++)
+                {
 
+                    damaged--;
+                    state.SetDamaged(damaged);
+                    frames.RemoveFirst();
+
+                }
+            }
         }
         public Rectangle getDestRect()
         {
@@ -72,7 +84,11 @@ namespace testMonogame
                 }
                 else currentFrame = frames.First;
                 frameCounter = 0;
-                if (damaged > 0) damaged--;
+                if (damaged > 0)
+                {
+                    damaged--;
+                    state.SetDamaged(damaged);
+                }
             }
 
             destRect = new Rectangle(state.getX()- (currentFrame.Value.Width-16)*2, state.getY()-(currentFrame.Value.Height - 16) * 2, currentFrame.Value.Width*2, currentFrame.Value.Height*2);

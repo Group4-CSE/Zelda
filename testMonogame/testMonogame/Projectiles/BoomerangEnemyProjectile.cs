@@ -23,6 +23,7 @@ namespace testMonogame
         int initialXVel;
         int initialYVel;
         GoriyaEnemy goriya;
+        bool turned;
 
 
         LinkedList<Rectangle> frames = new LinkedList<Rectangle>();
@@ -36,7 +37,7 @@ namespace testMonogame
             Y = (int)position.Y;
             xVel = (int)velocity.X;
             yVel = (int)velocity.Y;
-
+            turned = false;
             initialX = X;
             initialY = Y;
             initialXVel = xVel;
@@ -63,6 +64,16 @@ namespace testMonogame
             frameWait = 0;
 
 
+        }
+        public void collide(Game1 game)
+        {
+            if (turned == false)
+            {
+                xVel *= -1;
+                yVel *= -1;
+                turned = true;
+            }
+            
         }
         public Rectangle getDestRect()
         {
@@ -115,12 +126,6 @@ namespace testMonogame
         public void Update(Game1 game)
         {
             Move();
-            //TEMP collision stuff
-            if (X < 0 || X > 800 || Y < 0 || Y > 480)
-            {
-                xVel *= -1;
-                yVel *= -1;
-            }
             if (testStop())
             {
                 goriya.setThrow(false);

@@ -22,7 +22,7 @@ namespace testMonogame
         int initialY;
         int initialXVel;
         int initialYVel;
-
+        bool turned;
 
         LinkedList<Rectangle> frames = new LinkedList<Rectangle>();
         LinkedListNode<Rectangle> currentFrame;
@@ -35,7 +35,7 @@ namespace testMonogame
             Y = (int)position.Y;
             xVel = (int)velocity.X;
             yVel = (int)velocity.Y;
-
+            turned = false;
             initialX = X;
             initialY = Y;
             initialXVel=xVel;
@@ -64,6 +64,15 @@ namespace testMonogame
         public Rectangle getDestRect()
         {
             return destRect;
+        }
+        public void collide(Game1 game)
+        {
+            if (turned == false)
+            {
+                xVel *= -1;
+                yVel *= -1;
+                turned = true;
+            }
         }
         public void delete(Game1 game)
         {
@@ -112,12 +121,6 @@ namespace testMonogame
         public void Update(Game1 game)
         {
             Move();
-            //TEMP collision stuff
-            if (X < 0 || X > 800 || Y < 0 || Y > 480)
-            {
-                xVel *= -1;
-                yVel *= -1;
-            }
             if (testStop())
             {
                 game.getPlayer().ObtainItem("Boomerang");

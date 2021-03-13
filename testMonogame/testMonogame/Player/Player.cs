@@ -11,6 +11,7 @@ namespace testMonogame
         Texture2D texture;
         public int X { get; set; }
         public int Y { get; set; }
+        int damageFrames;
         int health;
         int maxHealth=10;
 
@@ -36,7 +37,11 @@ namespace testMonogame
 
             health = maxHealth;
         }
-
+        public void SetDamageFrames(int frames)
+        {
+            damageFrames = frames;
+        }
+        public int GetDamageFrames() { return damageFrames; }
        public Rectangle getDestRect()
         {
             return state.getDestRect();

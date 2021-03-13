@@ -8,7 +8,7 @@ namespace testMonogame
 {
     public interface IPlayerState
     {
-        
+        public void SetDamaged(int framesRemaining);
         //call sprite.draw
         public void Draw(SpriteBatch spriteBatch);
         public Rectangle getDestRect();

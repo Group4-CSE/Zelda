@@ -15,7 +15,6 @@ namespace testMonogame
 
         int x;
         int y;
-
         int vProjectileOffset = 0;
         int hProjectileOffset = 6;
 
@@ -33,7 +32,7 @@ namespace testMonogame
 
             stasis = false;
 
-            sprite = new UpMovingPlayerSprite(inTexture, this);
+            sprite = new UpMovingPlayerSprite(inTexture, this, player.GetDamageFrames());
         }
         public Rectangle getDestRect()
         {
@@ -44,7 +43,10 @@ namespace testMonogame
             if (!stasis) sprite.AttackAnimation();
 
         }
-
+        public void SetDamaged(int framesRemaining)
+        {
+            player.SetDamageFrames(framesRemaining);
+        }
         public int getX()
         {
             return player.X;
