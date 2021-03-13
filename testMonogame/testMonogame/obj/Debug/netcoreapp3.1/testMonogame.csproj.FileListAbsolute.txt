@@ -91,3 +91,5 @@ E:\SP21\CSE3902\3902Project\Zelda\testMonogame\testMonogame\obj\Debug\netcoreapp
 E:\SP21\CSE3902\3902Project\Zelda\testMonogame\testMonogame\obj\Debug\netcoreapp3.1\testMonogame.dll
 E:\SP21\CSE3902\3902Project\Zelda\testMonogame\testMonogame\obj\Debug\netcoreapp3.1\testMonogame.pdb
 E:\SP21\CSE3902\3902Project\Zelda\testMonogame\testMonogame\obj\Debug\netcoreapp3.1\testMonogame.genruntimeconfig.cache
+E:\SP21\CSE3902\3902Project\Zelda\testMonogame\testMonogame\bin\Debug\netcoreapp3.1\Content\Backgrounds.xnb
+E:\SP21\CSE3902\3902Project\Zelda\testMonogame\testMonogame\bin\Debug\netcoreapp3.1\Content\Level1Map.xnb

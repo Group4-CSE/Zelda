@@ -18,34 +18,26 @@ namespace testMonogame
 
         public int X { get; set; }
         public int Y { get; set; }
-        int randX;
-        int randY;
+        int startX;
+        int startY;
         int updateFrame;
         int curFrame;
         int health;
-        Random randomNumber = new Random();
         int enemyVel = 3;
-        int modifier;
-
-        //Set these constraints for left and right movement (Consider up and down later)
-        int maxX = 600;
-        int minX = 300;
-        bool mHorizontal = false;
-        int maxFrame = 2;
+        IPlayer player;
+        Rectangle playerDestRect;
+        int maxX = 96;
+        int maxY = 56;
    
         public TrapEnemy(Texture2D eTexture, Vector2 position)
         {
             //Enemy sprite drawing
             texture = eTexture;
             X = (int)position.X;
+            startX = (int)position.X;
             Y = (int)position.Y;
+            startY = (int)position.Y;
             destRect = new Rectangle(X, Y, width, height);
-
-            //Enemy movement
-            updateFrame = randomNumber.Next(200);
-            curFrame = 0;
-            randX = randomNumber.Next(enemyVel);
-            randY = randomNumber.Next(enemyVel);
             
             //Enemy state
             health = 100;
@@ -56,46 +48,77 @@ namespace testMonogame
         }
         public void Move()
         {
-            //Will Change this move later, for sprint 2 moves left and right
-            updateFrame++;
-            if (updateFrame == 10)
+            // Boundary checking, +16 represents Link's Height so we're not just checking the top left corner
+            // This only allows us to know if player is in the line of sight, but not which direction
+            // So we need player dest rect to compare to in each case as well
+            if (player.X + 16 > X || player.X < X + width)
             {
-                updateFrame = 0;
-                curFrame++;
-
-                if (curFrame == maxFrame)
+                // If the player is below us
+                if (playerDestRect.Y < Y && Y > maxY)
                 {
-                    curFrame = 0;
+                    Y += enemyVel;
+                } 
+                else if (playerDestRect.Y > Y && Y < maxY) // Player is above us
+                {
+                    Y -= enemyVel;
+                } 
+                else // We need to wind back our trap
+                {
+                    // enemyVel / 2 since the traps wind back slower than they go forward
+                    while (X > startX)
+                    {
+                        X -= enemyVel / 2;
+                    }
+                    while (X < startX)
+                    {
+                        X += enemyVel / 2;
+                    }
+                    while (Y > startY)
+                    {
+                        Y -= enemyVel / 2;
+                    }
+                    while (Y < startY)
+                    {
+                        Y -= enemyVel / 2;
+                    }
                 }
-                //Changed this to move left and right
-                if (X == maxX)
+            } else if (player.Y < Y + height || player.Y + 16 > Y)
+            {
+                // If the player is to the left
+                if (playerDestRect.X < X && X > maxX)
                 {
-                    mHorizontal = true;
-
-                }
-                else if (X == minX)
+                    X -= enemyVel;
+                } 
+                else if (playerDestRect.X > X && X < maxX) // Player is to the right
                 {
-                    mHorizontal = false;
-                }
-
-                if (mHorizontal)
-                {
-                    X -= 50;
+                    X += enemyVel;
                 }
                 else
                 {
-                    X += 50;
+                    // enemyVel / 2 since the traps wind back slower than they go forward
+                    while (X > startX)
+                    {
+                        X -= enemyVel / 2;
+                    }
+                    while (X < startX)
+                    {
+                        X += enemyVel / 2;
+                    }
+                    while (Y > startY)
+                    {
+                        Y -= enemyVel / 2;
+                    }
+                    while (Y < startY)
+                    {
+                        Y -= enemyVel / 2;
+                    }
                 }
             }
-
-            //Prevents from going off screen
-            if (X + randX < 0 || X + width + randX > 800) randX *= -1;
-            X += randX;
         }
 
         public void Attack(IPlayer player)
         {
-
+            player.TakeDamage(1);
         }
 
         public void takeDamage(int dmg)
@@ -113,6 +136,8 @@ namespace testMonogame
 
         public void Update(Game1 game)
         {
+            player = game.getPlayer();
+            playerDestRect = player.getDestRect();
             Move();
         }
     }
