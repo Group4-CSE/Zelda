@@ -19,7 +19,7 @@ namespace testMonogame
         const int height = 16;
         const int width = 16;
 
-        public void playerEnemyDetection(IPlayer player, List<ISprite> enemies)
+        public void playerEnemyDetection(IPlayer player, List<IEnemy> enemies)
         {
             //Detect player enemy collision
 

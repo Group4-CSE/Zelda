@@ -64,7 +64,7 @@ namespace testMonogame
 
         public void Move()
         {
-            if (!stasis) player.Move(0, yVel);
+            player.Move(0, yVel);
         }
 
         public void PlaceItem()

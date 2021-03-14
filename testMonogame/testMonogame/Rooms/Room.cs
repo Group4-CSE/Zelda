@@ -83,7 +83,7 @@ namespace testMonogame.Rooms
         public void RemoveEnemyProjectile(IEnemyProjectile projectile) { EnemyProjectiles.Remove(projectile); }
         public void AddPlayerProjectile(IPlayerProjectile projectile) { PlayerProjectiles.Add(projectile); }
         public void RemovePlayerProjectile(IPlayerProjectile projectile) { PlayerProjectiles.Remove(projectile); }
-
+        public void RemoveItem(IObject item) { Items.Remove(item); }
        
 
 

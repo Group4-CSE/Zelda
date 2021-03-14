@@ -63,6 +63,7 @@ namespace testMonogame
 
         public void dealDamage(int damage)
         {
+            health -= damage;
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -114,7 +114,7 @@ namespace testMonogame
         public bool isMoving()
         {
             bool ret;
-            if (frames.Count < 3) ret = moving;
+            if (frames.Count < 3 || damaged>0) ret = moving;
             else ret = false;
             return ret;
         }
