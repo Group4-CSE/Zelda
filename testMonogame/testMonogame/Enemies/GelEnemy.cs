@@ -40,7 +40,7 @@ namespace testMonogame
             destRect = new Rectangle(X, Y, width, height);
 
             // Stuff for state
-            health = 100;
+            health = 1;
 
             // Stuff for movement
             directionFrame = randomNumber.Next(200);
@@ -55,6 +55,7 @@ namespace testMonogame
         {
             return destRect;
         }
+        public int getHealth() { return health; }
         public void Move()
         {
             // Code for making sure the stalfos is on a solid block and can move will be here
@@ -82,7 +83,7 @@ namespace testMonogame
 
         public void Attack(IPlayer player)
         {
-            // If this enemy collides with the player, set frame and do damage
+            player.TakeDamage(1);
         }
 
         public void takeDamage(int dmg)

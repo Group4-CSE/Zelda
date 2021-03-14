@@ -49,6 +49,7 @@ namespace testMonogame
         public void Interact(IPlayer player)
         {
             //TODO: Add Code to guide player to tri force shard. only relevant once we get a map in place
+            player.ObtainItem("Compass");
         }
 
         public void Update(Game1 game)

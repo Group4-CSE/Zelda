@@ -48,7 +48,7 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            //TODO: Add code for adding bow to inventory
+            player.ObtainItem("Bow");
         }
 
         public void Update(Game1 game)

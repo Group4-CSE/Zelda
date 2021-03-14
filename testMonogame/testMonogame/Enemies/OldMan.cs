@@ -33,6 +33,7 @@ namespace testMonogame
             destRect = new Rectangle(X, Y, width, height);
 
         }
+        public int getHealth() { return 1; }
         public Rectangle getDestRect()
         {
             return destRect;

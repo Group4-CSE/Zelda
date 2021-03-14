@@ -25,5 +25,6 @@ namespace testMonogame.Interfaces
         public void AddPlayerProjectile(IPlayerProjectile projectile);
         public void RemovePlayerProjectile(IPlayerProjectile projectile);
         public void RemoveItem(IObject item);
+        public void RemoveEnemy(IEnemy enemy);
     }
 }

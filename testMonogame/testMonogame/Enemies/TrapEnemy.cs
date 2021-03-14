@@ -22,7 +22,6 @@ namespace testMonogame
         int startY;
         int updateFrame;
         int curFrame;
-        int health;
         int enemyVel = 3;
         IPlayer player;
         Rectangle playerDestRect;
@@ -39,8 +38,7 @@ namespace testMonogame
             startY = (int)position.Y;
             destRect = new Rectangle(X, Y, width, height);
             
-            //Enemy state
-            health = 100;
+
         }
         public Rectangle getDestRect()
         {
@@ -118,14 +116,14 @@ namespace testMonogame
 
         public void Attack(IPlayer player)
         {
-            player.TakeDamage(1);
+            player.TakeDamage(4);
         }
 
         public void takeDamage(int dmg)
         {
-            health -= dmg;
+           //cant take damage
         }
-
+        public int getHealth() { return 1; }
         public void Draw(SpriteBatch spriteBatch)
         {
             destRect = new Rectangle(X, Y, width, height);

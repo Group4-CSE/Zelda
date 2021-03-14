@@ -9,7 +9,8 @@ namespace testMonogame
         //Had to Set this here
         public int X { get; set; }
         public int Y { get; set; }
-
+        public bool IsAttacking();
+        public int GetDirection();
         //sets location of player object
         public void SetLocation(Vector2 location);
 
@@ -25,7 +26,7 @@ namespace testMonogame
         //damage player
         public void TakeDamage(int damage);
         //deals damage to enemy
-        public void dealDamage(int damage);
+        public void dealDamage(IEnemy enemy);
 
         //use key
         public Boolean UseKey(int keyType);

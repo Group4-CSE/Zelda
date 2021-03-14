@@ -48,7 +48,8 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            //TODO: Add code for picking up key (add key to inventory)
+            //perhapse add code to distinguish keys
+            player.ObtainItem("Key");
         }
 
         public void Update(Game1 game)

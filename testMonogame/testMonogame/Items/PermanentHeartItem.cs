@@ -48,7 +48,7 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            //TODO: Add code for picking up heart (Player health increase by 1)
+            player.ObtainItem("PermanentHeart");
         }
 
         public void Update(Game1 game)
