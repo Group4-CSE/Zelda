@@ -60,6 +60,7 @@ namespace testMonogame
         }
         public void blockCollisionHandler(Rectangle collisionRect, IPlayer player, IObject collided)
         {
+            collided.Interact(player);
             int x = collisionRect.Width;
             int y = collisionRect.Height;
             if (x > y)
@@ -87,6 +88,7 @@ namespace testMonogame
                     player.X += x;
                 }
             }
+           
         }
     }
 }

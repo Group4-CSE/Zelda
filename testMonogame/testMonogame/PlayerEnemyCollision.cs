@@ -78,7 +78,7 @@ namespace testMonogame
                 }
             }
 
-            if (player.IsAttacking() || direction==player.GetDirection())
+            if (player.IsAttacking() && direction==player.GetDirection())
             {
                 player.dealDamage(enemy);
                 if (enemy.getHealth() <= 0) room.RemoveEnemy(enemy);
