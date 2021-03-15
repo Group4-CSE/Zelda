@@ -1,0 +1,16 @@
+Author: Logan Flory
+Date: 3-15-21
+Sprint #2
+Name of .cs being reviewed:GameManager.cs
+Author of .cs being reviewed: Jerry Qiu
+Minutes taken to complete: 20
+Specific Comments:
+- Lack of comments make some parts of it harder to read and could make it harder for other people to maintain code
+- Splitting this class into a lot of methods makes it a lot easier to target problems if/when they arise
+- The order of the parameters for the detectCollision methods are sometimes in different order and could make things confusing, maybe
+  adding a comment / key for each detect collision could help with this?
+- The use of class scope variables makes things a lot easier to update / refactor
+Hypothetical Change:
+- Overall, to me, this would be an extremely easy class to maintain. The only problems I can think of is if we were to make some sort
+  of radical change, like if we stopped using a dictionary spritesheet for some reason. If we did add more content to the game it would
+  be easy as just adding the corresponding method calls and declarations as the rest. 
