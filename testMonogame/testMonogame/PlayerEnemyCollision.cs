@@ -16,8 +16,7 @@ namespace testMonogame
         Rectangle enemyRect;
         Boolean collision;
 
-        const int height = 16;
-        const int width = 16;
+
 
         public void playerEnemyDetection(IPlayer player, List<IEnemy> enemies,IRoom room)
         {
@@ -28,7 +27,7 @@ namespace testMonogame
                 enemyRect = enemy.getDestRect();
                 //playerRect = player.getDestRect();
 
-                playerRect = new Rectangle((int)player.X, (int)player.Y, width, height);
+                playerRect = player.getDestRect();
 
                 collision = enemyRect.Intersects(playerRect);
 

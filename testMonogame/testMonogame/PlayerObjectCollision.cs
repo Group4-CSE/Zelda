@@ -19,7 +19,7 @@ namespace testMonogame
 
         public void detectCollision(IPlayer player, List<IObject> items, List<IObject> blocks,IRoom r)
         {
-            //Detect player enemy collision
+
 
             playerRect = player.getDestRect();
             bool isIgnored;

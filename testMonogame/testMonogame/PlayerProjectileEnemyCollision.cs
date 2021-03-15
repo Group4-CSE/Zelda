@@ -32,7 +32,7 @@ namespace testMonogame
                 {
                     enemyRect = enemy.getDestRect();
                     collision = Rectangle.Intersect(projectileRect, enemyRect);
-                    if (!collision.IsEmpty) handleCollision(projectile,enemy, game,room );
+                    if (!collision.IsEmpty && !(projectile is SwordboomPlayerProjectile)) handleCollision(projectile,enemy, game,room );
                 }
             }
         }

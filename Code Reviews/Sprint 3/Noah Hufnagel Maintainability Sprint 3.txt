@@ -1,0 +1,15 @@
+Author of the code review: Noah Hufnagel
+Date of the code review: 3/15/2021
+Sprint number: 3
+Name of the .cs file being reviewed: PlayerEnemyCollision.cs
+Author of the .cs file being reviewed: Tyler Liu
+
+Specific comments on code quality:
+using intersect is called twice, could just be used once.
+Enemy size using .toArray allows enemies to be removed dynamically
+code seems to be relatively robust, shouldnt have too many issues with maintainability. 
+the directional attack code could cause some problems since it depends pretty heavily on player
+
+A hypothetical change to make to the game related to file being reviewed and how the current implementation could or could not easily support that change
+If we wanted to change the size of a player or the enemy then the code would still work perfectly because of getDestRect.
+If the player was changed and getDirection returned different values then the attacking check would not also need to be refactored

@@ -15,7 +15,7 @@ namespace testMonogame
 
         int x;
         int y;
-        int vProjectileOffset = 8;
+        int vProjectileOffset = 0;
         int hProjectileOffset = 0;
 
         bool stasis;
