@@ -4,6 +4,8 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using testMonogame.Interfaces;
+
 namespace testMonogame
 {
     public class PlayerProjectileEnemyCollision
@@ -19,25 +21,27 @@ namespace testMonogame
         }
 
 
-        public void detectCollision(List<IPlayerProjectile> projectiles, List<IEnemy> enemies, GameManager game)
+        public void detectCollision(List<IPlayerProjectile> projectiles, List<IEnemy> enemies, GameManager game, IRoom room)
         {
             IPlayerProjectile[] projArry = projectiles.ToArray();
             foreach (var projectile in projArry)
             {
                 projectileRect = projectile.getDestRect();
-                foreach (var enemy in enemies)
+                IEnemy[] enemyArr = enemies.ToArray();
+                foreach (var enemy in enemyArr)
                 {
                     enemyRect = enemy.getDestRect();
                     collision = Rectangle.Intersect(projectileRect, enemyRect);
-                    if (!collision.IsEmpty) handleCollision(projectile,enemy, game);
+                    if (!collision.IsEmpty) handleCollision(projectile,enemy, game,room );
                 }
             }
         }
 
-        public void handleCollision(IPlayerProjectile projectile, IEnemy enemy, GameManager game)
+        public void handleCollision(IPlayerProjectile projectile, IEnemy enemy, GameManager game, IRoom room)
         {
             projectile.doDamage(enemy);
             projectile.collide(game);
+            if (enemy.getHealth() <= 0) room.RemoveEnemy(enemy);
         }
     }
 }

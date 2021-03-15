@@ -22,7 +22,7 @@ namespace testMonogame
         PlayerWallCollision PWCol = new PlayerWallCollision();
         EnemyWallCollision EWCol = new EnemyWallCollision();
         PlayerProjectileWallCollision PPWCol = new PlayerProjectileWallCollision();
-        PlayerProjectileBlockCollision PPBCol = new PlayerProjectileBlockCollision();
+        //PlayerProjectileBlockCollision PPBCol = new PlayerProjectileBlockCollision();
         PlayerProjectileEnemyCollision PPECol = new PlayerProjectileEnemyCollision();
         //EnemyProjectileWallCollision EPWCol = new EnemyProjectileWallCollision();
         PlayerObjectCollision POCol = new PlayerObjectCollision();
@@ -55,8 +55,8 @@ namespace testMonogame
             PWCol.detectCollision(player, rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect());
             EWCol.detectCollision(rooms[roomKey].GetEnemies(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect());
             PPWCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
-            PPBCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetBlocks(), this);
-            PPECol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetEnemies(), this);
+            //PPBCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetBlocks(), this);
+            PPECol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetEnemies(), this, rooms[roomKey]);
             //EPWCol.detectCollision(rooms[roomKey].GetEnemeyProjectile(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
             POCol.detectCollision(player, rooms[roomKey].GetItems(), rooms[roomKey].GetBlocks(), rooms[roomKey]);
             PECol.playerEnemyDetection(player, rooms[roomKey].GetEnemies(), rooms[roomKey]);

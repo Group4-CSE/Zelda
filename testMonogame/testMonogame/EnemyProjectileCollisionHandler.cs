@@ -33,6 +33,7 @@ namespace testMonogame
             {
                 proj.doDamage(player);
                 proj.collide(game);
+                //add code to see if player dies later
             }
 
             
