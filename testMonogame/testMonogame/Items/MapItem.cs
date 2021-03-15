@@ -48,10 +48,10 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            //TODO: Add code for adding Map to UI
+            player.ObtainItem("Map");
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             //Nothing Needed here
         }

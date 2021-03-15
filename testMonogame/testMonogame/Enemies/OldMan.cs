@@ -33,6 +33,7 @@ namespace testMonogame
             destRect = new Rectangle(X, Y, width, height);
 
         }
+        public int getHealth() { return 1; }
         public Rectangle getDestRect()
         {
             return destRect;
@@ -58,7 +59,7 @@ namespace testMonogame
            //Nothing to put
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             //Nothing to put here
         }

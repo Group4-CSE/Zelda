@@ -7,8 +7,8 @@ namespace testMonogame
     class PlayerArrowCommand : ICommand
     {
         IPlayer player;
-        Game1 game;
-        public PlayerArrowCommand(IPlayer playerIn, Game1 gameIn)
+        GameManager game;
+        public PlayerArrowCommand(IPlayer playerIn, GameManager gameIn)
         {
             player = playerIn;
             game = gameIn;

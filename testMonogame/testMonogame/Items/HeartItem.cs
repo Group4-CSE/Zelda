@@ -62,10 +62,10 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            //TODO: Add code for picking up heart (heal player)
+            player.ObtainItem("heart");
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             //Nothing Needed here
         }

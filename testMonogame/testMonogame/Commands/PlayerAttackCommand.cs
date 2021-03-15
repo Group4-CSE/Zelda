@@ -7,8 +7,8 @@ namespace testMonogame
     class PlayerAttackCommand : ICommand
     {
         IPlayer player;
-        Game1 game;
-        public PlayerAttackCommand(IPlayer playerIn, Game1 gameIn)
+        GameManager game;
+        public PlayerAttackCommand(IPlayer playerIn, GameManager gameIn)
         {
             player = playerIn;
             game = gameIn;

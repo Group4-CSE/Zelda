@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,11 +8,14 @@ namespace testMonogame
 {
     public interface IObject
     {
-        //Something will typically implement both an object and a sprite. so this interface doesnt handle drawing.
-
+       
+        //Draw
+        public void Draw(SpriteBatch spriteBatch);
+        //Update
+        public void Update(GameManager game);
         public int X { get; set; }
         public int Y { get; set; }
-        public void Update(Game1 game);
+  
 
 
         /*this function handles whatever happens when the player touches the object. 

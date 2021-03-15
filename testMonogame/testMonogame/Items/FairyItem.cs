@@ -68,13 +68,13 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            //TODO: Add code for picking up fairy (full heal link)
+            player.ObtainItem("Fairy");
         }
 
 
 
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             
 

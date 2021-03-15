@@ -1,0 +1,12 @@
+﻿BACKGROUND
+WALLS
+ITEMS
+key,9,7
+ENEMIES
+keese,2,2
+keese,4,3
+keese,2,6
+DOORS
+open,right
+MAP
+2,6

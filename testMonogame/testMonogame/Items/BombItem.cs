@@ -48,10 +48,10 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            //TODO: Add code for picking up key, add bomb to inventory and allow player to throw
+            player.ObtainItem("Bomb");
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             //Nothing Needed here
         }

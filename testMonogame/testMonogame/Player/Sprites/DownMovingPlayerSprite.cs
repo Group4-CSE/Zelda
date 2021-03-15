@@ -24,7 +24,7 @@ namespace testMonogame
         LinkedListNode<Rectangle> currentFrame;
 
         bool moving;
-        public DownMovingPlayerSprite(Texture2D inTexture, IPlayerState inState)
+        public DownMovingPlayerSprite(Texture2D inTexture, IPlayerState inState, int damageFramesRemaining)
         {
             texture = inTexture;
             state = inState;
@@ -40,10 +40,25 @@ namespace testMonogame
 
             moving = false;
 
+            if (damageFramesRemaining != 0)
+            {
+                damageFlash();
+                //trim the list
+                for(int i=0; i < damageFramesRemaining; i++)
+                {
+                   
+                    damaged--;
+                    state.SetDamaged(damaged);
+                    frames.RemoveFirst();
+                    
+                }
+            }
+
         }
         public Rectangle getDestRect()
         {
-            return currentFrame.Value;
+            //return currentFrame.Value;
+            return destRect;
         }
         public void AttackAnimation()
         {
@@ -70,7 +85,10 @@ namespace testMonogame
                 }
                 else currentFrame = frames.First;
                 frameCounter = 0;
-                if (damaged > 0) damaged--;
+                if (damaged > 0) {
+                    damaged--;
+                    state.SetDamaged(damaged);
+                }
             }
 
             destRect = new Rectangle(state.getX() , state.getY() , currentFrame.Value.Width * 2, currentFrame.Value.Height * 2);
@@ -83,7 +101,7 @@ namespace testMonogame
             moving = movingIn;
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             if (damaged > 0) state.setStasis(true);
             else state.setStasis(false);
@@ -96,7 +114,7 @@ namespace testMonogame
         public bool isMoving()
         {
             bool ret;
-            if (frames.Count < 3) ret = moving;
+            if (frames.Count < 3 || damaged>0) ret = moving;
             else ret = false;
             return ret;
         }

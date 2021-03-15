@@ -32,7 +32,7 @@ namespace testMonogame
         {
             return destRect;
         }
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             //N/A
         }

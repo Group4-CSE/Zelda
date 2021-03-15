@@ -48,10 +48,11 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            //TODO: Add code for picking up triforce (probably just ends game since that is when u finish dungeon)
+            player.ObtainItem("Triforce");
+            //WIN GAME
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             //Nothing Needed here
         }

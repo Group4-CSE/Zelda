@@ -24,7 +24,7 @@ namespace testMonogame
         LinkedListNode<Rectangle> currentFrame;
 
         bool moving;
-        public UpMovingPlayerSprite(Texture2D inTexture, IPlayerState inState)
+        public UpMovingPlayerSprite(Texture2D inTexture, IPlayerState inState, int damageFramesRemaining)
         {
             texture = inTexture;
             state = inState;
@@ -39,11 +39,25 @@ namespace testMonogame
             damaged = 0;
 
             moving = false;
+            if (damageFramesRemaining != 0)
+            {
+                damageFlash();
+                //trim the list
+                for (int i = 0; i < damageFramesRemaining; i++)
+                {
+
+                    damaged--;
+                    state.SetDamaged(damaged);
+                    frames.RemoveFirst();
+
+                }
+            }
 
         }
         public Rectangle getDestRect()
         {
-            return currentFrame.Value;
+            //return currentFrame.Value;
+            return destRect;
         }
         public void AttackAnimation()
         {
@@ -70,7 +84,11 @@ namespace testMonogame
                 }
                 else currentFrame = frames.First;
                 frameCounter = 0;
-                if (damaged > 0) damaged--;
+                if (damaged > 0)
+                {
+                    damaged--;
+                    state.SetDamaged(damaged);
+                }
             }
 
             destRect = new Rectangle(state.getX() - (currentFrame.Value.Width - 16) * 2, state.getY() - (currentFrame.Value.Height - 16) * 2, currentFrame.Value.Width * 2, currentFrame.Value.Height * 2);
@@ -83,7 +101,7 @@ namespace testMonogame
             moving = movingIn;
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             if (damaged > 0) state.setStasis(true);
             else state.setStasis(false);
@@ -96,7 +114,7 @@ namespace testMonogame
         public bool isMoving()
         {
             bool ret;
-            if (frames.Count < 3) ret = moving;
+            if (frames.Count < 3 || damaged > 0) ret = moving;
             else ret = false;
             return ret;
         }

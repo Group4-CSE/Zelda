@@ -40,7 +40,7 @@ namespace testMonogame
             destRect = new Rectangle(X, Y, width, height);
 
             // Stuff for state
-            health = 100;
+            health = 1;
 
             // Stuff for movement
             directionFrame = randomNumber.Next(200);
@@ -51,6 +51,7 @@ namespace testMonogame
             xRand -= modifier;
             yRand -= modifier;
         }
+        public int getHealth() { return health; }
         public Rectangle getDestRect()
         {
             return destRect;
@@ -82,7 +83,7 @@ namespace testMonogame
 
         public void Attack(IPlayer player)
         {
-            // If this enemy collides with the player, set frame and do damage
+            player.TakeDamage(1);
         }
 
         public void takeDamage(int dmg)
@@ -107,7 +108,7 @@ namespace testMonogame
             spriteBatch.Draw(texture, destRect, sourceRect, color);
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             Move();
             // If (enemy collides with player) attack(player)

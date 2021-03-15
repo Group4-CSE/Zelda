@@ -1,13 +1,15 @@
 ﻿<Properties StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/KeyboardController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Game1.cs">
     <Files>
-      <File FileName="testMonogame/Game1.cs" Line="24" Column="1" />
-      <File FileName="testMonogame/IPlayer.cs" />
-      <File FileName="testMonogame/IObject.cs" />
-      <File FileName="testMonogame/ISprite.cs" />
-      <File FileName="testMonogame/IEnemy.cs" />
-      <File FileName="testMonogame/KeyboardController.cs" Line="40" Column="47" />
+      <File FileName="testMonogame/Game1.cs" Line="40" Column="10" />
+      <File FileName="testMonogame/KeyboardController.cs" />
+      <File FileName="testMonogame/Player/Player.cs" />
+      <File FileName="testMonogame/GameManager.cs" />
+      <File FileName="testMonogame/Rooms/Room.cs" />
+      <File FileName="testMonogame/PlayerProjectileWallCollision.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/PlayerProjectileEnemyCollision.cs" />
+      <File FileName="testMonogame/PlayerProjectileBlockCollision.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,13 +20,7 @@
                 <Node name="FrameworkReferences" expanded="True" />
                 <Node name="PackageDependencies" expanded="True" />
               </Node>
-              <Node name="Content" expanded="True">
-                <Node name="bin" expanded="True">
-                  <Node name="DesktopGL" expanded="True" />
-                </Node>
-                <Node name="obj" expanded="True" />
-              </Node>
-              <Node name="KeyboardController.cs" selected="True" />
+              <Node name="Game1.cs" selected="True" />
             </Node>
           </Node>
         </State>

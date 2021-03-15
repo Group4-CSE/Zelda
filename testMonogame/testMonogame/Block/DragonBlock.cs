@@ -44,7 +44,7 @@ namespace testMonogame
             //Nothing Needed here
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             //Nothing Needed here
         }

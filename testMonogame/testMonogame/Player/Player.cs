@@ -11,23 +11,29 @@ namespace testMonogame
         Texture2D texture;
         public int X { get; set; }
         public int Y { get; set; }
+        int damageFrames;
         int health;
-        int maxHealth=10;
+        int maxHealth=12;
+        //how long the attack lasts
+        int AttackTimer=30;
+        int AttackCount;
+        int Rupees;
 
         List<String> inventory= new List<string>();
 
          IPlayerState state;
         Texture2D projectiles;
-
+        bool attack;
         public Player(Texture2D inTexture, Vector2 position, Texture2D inProjectiles)
         {
             texture = inTexture;
             X = (int)position.X;
             Y = (int)position.Y;
-
+            Rupees = 0;
+            attack = false;
             projectiles = inProjectiles;
             state = new LeftMovingPlayerState(texture, new Vector2(X, Y),this, inProjectiles);
-
+            AttackCount = 0;
 
             inventory.Add("Bomb");
             inventory.Add("Bow");
@@ -36,16 +42,34 @@ namespace testMonogame
 
             health = maxHealth;
         }
-
+        public bool IsAttacking() { return attack; }
+        public int GetDirection()
+        {
+            //0=up, 1=right, 2=down, 3= left
+            int direction = 0;
+            if (state is RightMovingPlayerState) direction = 1;
+            else if (state is DownMovingPlayerState) direction = 2;
+            else if (state is LeftMovingPlayerState) direction = 3;
+            return direction;
+        }
+        public void SetDamageFrames(int frames)
+        {
+            damageFrames = frames;
+        }
+        public int GetDamageFrames() { return damageFrames; }
        public Rectangle getDestRect()
         {
             return state.getDestRect();
         }
 
-        public void Attack(Game1 game)
+        public void Attack(GameManager game)
         {
-            state.Attack();
-            if (health == maxHealth)state.spawnSwordProjectile(game) ;
+            if (!state.getStasis())
+            {
+                state.Attack();
+                attack = true;
+                if (health == maxHealth) state.spawnSwordProjectile(game);
+            }
         }
 
         public void ChangeState(int direction)
@@ -56,8 +80,9 @@ namespace testMonogame
             else if (direction == 3) state = new LeftMovingPlayerState(texture, new Vector2(X, Y), this, projectiles);
         }
 
-        public void dealDamage(int damage)
+        public void dealDamage(IEnemy enemy)
         {
+            enemy.takeDamage(1);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -78,7 +103,35 @@ namespace testMonogame
 
         public void ObtainItem(String item)
         {
-            inventory.Add(item);
+            switch (item)
+            {
+                case "Clock":
+                    //freeze screen
+                    break;
+                case "Compass":
+                    //guide to triforce
+                    break;
+                case "Fiary":
+                    health = maxHealth;
+                    break;
+                case "Heart":
+                    health += 4;
+                    if (health > maxHealth) health = maxHealth;
+                    break;
+                case "Map":
+                    //display rooms on map
+                    break;
+                case "PermanentHeart":
+                    maxHealth += 4;
+                    health += 4;
+                    break;
+                case "Rupee":
+                    Rupees++;
+                    break;
+                default:
+                    inventory.Add(item);
+                    break;
+            }
         }
 
         public void SetLocation(Vector2 location)
@@ -95,13 +148,23 @@ namespace testMonogame
                 state.damage();
             }
         }
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             if (state.isMoving()) state.Move();
             state.Update(game);
+
+            if (attack == true)
+            {
+                AttackCount++;
+                if (AttackCount > AttackTimer)
+                {
+                    attack = false;
+                    AttackCount = 0;
+                }
+            }
         }
 
-        public void UseBomb(Game1 game)
+        public void UseBomb(GameManager game)
         {
             if (inventory.Contains("Bomb"))
             {
@@ -113,7 +176,7 @@ namespace testMonogame
             
         }
 
-        public void UseBoomerang(Game1 game)
+        public void UseBoomerang(GameManager game)
         {
             if (inventory.Contains("Boomerang"))
             {
@@ -123,7 +186,7 @@ namespace testMonogame
             }
         }
         
-        public void UseBow(Game1 game)
+        public void UseBow(GameManager game)
         {
             if (inventory.Contains("Bow") && inventory.Contains("Arrow"))
             {

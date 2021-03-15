@@ -12,8 +12,8 @@ namespace testMonogame
         public void Move();
         public void takeDamage(int dmg);
         public void Draw(SpriteBatch spriteBatch);
-        public void Update(Game1 game);
-        public void spawnBoomerang(Game1 game);
+        public void Update(GameManager game);
+        public void spawnBoomerang(GameManager game);
         public Rectangle getDestRect();
     }
 }

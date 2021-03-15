@@ -1,11 +1,1 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/aquamentus.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/aquamentus.xnb","TextureProcessor","Texture2DContent",21399,28685,0.147347
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/basicenemy.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/basicenemy.xnb","TextureProcessor","Texture2DContent",9936,6613,0.001314
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/clock.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/clock.xnb","TextureProcessor","Texture2DContent",11186,745,0.002147
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/fire.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/fire.xnb","TextureProcessor","Texture2DContent",7414,2133,0.000926
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/goriyav2.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/goriyav2.xnb","TextureProcessor","Texture2DContent",2242,22205,0.001591
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/itemset.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/itemset.xnb","TextureProcessor","Texture2DContent",18615,8485,0.001376
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/oldman.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/oldman.xnb","TextureProcessor","Texture2DContent",5796,1109,0.000743
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/PlayerProjectiles.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/PlayerProjectiles.xnb","TextureProcessor","Texture2DContent",25706,42517,0.002559
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/playersheet.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/playersheet.xnb","TextureProcessor","Texture2DContent",15765,61405,0.00281
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/wallmasters.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/wallmasters.xnb","TextureProcessor","Texture2DContent",13741,2197,0.001314

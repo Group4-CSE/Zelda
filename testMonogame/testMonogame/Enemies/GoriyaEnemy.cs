@@ -26,7 +26,7 @@ namespace testMonogame
             X = (int)position.X;
             Y = (int)position.Y;
         }
-        
+        public int getHealth() { return health; }
         public void Move(int xChange, int yChange)
         {
             X += xChange;
@@ -57,7 +57,7 @@ namespace testMonogame
 
         public void Attack(IPlayer player)
         {
-            // Collide with player = attack
+            player.TakeDamage(2);
         }
 
         public void setThrow(bool isThrow)
@@ -114,7 +114,7 @@ namespace testMonogame
             state.Draw(spriteBatch);
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             throwCounter += 1;
             if (throwCounter > 600)

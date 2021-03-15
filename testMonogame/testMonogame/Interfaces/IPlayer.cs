@@ -9,7 +9,8 @@ namespace testMonogame
         //Had to Set this here
         public int X { get; set; }
         public int Y { get; set; }
-
+        public bool IsAttacking();
+        public int GetDirection();
         //sets location of player object
         public void SetLocation(Vector2 location);
 
@@ -25,28 +26,30 @@ namespace testMonogame
         //damage player
         public void TakeDamage(int damage);
         //deals damage to enemy
-        public void dealDamage(int damage);
+        public void dealDamage(IEnemy enemy); 
 
         //use key
         public Boolean UseKey(int keyType);
         //use bomb if player has one.
-        public void UseBomb(Game1 game);
+        public void UseBomb(GameManager game);
         //use boomerang if the player has it
-        public void UseBoomerang(Game1 game);
+        public void UseBoomerang(GameManager game);
         //ise bow if possible
-        public void UseBow(Game1 game);
+        public void UseBow(GameManager game);
         //Draw
         public void Draw(SpriteBatch spriteBatch);
         //Update
-        public void Update(Game1 game);
+        public void Update(GameManager game);
         //Move
         public void Move(int xChange, int yChange);
         //attack
-        public void Attack(Game1 game);
+        public void Attack(GameManager game);
         public int getX();
         public int getY();
         public IPlayerState getState();
         //returns the destination rectangle of the sprite associated with this entity
         public Rectangle getDestRect();
+        public void SetDamageFrames(int frames);
+        public int GetDamageFrames();
     }
 }

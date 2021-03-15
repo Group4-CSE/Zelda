@@ -7,8 +7,8 @@ namespace testMonogame
     class PlayerBombCommand : ICommand
     {
         IPlayer player;
-        Game1 game;
-        public PlayerBombCommand(IPlayer playerIn, Game1 gameIn)
+        GameManager game;
+        public PlayerBombCommand(IPlayer playerIn, GameManager gameIn)
         {
             player = playerIn;
             game = gameIn;

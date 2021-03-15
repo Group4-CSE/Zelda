@@ -52,12 +52,20 @@ namespace testMonogame
 
 
         }
+        public void collide(GameManager game)
+        {
+            delete(game);
+        }
         public Rectangle getDestRect()
         {
             return destRect;
         }
-        public void delete(Game1 game)
+        public void delete(GameManager game)
         {
+            game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(-1, -1), 0));
+            game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(1, 1), 1));
+            game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(1, -1), 2));
+            game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(-1, 1), 3));
             game.RemovePlayerProjectile(this);
         }
 
@@ -91,16 +99,12 @@ namespace testMonogame
         }
 
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             Move();
             //TEMP collision stuff
             if (X < 0 || X > 800 || Y < 0 || Y > 480)
             {
-                game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(-1, -1), 0));
-                game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(1, 1), 1));
-                game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(1, -1), 2));
-                game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(-1, 1), 3));
                 delete(game);
             }
         }

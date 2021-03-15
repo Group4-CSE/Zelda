@@ -8,7 +8,7 @@ namespace testMonogame
 {
     public interface IPlayerState
     {
-        
+        public void SetDamaged(int framesRemaining);
         //call sprite.draw
         public void Draw(SpriteBatch spriteBatch);
         public Rectangle getDestRect();
@@ -20,10 +20,10 @@ namespace testMonogame
         //Attack
         public void Attack();
         //items
-        public void spawnBomb(Game1 game);
-        public void spawnArrow(Game1 game);
-        public void spawnBoomerang(Game1 game);
-        public void spawnSwordProjectile(Game1 game);
+        public void spawnBomb(GameManager game);
+        public void spawnArrow(GameManager game);
+        public void spawnBoomerang(GameManager game);
+        public void spawnSwordProjectile(GameManager game);
         public int getX();
         public int getY();
         public void setMoving(bool moving);
@@ -32,6 +32,6 @@ namespace testMonogame
         //makes untouchable and limits actions
         public void setStasis(bool stasisIn);
         public bool getStasis();
-        public void Update(Game1 game);
+        public void Update(GameManager game);
     }
 }

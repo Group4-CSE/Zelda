@@ -38,10 +38,10 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            // Implement picking up here
+            player.ObtainItem("Clock");
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             // NULL
         }

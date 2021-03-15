@@ -62,10 +62,10 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            //TODO: Add code for Rupee. rupee+1
+            player.ObtainItem("Rupee");
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             //Nothing Needed here
         }

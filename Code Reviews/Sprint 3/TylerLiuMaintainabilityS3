@@ -1,0 +1,22 @@
+Author of the code review: Tyler Liu
+Date of the code review: 03/15/21
+Sprint number: 3
+Name of the .cs file being reviewed: EnemyObjectCollusions.cs
+Author of the .cs file being reviewed: Logan Flory
+
+Specific comments on code quality:
+Overall from first look, the collisions detector and handler in this class looks clean and no code smell.
+Great use of using the refactored getDestRect() method for blocks and using the intersect method
+on enemies. I also noticed how there are no magic numbers and all variables are consice and self
+explanatory. The for each loops to loop through comparisons of each block and enemy is also clever. 
+Something I would change however, is the if statement in the detectCollision. The shorthand is great
+,but it makes it diffcult to maintain and read for future reference. THe handler also takes advantage 
+of the enemy X, Y property for adjustment. 
+
+
+A hypothetical change to make to the game related to file being reviewed and how the current
+implementation could or could not easily support that change:
+
+This class involves enemy and block collisions. If we want to add blocks that could damages enemies, it
+would be doable. In foreach loop, we would need to define which type of block harms enemies, then in the 
+handler, we call the deal damage function on the enemies. 

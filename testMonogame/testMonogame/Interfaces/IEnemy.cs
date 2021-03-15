@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 namespace testMonogame
 {
@@ -14,7 +15,11 @@ namespace testMonogame
         public void takeDamage(int dmg);
         //returns the destination rectangle of the sprite associated with this entity
         public Rectangle getDestRect();
-
+        //Draw
+        public void Draw(SpriteBatch spriteBatch);
+        //Update
+        public void Update(GameManager game);
+        public int getHealth();
     }
 }
 

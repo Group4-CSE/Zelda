@@ -1,0 +1,10 @@
+Sprint 3 Readability 
+Author: Jerry Qiu
+3/15/2021
+
+EnemyObjectCollision.cs
+Logan Flory
+
+Code is very readable. Two methods organize to do the collision detection and handling. There are a few variables that are well named and implemented well. The comments in the code also help make the code readable. The comments make it obvious what case is being handled.
+
+7 mins
