@@ -18,7 +18,7 @@ Last couple of days were for fine-tuning and revising any bugs we saw. Such as t
 gets stuck into enemy. 
 
 Highlights:
-1. Room loading works - made own filetype
+1. Room loading works - made own file format
 2. Have a separate collision class that has both collision detection and handling instead of them being separate.
 
 Negatives:
