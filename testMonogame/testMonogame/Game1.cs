@@ -23,7 +23,7 @@ namespace testMonogame
         private Texture2D tileSet;
         private Texture2D wallmaster;
         private Texture2D playerProjectiles;
-        Dictionary<string, Texture2D> sprites = new Dictionary<string, Texture2D>();
+        Dictionary<string, Texture2D> sprites;
 
 
         IController keyController;
@@ -43,7 +43,7 @@ namespace testMonogame
         protected override void Initialize()
         {
             //test
-
+            sprites = new Dictionary<string, Texture2D>();
             base.Initialize();
         }
 
