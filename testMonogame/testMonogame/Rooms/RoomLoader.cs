@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -66,6 +66,10 @@ namespace testMonogame.Rooms
                     if (line.Equals("BACKGROUND"))
                     {
                         Background = 1;
+                    }
+                    else if (line.Equals("BACKGROUND2"))
+                    {
+                        Background = 3;
                     }
                     else if (line.Equals("UNDERGROUND"))
                     {
@@ -204,7 +208,7 @@ namespace testMonogame.Rooms
                     enemy = new TrapEnemy(sprites["basicenemy"], new Vector2(x, y));
                     break;
                 case "wallmaster":
-                    enemy = new TrapEnemy(sprites["wallmasters"], new Vector2(x, y));
+                    enemy = new WallmasterEnemy(sprites["wallmasters"], new Vector2(x, y));
                     break;
                 default:
                     enemy = null;

@@ -45,6 +45,7 @@ namespace testMonogame.Rooms
         Rectangle wallSourceRect = new Rectangle(0, 0, 16 * blockBaseDimension, 11 * blockBaseDimension);
         Rectangle undergroundSourceRect = new Rectangle(265, 176, 16 * blockBaseDimension, 11 * blockBaseDimension);
         Rectangle floorSourceRect = new Rectangle(272, 32, 12 * blockBaseDimension, 7 * blockBaseDimension);
+        Rectangle floor2SourceRect= new Rectangle(560, 194, 12 * blockBaseDimension, 7 * blockBaseDimension);
         Rectangle wallDestRect = new Rectangle(screenX, screenY, 16 * blockBaseDimension * blockSizeMod, 11 * blockBaseDimension * blockSizeMod);
         Rectangle floorDestRect = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
             12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
@@ -92,6 +93,7 @@ namespace testMonogame.Rooms
             if (Walls) spriteBatch.Draw(sprites["Backgrounds"], wallDestRect, wallSourceRect, Color.White);
             if (Background==1) spriteBatch.Draw(sprites["Backgrounds"], floorDestRect, floorSourceRect, Color.White);
             else if (Background == 2) spriteBatch.Draw(sprites["Backgrounds"], wallDestRect, undergroundSourceRect, Color.White);
+            else if (Background == 3) spriteBatch.Draw(sprites["Backgrounds"], floorDestRect, floor2SourceRect, Color.White);
 
             foreach (IObject block in Blocks)
             {

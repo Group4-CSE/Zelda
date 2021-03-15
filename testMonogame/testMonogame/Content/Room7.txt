@@ -1,4 +1,5 @@
 ﻿WALLS
+BACKGROUND2
 BLOCKS
 fireblock,3,3
 fireblock,9,3
