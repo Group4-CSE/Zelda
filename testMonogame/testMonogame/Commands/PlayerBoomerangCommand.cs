@@ -7,8 +7,8 @@ namespace testMonogame
     class PlayerBoomerangCommand : ICommand
     {
         IPlayer player;
-        Game1 game;
-        public PlayerBoomerangCommand(IPlayer playerIn, Game1 gameIn)
+        GameManager game;
+        public PlayerBoomerangCommand(IPlayer playerIn, GameManager gameIn)
         {
             player = playerIn;
             game = gameIn;

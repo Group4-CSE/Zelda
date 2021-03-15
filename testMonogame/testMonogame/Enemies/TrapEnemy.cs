@@ -132,7 +132,7 @@ namespace testMonogame
             
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             player = game.getPlayer();
             playerDestRect = player.getDestRect();

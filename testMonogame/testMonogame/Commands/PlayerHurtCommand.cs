@@ -7,8 +7,8 @@ namespace testMonogame
     class PlayerHurtCommand : ICommand
     {
         IPlayer player;
-        Game1 game;
-        public PlayerHurtCommand(IPlayer playerIn, Game1 gameIn)
+        GameManager game;
+        public PlayerHurtCommand(IPlayer playerIn, GameManager gameIn)
         {
             player = playerIn;
             game = gameIn;

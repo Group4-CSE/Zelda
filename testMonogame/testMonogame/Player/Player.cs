@@ -62,7 +62,7 @@ namespace testMonogame
             return state.getDestRect();
         }
 
-        public void Attack(Game1 game)
+        public void Attack(GameManager game)
         {
             if (!state.getStasis())
             {
@@ -148,7 +148,7 @@ namespace testMonogame
                 state.damage();
             }
         }
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             if (state.isMoving()) state.Move();
             state.Update(game);
@@ -164,7 +164,7 @@ namespace testMonogame
             }
         }
 
-        public void UseBomb(Game1 game)
+        public void UseBomb(GameManager game)
         {
             if (inventory.Contains("Bomb"))
             {
@@ -176,7 +176,7 @@ namespace testMonogame
             
         }
 
-        public void UseBoomerang(Game1 game)
+        public void UseBoomerang(GameManager game)
         {
             if (inventory.Contains("Boomerang"))
             {
@@ -186,7 +186,7 @@ namespace testMonogame
             }
         }
         
-        public void UseBow(Game1 game)
+        public void UseBow(GameManager game)
         {
             if (inventory.Contains("Bow") && inventory.Contains("Arrow"))
             {

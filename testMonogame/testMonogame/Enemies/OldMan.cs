@@ -59,7 +59,7 @@ namespace testMonogame
            //Nothing to put
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             //Nothing to put here
         }

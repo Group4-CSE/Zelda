@@ -125,7 +125,7 @@ namespace testMonogame.Rooms
 
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             foreach (IObject block in Blocks)
             {

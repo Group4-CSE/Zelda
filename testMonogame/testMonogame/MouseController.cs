@@ -13,8 +13,8 @@ namespace testMonogame
         const int finalMapWidth = 141;
         const int finalMapHeight = 69;
 
-        Game1 game;
-        public MouseController(Game1 inGame)
+        GameManager game;
+        public MouseController(GameManager inGame)
         {
             game = inGame;
         }

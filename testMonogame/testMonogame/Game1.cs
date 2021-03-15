@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System;
 
 
 namespace testMonogame
@@ -22,70 +23,13 @@ namespace testMonogame
         private Texture2D tileSet;
         private Texture2D wallmaster;
         private Texture2D playerProjectiles;
+        Dictionary<string, Texture2D> sprites = new Dictionary<string, Texture2D>();
 
-        List<IEnemyProjectile> activeEnemyProjectiles = new List<IEnemyProjectile>();
-        List<IEnemyProjectile> removedEnemyProjectiles = new List<IEnemyProjectile>();
-        List<IEnemyProjectile> addedEnemyProjectiles = new List<IEnemyProjectile>();
-        List<IPlayerProjectile> activePlayerProjectiles = new List<IPlayerProjectile>();
-        List<IPlayerProjectile> removedPlayerProjectiles = new List<IPlayerProjectile>();
-        List<IPlayerProjectile> addedPlayerProjectiles = new List<IPlayerProjectile>();
-
-
-        public void LoadRoom(int roomNum)
-        {
-            //NULL TEMP, check temp game1 sent for testing if u wanna be able to load rooms
-        }
-
-        public void AddEnemyProjectile(IEnemyProjectile projectile) { addedEnemyProjectiles.Add(projectile); }
-        public void RemoveEnemyProjectile(IEnemyProjectile projectile) { removedEnemyProjectiles.Add(projectile); }
-        public void AddPlayerProjectile(IPlayerProjectile projectile) { addedPlayerProjectiles.Add(projectile); }
-        public void RemovePlayerProjectile(IPlayerProjectile projectile) { removedPlayerProjectiles.Add(projectile); }
-        void removeProjectiles()
-        {
-            foreach (IEnemyProjectile removed in removedEnemyProjectiles)
-            {
-                activeEnemyProjectiles.Remove(removed);
-            }
-            removedEnemyProjectiles.Clear();
-            foreach (IPlayerProjectile removed in removedPlayerProjectiles)
-            {
-                activePlayerProjectiles.Remove(removed);
-            }
-            removedPlayerProjectiles.Clear();
-        }
-        void addProjectiles()
-        {
-            foreach (IEnemyProjectile removed in addedEnemyProjectiles)
-            {
-                activeEnemyProjectiles.Add(removed);
-            }
-            addedEnemyProjectiles.Clear();
-            foreach (IPlayerProjectile removed in addedPlayerProjectiles)
-            {
-                activePlayerProjectiles.Add(removed);
-            }
-            addedPlayerProjectiles.Clear();
-        }
-
-
-
-
-
-
-        IPlayer player;
 
         IController keyController;
+        IController mouseController;
 
-
-
-
-        List<ISprite> blocks;
-        List<ISprite> items;
-        List<ISprite> enemies;
-
-        int blockCounter;
-        int itemCounter;
-        int enemyCounter;
+        GameManager manager;
 
 
         public Game1()
@@ -95,20 +39,10 @@ namespace testMonogame
             IsMouseVisible = true;
         }
 
-        public IPlayer getPlayer()
-        {
-            return player;
-
-        }
-
 
         protected override void Initialize()
         {
             //test
-
-            blockCounter = 0;
-            itemCounter = 0;
-            enemyCounter = 0;
 
             base.Initialize();
         }
@@ -128,73 +62,40 @@ namespace testMonogame
             tileSet = Content.Load<Texture2D>("tileset");
             wallmaster = Content.Load<Texture2D>("wallmasters");
             playerProjectiles = Content.Load<Texture2D>("PlayerProjectiles");
+            Texture2D backgrounds = Content.Load<Texture2D>("Backgrounds");
+            Texture2D map = Content.Load<Texture2D>("Level1Map");
 
-            blocks = new List<ISprite>();
-            items = new List<ISprite>();
-            enemies = new List<ISprite>();
-
-            blocks.Add(new ClosedDoor(0, new Vector2(40, 40), doors, 0, true));
-            blocks.Add(new LockedDoor(0, new Vector2(40, 40), doors, 0, true));
-            blocks.Add(new OpenDoor(0, new Vector2(40, 40), doors, 0, false));
-            blocks.Add(new CaveDoor(0, new Vector2(40, 40), doors));
-            blocks.Add(new BlueSandBlock(tileSet, new Vector2(40, 40)));
-            blocks.Add(new DragonBlock(tileSet, new Vector2(40, 40)));
-            blocks.Add(new DungeonBlock(tileSet, new Vector2(40, 40)));
-            blocks.Add(new FishBlock(tileSet, new Vector2(40, 40)));
-            blocks.Add(new FireBlock(fire, new Vector2(40, 40))); ;
-
-            items.Add(new BombItem(itemSheet, new Vector2(100, 100)));
-            items.Add(new BowItem(itemSheet, new Vector2(100, 100)));
-            items.Add(new TriforceItem(itemSheet, new Vector2(100, 100)));
-            items.Add(new CompassItem(itemSheet, new Vector2(100, 100)));
-            items.Add(new PermanentHeartItem(itemSheet, new Vector2(100, 100)));
-            items.Add(new HeartItem(itemSheet, new Vector2(100, 100)));
-            items.Add(new BoomerangItem(itemSheet, new Vector2(100, 100)));
-            items.Add(new KeyItem(itemSheet, new Vector2(100, 100)));
-            items.Add(new FairyItem(itemSheet, new Vector2(100, 100)));
-            items.Add(new MapItem(itemSheet, new Vector2(100, 100)));
-            items.Add(new RupeeItem(itemSheet, new Vector2(100, 100)));
+            sprites.Add("aquamentus", aquaSheet);
+            sprites.Add("basicenemy", basicEnemy);
+            sprites.Add("doors", doors);
+            sprites.Add("fire", fire);
+            sprites.Add("goriya", goriya);
+            sprites.Add("itemset", itemSheet);
+            sprites.Add("oldman", oldMan);
+            sprites.Add("playersheet", playerSheet);
+            sprites.Add("tileset", tileSet);
+            sprites.Add("wallmasters", wallmaster);
+            sprites.Add("PlayerProjectiles", playerProjectiles);
+            sprites.Add("map", map);
+            sprites.Add("Backgrounds", backgrounds);
 
 
-            enemies.Add(new AquamentusEnemy(aquaSheet, new Vector2(400, 200)));
-            enemies.Add(new TrapEnemy(basicEnemy, new Vector2(400, 200)));
-            enemies.Add(new GelEnemy(basicEnemy, new Vector2(400, 200)));
-            enemies.Add(new StalfosEnemy(basicEnemy, new Vector2(400, 200)));
-            enemies.Add(new KeeseEnemy(basicEnemy, new Vector2(400, 200)));
-            enemies.Add(new WallmasterEnemy(wallmaster, new Vector2(400, 200)));
-            enemies.Add(new OldMan(oldMan, new Vector2(400, 200)));
-            enemies.Add(new GoriyaEnemy(goriya, playerProjectiles, new Vector2(400, 200)));
+            manager = new GameManager(this, sprites);
 
+            keyController = new KeyboardController(manager);
+            mouseController = new MouseController(manager);
 
-
-            player = new Player(Content.Load<Texture2D>("playersheet"), new Vector2(500, 200), playerProjectiles);
-
-            keyController = new KeyboardController(this);
-
+            
 
         }
 
         protected override void Update(GameTime gameTime)
         {
 
-            player.Update(this);
 
-            foreach (ISprite enemyProjectile in activeEnemyProjectiles)
-            {
-                enemyProjectile.Update(this);
-            }
-            foreach (ISprite playerProjectile in activePlayerProjectiles)
-            {
-                playerProjectile.Update(this);
-            }
-            removeProjectiles();
-            addProjectiles();
-
+            manager.Update();
             keyController.Update();
-
-            blocks[blockCounter].Update(this);
-            items[itemCounter].Update(this);
-            enemies[enemyCounter].Update(this);
+            mouseController.Update();
 
             base.Update(gameTime);
         }
@@ -205,24 +106,7 @@ namespace testMonogame
 
             _spriteBatch.Begin();
 
-
-            foreach (ISprite enemyProjectile in activeEnemyProjectiles)
-            {
-                enemyProjectile.Draw(_spriteBatch);
-            }
-            foreach (ISprite playerProjectile in activePlayerProjectiles)
-            {
-                playerProjectile.Draw(_spriteBatch);
-            }
-
-
-            player.Draw(_spriteBatch);
-
-            blocks[blockCounter].Draw(_spriteBatch);
-            items[itemCounter].Draw(_spriteBatch);
-            enemies[enemyCounter].Draw(_spriteBatch);
-
-
+            manager.Draw(_spriteBatch);
 
 
             _spriteBatch.End();
@@ -234,32 +118,6 @@ namespace testMonogame
         {
             //for sprint 2 reset
             this.Initialize();
-        }
-
-        public void cycleBlock(int incDec)
-        {
-            blockCounter += incDec;
-
-            if (blockCounter == blocks.Count) blockCounter = 0;
-            else if (blockCounter < 0) blockCounter = blocks.Count - 1;
-        }
-
-        public void cycleItem(int incDec)
-        {
-            itemCounter += incDec;
-
-
-            if (itemCounter == items.Count) itemCounter = 0;
-            else if (itemCounter < 0) itemCounter = items.Count - 1;
-        }
-
-        public void cycleEnemy(int incDec)
-        {
-            enemyCounter += incDec;
-
-            if (enemyCounter == enemies.Count) enemyCounter = 0;
-            else if (enemyCounter < 0) enemyCounter = enemies.Count - 1;
-
         }
     }
 }

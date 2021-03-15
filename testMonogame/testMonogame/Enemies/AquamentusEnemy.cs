@@ -136,14 +136,14 @@ namespace testMonogame
             currentFrame = hurtFrames.First;
             //flash colors
         }
-        void spawnFireBalls(Game1 game)
+        void spawnFireBalls(GameManager game)
         {
             game.AddEnemyProjectile(new FireBallEnemyProjectile(texture, new Vector2(X + width / 4, Y + height / 4), new Vector2(-1, 1)));
             game.AddEnemyProjectile(new FireBallEnemyProjectile(texture, new Vector2(X + width / 4, Y + height / 4), new Vector2(-1, 0)));
             game.AddEnemyProjectile(new FireBallEnemyProjectile(texture, new Vector2(X + width / 4, Y + height / 4), new Vector2(-1, -1)));
 
         }
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             //slow movement since aquamentus rocks back and forth slowly
             moveDelayCount++;

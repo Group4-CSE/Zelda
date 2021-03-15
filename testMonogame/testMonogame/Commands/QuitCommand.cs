@@ -6,8 +6,8 @@ namespace testMonogame.Commands
 {
     public class QuitCommand : ICommand
     {
-        Game1 game;
-        public QuitCommand(Game1 game)
+        GameManager game;
+        public QuitCommand(GameManager game)
         {
             this.game = game;
         }

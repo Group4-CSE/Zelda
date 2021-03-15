@@ -41,7 +41,7 @@ namespace testMonogame
             player.ObtainItem("Clock");
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             // NULL
         }

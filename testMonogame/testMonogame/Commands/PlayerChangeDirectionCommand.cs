@@ -7,9 +7,9 @@ namespace testMonogame
     class PlayerChangeDirectionCommand : ICommand
     {
         IPlayer player;
-        Game1 game;
+        GameManager game;
         int direction;
-        public PlayerChangeDirectionCommand(IPlayer playerIn, Game1 gameIn, int directionIn)
+        public PlayerChangeDirectionCommand(IPlayer playerIn, GameManager gameIn, int directionIn)
         {
             //0=up, 1=down, 2=right, 3=left
             player = playerIn;

@@ -5,9 +5,9 @@ namespace testMonogame.Commands
 {
     public class CycleEnemyCommand : ICommand
     {
-        Game1 game;
+        GameManager game;
         int incDec;
-        public CycleEnemyCommand(Game1 game, int incDecIn)
+        public CycleEnemyCommand(GameManager game, int incDecIn)
         {
             this.game = game;
             incDec = incDecIn;
@@ -15,7 +15,7 @@ namespace testMonogame.Commands
 
         public void Execute()
         {
-            game.cycleEnemy(incDec);
+            //game.cycleEnemy(incDec);
         }
     }
 }

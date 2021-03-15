@@ -74,7 +74,7 @@ namespace testMonogame
 
 
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             
 
