@@ -1,0 +1,31 @@
+Code Review Readability
+
+Author of the code review: 
+Tyler Liu
+
+Date of the code review: 
+03/15/21
+
+Sprint number: 
+Sprint 3
+
+Name of the .cs file being reviewed:
+RoomLoader.cs
+
+Author of the .cs file being reviewed:
+Noah Hufnagel
+
+Number of minutes taken to complete the review:
+~25 Minutes
+
+Specific comments on what is readable and what is not:
+
+- Good use of variable naming, helps reader understand what the var stores without looking at documentation. (Self Explanatory)
+- The flow/logic within each function allows readers to visualize what is happening. For example, in RoomLoading():
+    a. Initialize list of required blocks, enemies, items, background, walls, and coordinates.
+    b. load from the file
+    c. create/return new room
+- Comment that describes what the directory should look like is great for letting reader know what to expect.
+- To us we understand what each switch statement is doing, but maybe to other readers it might be difficult. (Bit more comments maybe)
+- This file is quite large compared to other files. (315 lines) But, I think its alright since the loadFromFile has switch cases that 
+calls all of the add functions. 
