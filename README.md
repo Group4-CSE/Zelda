@@ -1,4 +1,6 @@
 # Zelda - Group 4 CSE 3902
+We Decided to start the player with infinite of all items.
+Upon Pulling you may have to rebuild the solution to avoid build errors.
 
 Controls:
 W/Up Arrow- Move Link Up
