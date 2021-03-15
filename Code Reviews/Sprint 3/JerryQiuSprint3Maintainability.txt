@@ -1,0 +1,11 @@
+Sprint 3 Code Quality 
+Author: Jerry Qiu
+3/15/2021
+
+PlayerObjectCollision.cs
+John Flemming/ Noah Hufnagel
+
+Code looks good. Class isn't too long and doesn't depend on too many things. There are two constants that don't appear to be used at all: height and width. These constants can probably be removed. another change could be to remove the lists as parameters for the method detect collision as those parameters can be gotten from the room parameter.
+
+10 mins
+
