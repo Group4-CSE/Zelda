@@ -1,0 +1,12 @@
+Author of code review: John Fleming
+Date of Code Review: 3/15/2021
+Sprint Number: 3
+Name of The .cs file: PlayerEnemyCollision.cs
+Author of the .cs file: Tyler Liu
+Number of minutes taken to complete review: 10 minutes
+Specific comments:
+Methods are well-named and/or well-commented
+top of the class is muddled - what's going on with that constructor?
+Declares a boolean variable, which actually helps readibility. It's generally not great coding practice, but it makes it more clear what you're talking about.)
+comments explain what still needs to be added
+playerRect = player.getDestRect(); is commented out and then coded in two lines below. Small thing obviously.
