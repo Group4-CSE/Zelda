@@ -20,6 +20,6 @@ stalfos,8,5
 stalfos,10,2
 stalfos,11,6
 DOORS
-open,left
+open,left,17
 MAP
 4,6

@@ -26,7 +26,7 @@ permanentheart,11,4
 ENEMIES
 aquamentus,9,3
 DOORS
-locked,down
-closed,right
+locked,down,11
+closed,right,6
 MAP
 5,2

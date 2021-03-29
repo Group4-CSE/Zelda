@@ -12,8 +12,8 @@ goriya,9,1
 goriya,10,2
 goriya,9,5
 DOORS
-locked,left
-cave,down
-open,right
+locked,left,9
+cave,down,14
+open,right,11
 MAP
 4,3
