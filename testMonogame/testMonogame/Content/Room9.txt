@@ -20,9 +20,9 @@ gel,8,1
 gel,9,3
 gel,4,6
 DOORS
-open,left
-open,up
-locked,right
-cave,down
+open,left,8
+open,up,4
+locked,right,10
+cave,down,13
 MAP
 3,3

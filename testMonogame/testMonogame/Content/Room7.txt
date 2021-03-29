@@ -6,6 +6,6 @@ fireblock,9,3
 ENEMIES
 oldman,6,3
 DOORS
-open,right
+open,right,8
 MAP
 1,3
