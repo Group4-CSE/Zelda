@@ -14,8 +14,11 @@ namespace testMonogame
         Texture2D texture;
         Rectangle destRect;
         Rectangle sourceRect;
+        int side;
 
-        public LockedDoor(int direction, Vector2 pos, Texture2D texture, int key, Boolean locked)
+        int nextRoom;
+
+        public LockedDoor(int direction, Vector2 pos, Texture2D texture, int key, Boolean locked,int next)
         {
             this.texture = texture;
             X = (int)pos.X;
@@ -23,6 +26,8 @@ namespace testMonogame
             destRect = new Rectangle(X, Y, 65, 65);
             keyType = key;
             isLocked = locked;
+            side = direction;
+            nextRoom = next;
 
             switch (direction)
             {
@@ -86,9 +91,19 @@ namespace testMonogame
             sourceRect.X = 0;
         }
 
-        public Boolean getIsLocked()
+        public Boolean getIsClosed()
         {
             return isLocked;
+        }
+
+        public int getSide()
+        {
+            return side;
+        }
+
+        public int getNextRoom()
+        {
+            return nextRoom;
         }
     }
 }
