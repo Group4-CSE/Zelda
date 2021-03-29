@@ -13,7 +13,7 @@ stalfos,4,1
 stalfos,5,3
 stalfos,5,5
 DOORS
-locked,down
-open,up
+locked,down,17
+open,up,13
 MAP
 3,5
