@@ -16,7 +16,7 @@ keese,4,5
 keese,9,1
 keese,9,7
 DOORS
-locked,up
-closed,right
+locked,up,8
+closed,right,13
 MAP
 2,4
