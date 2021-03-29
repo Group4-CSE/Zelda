@@ -11,13 +11,20 @@ namespace testMonogame
         Texture2D texture;
         Rectangle destRect;
         Rectangle sourceRect;
+        Boolean isClosed;
+        int side;
 
-        public CaveDoor(int direction, Vector2 pos, Texture2D texture)
+        int nextRoom;
+
+        public CaveDoor(int direction, Vector2 pos, Texture2D texture, int next)
         {
             this.texture = texture;
             X = (int)pos.X;
             Y = (int)pos.Y;
             destRect = new Rectangle(X, Y, 65, 65);
+            side = direction;
+            isClosed = false;
+            nextRoom = next;
 
             switch (direction)
             {
@@ -56,6 +63,21 @@ namespace testMonogame
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, destRect, sourceRect, Color.White);
+        }
+
+        public Boolean getIsClosed()
+        {
+            return isClosed;
+        }
+
+        public int getSide()
+        {
+            return side;
+        }
+
+        public int getNextRoom()
+        {
+            return nextRoom;
         }
     }
 }
