@@ -17,7 +17,7 @@ keese,11,2
 keese,11,6
 keese,12,4
 DOORS
-open,left
-cave,up
+open,left,13
+cave,up,10
 MAP
 4,4

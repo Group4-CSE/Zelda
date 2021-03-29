@@ -32,6 +32,6 @@ goriya,9,1
 goriya,8,3
 goriya,10,5
 DOORS
-locked,down
+locked,down,4
 MAP
 3,1
