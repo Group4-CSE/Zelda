@@ -17,3 +17,5 @@ cave,down,14
 open,right,11
 MAP
 4,3
+CONDITIONS
+hideitems
