@@ -9,6 +9,13 @@ namespace testMonogame
         //Had to Set this here
         public int X { get; set; }
         public int Y { get; set; }
+        public int Rupees { get; set; }
+        public int Keys { get; set; }
+        public int Bombs { get; set; }
+        public bool Compass { get; set; }
+        public bool Map { get; set; }
+        public string GetSelectedItem();
+        public void SelectItem(int i);
         public bool IsAttacking();
         public int GetDirection();
         //sets location of player object

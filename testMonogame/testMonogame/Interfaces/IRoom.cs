@@ -8,6 +8,8 @@ namespace testMonogame.Interfaces
 {
     public interface IRoom
     {
+        public int screenX { get; set; }
+        public int screenY { get; set; }
         public void Draw(SpriteBatch spriteBatch);
         public void Update(GameManager game);
 

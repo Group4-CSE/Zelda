@@ -64,6 +64,7 @@ namespace testMonogame
             playerProjectiles = Content.Load<Texture2D>("PlayerProjectiles");
             Texture2D backgrounds = Content.Load<Texture2D>("Backgrounds");
             Texture2D map = Content.Load<Texture2D>("Level1Map");
+            Texture2D hudSheet = Content.Load<Texture2D>("HudSheet");
 
             sprites.Add("aquamentus", aquaSheet);
             sprites.Add("basicenemy", basicEnemy);
@@ -78,9 +79,12 @@ namespace testMonogame
             sprites.Add("PlayerProjectiles", playerProjectiles);
             sprites.Add("map", map);
             sprites.Add("Backgrounds", backgrounds);
+            sprites.Add("hudSheet", hudSheet);
 
 
-            manager = new GameManager(this, sprites);
+            SpriteFont font= Content.Load<SpriteFont>("HUDfont");
+
+            manager = new GameManager(this, sprites,font);
 
             keyController = new KeyboardController(manager);
             mouseController = new MouseController(manager);

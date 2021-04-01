@@ -11,6 +11,8 @@ namespace testMonogame
     {
         Game1 game;
         IPlayer player;
+        HUD hud;
+
         private RoomLoader roomLoad;
         Dictionary<String, IRoom> rooms = new Dictionary<string, IRoom>();
         String roomKey = "";
@@ -29,7 +31,7 @@ namespace testMonogame
         PlayerEnemyCollision PECol = new PlayerEnemyCollision();
         EnemyProjectileCollisionHandler EPCol;
 
-        public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet)
+        public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, SpriteFont font)
         {
             this.game = game;
             sprites = spriteSheet;
@@ -40,6 +42,7 @@ namespace testMonogame
             roomKey = "Room1";
 
             player = new Player(spriteSheet["playersheet"], new Vector2(500, 200), spriteSheet["PlayerProjectiles"]);
+            hud = new HUD(spriteSheet["hudSheet"], font);
 
             EPCol = new EnemyProjectileCollisionHandler(this);
 
@@ -47,6 +50,9 @@ namespace testMonogame
 
         public void Update()
         {
+            hud.Update(this);
+
+
             rooms[roomKey].Update(this);
 
             player.Update(this);
@@ -66,6 +72,8 @@ namespace testMonogame
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            hud.Draw(spriteBatch);
+
             rooms[roomKey].Draw(spriteBatch);
 
             player.Draw(spriteBatch);
@@ -92,6 +100,10 @@ namespace testMonogame
         {
             return player;
 
+        }
+        public HUD getHUD()
+        {
+            return hud;
         }
 
         public void Exit()
