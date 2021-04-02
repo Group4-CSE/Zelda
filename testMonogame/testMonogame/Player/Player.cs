@@ -17,12 +17,21 @@ namespace testMonogame
         //how long the attack lasts
         int AttackTimer=30;
         int AttackCount;
-        int Rupees;
+
+        int arrowCount;
+        public int Rupees { get; set; }
+        public int Keys { get; set; }
+        public int Bombs { get; set; }
+        public bool Compass { get; set; }
+        public bool Map { get; set; }
 
         List<String> inventory= new List<string>();
 
          IPlayerState state;
         Texture2D projectiles;
+
+        string selectedItem;
+
         bool attack;
         public Player(Texture2D inTexture, Vector2 position, Texture2D inProjectiles)
         {
@@ -35,13 +44,17 @@ namespace testMonogame
             state = new LeftMovingPlayerState(texture, new Vector2(X, Y),this, inProjectiles);
             AttackCount = 0;
 
-            inventory.Add("Bomb");
-            inventory.Add("Bow");
-            inventory.Add("Arrow");
-            inventory.Add("Boomerang");
+            ObtainItem("Bomb");
+            ObtainItem("Bow");
+            ObtainItem("Arrow");
+            ObtainItem("Boomerang");
+
+            SelectItem(0);
 
             health = maxHealth;
         }
+        public string GetSelectedItem() { return selectedItem; }
+        public void SelectItem(int i) { selectedItem = inventory[i]; }
         public bool IsAttacking() { return attack; }
         public int GetDirection()
         {
@@ -110,6 +123,7 @@ namespace testMonogame
                     break;
                 case "Compass":
                     //guide to triforce
+                    Compass = true;
                     break;
                 case "Fiary":
                     health = maxHealth;
@@ -120,13 +134,24 @@ namespace testMonogame
                     break;
                 case "Map":
                     //display rooms on map
+                    Map = true;
                     break;
                 case "PermanentHeart":
                     maxHealth += 4;
                     health += 4;
                     break;
                 case "Rupee":
-                    Rupees++;
+                    Rupees=Rupees+1;
+                    break;
+                case "Key":
+                    Keys = Keys + 1;
+                    break;
+                case "Bomb":
+                    Bombs = Bombs + 1;
+                    inventory.Add(item);
+                    break;
+                case "Arrow":
+                    arrowCount++;
                     break;
                 default:
                     inventory.Add(item);
