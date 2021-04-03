@@ -24,7 +24,8 @@ namespace testMonogame
          IPlayerState state;
         Texture2D projectiles;
         bool attack;
-        public Player(Texture2D inTexture, Vector2 position, Texture2D inProjectiles)
+        Sounds sound1;
+        public Player(Texture2D inTexture, Vector2 position, Texture2D inProjectiles, Sounds sounds)
         {
             texture = inTexture;
             X = (int)position.X;
@@ -41,6 +42,7 @@ namespace testMonogame
             inventory.Add("Boomerang");
 
             health = maxHealth;
+            sound1 = sounds;
         }
         public bool IsAttacking() { return attack; }
         public int GetDirection()
@@ -67,8 +69,13 @@ namespace testMonogame
             if (!state.getStasis())
             {
                 state.Attack();
+                sound1.Sword_Slash();
                 attack = true;
-                if (health == maxHealth) state.spawnSwordProjectile(game);
+                if (health == maxHealth)
+                {
+                    sound1.Sword_Shoot();
+                    state.spawnSwordProjectile(game);
+                }
             }
         }
 
@@ -83,6 +90,8 @@ namespace testMonogame
         public void dealDamage(IEnemy enemy)
         {
             enemy.takeDamage(1);
+            sound1.EnemyHitDie(0);
+            //Figure out sound for enemy dying
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -116,6 +125,7 @@ namespace testMonogame
                     break;
                 case "Heart":
                     health += 4;
+                    sound1.getStuff(1);
                     if (health > maxHealth) health = maxHealth;
                     break;
                 case "Map":
@@ -127,9 +137,11 @@ namespace testMonogame
                     break;
                 case "Rupee":
                     Rupees++;
+                    sound1.getStuff(2);
                     break;
                 default:
                     inventory.Add(item);
+                    sound1.getStuff(0);
                     break;
             }
         }
@@ -145,6 +157,7 @@ namespace testMonogame
             if (!state.getStasis())
             {
                 health -= damage;
+                sound1.Link_Hurt();
                 state.damage();
             }
         }
@@ -169,7 +182,9 @@ namespace testMonogame
             if (inventory.Contains("Bomb"))
             {
                 state.PlaceItem();
+                sound1.BombD(0);
                 state.spawnBomb(game);
+                sound1.BombD(1);
                 //player looses one bomb later
             }
             
@@ -180,6 +195,7 @@ namespace testMonogame
         {
             if (inventory.Contains("Boomerang"))
             {
+                sound1.Arr_Boom();
                 state.PlaceItem();
                 state.spawnBoomerang(game);
                 inventory.Remove("Boomerang");
@@ -190,6 +206,7 @@ namespace testMonogame
         {
             if (inventory.Contains("Bow") && inventory.Contains("Arrow"))
             {
+                sound1.Arr_Boom();
                 state.PlaceItem();
                 state.spawnArrow(game);
                 //player looses one arrow, later
@@ -199,6 +216,7 @@ namespace testMonogame
         public bool UseKey(int keyType)
         {
             //Add logic for opening doors later
+            //sound1.Door()
             return false;
         }
 
