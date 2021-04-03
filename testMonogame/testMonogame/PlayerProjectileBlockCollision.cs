@@ -7,16 +7,17 @@ using Microsoft.Xna.Framework.Input;
 
 namespace testMonogame
 {
-    class PlayerprojectileBlockCollision
+    class PlayerProjectileBlockCollision
     {
         Rectangle projectileRect;
         Rectangle blockRect;
         Rectangle collision;
         int xCollisionSize;
         int yCollisionSize;
-        public void detectCollision(List<IPlayerProjectile> projectiles, List<IObject> blocks, Game1 game)
+        public void detectCollision(List<IPlayerProjectile> projectiles, List<IObject> blocks, GameManager game)
         {
-            foreach (var projectile in projectiles)
+            IPlayerProjectile[] projArry = projectiles.ToArray();
+            foreach (var projectile in projArry)
             {
                 projectileRect = projectile.getDestRect();
                 foreach (var block in blocks)
@@ -28,9 +29,9 @@ namespace testMonogame
             }
         }
 
-        public void handleCollision(IPlayerProjectile projectile, Game1 game)
+        public void handleCollision(IPlayerProjectile projectile, GameManager game)
         {
-            projectile.delete(game);
+            projectile.collide(game);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace testMonogame
 
         int xCollisionSize;
         int yCollisionSize;
-        public void detectCollision(List<IEnemyProjectile> projectiles, Rectangle walls, Rectangle floor, Game1 game)
+        public void detectCollision(List<IEnemyProjectile> projectiles, Rectangle walls, Rectangle floor, GameManager game)
         {
 
 
@@ -34,7 +34,7 @@ namespace testMonogame
             }
         }
 
-        public void handleCollision(IEnemyProjectile projectile, Game1 game)
+        public void handleCollision(IEnemyProjectile projectile, GameManager game)
         {
             projectile.collide(game);
         }

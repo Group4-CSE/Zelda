@@ -7,9 +7,9 @@ namespace testMonogame.Commands
     class LoadRoomFromMapClickCommand : ICommand
     {
         Dictionary<String, int> LookUpTable;
-        Game1 game;
+        GameManager game;
         String key;
-        public LoadRoomFromMapClickCommand(Game1 inGame, int inX, int inY)
+        public LoadRoomFromMapClickCommand(GameManager inGame, int inX, int inY)
         {
             LookUpTable = new Dictionary<string, int>();
             LookUpTable.Add("2,1", 1);

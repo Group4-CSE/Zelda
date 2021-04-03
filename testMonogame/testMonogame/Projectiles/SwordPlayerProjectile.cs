@@ -52,7 +52,7 @@ namespace testMonogame
 
 
         }
-        public void collide(Game1 game)
+        public void collide(GameManager game)
         {
             delete(game);
         }
@@ -60,7 +60,7 @@ namespace testMonogame
         {
             return destRect;
         }
-        public void delete(Game1 game)
+        public void delete(GameManager game)
         {
             game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(-1, -1), 0));
             game.AddPlayerProjectile(new SwordboomPlayerProjectile(texture, new Vector2(X, Y), new Vector2(1, 1), 1));
@@ -99,7 +99,7 @@ namespace testMonogame
         }
 
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             Move();
             //TEMP collision stuff

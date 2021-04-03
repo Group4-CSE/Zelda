@@ -1,0 +1,13 @@
+Author of the code review: John Fleming
+Date of the code review: 3/15/2021
+Sprint number: 3
+Name of the .cs file being reviewed: EnemyWallCollision.cs
+Author of the .cs file being reviewed: Noah Hufnagel
+
+Specific comments on code quality
+Structure is clean and logical, well-commented
+Has limited dependence, generally uses properties of rectangles
+
+A hypothetical change to make to the game related to file being reviewed and how the current implementation could or could not easily support that change
+If we hypothetically stopped using rectangles for blocks
+

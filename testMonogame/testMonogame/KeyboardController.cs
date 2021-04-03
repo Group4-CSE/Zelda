@@ -19,7 +19,7 @@ namespace testMonogame
         ICommand Idle;
         ICommand Move;
 
-        public KeyboardController(Game1 game)
+        public KeyboardController(GameManager game)
         {
             prevState = Keyboard.GetState();
 

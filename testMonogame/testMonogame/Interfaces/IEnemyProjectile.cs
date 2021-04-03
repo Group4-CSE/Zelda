@@ -12,13 +12,13 @@ namespace testMonogame
         public int Y { get; set; }
         public void Move();
         public void doDamage(IPlayer player);
-        public void delete(Game1 game);
-        public void collide(Game1 game);
+        public void delete(GameManager game);
+        public void collide(GameManager game);
         //returns the destination rectangle of the sprite associated with this entity
         public Rectangle getDestRect();
         //Draw
         public void Draw(SpriteBatch spriteBatch);
         //Update
-        public void Update(Game1 game);
+        public void Update(GameManager game);
     }
 }

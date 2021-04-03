@@ -65,7 +65,7 @@ namespace testMonogame
 
 
         }
-        public void collide(Game1 game)
+        public void collide(GameManager game)
         {
             if (turned == false)
             {
@@ -79,7 +79,7 @@ namespace testMonogame
         {
             return destRect;
         }
-        public void delete(Game1 game)
+        public void delete(GameManager game)
         {
             game.RemoveEnemyProjectile(this);
         }
@@ -123,7 +123,7 @@ namespace testMonogame
             return res;
 
         }
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             Move();
             if (testStop())

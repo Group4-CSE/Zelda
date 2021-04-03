@@ -51,7 +51,7 @@ namespace testMonogame
             player.ObtainItem("Bow");
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             //Nothing Needed here
         }

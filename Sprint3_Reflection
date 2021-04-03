@@ -1,0 +1,28 @@
+Sprint 3 Reflection
+Team 4 (10:30) 
+
+Timeline: 
+As a team, we started off discussing ways to implement the collision and collision handling.
+We decided at first to create two separate methods that detect collision between different blocks,
+items, enemies, etc. Then there was a handler method that would either push certain blocks back, damage
+player/enemy, or block certain blocks.
+
+After the discussion, we made cards in Trello for group members to start working. One of the biggest task
+was room loading and game manager. Other important task were the collision/collision handling and refactoring. 
+
+Refactoring took about a few days, then focused on room loading and creating a game manager. We decided 
+that it was better to put the two collision methods into one class and refactored everything to that. 
+We also made X, Y properties for all entities. 
+
+Last couple of days were for fine-tuning and revising any bugs we saw. Such as the player-enemy bug where player 
+gets stuck into enemy. 
+
+Highlights:
+1. Room loading works - made own file format
+2. Have a separate collision class that has both collision detection and handling instead of them being separate.
+
+Negatives:
+1. Need to start earlier as crunch for time again. 
+
+Goal for Sprint 4:
+1. Start earlier!!

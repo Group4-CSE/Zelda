@@ -101,7 +101,7 @@ namespace testMonogame
             moving = movingIn;
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             if (damaged > 0) state.setStasis(true);
             else state.setStasis(false);

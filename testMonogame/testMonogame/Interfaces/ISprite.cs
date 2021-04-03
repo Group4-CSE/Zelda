@@ -8,6 +8,6 @@ namespace testMonogame
     public interface ISprite
     {
         public void Draw(SpriteBatch spriteBatch);
-        public void Update(Game1 game);
+        public void Update(GameManager game);
     }
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -66,6 +66,10 @@ namespace testMonogame.Rooms
                     if (line.Equals("BACKGROUND"))
                     {
                         Background = 1;
+                    }
+                    else if (line.Equals("BACKGROUND2"))
+                    {
+                        Background = 3;
                     }
                     else if (line.Equals("UNDERGROUND"))
                     {
@@ -151,20 +155,24 @@ namespace testMonogame.Rooms
                     direction = 0;
                     break;
             }
+
+            int nextDoor = int.Parse(split[2]);
+
             switch (split[0])
             {
+                
                 //keys temporarily set to 0. may have to do switch later to determine room number
                 case "closed":
-                    door = new ClosedDoor(direction, new Vector2(x, y), sprites["doors"], 0, false);
+                    door = new ClosedDoor(direction, new Vector2(x, y), sprites["doors"], 0, false,nextDoor);
                     break;
                 case "open":
-                    door = new OpenDoor(direction, new Vector2(x, y), sprites["doors"], 0, false);
+                    door = new OpenDoor(direction, new Vector2(x, y), sprites["doors"], 0, false, nextDoor);
                     break;
                 case "cave":
-                    door = new CaveDoor(direction, new Vector2(x, y), sprites["doors"]);
+                    door = new CaveDoor(direction, new Vector2(x, y), sprites["doors"], nextDoor);
                     break;
                 case "locked":
-                    door = new LockedDoor(direction, new Vector2(x, y), sprites["doors"], 0, true);
+                    door = new LockedDoor(direction, new Vector2(x, y), sprites["doors"], 0, true, nextDoor);
                     break;
                 default:
                     door = null;
@@ -204,7 +212,7 @@ namespace testMonogame.Rooms
                     enemy = new TrapEnemy(sprites["basicenemy"], new Vector2(x, y));
                     break;
                 case "wallmaster":
-                    enemy = new TrapEnemy(sprites["wallmasters"], new Vector2(x, y));
+                    enemy = new WallmasterEnemy(sprites["wallmasters"], new Vector2(x, y));
                     break;
                 default:
                     enemy = null;

@@ -25,7 +25,7 @@ namespace testMonogame
             destRect = new Rectangle(X, Y, 32, 32);
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             // COLLISION WILL GO HERE
         }

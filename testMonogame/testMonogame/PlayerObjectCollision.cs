@@ -17,9 +17,16 @@ namespace testMonogame
         const int height = 16;
         const int width = 16;
 
-        public void detectCollision(IPlayer player, List<IObject> items, List<IObject> blocks,IRoom r)
+        const int screenX = 150;
+        const int screenY = 70;
+        //The factor that each block is scaled up by
+        const int blockSizeMod = 2;
+        //the base dimensions of a block square
+        const int blockBaseDimension = 16;
+
+        public void detectCollision(IPlayer player, List<IObject> items, List<IObject> blocks,IRoom r, GameManager game)
         {
-            //Detect player enemy collision
+
 
             playerRect = player.getDestRect();
             bool isIgnored;
@@ -30,6 +37,13 @@ namespace testMonogame
                 //playerRect = player.getDestRect();
                 collisionRect = Rectangle.Intersect(playerRect, objectRect);
                 if (block is BlueSandBlock || block is DragonBlock || block is FishBlock) isIgnored = true;
+
+                if (!collisionRect.IsEmpty && (block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                {
+                    isIgnored = true;
+                    doorCollisionHandler(player, block, game, collisionRect);
+
+                }
                 //if they've collided
                 if (!collisionRect.IsEmpty & !isIgnored)
                 {
@@ -49,6 +63,274 @@ namespace testMonogame
                 {
                     //generate collision rectangle
                     itemCollisionHandler(collisionRect, player, item,r);
+                }
+            }
+        }
+        public void doorCollisionHandler(IPlayer player, IObject collided, GameManager game, Rectangle collisionRect)
+        {
+            //figure out what door it is
+            if(collided is CaveDoor)
+            {
+                CaveDoor door = (CaveDoor)collided;
+                //handle collision
+                switch (door.getSide())
+                {
+                    case 0:
+                        if(player.getState() is UpMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int x = screenX + (6 * blockBaseDimension * blockSizeMod) + ((blockBaseDimension * blockSizeMod));
+                            int y = screenY + (9 * blockBaseDimension * blockSizeMod);
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    case 1:
+                        if (player.getState() is LeftMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int y = screenY + (5 * blockBaseDimension * blockSizeMod) - blockBaseDimension;
+                            int x = screenX + (blockSizeMod * blockBaseDimension * 14);
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    case 2:
+                        if (player.getState() is RightMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int y = screenY + (5 * blockBaseDimension * blockSizeMod) - blockBaseDimension;
+                            int x = screenX;
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    case 3:
+                        if (player.getState() is DownMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int x = screenX + (6 * blockBaseDimension * blockSizeMod) + ((blockBaseDimension * blockSizeMod));
+                            int y = screenY + (9 * blockBaseDimension * blockSizeMod);
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            } else if (collided is ClosedDoor)
+            {
+                ClosedDoor door = (ClosedDoor)collided;
+
+                //handle collision
+                switch (door.getSide())
+                {
+                    case 0:
+                        if (player.getState() is UpMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int x = screenX + (6 * blockBaseDimension * blockSizeMod) + ((blockBaseDimension * blockSizeMod));
+                            int y = screenY + (9 * blockBaseDimension * blockSizeMod);
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    case 1:
+                        if (player.getState() is LeftMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int y = screenY + (5 * blockBaseDimension * blockSizeMod) - blockBaseDimension;
+                            int x = screenX + (blockSizeMod * blockBaseDimension * 14);
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    case 2:
+                        if (player.getState() is RightMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int y = screenY + (5 * blockBaseDimension * blockSizeMod) - blockBaseDimension;
+                            int x = screenX;
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    case 3:
+                        if (player.getState() is DownMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int x = screenX + (6 * blockBaseDimension * blockSizeMod) + ((blockBaseDimension * blockSizeMod));
+                            int y = screenY + (9 * blockBaseDimension * blockSizeMod);
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            } else if (collided is LockedDoor)
+            {
+                LockedDoor door = (LockedDoor)collided;
+
+                //handle collision
+                switch (door.getSide())
+                {
+                    case 0:
+                        if (player.getState() is UpMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int x = screenX + (6 * blockBaseDimension * blockSizeMod) + ((blockBaseDimension * blockSizeMod));
+                            int y = screenY + (9 * blockBaseDimension * blockSizeMod);
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    case 1:
+                        if (player.getState() is LeftMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int y = screenY + (5 * blockBaseDimension * blockSizeMod) - blockBaseDimension;
+                            int x = screenX + (blockSizeMod * blockBaseDimension * 14);
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    case 2:
+                        if (player.getState() is RightMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int y = screenY + (5 * blockBaseDimension * blockSizeMod) - blockBaseDimension;
+                            int x = screenX;
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    case 3:
+                        if (player.getState() is DownMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int x = screenX + (6 * blockBaseDimension * blockSizeMod) + ((blockBaseDimension * blockSizeMod));
+                            int y = screenY + (9 * blockBaseDimension * blockSizeMod);
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            } else if (collided is OpenDoor)
+            {
+                OpenDoor door = (OpenDoor)collided;
+
+                //handle collision
+                switch (door.getSide())
+                {
+                    case 0:
+                        if (player.getState() is UpMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int x = screenX + (6 * blockBaseDimension * blockSizeMod) + ((blockBaseDimension * blockSizeMod));
+                            int y = screenY + (9 * blockBaseDimension * blockSizeMod);
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    case 1:
+                        if (player.getState() is LeftMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int y = screenY + (5 * blockBaseDimension * blockSizeMod) - blockBaseDimension;
+                            int x = screenX + (blockSizeMod * blockBaseDimension * 14);
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    case 2:
+                        if (player.getState() is RightMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int y = screenY + (5 * blockBaseDimension * blockSizeMod) - blockBaseDimension;
+                            int x = screenX;
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    case 3:
+                        if (player.getState() is DownMovingPlayerState)
+                        {
+                            game.LoadRoom(door.getNextRoom());
+                            int x = screenX + (6 * blockBaseDimension * blockSizeMod) + ((blockBaseDimension * blockSizeMod));
+                            int y = screenY + (9 * blockBaseDimension * blockSizeMod);
+                            player.X = x;
+                            player.Y = y;
+                        }
+                        else
+                        {
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        break;
+                    default:
+                        break;
                 }
             }
         }

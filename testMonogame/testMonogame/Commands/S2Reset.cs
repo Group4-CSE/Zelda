@@ -5,8 +5,8 @@ namespace testMonogame.Commands
 {
     public class S2Reset : ICommand
     {
-        Game1 game;
-        public S2Reset(Game1 game)
+        GameManager game;
+        public S2Reset(GameManager game)
         {
             this.game = game;
         }

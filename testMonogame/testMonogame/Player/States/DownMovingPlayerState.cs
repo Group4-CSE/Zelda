@@ -17,7 +17,7 @@ namespace testMonogame
         int y;
 
         int vProjectileOffset = 0;
-        int hProjectileOffset = 6;
+        int hProjectileOffset = 8;
 
         bool stasis;
 
@@ -81,25 +81,25 @@ namespace testMonogame
             return sprite.isMoving();
         }
 
-        public void spawnBomb(Game1 game)
+        public void spawnBomb(GameManager game)
         {
             if (!stasis) game.AddPlayerProjectile(new BombPlayerProjectile(projectiles, new Vector2((float)(player.X),
                 (float)(player.Y + 20))));
         }
 
-        public void spawnArrow(Game1 game)
+        public void spawnArrow(GameManager game)
         {
             if (!stasis) game.AddPlayerProjectile(new ArrowPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
                 (float)(player.Y + vProjectileOffset)), new Vector2(0, 5), 1));
         }
 
-        public void spawnBoomerang(Game1 game)
+        public void spawnBoomerang(GameManager game)
         {
             if (!stasis) game.AddPlayerProjectile(new BoomerangPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
                 (float)(player.Y + vProjectileOffset)), new Vector2(0, 3), 6));
         }
 
-        public void spawnSwordProjectile(Game1 game)
+        public void spawnSwordProjectile(GameManager game)
         {
             if (!stasis) game.AddPlayerProjectile(new SwordPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
                   (float)(player.Y + vProjectileOffset)), new Vector2(0, 3), 1));
@@ -117,7 +117,7 @@ namespace testMonogame
         {
             return stasis;
         }
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             sprite.Update(game);
         }

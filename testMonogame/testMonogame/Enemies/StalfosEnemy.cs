@@ -107,7 +107,7 @@ namespace testMonogame
             spriteBatch.Draw(texture, destRect, sourceRect, color);
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             Move();
             // If (enemy collides with player) attack(player)

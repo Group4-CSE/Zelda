@@ -9,7 +9,7 @@ namespace testMonogame.Interfaces
     public interface IRoom
     {
         public void Draw(SpriteBatch spriteBatch);
-        public void Update(Game1 game);
+        public void Update(GameManager game);
 
         public List<IObject> GetBlocks();
         public List<IObject> GetItems();

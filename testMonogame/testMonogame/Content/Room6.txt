@@ -32,6 +32,6 @@ dragonblock,9,4
 ITEMS
 triforce,6,4
 DOORS
-open,left
+open,left,5
 MAP
 6,2

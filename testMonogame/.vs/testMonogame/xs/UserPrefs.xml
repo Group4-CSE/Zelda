@@ -1,30 +1,24 @@
-﻿<Properties StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
+﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/KeyboardController.cs">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="testMonogame/Game1.cs" Line="24" Column="1" />
-      <File FileName="testMonogame/IPlayer.cs" />
-      <File FileName="testMonogame/IObject.cs" />
-      <File FileName="testMonogame/ISprite.cs" />
-      <File FileName="testMonogame/IEnemy.cs" />
-      <File FileName="testMonogame/KeyboardController.cs" Line="40" Column="47" />
+      <File FileName="testMonogame/Game1.cs" Line="359" Column="13" />
+      <File FileName="testMonogame/Enemies/AquamentusEnemy.cs" />
+      <File FileName="testMonogame/KeyboardController.cs" Line="4" Column="40" />
+      <File FileName="testMonogame/Player/Player.cs" Line="7" Column="23" />
+      <File FileName="testMonogame/PlayerEnemyCollision.cs" />
+      <File FileName="testMonogame/Interfaces/IPlayer.cs" />
+      <File FileName="testMonogame/Player/States/DownMovingPlayerState.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="testMonogame" expanded="True">
             <Node name="testMonogame" expanded="True">
-              <Node name="Dependencies" expanded="True">
-                <Node name="FrameworkReferences" expanded="True" />
-                <Node name="PackageDependencies" expanded="True" />
+              <Node name="Content" expanded="True" />
+              <Node name="Player" expanded="True">
+                <Node name="Player.cs" selected="True" />
               </Node>
-              <Node name="Content" expanded="True">
-                <Node name="bin" expanded="True">
-                  <Node name="DesktopGL" expanded="True" />
-                </Node>
-                <Node name="obj" expanded="True" />
-              </Node>
-              <Node name="KeyboardController.cs" selected="True" />
             </Node>
           </Node>
         </State>

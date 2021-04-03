@@ -114,7 +114,7 @@ namespace testMonogame
             state.Draw(spriteBatch);
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             throwCounter += 1;
             if (throwCounter > 600)

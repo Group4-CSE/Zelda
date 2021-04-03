@@ -18,7 +18,7 @@ namespace testMonogame
         //Draw
         public void Draw(SpriteBatch spriteBatch);
         //Update
-        public void Update(Game1 game);
+        public void Update(GameManager game);
         public int getHealth();
     }
 }

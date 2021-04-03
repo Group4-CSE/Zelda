@@ -51,7 +51,7 @@ namespace testMonogame
             goriya.takeDamage(dmg);
         }
 
-        public void spawnBoomerang(Game1 game)
+        public void spawnBoomerang(GameManager game)
         {
             goriya.setThrow(true);
             game.AddEnemyProjectile((IEnemyProjectile)new BoomerangEnemyProjectile(projTexture, new Vector2((float)(goriya.X + hProjectileOffset),
@@ -80,7 +80,7 @@ namespace testMonogame
             spriteBatch.Draw(texture, destRect, sourceRect, color);
         }
 
-        public void Update(Game1 game)
+        public void Update(GameManager game)
         {
             if (goriya.getThrow() == false)
             {
