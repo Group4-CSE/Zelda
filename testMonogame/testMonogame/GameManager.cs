@@ -83,6 +83,7 @@ namespace testMonogame
             else
             {
                 rooms.Add(name, roomLoad.Load(name + ".txt"));
+                roomKey = name;
             }
             player.X = 400;
             player.Y = 324;

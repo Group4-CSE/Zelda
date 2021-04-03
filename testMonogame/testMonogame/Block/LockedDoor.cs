@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using testMonogame.Interfaces;
 
 namespace testMonogame
 {
-    public class LockedDoor : ISprite, IObject
+    public class LockedDoor : ISprite, IObject, IDoor
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -51,7 +52,7 @@ namespace testMonogame
 
             if (!isLocked)
             {
-                unlockDoor();
+                openDoor();
             }
         }
         public Rectangle getDestRect()
@@ -69,7 +70,7 @@ namespace testMonogame
             {
                 if (player.UseKey(keyType))
                 {
-                    unlockDoor();
+                    openDoor();
                 }
             }
             else
@@ -85,7 +86,7 @@ namespace testMonogame
             spriteBatch.Draw(texture, destRect, sourceRect, Color.White);
         }
 
-        public void unlockDoor()
+        public void openDoor()
         {
             isLocked = false;
             sourceRect.X = 0;

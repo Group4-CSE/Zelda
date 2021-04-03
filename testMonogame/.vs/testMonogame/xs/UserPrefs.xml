@@ -1,18 +1,18 @@
 ﻿<Properties StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/GameManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Player/Player.cs">
     <Files>
       <File FileName="testMonogame/Rooms/Room.cs" Line="1" Column="1" IsPinned="True" />
-      <File FileName="testMonogame/GameManager.cs" Line="88" Column="13" />
-      <File FileName="testMonogame/PlayerObjectCollision.cs" Line="140" Column="1" />
-      <File FileName="testMonogame/Rooms/RoomLoader.cs" Line="175" Column="108" />
-      <File FileName="testMonogame/Block/CaveDoor.cs" Line="27" Column="29" />
-      <File FileName="testMonogame/Block/ClosedDoor.cs" Line="30" Column="13" />
-      <File FileName="testMonogame/Block/LockedDoor.cs" Line="21" Column="106" />
-      <File FileName="testMonogame/Block/OpenDoor.cs" Line="21" Column="105" />
-      <File FileName="testMonogame/Content/Room1.txt" Line="1" Column="1" />
-      <File FileName="testMonogame/Content/Room2.txt" Line="35" Column="14" />
-      <File FileName="testMonogame/Content/Room9.txt" Line="13" Column="18" />
+      <File FileName="testMonogame/GameManager.cs" Line="86" Column="32" />
+      <File FileName="testMonogame/PlayerObjectCollision.cs" Line="162" Column="51" />
+      <File FileName="testMonogame/Rooms/RoomLoader.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/Block/CaveDoor.cs" Line="64" Column="31" />
+      <File FileName="testMonogame/Block/ClosedDoor.cs" />
+      <File FileName="testMonogame/Block/LockedDoor.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/Block/OpenDoor.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/Content/Room1.txt" />
+      <File FileName="testMonogame/Interfaces/IDoor.cs" Line="12" Column="46" />
+      <File FileName="testMonogame/Player/Player.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -23,10 +23,13 @@
                 <Node name="FrameworkReferences" expanded="True" />
                 <Node name="PackageDependencies" expanded="True" />
               </Node>
-              <Node name="Content" expanded="True" />
+              <Node name="Block" expanded="True" />
               <Node name="Interfaces" expanded="True" />
+              <Node name="Player" expanded="True">
+                <Node name="Sprites" expanded="True" />
+                <Node name="Player.cs" selected="True" />
+              </Node>
               <Node name="Rooms" expanded="True" />
-              <Node name="GameManager.cs" selected="True" />
             </Node>
           </Node>
         </State>

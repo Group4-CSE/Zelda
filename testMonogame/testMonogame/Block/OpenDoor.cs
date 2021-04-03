@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using testMonogame.Interfaces;
 
 namespace testMonogame
 {
-    public class OpenDoor: ISprite, IObject
+    public class OpenDoor: ISprite, IObject, IDoor
     {
         public int X { get; set; }
         public int Y { get; set; }
