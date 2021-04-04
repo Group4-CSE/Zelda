@@ -30,6 +30,9 @@ namespace testMonogame
         int playerOffset = 16;
         int trapOffset = 32;
         bool isInLine = false;
+
+        enum TrapMovement {isStill, isMoving, isReturning};
+        TrapMovement movementState = TrapMovement.isStill;
    
         public TrapEnemy(Texture2D eTexture, Vector2 position)
         {
@@ -67,53 +70,44 @@ namespace testMonogame
              * 4: Right
              */
 
-            bool inRoutine = false;
-
-            // TODO: Remember to do axis checking, this will still break
-
             // Lets do up and down first
             // If the player is under us on either the left or right respectively
             // "Is the player's top left X smaller than our top right X? Or is the player's top right X greater than our top left X?"
-            // Also if we're already in the routine, we don't wanna keep checking since we movin
-            if (playerDestRect.X < startX + trapOffset && !inRoutine || playerDestRect.X + playerOffset > startX && inRoutine)
+            if (playerDestRect.X < startX + trapOffset || playerDestRect.X + playerOffset > startX)
             {
-                inRoutine = true;
                 // Okay so now we need to move either up or down, so let's figure out which one
                 // "Is the player's Y greater than (under) ours?" If so, we move down
                 if (playerDestRect.Y > startY)
                 {
                     moveRoutine(2);
-                    inRoutine = false;
                 } 
                 // If not, than our player's Y is less than (above ours) and we move up
                 else if (playerDestRect.Y < startY)
                 {
                     moveRoutine(1);
-                    inRoutine = false;
                 }
             } 
             // Okay now we have to do left or right
             // "Is the player's top left Y smaller than our bottom left? Or is the player's bottom left greater than our top left?"
-            else if (playerDestRect.Y < Y + trapOffset && !inRoutine || playerDestRect.Y + playerOffset > Y && !inRoutine)
+            else if (playerDestRect.Y < Y + trapOffset || playerDestRect.Y + playerOffset > Y)
             {
-                inRoutine = true;
                 // Okay so now we need to move either left or right, so let's figure out which one
                 // "Is the player's X greater than (right) ours?" If so we move right
                 if (playerDestRect.X > startX)
                 {
                     moveRoutine(4);
-                    inRoutine = false;
                 }
                 // If not, than our player's X is less than (left) and we move left
                 else if (playerDestRect.X < startX)
                 {
                     moveRoutine(3);
-                    inRoutine = false;
                 }
             }
         }
 
         /*
+         * TODO: Finish moveRoutine, possible bug in inLine or other line of sight detection
+         * 
          * Direction Guide:
          * 1: Up
          * 2: Down
@@ -122,56 +116,45 @@ namespace testMonogame
          */
         public void moveRoutine(int direction)
         {
-            switch (direction)
+            // Leaving the starting position
+            if (movementState == TrapMovement.isMoving)
             {
-                // These will go all the way to their max value, and then return back to the starting position
-                case 1:
-                    while (Y < maxY)
+                if (direction == 1)
+                {
+                    Y -= enemyVel;
+                    if (Y <= maxY)
                     {
-                        Y -= enemyVel;
+                        Y = maxY;
+                        movementState = TrapMovement.isReturning;
                     }
-                    while (Y > startY)
-                    {
-                        Y += enemyVel;
-                    }
-                    break;
-
-                case 2:
-                    while (Y > maxY)
-                    {
-                        Y += enemyVel;
-                    }
-                    while (Y < startY)
-                    {
-                        Y -= enemyVel;
-                    }
-                    break;
-
-                case 3:
-                    while (X > maxX)
-                    {
-                        X -= enemyVel;
-                    }
-                    while (X < startX)
-                    {
-                        X += enemyVel;
-                    }
-                    break;
-
-                case 4:
-                    while (X < maxX)
-                    {
-                        X += enemyVel;
-                    }
-                    while (X > startX)
-                    {
-                        X -= enemyVel;
-                    }
-                    break;
-
-                default:
-                    break;
+                }
+                if (direction == 2)
+                {
+                    Y += enemyVel;
+                }
+                if (direction == 3)
+                {
+                    X -= enemyVel;
+                }
+                if (direction == 4)
+                {
+                    X += enemyVel;
+                }
             }
+            // Returning to starting position
+            else if (movementState == TrapMovement.isReturning)
+            {
+                if (direction == 1)
+                {
+                    Y += enemyVel;
+                    if (Y >= startY)
+                    {
+                        Y = startY;
+                        movementState = TrapMovement.isStill;
+                    }
+                }
+            }
+          
         }
 
         // Okay so this lets us avoid calling our massive move function 60 times a second
@@ -236,6 +219,7 @@ namespace testMonogame
             isInLine = inLine();
             if (isInLine)
             {
+                movementState = TrapMovement.isMoving;
                 Move();
             }
         }
