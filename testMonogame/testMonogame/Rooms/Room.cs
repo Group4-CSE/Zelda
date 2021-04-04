@@ -84,7 +84,7 @@ namespace testMonogame.Rooms
         public IObject getDrops(IEnemy enemy)
         {
             Random randomNumber = new Random();
-            int dropNum = randomNumber.Next(9);
+            int dropNum = randomNumber.Next(18);
             int[] rupee = { 1, 3, 6, 7 };
             int[] bomb = { 0, 5, 8 };
             int[] heart = { 2, 4, 9 };
