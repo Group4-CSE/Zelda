@@ -107,6 +107,7 @@ namespace testMonogame
 
         /*
          * TODO: Finish moveRoutine, possible bug in inLine or other line of sight detection
+         * THIS IS STILL BROKEN IDK WHY
          * 
          * Direction Guide:
          * 1: Up
