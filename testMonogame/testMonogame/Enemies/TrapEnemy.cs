@@ -29,6 +29,7 @@ namespace testMonogame
         int maxY = 56;
         int playerOffset = 16;
         int trapOffset = 32;
+        bool isInLine = false;
    
         public TrapEnemy(Texture2D eTexture, Vector2 position)
         {
@@ -232,7 +233,8 @@ namespace testMonogame
         {
             player = game.getPlayer();
             playerDestRect = player.getDestRect();
-            if (inLine())
+            isInLine = inLine();
+            if (isInLine)
             {
                 Move();
             }
