@@ -27,6 +27,8 @@ namespace testMonogame
         Rectangle playerDestRect;
         int maxX = 96;
         int maxY = 56;
+        int playerOffset = 16;
+        int trapOffset = 32;
    
         public TrapEnemy(Texture2D eTexture, Vector2 position)
         {
@@ -46,72 +48,166 @@ namespace testMonogame
         }
         public void Move()
         {
-            // Boundary checking, +16 represents Link's Height so we're not just checking the top left corner
-            // This only allows us to know if player is in the line of sight, but not which direction
-            // So we need player dest rect to compare to in each case as well
-            if (player.X + 16 > X || player.X < X + width)
+            /*
+             * Movement Logic:
+             * - All traps are independent of each other, and need to act as such
+             * - We are a trap enemy, we must check the player's rectange and see if he is in our line of sight,
+             * to do that we need to see if he is on the same X / Y value of us exclusively and not inclusively
+             * - To determine if he is above/below us, we must check the absolute y value and compare it to ours
+             * - To determine if he is left/right of us, we must check the absolute x value and compare it to ours
+             * - We will go through a routine instead of active updating, since active updating is what bugged us
+             * - REMEMBER: All calculations routed at top left corner, must add offset for proper bounds
+             * - Any condition with an offset will refer to a right or bottom bound
+             * 
+             * Direction Guide:
+             * 1: Up
+             * 2: Down
+             * 3: Left
+             * 4: Right
+             */
+
+            bool inRoutine = false;
+
+            // TODO: Remember to do axis checking, this will still break
+
+            // Lets do up and down first
+            // If the player is under us on either the left or right respectively
+            // "Is the player's top left X smaller than our top right X? Or is the player's top right X greater than our top left X?"
+            // Also if we're already in the routine, we don't wanna keep checking since we movin
+            if (playerDestRect.X < startX + trapOffset && !inRoutine || playerDestRect.X + playerOffset > startX && inRoutine)
             {
-                // If the player is below us
-                if (playerDestRect.Y < Y && Y > maxY)
+                inRoutine = true;
+                // Okay so now we need to move either up or down, so let's figure out which one
+                // "Is the player's Y greater than (under) ours?" If so, we move down
+                if (playerDestRect.Y > startY)
                 {
-                    Y += enemyVel;
+                    moveRoutine(2);
+                    inRoutine = false;
                 } 
-                else if (playerDestRect.Y > Y && Y < maxY) // Player is above us
+                // If not, than our player's Y is less than (above ours) and we move up
+                else if (playerDestRect.Y < startY)
                 {
-                    Y -= enemyVel;
-                } 
-                else // We need to wind back our trap
-                {
-                    // enemyVel / 2 since the traps wind back slower than they go forward
-                    while (X > startX)
-                    {
-                        X -= enemyVel / 2;
-                    }
-                    while (X < startX)
-                    {
-                        X += enemyVel / 2;
-                    }
-                    while (Y > startY)
-                    {
-                        Y -= enemyVel / 2;
-                    }
-                    while (Y < startY)
-                    {
-                        Y -= enemyVel / 2;
-                    }
+                    moveRoutine(1);
+                    inRoutine = false;
                 }
-            } else if (player.Y < Y + height || player.Y + 16 > Y)
+            } 
+            // Okay now we have to do left or right
+            // "Is the player's top left Y smaller than our bottom left? Or is the player's bottom left greater than our top left?"
+            else if (playerDestRect.Y < Y + trapOffset && !inRoutine || playerDestRect.Y + playerOffset > Y && !inRoutine)
             {
-                // If the player is to the left
-                if (playerDestRect.X < X && X > maxX)
+                inRoutine = true;
+                // Okay so now we need to move either left or right, so let's figure out which one
+                // "Is the player's X greater than (right) ours?" If so we move right
+                if (playerDestRect.X > startX)
                 {
-                    X -= enemyVel;
-                } 
-                else if (playerDestRect.X > X && X < maxX) // Player is to the right
-                {
-                    X += enemyVel;
+                    moveRoutine(4);
+                    inRoutine = false;
                 }
-                else
+                // If not, than our player's X is less than (left) and we move left
+                else if (playerDestRect.X < startX)
                 {
-                    // enemyVel / 2 since the traps wind back slower than they go forward
-                    while (X > startX)
-                    {
-                        X -= enemyVel / 2;
-                    }
-                    while (X < startX)
-                    {
-                        X += enemyVel / 2;
-                    }
-                    while (Y > startY)
-                    {
-                        Y -= enemyVel / 2;
-                    }
-                    while (Y < startY)
-                    {
-                        Y -= enemyVel / 2;
-                    }
+                    moveRoutine(3);
+                    inRoutine = false;
                 }
             }
+        }
+
+        /*
+         * Direction Guide:
+         * 1: Up
+         * 2: Down
+         * 3: Left
+         * 4: Right
+         */
+        public void moveRoutine(int direction)
+        {
+            switch (direction)
+            {
+                // These will go all the way to their max value, and then return back to the starting position
+                case 1:
+                    while (Y < maxY)
+                    {
+                        Y -= enemyVel;
+                    }
+                    while (Y > startY)
+                    {
+                        Y += enemyVel;
+                    }
+                    break;
+
+                case 2:
+                    while (Y > maxY)
+                    {
+                        Y += enemyVel;
+                    }
+                    while (Y < startY)
+                    {
+                        Y -= enemyVel;
+                    }
+                    break;
+
+                case 3:
+                    while (X > maxX)
+                    {
+                        X -= enemyVel;
+                    }
+                    while (X < startX)
+                    {
+                        X += enemyVel;
+                    }
+                    break;
+
+                case 4:
+                    while (X < maxX)
+                    {
+                        X += enemyVel;
+                    }
+                    while (X > startX)
+                    {
+                        X -= enemyVel;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        // Okay so this lets us avoid calling our massive move function 60 times a second
+        // Which by the way is extremely laggy. We need to check if we are "in line" with a trap before we even move
+        // This basically makes "Move" a routine determining function and "moveRoutine" the actual move function
+        // This function is basically going to exploit the fact that each trap is in a different quadrant, and work in pairs of 2
+        public bool inLine()
+        {
+            bool isInLine = false;
+
+            // This will check if we are in line with the LEFT SIDE traps for going UP & DOWN
+            // "Is the player's top left X less than our top right X AND is the player coming from the right side of us?"
+            // This works because the player will NEVER be greater than the RIGHT SIDE trap's starting X (i.e. farther right)
+            if (playerDestRect.X < X + trapOffset && playerDestRect.X > startX)
+            {
+                isInLine = true;
+            }
+            // RIGHT SIDE traps for going UP & DOWN
+            // "Is the player's top right X greater than our top left X AND is the player coming from the left side of us?"
+            else if (playerDestRect.X + playerOffset > X && playerDestRect.X < startX + trapOffset)
+            {
+                isInLine = true;
+            }
+            // TOP SIDE traps for going LEFT & RIGHT
+            // "Is the player's top left Y smaller than our bottom left Y AND is the player coming from the bottom side of us?"
+            else if (playerDestRect.Y < Y + trapOffset && playerDestRect.Y > startY)
+            {
+                isInLine = true;
+            }
+            // BOTTOM SIDE traps for going LEFT & RIGHT
+            // "Is the player's bottom left Y greater than our top left Y AND is the player coming from the top side of us?"
+            else if (playerDestRect.Y + playerOffset > Y && playerDestRect.Y > Y + trapOffset)
+            {
+                isInLine = true;
+            }
+
+            return isInLine;
         }
 
         public void Attack(IPlayer player)
@@ -136,7 +232,10 @@ namespace testMonogame
         {
             player = game.getPlayer();
             playerDestRect = player.getDestRect();
-            Move();
+            if (inLine())
+            {
+                Move();
+            }
         }
     }
 
