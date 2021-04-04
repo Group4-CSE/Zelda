@@ -223,7 +223,11 @@ namespace testMonogame
         
         public bool UseKey(int keyType)
         {
-            //Add logic for opening doors later
+            if (Keys > 0)
+            {
+                Keys--;
+                return true;
+            }
             return false;
         }
 

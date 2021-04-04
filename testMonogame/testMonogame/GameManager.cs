@@ -40,6 +40,7 @@ namespace testMonogame
             roomKey = "Room1";
 
             player = new Player(spriteSheet["playersheet"], new Vector2(500, 200), spriteSheet["PlayerProjectiles"]);
+            
 
             EPCol = new EnemyProjectileCollisionHandler(this);
 

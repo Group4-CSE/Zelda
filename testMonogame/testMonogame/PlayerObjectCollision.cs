@@ -81,6 +81,7 @@ namespace testMonogame
                         {
                             //interact with closed door
                             door.Interact(player);
+                            blockCollisionHandler(collisionRect, player, collided);
                         }
                         else
                         {
@@ -106,6 +107,7 @@ namespace testMonogame
                         {
                             //interact with closed door
                             door.Interact(player);
+                            blockCollisionHandler(collisionRect, player, collided);
                         }
                         else
                         {
@@ -131,6 +133,7 @@ namespace testMonogame
                         {
                             //interact with closed door
                             door.Interact(player);
+                            blockCollisionHandler(collisionRect, player, collided);
                         }
                         else
                         {
@@ -156,6 +159,7 @@ namespace testMonogame
                         {
                             //interact with closed door
                             door.Interact(player);
+                            blockCollisionHandler(collisionRect, player, collided);
                         }
                         else
                         {
