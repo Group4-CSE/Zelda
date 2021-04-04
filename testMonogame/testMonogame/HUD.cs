@@ -23,7 +23,7 @@ namespace testMonogame
         const int hudHeight = 45;
 
 
-        Rectangle mapCoverSource = new Rectangle(0, 78, mapWidth, hudHeight);
+        Rectangle mapCoverSource = new Rectangle(0, 79, mapWidth-1, hudHeight);
         Rectangle mainHudSource = new Rectangle(0, 0, hudWidth, hudHeight);
         Rectangle triforceSource = new Rectangle(0, 80, 16, 12);
         Rectangle triforceDest ;
@@ -53,6 +53,7 @@ namespace testMonogame
 
         //Item stuff
         Rectangle boomerangSource = new Rectangle(32, 46, 5, 8);
+        Rectangle empty = new Rectangle(135, 14, 5, 8);
         Rectangle bombSource = new Rectangle(38, 46, 8, 14);
         Rectangle bowSource = new Rectangle(47, 46, 8, 16);
         Rectangle selectedSourceRect;
@@ -67,8 +68,8 @@ namespace testMonogame
             mapIsShown = false;
             triforceShown = false;
 
-             heartOffsetX = hudX + 183 * 2;
-             heartOffsetY = hudY + 28 * 2;
+             heartOffsetX =  183 * 2;
+             heartOffsetY =  28 * 2;
 
             spriteSheet = inSpriteSheet;
             font = inFont;
@@ -83,8 +84,8 @@ namespace testMonogame
              if (!mapIsShown) spriteBatch.Draw(spriteSheet, new Rectangle(hudX, hudY, 94*2, 46*2), mapCoverSource, Color.Black);
             if (triforceShown) spriteBatch.Draw(spriteSheet, triforceDest, triforceSource, Color.Red);
 
-            int heartX = heartOffsetX;
-            int heartY = heartOffsetY;
+            int heartX = hudX+heartOffsetX;
+            int heartY = hudY+heartOffsetY;
             for(int i=1; i <= hearts; i++)
             {
                 
@@ -100,10 +101,10 @@ namespace testMonogame
                 else spriteBatch.Draw(spriteSheet, new Rectangle(heartX, heartY, 14, 16), heartSource[heartFraction], Color.White);
                 heartX += 16;
             }
-
-            spriteBatch.DrawString(font, rupeeAmount, new Vector2(hudX + 105*2, hudY + 5*2), Color.White);
-            spriteBatch.DrawString(font, keyAmount, new Vector2(hudX + 105*2, hudY + 21*2), Color.White);
-            spriteBatch.DrawString(font, bombAmount, new Vector2(hudX + 105*2, hudY + 29*2), Color.White);
+            
+            if(rupeeAmount!=null)spriteBatch.DrawString(font, rupeeAmount, new Vector2(hudX + 105*2, hudY + 5*2), Color.White);
+            if (keyAmount != null) spriteBatch.DrawString(font, keyAmount, new Vector2(hudX + 105*2, hudY + 21*2), Color.White);
+            if (bombAmount != null) spriteBatch.DrawString(font, bombAmount, new Vector2(hudX + 105*2, hudY + 29*2), Color.White);
 
             //draw selected item
             int itemX = hudX+134*2 + (14-selectedSourceRect.Width);
@@ -132,7 +133,7 @@ namespace testMonogame
             bombAmount = "X" + p.Bombs.ToString();
 
             String selected = p.GetSelectedItem();
-            Debug.WriteLine(selected);
+            //Debug.WriteLine(selected);
             switch (selected)
             {
                 case "Bomb":
@@ -145,7 +146,7 @@ namespace testMonogame
                     selectedSourceRect = bowSource;
                     break;
                 default:
-                    selectedSourceRect = mapCoverSource;
+                    selectedSourceRect = empty;
                     break;
             }
         }
