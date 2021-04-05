@@ -47,8 +47,7 @@ namespace testMonogame
             Compass = false;
 
             ObtainItem("Bomb");
-            ObtainItem("Bow");
-            ObtainItem("Boomerang");
+            ObtainItem("Bomb");
             ObtainItem("Arrow");
 
             SelectItem(0);
@@ -64,8 +63,6 @@ namespace testMonogame
             SelectItem(i);
         }
 
-        public string GetSelectedItem() { return selectedItem; }
-        public void SelectItem(int i) { selectedItem = inventory[i]; }
 
         public void PreviousItem()
         {
