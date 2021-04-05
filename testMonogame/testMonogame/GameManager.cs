@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -155,13 +155,44 @@ namespace testMonogame
         public void LoadRoom(int roomNum)
         {
             String name = "Room" + roomNum;
-            if (rooms.ContainsKey(name)) roomKey = name;
+            if (rooms.ContainsKey(name))
+            {
+                //roomKey = name;
+                ChangeRoom(roomNum);
+            }
             else
             {
                 rooms.Add(name, roomLoad.Load(name + ".txt"));
+                //roomKey = name;
+                ChangeRoom(roomNum);
             }
             player.X = 400;
             player.Y = 324;
+        }
+
+        public void ChangeRoom(int roomNum)
+        {
+            String curRoom = roomKey;
+            String name = "Room" + roomNum;
+            roomKey = name;
+            int direction = -1;
+
+            foreach (IObject block in rooms[curRoom].GetBlocks())
+            {
+                if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                {
+                    IDoor door = (IDoor)block;
+
+                    if (door.getNextRoom() == roomNum)
+                    {
+                        direction = door.getSide();
+                    }
+
+                }
+            }
+
+
+                
         }
 
         public IPlayer getPlayer()

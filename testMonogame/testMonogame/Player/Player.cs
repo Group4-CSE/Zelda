@@ -17,9 +17,8 @@ namespace testMonogame
         //how long the attack lasts
         int AttackTimer=30;
         int AttackCount;
-
         
-        int arrowCount;
+        //int arrowCount;
         public int Rupees { get; set; }
         public int Keys { get; set; }
         public int Bombs { get; set; }
@@ -64,6 +63,10 @@ namespace testMonogame
             if (i > inventory.Count - 1) i = 0;
             SelectItem(i);
         }
+
+        public string GetSelectedItem() { return selectedItem; }
+        public void SelectItem(int i) { selectedItem = inventory[i]; }
+
         public void PreviousItem()
         {
             int i = inventory.IndexOf(selectedItem) - 1;
@@ -172,15 +175,19 @@ namespace testMonogame
                     health += 4;
                     break;
                 case "Rupee":
-
                     Rupees=Rupees+1;
                     sound1.getStuff(2);
+
                     break;
                 case "Key":
                     Keys = Keys + 1;
                     break;
                 case "Bomb":
                     Bombs = Bombs + 1;
+
+                    if(!inventory.Contains(item))inventory.Add(item);
+                    break;
+                case "Arrow":
                     if(!inventory.Contains(item))inventory.Add(item);
                     break;
                 case "Triforce":
@@ -269,11 +276,15 @@ namespace testMonogame
         
         public bool UseKey(int keyType)
         {
-            //Add logic for opening doors later
-            //may need to be revised when doors are finalized
-            Keys--;
+            if (Keys > 0)
+            {
+                Keys--;
+                return true;
+            }
+
 
             //sound1.Door()
+
 
             return false;
         }

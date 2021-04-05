@@ -35,3 +35,5 @@ DOORS
 locked,down,4
 MAP
 3,1
+CONDITIONS
+hideitems

@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using testMonogame.Interfaces;
 namespace testMonogame
 {
-    public class CaveDoor : ISprite, IObject
+    public class CaveDoor : ISprite, IObject, IDoor
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -60,9 +61,18 @@ namespace testMonogame
             // add level changing logic
         }
 
+        public void openDoor()
+        {
+            isClosed = false;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, destRect, sourceRect, Color.White);
+            if (!isClosed)
+            {
+                spriteBatch.Draw(texture, destRect, sourceRect, Color.White);
+            }
+            
         }
 
         public Boolean getIsClosed()

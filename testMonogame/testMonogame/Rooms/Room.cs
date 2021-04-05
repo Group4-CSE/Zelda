@@ -25,6 +25,12 @@ namespace testMonogame.Rooms
         int mapOffsetX;
         int mapOffsetY;
 
+
+        //room conditions
+        Rectangle bombRectangle;
+        Rectangle blockRectangle;
+        bool hiddenItems;
+
         const int mapXGrid = 32;
         const int mapYGrid = 16;
 
@@ -60,14 +66,24 @@ namespace testMonogame.Rooms
             Dictionary<String, Texture2D> spriteSheets, 
             List<IObject> inBlocks,
             List<IObject> inItems,
-            List<IEnemy> inEnemies)
+            List<IEnemy> inEnemies,
+            Rectangle inBombRectangle,
+            Rectangle inBlockRectangle,
+            bool inHideItems
+            )
         {
+
+            bombRectangle = inBombRectangle;
+            blockRectangle = inBlockRectangle;
+            hiddenItems = inHideItems;
+            
             screenX = 130;
             screenY = 110;
 
              wallDestRect = new Rectangle(screenX, screenY, 16 * blockBaseDimension * blockSizeMod, 11 * blockBaseDimension * blockSizeMod);
              floorDestRect = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
                 12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
+
 
             sprites = spriteSheets;
 
@@ -150,10 +166,14 @@ namespace testMonogame.Rooms
             {
                 enemy.Draw(spriteBatch);
             }
-            foreach (IObject item in Items)
+            if (!hiddenItems)
             {
-                item.Draw(spriteBatch);
+                foreach (IObject item in Items)
+                {
+                    item.Draw(spriteBatch);
+                }
             }
+            
 
             IPlayerProjectile[] arrPlayer = PlayerProjectiles.ToArray();
             foreach (IPlayerProjectile projectile in arrPlayer)
@@ -179,19 +199,34 @@ namespace testMonogame.Rooms
             foreach (IObject block in Blocks)
             {
                 block.Update(game);
+                if (block.getDestRect().Intersects(blockRectangle))
+                {
+                    //open all closed doors. Will be added when doors are complemtely updated.
+                }
             }
             foreach (IEnemy enemy in Enemies)
             {
                 enemy.Update(game);
             }
-            foreach (IObject item in Items)
+            if (!hiddenItems)
             {
-                item.Update(game);
+                foreach (IObject item in Items)
+                {
+                    item.Update(game);
+                }
+            }
+            else
+            {
+                if (Enemies.Count == 0) hiddenItems = false;
             }
             IPlayerProjectile[] arrPlayer = PlayerProjectiles.ToArray();
             foreach (IPlayerProjectile projectile in arrPlayer)
             {
                 projectile.Update(game);
+                if(projectile is BombPlayerProjectile && projectile.getDestRect().Intersects(bombRectangle))
+                {
+                    //make all cave doors display. Will be added when doors are completely updated
+                }
             }
             IEnemyProjectile[] arrEnemy = EnemyProjectiles.ToArray();
             foreach (IEnemyProjectile projectile in arrEnemy)
