@@ -174,19 +174,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/jerryqiu/.nuget/packages/": {}
+    "/Users/tylerliu/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/jerryqiu/Zelda/testMonogame/testMonogame/testMonogame.csproj",
+      "projectUniqueName": "/Users/tylerliu/newZel/Zelda/testMonogame/testMonogame/testMonogame.csproj",
       "projectName": "testMonogame",
-      "projectPath": "/Users/jerryqiu/Zelda/testMonogame/testMonogame/testMonogame.csproj",
-      "packagesPath": "/Users/jerryqiu/.nuget/packages/",
-      "outputPath": "/Users/jerryqiu/Zelda/testMonogame/testMonogame/obj/",
+      "projectPath": "/Users/tylerliu/newZel/Zelda/testMonogame/testMonogame/testMonogame.csproj",
+      "packagesPath": "/Users/tylerliu/.nuget/packages/",
+      "outputPath": "/Users/tylerliu/newZel/Zelda/testMonogame/testMonogame/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/jerryqiu/.config/NuGet/NuGet.Config"
+        "/Users/tylerliu/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
@@ -234,7 +234,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.103/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
       }
     }
   }

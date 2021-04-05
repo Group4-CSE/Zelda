@@ -29,7 +29,7 @@ namespace testMonogame
         PlayerEnemyCollision PECol = new PlayerEnemyCollision();
         EnemyProjectileCollisionHandler EPCol;
 
-        public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet)
+        public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, Sounds sound)
         {
             this.game = game;
             sprites = spriteSheet;
@@ -39,7 +39,7 @@ namespace testMonogame
             rooms.Add("Room1", roomLoad.Load("Room1.txt"));
             roomKey = "Room1";
 
-            player = new Player(spriteSheet["playersheet"], new Vector2(500, 200), spriteSheet["PlayerProjectiles"]);
+            player = new Player(spriteSheet["playersheet"], new Vector2(500, 200), spriteSheet["PlayerProjectiles"], sound);
 
             EPCol = new EnemyProjectileCollisionHandler(this);
 

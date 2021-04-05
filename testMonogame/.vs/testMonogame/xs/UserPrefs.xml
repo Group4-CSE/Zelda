@@ -1,14 +1,13 @@
 ﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Game1.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Interfaces/IPlayer.cs">
     <Files>
-      <File FileName="testMonogame/Game1.cs" Line="273" Column="1" />
       <File FileName="testMonogame/Enemies/AquamentusEnemy.cs" />
       <File FileName="testMonogame/KeyboardController.cs" />
       <File FileName="testMonogame/Player/Player.cs" />
-      <File FileName="testMonogame/PlayerEnemyCollision.cs" />
-      <File FileName="testMonogame/Interfaces/IPlayer.cs" />
-      <File FileName="testMonogame/Player/States/DownMovingPlayerState.cs" />
+      <File FileName="testMonogame/Game1.cs" Line="187" Column="53" />
+      <File FileName="testMonogame/Interfaces/IPlayer.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/GameManager.cs" Line="42" Column="26" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,8 +15,10 @@
           <Node name="testMonogame" expanded="True">
             <Node name="testMonogame" expanded="True">
               <Node name="Content" expanded="True" />
+              <Node name="Interfaces" expanded="True">
+                <Node name="IPlayer.cs" selected="True" />
+              </Node>
               <Node name="Player" expanded="True" />
-              <Node name="Game1.cs" selected="True" />
             </Node>
           </Node>
         </State>

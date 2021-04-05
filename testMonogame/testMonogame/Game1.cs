@@ -108,6 +108,8 @@ namespace testMonogame
         int itemCounter;
         int enemyCounter;
 
+        GameManager manager;
+
         Song song;
         Sounds sounds = new Sounds();
 
@@ -170,46 +172,26 @@ namespace testMonogame
             sprites.Add("map", map);
             sprites.Add("Backgrounds", backgrounds);
 
-            roomLoad = new RoomLoader(sprites);
-            rooms.Add("Room1", roomLoad.Load("Room1.txt"));
-            roomKey = "Room1";
-
-            blocks = new List<ISprite>();
-            items = new List<ISprite>();
-            enemies = new List<ISprite>();
-
             //Loads all of the sounds
             sounds.LoadSounds(Content);
-           
 
-            player = new Player(Content.Load<Texture2D>("playersheet"), new Vector2(500, 200), playerProjectiles, sounds);
+            manager = new GameManager(this, sprites, sounds);
 
-            keyController = new KeyboardController(this);
-            mouseController = new MouseController(this);
-
+            keyController = new KeyboardController(manager);
+            mouseController = new MouseController(manager);
 
         }
 
         protected override void Update(GameTime gameTime)
         {
 
-            rooms[roomKey].Update(this);
-
-            player.Update(this);
-
-
+            manager.Update();
 
 
             keyController.Update();
             mouseController.Update();
 
-            EOCol.detectCollision(rooms[roomKey].GetEnemies(), rooms[roomKey].GetBlocks());
-            PWCol.detectCollision(player, rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect());
-            EWCol.detectCollision(rooms[roomKey].GetEnemies(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect());
-            PPWCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
-            EPWCol.detectCollision(rooms[roomKey].GetEnemeyProjectile(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
-            POCol.detectCollision(player, rooms[roomKey].GetItems(), rooms[roomKey].GetBlocks(), rooms[roomKey]);
-            PECol.playerEnemyDetection(player, rooms[roomKey].GetEnemies(), rooms[roomKey]);
+           
 
             base.Update(gameTime);
 
@@ -222,15 +204,8 @@ namespace testMonogame
             _spriteBatch.Begin();
 
 
-
-            rooms[roomKey].Draw(_spriteBatch);
-
-            player.Draw(_spriteBatch);
-
-
-
-
-
+            manager.Draw(_spriteBatch);
+           
 
             _spriteBatch.End();
 
@@ -243,30 +218,5 @@ namespace testMonogame
             this.Initialize();
         }
 
-        public void cycleBlock(int incDec)
-        {
-            blockCounter += incDec;
-
-            if (blockCounter == blocks.Count) blockCounter = 0;
-            else if (blockCounter < 0) blockCounter = blocks.Count - 1;
-        }
-
-        public void cycleItem(int incDec)
-        {
-            itemCounter += incDec;
-
-
-            if (itemCounter == items.Count) itemCounter = 0;
-            else if (itemCounter < 0) itemCounter = items.Count - 1;
-        }
-
-        public void cycleEnemy(int incDec)
-        {
-            enemyCounter += incDec;
-
-            if (enemyCounter == enemies.Count) enemyCounter = 0;
-            else if (enemyCounter < 0) enemyCounter = enemies.Count - 1;
-
-        }
     }
 }
