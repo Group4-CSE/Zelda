@@ -14,7 +14,7 @@ namespace testMonogame
         private RoomLoader roomLoad;
         Dictionary<String, IRoom> rooms = new Dictionary<string, IRoom>();
         String roomKey = "";
-
+        Sounds sound;
         Dictionary<String, Texture2D> sprites = new Dictionary<string, Texture2D>();
 
         //collision detectors
@@ -29,11 +29,11 @@ namespace testMonogame
         PlayerEnemyCollision PECol = new PlayerEnemyCollision();
         EnemyProjectileCollisionHandler EPCol;
 
-        public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, Sounds sound)
+        public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, Sounds sounds)
         {
             this.game = game;
             sprites = spriteSheet;
-
+            sound = sounds;
             //load room 1 first
             roomLoad = new RoomLoader(sprites);
             rooms.Add("Room1", roomLoad.Load("Room1.txt"));
@@ -56,10 +56,10 @@ namespace testMonogame
             EWCol.detectCollision(rooms[roomKey].GetEnemies(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect());
             PPWCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
             //PPBCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetBlocks(), this);
-            PPECol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetEnemies(), this, rooms[roomKey]);
+            PPECol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetEnemies(), this, rooms[roomKey], sound);
             //EPWCol.detectCollision(rooms[roomKey].GetEnemeyProjectile(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
             POCol.detectCollision(player, rooms[roomKey].GetItems(), rooms[roomKey].GetBlocks(), rooms[roomKey],this);
-            PECol.playerEnemyDetection(player, rooms[roomKey].GetEnemies(), rooms[roomKey]);
+            PECol.playerEnemyDetection(player, rooms[roomKey].GetEnemies(), rooms[roomKey], sound);
             EPCol.handleEnemyProjCollision(rooms[roomKey], player);
            
         }

@@ -16,16 +16,16 @@ namespace testMonogame
         SoundEffect EnemyHit;
         SoundEffect EnemyDies;
         SoundEffect PlayerHit;
-        SoundEffect PlayerDies;
-        SoundEffect LHealth;
+        //SoundEffect PlayerDies;
+        //SoundEffect LHealth;
         SoundEffect GetItems;
         SoundEffect GetHeart;
         SoundEffect GetRupee;
-        SoundEffect KeyAppear;
+        /*SoundEffect KeyAppear;
         SoundEffect DoorUnlock;
         SoundEffect AquaBoss;
         SoundEffect BossHurt;
-        SoundEffect Stairs;
+        SoundEffect Stairs;*/
 
 
         public Sounds()

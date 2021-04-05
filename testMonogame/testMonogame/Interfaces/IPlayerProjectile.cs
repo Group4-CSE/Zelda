@@ -11,7 +11,7 @@ namespace testMonogame
         public int X { get; set; }
         public int Y { get; set; }
         public void Move();
-        public void doDamage(IEnemy target);
+        public void doDamage(IEnemy target, Sounds sounds);
         public void delete(GameManager game);
         public void collide(GameManager game);
         //returns the destination rectangle of the sprite associated with this entity

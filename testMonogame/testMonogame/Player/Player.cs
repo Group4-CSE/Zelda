@@ -89,8 +89,9 @@ namespace testMonogame
 
         public void dealDamage(IEnemy enemy)
         {
-            enemy.takeDamage(1);
             sound1.EnemyHitDie(0);
+            enemy.takeDamage(1);
+            
             //Figure out sound for enemy dying
         }
 
@@ -183,8 +184,8 @@ namespace testMonogame
             {
                 state.PlaceItem();
                 sound1.BombD(0);
-                state.spawnBomb(game);
-                sound1.BombD(1);
+                state.spawnBomb(game, sound1);
+                //sound1.BombD(1);
                 //player looses one bomb later
             }
             

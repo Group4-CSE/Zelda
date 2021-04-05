@@ -79,8 +79,9 @@ namespace testMonogame
             game.RemovePlayerProjectile(this);
         }
 
-        public void doDamage(IEnemy target)
+        public void doDamage(IEnemy target, Sounds sounds)
         {
+            sounds.EnemyHitDie(0);
             target.takeDamage(1);
         }
 
