@@ -17,12 +17,20 @@ namespace testMonogame
         //how long the attack lasts
         int AttackTimer=30;
         int AttackCount;
-        int Rupees;
+        
+        //int arrowCount;
+        public int Rupees { get; set; }
+        public int Keys { get; set; }
+        public int Bombs { get; set; }
+        public bool Compass { get; set; }
+        public bool Map { get; set; }
 
         List<String> inventory= new List<string>();
-
          IPlayerState state;
         Texture2D projectiles;
+
+        string selectedItem;
+
         bool attack;
         Sounds sound1;
         public Player(Texture2D inTexture, Vector2 position, Texture2D inProjectiles, Sounds sounds)
@@ -30,20 +38,47 @@ namespace testMonogame
             texture = inTexture;
             X = (int)position.X;
             Y = (int)position.Y;
-            Rupees = 0;
+            Rupees = 25;
             attack = false;
             projectiles = inProjectiles;
             state = new LeftMovingPlayerState(texture, new Vector2(X, Y),this, inProjectiles);
             AttackCount = 0;
+            Map = false;
+            Compass = false;
 
-            inventory.Add("Bomb");
-            inventory.Add("Bow");
-            inventory.Add("Arrow");
-            inventory.Add("Boomerang");
+            ObtainItem("Bomb");
+            ObtainItem("Bow");
+            ObtainItem("Boomerang");
+            ObtainItem("Arrow");
+
+            SelectItem(0);
 
             health = maxHealth;
             sound1 = sounds;
         }
+        public string GetSelectedItem() { return selectedItem; }
+        public void SelectItem(int i) { if(!inventory[i].Equals("Arrow"))selectedItem = inventory[i]; }
+        public void NextItem() {
+            int i = inventory.IndexOf(selectedItem) + 1;
+            if (i > inventory.Count - 1) i = 0;
+            SelectItem(i);
+        }
+
+        public string GetSelectedItem() { return selectedItem; }
+        public void SelectItem(int i) { selectedItem = inventory[i]; }
+
+        public void PreviousItem()
+        {
+            int i = inventory.IndexOf(selectedItem) - 1;
+            if (i <0) i = inventory.IndexOf(selectedItem);
+            SelectItem(i);
+        }
+        
+        public List<String> GetInventory()
+        {
+            return inventory;
+        }
+
         public bool IsAttacking() { return attack; }
         public int GetDirection()
         {
@@ -81,10 +116,11 @@ namespace testMonogame
 
         public void ChangeState(int direction)
         {
-            if(direction==0) state= new UpMovingPlayerState(texture, new Vector2(X, Y), this, projectiles);
+            if (direction == 0) state = new UpMovingPlayerState(texture, new Vector2(X, Y), this, projectiles);
             else if (direction == 1) state = new DownMovingPlayerState(texture, new Vector2(X, Y), this, projectiles);
             else if (direction == 2) state = new RightMovingPlayerState(texture, new Vector2(X, Y), this, projectiles);
             else if (direction == 3) state = new LeftMovingPlayerState(texture, new Vector2(X, Y), this, projectiles);
+            else if (direction == 5) state= new WinPlayerState(texture, new Vector2(X,Y), this,projectiles);
         }
 
         public void dealDamage(IEnemy enemy)
@@ -116,10 +152,11 @@ namespace testMonogame
             switch (item)
             {
                 case "Clock":
-                    //freeze screen
+                    //freeze screen later
                     break;
                 case "Compass":
                     //guide to triforce
+                    Compass = true;
                     break;
                 case "Fiary":
                     health = maxHealth;
@@ -131,14 +168,30 @@ namespace testMonogame
                     break;
                 case "Map":
                     //display rooms on map
+                    Map = true;
                     break;
                 case "PermanentHeart":
                     maxHealth += 4;
                     health += 4;
                     break;
                 case "Rupee":
-                    Rupees++;
+                    Rupees=Rupees+1;
                     sound1.getStuff(2);
+
+                    break;
+                case "Key":
+                    Keys = Keys + 1;
+                    break;
+                case "Bomb":
+                    Bombs = Bombs + 1;
+
+                    if(!inventory.Contains(item))inventory.Add(item);
+                    break;
+                case "Arrow":
+                    if(!inventory.Contains(item))inventory.Add(item);
+                    break;
+                case "Triforce":
+                    ChangeState(5);
                     break;
                 default:
                     inventory.Add(item);
@@ -176,6 +229,8 @@ namespace testMonogame
                     AttackCount = 0;
                 }
             }
+            if (health <= 0) game.SetState(3);
+            if (state is WinPlayerState) game.SetState(4);
         }
 
         public void UseBomb(GameManager game)
@@ -183,10 +238,15 @@ namespace testMonogame
             if (inventory.Contains("Bomb"))
             {
                 state.PlaceItem();
+
                 sound1.BombD(0);
                 state.spawnBomb(game, sound1);
-                //sound1.BombD(1);
-                //player looses one bomb later
+                Bombs = Bombs - 1;
+                if (Bombs <= 0)
+                {
+                    inventory.Remove("Bomb");
+                    selectedItem = "";
+                }
             }
             
             
@@ -205,19 +265,27 @@ namespace testMonogame
         
         public void UseBow(GameManager game)
         {
-            if (inventory.Contains("Bow") && inventory.Contains("Arrow"))
+            if (inventory.Contains("Bow") && inventory.Contains("Arrow") && Rupees>0)
             {
                 sound1.Arr_Boom();
                 state.PlaceItem();
                 state.spawnArrow(game);
-                //player looses one arrow, later
+                Rupees--;
             }
         }
         
         public bool UseKey(int keyType)
         {
-            //Add logic for opening doors later
+            if (Keys > 0)
+            {
+                Keys--;
+                return true;
+            }
+
+
             //sound1.Door()
+
+
             return false;
         }
 

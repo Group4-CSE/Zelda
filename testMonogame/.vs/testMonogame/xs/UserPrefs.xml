@@ -1,5 +1,6 @@
-﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
+<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
+
   <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Player/States/RightMovingPlayerState.cs">
     <Files>
       <File FileName="testMonogame/Enemies/AquamentusEnemy.cs" Line="1" Column="1" />
