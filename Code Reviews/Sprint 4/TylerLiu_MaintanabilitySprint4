@@ -1,0 +1,19 @@
+Author of the code review: Tyler Liu
+Date of the code review: 04/05/21
+Sprint number: 4
+Name of the .cs file being reviewed: CaveDoor.cs
+Author of the .cs file being reviewed: Jerry Qiu
+
+Specific comments on code quality:
+Overall from first look, the cave door class looks clean and no code smell.
+Its pretty short but concise to where it executes well
+Good use of switch case to determine what position (Direction) the door should face
+wheb creating or loading a room.
+
+A hypothetical change to make to the game related to file being reviewed and how the current
+implementation could or could not easily support that change:
+
+This class involves the loading and placement of door. If we wanted to create a special way to access a door,
+it would be doable with this class. There are two more other doors (Locked & Closed) that
+are really similar to the cave door. It would be easy to set new paramenters or new ways to unlock/access
+doors if we wanted to add a hidden room.
