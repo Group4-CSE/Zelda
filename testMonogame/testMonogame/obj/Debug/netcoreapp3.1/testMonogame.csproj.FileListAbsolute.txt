@@ -147,4 +147,3 @@ E:/SP21/CSE3902/3902Project/Zelda/testMonogame/testMonogame/bin/Debug/netcoreapp
 /Users/tylerliu/newZel/Zelda/testMonogame/testMonogame/obj/Debug/netcoreapp3.1/testMonogame.dll
 /Users/tylerliu/newZel/Zelda/testMonogame/testMonogame/obj/Debug/netcoreapp3.1/testMonogame.pdb
 /Users/tylerliu/newZel/Zelda/testMonogame/testMonogame/obj/Debug/netcoreapp3.1/testMonogame.genruntimeconfig.cache
-/Users/tylerliu/newZel/Zelda/testMonogame/testMonogame/obj/Debug/netcoreapp3.1/testMonogame.csprojAssemblyReference.cache

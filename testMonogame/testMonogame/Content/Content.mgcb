@@ -13,12 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../../../ZSounds/LOZ_Bomb_Drop.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../../../../../ZSounds/LOZ_Bomb_Drop.wav;LOZ_Bomb_Drop.wav
-
 #begin aquamentus.png
 /importer:TextureImporter
 /processor:TextureProcessor
