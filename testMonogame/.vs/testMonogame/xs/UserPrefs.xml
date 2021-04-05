@@ -1,35 +1,31 @@
 ﻿<Properties StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/PlayerObjectCollision.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Block/CaveDoor.cs">
     <Files>
-      <File FileName="testMonogame/Rooms/Room.cs" Line="1" Column="1" IsPinned="True" />
+      <File FileName="testMonogame/Rooms/Room.cs" Line="20" Column="1" IsPinned="True" />
+      <File FileName="testMonogame/Rooms/RoomTransition.cs" />
       <File FileName="testMonogame/GameManager.cs" />
-      <File FileName="testMonogame/PlayerObjectCollision.cs" Line="84" Column="84" />
-      <File FileName="testMonogame/Rooms/RoomLoader.cs" />
-      <File FileName="testMonogame/Block/CaveDoor.cs" />
+      <File FileName="testMonogame/PlayerObjectCollision.cs" />
+      <File FileName="testMonogame/Block/CaveDoor.cs" Line="73" Column="78" />
       <File FileName="testMonogame/Block/ClosedDoor.cs" />
       <File FileName="testMonogame/Block/LockedDoor.cs" />
       <File FileName="testMonogame/Block/OpenDoor.cs" />
       <File FileName="testMonogame/Content/Room1.txt" />
       <File FileName="testMonogame/Interfaces/IDoor.cs" />
-      <File FileName="testMonogame/Player/Player.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="testMonogame" expanded="True">
             <Node name="testMonogame" expanded="True">
-              <Node name="Dependencies" expanded="True">
-                <Node name="FrameworkReferences" expanded="True" />
-                <Node name="PackageDependencies" expanded="True" />
+              <Node name="Block" expanded="True">
+                <Node name="CaveDoor.cs" selected="True" />
               </Node>
-              <Node name="Block" expanded="True" />
               <Node name="Interfaces" expanded="True" />
               <Node name="Player" expanded="True">
                 <Node name="Sprites" expanded="True" />
               </Node>
               <Node name="Rooms" expanded="True" />
-              <Node name="PlayerObjectCollision.cs" selected="True" />
             </Node>
           </Node>
         </State>

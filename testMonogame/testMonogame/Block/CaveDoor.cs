@@ -68,7 +68,11 @@ namespace testMonogame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, destRect, sourceRect, Color.White);
+            if (!isClosed)
+            {
+                spriteBatch.Draw(texture, destRect, sourceRect, Color.White);
+            }
+            
         }
 
         public Boolean getIsClosed()
