@@ -15,11 +15,13 @@ namespace testMonogame
         Rectangle playerRect;
         Rectangle enemyRect;
         Boolean collision;
+        Sounds sound;
 
 
 
-        public void playerEnemyDetection(IPlayer player, List<IEnemy> enemies,IRoom room)
+        public void playerEnemyDetection(IPlayer player, List<IEnemy> enemies,IRoom room, Sounds sounds)
         {
+            sound = sounds;
             //Detect player enemy collision
             IEnemy[] enemyArr = enemies.ToArray();
             foreach (IEnemy enemy in enemyArr)
@@ -34,13 +36,13 @@ namespace testMonogame
                 //If detected, have player take damage
                 if (collision)
                 {
-                    playerEnemyHandler(Rectangle.Intersect(playerRect,enemyRect),player, enemy,room);
+                    playerEnemyHandler(Rectangle.Intersect(playerRect,enemyRect),player, enemy,room, sound);
                 }
             }
 
         }
 
-        public void playerEnemyHandler(Rectangle collisionRect,IPlayer player, IEnemy enemy,IRoom room)
+        public void playerEnemyHandler(Rectangle collisionRect,IPlayer player, IEnemy enemy,IRoom room, Sounds sound)
         {
             //get direction
             int direction;
@@ -80,7 +82,12 @@ namespace testMonogame
             if (player.IsAttacking() && direction==player.GetDirection())
             {
                 player.dealDamage(enemy);
-                if (enemy.getHealth() <= 0) room.RemoveEnemy(enemy);
+                if (enemy.getHealth() <= 0)
+                {
+                    sound.EnemyHitDie(1);
+                    room.RemoveEnemy(enemy);
+                }
+                    
                 
                 
             }

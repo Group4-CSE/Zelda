@@ -20,13 +20,15 @@ namespace testMonogame.Rooms
         List<IObject> Items= new List<IObject>();
         List<IEnemy> Enemies=new List<IEnemy>();
 
+
         //Conditions
         bool hideItems;
         Rectangle blockRect;
         Rectangle bombRect;
 
-        const int screenX = 150;
-        const int screenY = 70;
+        const int screenX = 130;
+        const int screenY = 110;
+
         //The factor that each block is scaled up by
         const int blockSizeMod = 2;
         //the base dimensions of a block square

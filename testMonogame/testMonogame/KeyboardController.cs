@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,7 +9,9 @@ namespace testMonogame
 {
     public class KeyboardController : IController
     {
-        Dictionary<Keys, ICommand> KeyMap;
+        Dictionary<Keys, ICommand> PlayingKeyMap;
+        Dictionary<Keys, ICommand> ItemSelectionKeyMap;
+        Dictionary<Keys, ICommand> PauseKeyMap;
         KeyboardState prevState;
         List<Keys> moveKeys;
 
@@ -18,11 +21,14 @@ namespace testMonogame
 
         ICommand Idle;
         ICommand Move;
+        ICommand s2reset;
+
+        GameManager manager;
 
         public KeyboardController(GameManager game)
         {
             prevState = Keyboard.GetState();
-
+            manager = game;
 
             //setup commands
             ICommand Attack = new PlayerAttackCommand(game.getPlayer(),game);
@@ -43,36 +49,60 @@ namespace testMonogame
             ICommand prevItem = new CycleItemCommand(game,-1);
             ICommand nextEnemy = new CycleEnemyCommand(game,1);
             ICommand prevEnemy = new CycleEnemyCommand(game,-1);
+            ICommand playing = new SetGameStateCommand(game, 0);
+            ICommand inventorySelection = new SetGameStateCommand(game, 1);
+            ICommand pause = new SetGameStateCommand(game, 2);
+            ICommand lose = new SetGameStateCommand(game, 3);
+            ICommand win = new SetGameStateCommand(game, 4);
+            ICommand nextItemSelect = new NextItemCommand(game);
+            ICommand prevItemSelect = new PreviousItemCommand(game);
+            ICommand useSelectedItem = new UseSelectedItemCommand(game);
 
-            ICommand s2reset = new S2Reset(game);
+            //item selection kepMap
+            ItemSelectionKeyMap = new Dictionary<Keys, ICommand>();
+            ItemSelectionKeyMap.Add(Keys.C, playing);
+            ItemSelectionKeyMap.Add(Keys.A, prevItemSelect);
+            ItemSelectionKeyMap.Add(Keys.Left, prevItemSelect);
+            ItemSelectionKeyMap.Add(Keys.D, nextItemSelect);
+            ItemSelectionKeyMap.Add(Keys.Right, nextItemSelect);
+            //pause  kepMap
+            PauseKeyMap = new Dictionary<Keys, ICommand>();
+            PauseKeyMap.Add(Keys.C, playing);
+
+
+             s2reset = new S2Reset(game);
             //KeyMap.Add(Keys.A, new PlayerAttackCommand(game.player));
-            KeyMap = new Dictionary<Keys, ICommand>();
-            KeyMap.Add(Keys.Z, Attack);
-            KeyMap.Add(Keys.N, Attack);
+            PlayingKeyMap = new Dictionary<Keys, ICommand>();
+            PlayingKeyMap.Add(Keys.P, pause);
+            PlayingKeyMap.Add(Keys.I, inventorySelection);
+            PlayingKeyMap.Add(Keys.Z, Attack);
+            PlayingKeyMap.Add(Keys.N, Attack);
+            PlayingKeyMap.Add(Keys.X, useSelectedItem);
+            PlayingKeyMap.Add(Keys.M, useSelectedItem);
             //KeyMap.Add(Keys.A, Move);
-            KeyMap.Add(Keys.D1, Arrow);
-            KeyMap.Add(Keys.D2, Bomb);
-            KeyMap.Add(Keys.D3, Boomerang);
-            KeyMap.Add(Keys.E, Hurt);
-            KeyMap.Add(Keys.W, Up);
-            KeyMap.Add(Keys.A, Left);
-            KeyMap.Add(Keys.S, Down);
-            KeyMap.Add(Keys.D, Right);
-            KeyMap.Add(Keys.Up, Up);
-            KeyMap.Add(Keys.Left, Left);
-            KeyMap.Add(Keys.Down, Down);
-            KeyMap.Add(Keys.Right, Right);
+            PlayingKeyMap.Add(Keys.D1, Arrow);
+            PlayingKeyMap.Add(Keys.D2, Bomb);
+            PlayingKeyMap.Add(Keys.D3, Boomerang);
+            PlayingKeyMap.Add(Keys.E, Hurt);
+            PlayingKeyMap.Add(Keys.W, Up);
+            PlayingKeyMap.Add(Keys.A, Left);
+            PlayingKeyMap.Add(Keys.S, Down);
+            PlayingKeyMap.Add(Keys.D, Right);
+            PlayingKeyMap.Add(Keys.Up, Up);
+            PlayingKeyMap.Add(Keys.Left, Left);
+            PlayingKeyMap.Add(Keys.Down, Down);
+            PlayingKeyMap.Add(Keys.Right, Right);
             //KeyMap.Add(Keys.Y, Idle);
 
-            KeyMap.Add(Keys.Escape, quit);
-            KeyMap.Add(Keys.T, prevBlock);
-            KeyMap.Add(Keys.Y, nextBlock);
-            KeyMap.Add(Keys.U, prevItem);
-            KeyMap.Add(Keys.I, nextItem);
-            KeyMap.Add(Keys.O, prevEnemy);
-            KeyMap.Add(Keys.P, nextEnemy);
-            KeyMap.Add(Keys.R, s2reset);
-            KeyMap.Add(Keys.Q, quit);
+            PlayingKeyMap.Add(Keys.Escape, quit);
+            //PlayingKeyMap.Add(Keys.T, prevBlock);
+            //PlayingKeyMap.Add(Keys.Y, nextBlock);
+            //PlayingKeyMap.Add(Keys.U, prevItem);
+            //PlayingKeyMap.Add(Keys.I, nextItem);
+            //PlayingKeyMap.Add(Keys.O, prevEnemy);
+            //PlayingKeyMap.Add(Keys.P, nextEnemy);
+            PlayingKeyMap.Add(Keys.R, s2reset);
+            PlayingKeyMap.Add(Keys.Q, quit);
 
             direcPriority = new Dictionary<Keys, int>();
             direcPriority.Add(Keys.W, 0);
@@ -104,33 +134,67 @@ namespace testMonogame
         {
             KeyboardState state = Keyboard.GetState();
 
-            direcPressed = Keys.I;
-
-            //run the command associated with any key pressed.
-            foreach (Keys k in state.GetPressedKeys())
+            if (manager.getState()==0)
             {
-                //only attempt to execute if the key is present in the dictionary
-                if (KeyMap.ContainsKey(k) && !prevState.IsKeyDown(k))
+                direcPressed = Keys.I;
+
+                //run the command associated with any key pressed.
+                foreach (Keys k in state.GetPressedKeys())
                 {
-                    KeyMap[k].Execute();
-                    if(k.Equals(Keys.W)|| k.Equals(Keys.A) || k.Equals(Keys.S) || k.Equals(Keys.D)|| k.Equals(Keys.Up) || k.Equals(Keys.Left) || k.Equals(Keys.Right) || k.Equals(Keys.Down))
+                    //only attempt to execute if the key is present in the dictionary
+                    if (PlayingKeyMap.ContainsKey(k) && !prevState.IsKeyDown(k))
                     {
-                        direcPressed = k;
+                        PlayingKeyMap[k].Execute();
+                        if (k.Equals(Keys.W) || k.Equals(Keys.A) || k.Equals(Keys.S) || k.Equals(Keys.D) || k.Equals(Keys.Up) || k.Equals(Keys.Left) || k.Equals(Keys.Right) || k.Equals(Keys.Down))
+                        {
+                            direcPressed = k;
+                        }
+                    }
+
+                }
+                //            if ((!prevState.IsKeyDown(Keys.A) && !state.IsKeyUp(Keys.A)) ||
+                //                (!prevState.IsKeyDown(Keys.W) && !state.IsKeyUp(Keys.W)) ||
+                //                (!prevState.IsKeyDown(Keys.D) && !state.IsKeyUp(Keys.D)) ||
+                //                (!prevState.IsKeyDown(Keys.S) && !state.IsKeyUp(Keys.S))) Move.Execute();
+                //            if ((prevState.IsKeyDown(Keys.A) && state.IsKeyUp(Keys.A)) ||
+                //                (prevState.IsKeyDown(Keys.W) && state.IsKeyUp(Keys.W)) ||
+                //                (prevState.IsKeyDown(Keys.D) && state.IsKeyUp(Keys.D)) ||
+                //                (prevState.IsKeyDown(Keys.S) && state.IsKeyUp(Keys.S))) Idle.Execute();
+                handleMovement(state);
+
+
+
+            }
+            //item selection
+            else if (manager.getState() == 1)
+            {
+                foreach(Keys k in state.GetPressedKeys())
+                {
+                    if (prevState.GetPressedKeyCount() == 0 && ItemSelectionKeyMap.ContainsKey(k))
+                    {
+                        ItemSelectionKeyMap[k].Execute();
                     }
                 }
-               
             }
-            //            if ((!prevState.IsKeyDown(Keys.A) && !state.IsKeyUp(Keys.A)) ||
-            //                (!prevState.IsKeyDown(Keys.W) && !state.IsKeyUp(Keys.W)) ||
-            //                (!prevState.IsKeyDown(Keys.D) && !state.IsKeyUp(Keys.D)) ||
-            //                (!prevState.IsKeyDown(Keys.S) && !state.IsKeyUp(Keys.S))) Move.Execute();
-            //            if ((prevState.IsKeyDown(Keys.A) && state.IsKeyUp(Keys.A)) ||
-            //                (prevState.IsKeyDown(Keys.W) && state.IsKeyUp(Keys.W)) ||
-            //                (prevState.IsKeyDown(Keys.D) && state.IsKeyUp(Keys.D)) ||
-            //                (prevState.IsKeyDown(Keys.S) && state.IsKeyUp(Keys.S))) Idle.Execute();
-            handleMovement(state);
-
-
+            //pause
+            else if (manager.getState() == 2)
+            {
+                
+                foreach (Keys k in state.GetPressedKeys())
+                {
+                    if (PauseKeyMap.ContainsKey(k))
+                    {
+                        
+                        PauseKeyMap[k].Execute();
+                    }
+                }
+            }
+            //win and lose
+            else if (manager.getState() == 3 || manager.getState()==4)
+            {
+                if(prevState.GetPressedKeyCount()==0)s2reset.Execute();
+            }
+            
             prevState = state;
         }
 
@@ -220,7 +284,7 @@ namespace testMonogame
                 {   //change direction to current direction
                     moveTotal = moveTotal - highest + 9;
                     direcPriority[highestKey] = 9;
-                    KeyMap[highestKey].Execute();
+                    PlayingKeyMap[highestKey].Execute();
                     Move.Execute();
 
                     //up priority for keys still pressed

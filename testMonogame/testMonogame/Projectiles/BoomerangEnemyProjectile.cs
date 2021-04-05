@@ -86,6 +86,7 @@ namespace testMonogame
 
         public void doDamage(IPlayer player)
         {
+            //sounds.EnemyHitDie(0);
             player.TakeDamage(1);
         }
 

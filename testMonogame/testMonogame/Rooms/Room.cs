@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Linq;
 using testMonogame.Interfaces;
 
 namespace testMonogame.Rooms
@@ -12,21 +13,26 @@ namespace testMonogame.Rooms
 
     class Room : IRoom
     {
-        const int screenX = 150;
-        const int screenY = 70;
+        
+        public int screenX { get; set; }
+        public int screenY { get; set; }
 
         const int mapScreenLocX = 0;
         const int mapScreenLocY = 0;
 
         int mapX;
         int mapY;
+        int mapOffsetX;
+        int mapOffsetY;
 
-        const int mapXGrid = 24;
-        const int mapYGrid = 12;
+
         //room conditions
         Rectangle bombRectangle;
         Rectangle blockRectangle;
         bool hiddenItems;
+
+        const int mapXGrid = 32;
+        const int mapYGrid = 16;
 
         //The factor that each block is scaled up by
         const int blockSizeMod = 2;
@@ -50,15 +56,11 @@ namespace testMonogame.Rooms
         Rectangle undergroundSourceRect = new Rectangle(265, 176, 16 * blockBaseDimension, 11 * blockBaseDimension);
         Rectangle floorSourceRect = new Rectangle(272, 32, 12 * blockBaseDimension, 7 * blockBaseDimension);
         Rectangle floor2SourceRect= new Rectangle(560, 194, 12 * blockBaseDimension, 7 * blockBaseDimension);
-        Rectangle wallDestRect = new Rectangle(screenX, screenY, 16 * blockBaseDimension * blockSizeMod, 11 * blockBaseDimension * blockSizeMod);
-        Rectangle floorDestRect = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
-            12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
+        Rectangle wallDestRect;
+        Rectangle floorDestRect ;
 
 
-        const int finalMapWidth = 141;
-        const int finalMapHeight = 69;
-        Rectangle mapSourceRect = new Rectangle(0, 0, 47, 23);
-        Rectangle mapDestRect = new Rectangle(0, 0, finalMapWidth, finalMapHeight);
+        
 
         public Room(int inMapX, int inMapY, int inBG, bool inWalls, 
             Dictionary<String, Texture2D> spriteSheets, 
@@ -70,9 +72,19 @@ namespace testMonogame.Rooms
             bool inHideItems
             )
         {
+
             bombRectangle = inBombRectangle;
             blockRectangle = inBlockRectangle;
             hiddenItems = inHideItems;
+            
+            screenX = 130;
+            screenY = 110;
+
+             wallDestRect = new Rectangle(screenX, screenY, 16 * blockBaseDimension * blockSizeMod, 11 * blockBaseDimension * blockSizeMod);
+             floorDestRect = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
+                12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
+
+
             sprites = spriteSheets;
 
             Background = inBG;
@@ -91,12 +103,52 @@ namespace testMonogame.Rooms
 
         }
 
+        public IObject getDrops(IEnemy enemy)
+        {
+            Random randomNumber = new Random();
+            int dropNum = randomNumber.Next(18);
+            int[] rupee = { 1, 3, 6, 7 };
+            int[] bomb = { 0, 5, 8 };
+            int[] heart = { 2, 4, 9 };
+            Rectangle enemyRect = enemy.getDestRect();
+            Vector2 position = new Vector2(enemyRect.X, enemyRect.Y);
+            Texture2D itemSprites = sprites["itemset"];
+            IObject drop = null;
+
+
+            if (enemy.getHealth() <= 0)
+            {
+                if (rupee.Contains(dropNum))
+                {
+                    drop = new RupeeItem(itemSprites, position);
+                }
+                else if (bomb.Contains(dropNum))
+                {
+                    drop = new BombItem(itemSprites, position);
+                }
+                else if (heart.Contains(dropNum))
+                {
+                    drop = new HeartItem(itemSprites, position);
+                }
+            }
+
+            return drop;
+        }
+
         public void AddEnemyProjectile(IEnemyProjectile projectile) { EnemyProjectiles.Add(projectile); }
         public void RemoveEnemyProjectile(IEnemyProjectile projectile) { EnemyProjectiles.Remove(projectile); }
         public void AddPlayerProjectile(IPlayerProjectile projectile) { PlayerProjectiles.Add(projectile); }
         public void RemovePlayerProjectile(IPlayerProjectile projectile) { PlayerProjectiles.Remove(projectile); }
         public void RemoveItem(IObject item) { Items.Remove(item); }
-        public void RemoveEnemy(IEnemy enemy) { Enemies.Remove(enemy); }
+        public void RemoveEnemy(IEnemy enemy) 
+        {
+            IObject drop = getDrops(enemy);
+            if (drop != null)
+            {
+                Items.Add(drop);
+            }
+            Enemies.Remove(enemy); 
+        }
 
 
         public void Draw(SpriteBatch spriteBatch)
@@ -136,8 +188,8 @@ namespace testMonogame.Rooms
 
 
             
-            spriteBatch.Draw(sprites["map"], mapDestRect, mapSourceRect, Color.White);
-            spriteBatch.Draw(sprites["Backgrounds"], new Rectangle((mapX * mapXGrid)+6, (mapY * mapYGrid), 9, 9), new Rectangle(40, 200, 3, 3), Color.Gray);
+            //spriteBatch.Draw(sprites["map"], mapDestRect, mapSourceRect, Color.White);
+            spriteBatch.Draw(sprites["Backgrounds"], new Rectangle(mapOffsetX+(mapX * mapXGrid)+(mapXGrid/4), mapOffsetY+(mapY * mapYGrid), (mapXGrid-5)/2, mapYGrid-4), new Rectangle(40, 200, 3, 3), Color.Gray);
 
 
         }
@@ -181,6 +233,8 @@ namespace testMonogame.Rooms
             {
                 projectile.Update(game);
             }
+            mapOffsetX = game.getHUD().hudX;
+            mapOffsetY = game.getHUD().hudY;
         }
 
         public List<IObject> GetBlocks()

@@ -1,4 +1,0 @@
-Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/Backgrounds.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/Backgrounds.xnb","TextureProcessor","Texture2DContent",21292,1306345,0.219419
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/doors.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/doors.xnb","TextureProcessor","Texture2DContent",24840,68729,0.005242
-"/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/Level1Map.png","/Users/jerryqiu/Zelda/testMonogame/testMonogame/Content/bin/DesktopGL/Content/Level1Map.xnb","TextureProcessor","Texture2DContent",9609,4409,0.00137
