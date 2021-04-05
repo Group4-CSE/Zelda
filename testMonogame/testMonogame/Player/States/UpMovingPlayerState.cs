@@ -80,10 +80,10 @@ namespace testMonogame
             return sprite.isMoving();
         }
 
-        public void spawnBomb(GameManager game)
+        public void spawnBomb(GameManager game, Sounds sounds)
         {
             if (!stasis) game.AddPlayerProjectile(new BombPlayerProjectile(projectiles, new Vector2((float)(player.X),
-                (float)(player.Y-20))));
+                (float)(player.Y-20)), sounds));
         }
 
         public void spawnArrow(GameManager game)

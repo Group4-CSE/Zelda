@@ -13,17 +13,20 @@ namespace testMonogame.Rooms
 
     class Room : IRoom
     {
-        const int screenX = 150;
-        const int screenY = 70;
+        
+        public int screenX { get; set; }
+        public int screenY { get; set; }
 
         const int mapScreenLocX = 0;
         const int mapScreenLocY = 0;
 
         int mapX;
         int mapY;
+        int mapOffsetX;
+        int mapOffsetY;
 
-        const int mapXGrid = 24;
-        const int mapYGrid = 12;
+        const int mapXGrid = 32;
+        const int mapYGrid = 16;
 
         //The factor that each block is scaled up by
         const int blockSizeMod = 2;
@@ -47,15 +50,11 @@ namespace testMonogame.Rooms
         Rectangle undergroundSourceRect = new Rectangle(265, 176, 16 * blockBaseDimension, 11 * blockBaseDimension);
         Rectangle floorSourceRect = new Rectangle(272, 32, 12 * blockBaseDimension, 7 * blockBaseDimension);
         Rectangle floor2SourceRect= new Rectangle(560, 194, 12 * blockBaseDimension, 7 * blockBaseDimension);
-        Rectangle wallDestRect = new Rectangle(screenX, screenY, 16 * blockBaseDimension * blockSizeMod, 11 * blockBaseDimension * blockSizeMod);
-        Rectangle floorDestRect = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
-            12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
+        Rectangle wallDestRect;
+        Rectangle floorDestRect ;
 
 
-        const int finalMapWidth = 141;
-        const int finalMapHeight = 69;
-        Rectangle mapSourceRect = new Rectangle(0, 0, 47, 23);
-        Rectangle mapDestRect = new Rectangle(0, 0, finalMapWidth, finalMapHeight);
+        
 
         public Room(int inMapX, int inMapY, int inBG, bool inWalls, 
             Dictionary<String, Texture2D> spriteSheets, 
@@ -63,6 +62,13 @@ namespace testMonogame.Rooms
             List<IObject> inItems,
             List<IEnemy> inEnemies)
         {
+            screenX = 130;
+            screenY = 110;
+
+             wallDestRect = new Rectangle(screenX, screenY, 16 * blockBaseDimension * blockSizeMod, 11 * blockBaseDimension * blockSizeMod);
+             floorDestRect = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
+                12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
+
             sprites = spriteSheets;
 
             Background = inBG;
@@ -162,8 +168,8 @@ namespace testMonogame.Rooms
 
 
             
-            spriteBatch.Draw(sprites["map"], mapDestRect, mapSourceRect, Color.White);
-            spriteBatch.Draw(sprites["Backgrounds"], new Rectangle((mapX * mapXGrid)+6, (mapY * mapYGrid), 9, 9), new Rectangle(40, 200, 3, 3), Color.Gray);
+            //spriteBatch.Draw(sprites["map"], mapDestRect, mapSourceRect, Color.White);
+            spriteBatch.Draw(sprites["Backgrounds"], new Rectangle(mapOffsetX+(mapX * mapXGrid)+(mapXGrid/4), mapOffsetY+(mapY * mapYGrid), (mapXGrid-5)/2, mapYGrid-4), new Rectangle(40, 200, 3, 3), Color.Gray);
 
 
         }
@@ -192,6 +198,8 @@ namespace testMonogame.Rooms
             {
                 projectile.Update(game);
             }
+            mapOffsetX = game.getHUD().hudX;
+            mapOffsetY = game.getHUD().hudY;
         }
 
         public List<IObject> GetBlocks()

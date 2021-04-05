@@ -20,8 +20,8 @@ namespace testMonogame.Rooms
         List<IObject> Items= new List<IObject>();
         List<IEnemy> Enemies=new List<IEnemy>();
 
-        const int screenX = 150;
-        const int screenY = 70;
+        const int screenX = 130;
+        const int screenY = 110;
         //The factor that each block is scaled up by
         const int blockSizeMod = 2;
         //the base dimensions of a block square
@@ -155,20 +155,24 @@ namespace testMonogame.Rooms
                     direction = 0;
                     break;
             }
+
+            int nextDoor = int.Parse(split[2]);
+
             switch (split[0])
             {
+                
                 //keys temporarily set to 0. may have to do switch later to determine room number
                 case "closed":
-                    door = new ClosedDoor(direction, new Vector2(x, y), sprites["doors"], 0, false);
+                    door = new ClosedDoor(direction, new Vector2(x, y), sprites["doors"], 0, false,nextDoor);
                     break;
                 case "open":
-                    door = new OpenDoor(direction, new Vector2(x, y), sprites["doors"], 0, false);
+                    door = new OpenDoor(direction, new Vector2(x, y), sprites["doors"], 0, false, nextDoor);
                     break;
                 case "cave":
-                    door = new CaveDoor(direction, new Vector2(x, y), sprites["doors"]);
+                    door = new CaveDoor(direction, new Vector2(x, y), sprites["doors"], nextDoor);
                     break;
                 case "locked":
-                    door = new LockedDoor(direction, new Vector2(x, y), sprites["doors"], 0, true);
+                    door = new LockedDoor(direction, new Vector2(x, y), sprites["doors"], 0, true, nextDoor);
                     break;
                 default:
                     door = null;
