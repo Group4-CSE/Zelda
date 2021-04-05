@@ -19,12 +19,6 @@
 /processorParam:Quality=Best
 /build:../../../../../ZSounds/LOZ_Bomb_Drop.wav;LOZ_Bomb_Drop.wav
 
-#begin ../../../../../ZSounds/LOZ_Link_Hurt.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../../../../../ZSounds/LOZ_Link_Hurt.wav;LOZ_Link_Hurt.wav
-
 #begin aquamentus.png
 /importer:TextureImporter
 /processor:TextureProcessor
