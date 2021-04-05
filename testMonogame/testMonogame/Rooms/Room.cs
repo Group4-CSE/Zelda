@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Linq;
 using testMonogame.Interfaces;
 
 namespace testMonogame.Rooms
@@ -86,12 +87,52 @@ namespace testMonogame.Rooms
 
         }
 
+        public IObject getDrops(IEnemy enemy)
+        {
+            Random randomNumber = new Random();
+            int dropNum = randomNumber.Next(18);
+            int[] rupee = { 1, 3, 6, 7 };
+            int[] bomb = { 0, 5, 8 };
+            int[] heart = { 2, 4, 9 };
+            Rectangle enemyRect = enemy.getDestRect();
+            Vector2 position = new Vector2(enemyRect.X, enemyRect.Y);
+            Texture2D itemSprites = sprites["itemset"];
+            IObject drop = null;
+
+
+            if (enemy.getHealth() <= 0)
+            {
+                if (rupee.Contains(dropNum))
+                {
+                    drop = new RupeeItem(itemSprites, position);
+                }
+                else if (bomb.Contains(dropNum))
+                {
+                    drop = new BombItem(itemSprites, position);
+                }
+                else if (heart.Contains(dropNum))
+                {
+                    drop = new HeartItem(itemSprites, position);
+                }
+            }
+
+            return drop;
+        }
+
         public void AddEnemyProjectile(IEnemyProjectile projectile) { EnemyProjectiles.Add(projectile); }
         public void RemoveEnemyProjectile(IEnemyProjectile projectile) { EnemyProjectiles.Remove(projectile); }
         public void AddPlayerProjectile(IPlayerProjectile projectile) { PlayerProjectiles.Add(projectile); }
         public void RemovePlayerProjectile(IPlayerProjectile projectile) { PlayerProjectiles.Remove(projectile); }
         public void RemoveItem(IObject item) { Items.Remove(item); }
-        public void RemoveEnemy(IEnemy enemy) { Enemies.Remove(enemy); }
+        public void RemoveEnemy(IEnemy enemy) 
+        {
+            IObject drop = getDrops(enemy);
+            if (drop != null)
+            {
+                Items.Add(drop);
+            }
+            Enemies.Remove(enemy); 
+        }
 
 
         public void Draw(SpriteBatch spriteBatch)

@@ -60,7 +60,7 @@ namespace testMonogame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            destRect = new Rectangle(goriya.Y, goriya.Y, width, height);
+            destRect = new Rectangle(goriya.X, goriya.Y, width, height);
             frame += 1;
             if (frame > 60) frame = 0;
             if (goriya.getThrow() == true)
