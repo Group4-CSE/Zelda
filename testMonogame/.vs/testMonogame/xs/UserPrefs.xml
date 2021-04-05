@@ -1,32 +1,41 @@
-﻿<Properties StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
+﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/GameManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Player/States/RightMovingPlayerState.cs">
     <Files>
-      <File FileName="testMonogame/Rooms/Room.cs" Line="1" Column="1" IsPinned="True" />
-      <File FileName="testMonogame/GameManager.cs" Line="88" Column="13" />
-      <File FileName="testMonogame/PlayerObjectCollision.cs" Line="140" Column="1" />
-      <File FileName="testMonogame/Rooms/RoomLoader.cs" Line="175" Column="108" />
-      <File FileName="testMonogame/Block/CaveDoor.cs" Line="27" Column="29" />
-      <File FileName="testMonogame/Block/ClosedDoor.cs" Line="30" Column="13" />
-      <File FileName="testMonogame/Block/LockedDoor.cs" Line="21" Column="106" />
-      <File FileName="testMonogame/Block/OpenDoor.cs" Line="21" Column="105" />
-      <File FileName="testMonogame/Content/Room1.txt" Line="1" Column="1" />
-      <File FileName="testMonogame/Content/Room2.txt" Line="35" Column="14" />
-      <File FileName="testMonogame/Content/Room9.txt" Line="13" Column="18" />
+      <File FileName="testMonogame/Enemies/AquamentusEnemy.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/KeyboardController.cs" Line="4" Column="40" />
+      <File FileName="testMonogame/Player/Player.cs" Line="189" Column="47" />
+      <File FileName="testMonogame/Game1.cs" Line="220" Column="1" />
+      <File FileName="testMonogame/Interfaces/IPlayer.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/Sounds.cs" Line="28" Column="30" />
+      <File FileName="testMonogame/PlayerProjectileEnemyCollision.cs" Line="46" Column="39" />
+      <File FileName="testMonogame/Interfaces/IEnemy.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/GameManager.cs" Line="62" Column="98" />
+      <File FileName="testMonogame/PlayerEnemyCollision.cs" Line="87" Column="42" />
+      <File FileName="testMonogame/Interfaces/IPlayerState.cs" Line="23" Column="62" />
+      <File FileName="testMonogame/Projectiles/BombPlayerProjectile.cs" Line="31" Column="28" />
+      <File FileName="testMonogame/Interfaces/IPlayerProjectile.cs" Line="22" Column="44" />
+      <File FileName="testMonogame/Interfaces/IRoom.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/Rooms/Room.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/Player/States/UpMovingPlayerState.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/Player/States/DownMovingPlayerState.cs" Line="89" Column="1" />
+      <File FileName="testMonogame/Player/States/LeftMovingPlayerState.cs" Line="88" Column="10" />
+      <File FileName="testMonogame/Player/States/RightMovingPlayerState.cs" Line="83" Column="57" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="testMonogame" expanded="True">
             <Node name="testMonogame" expanded="True">
-              <Node name="Dependencies" expanded="True">
-                <Node name="FrameworkReferences" expanded="True" />
-                <Node name="PackageDependencies" expanded="True" />
-              </Node>
-              <Node name="Content" expanded="True" />
+              <Node name="Enemies" expanded="True" />
               <Node name="Interfaces" expanded="True" />
+              <Node name="Player" expanded="True">
+                <Node name="States" expanded="True">
+                  <Node name="RightMovingPlayerState.cs" selected="True" />
+                </Node>
+              </Node>
+              <Node name="Projectiles" expanded="True" />
               <Node name="Rooms" expanded="True" />
-              <Node name="GameManager.cs" selected="True" />
             </Node>
           </Node>
         </State>

@@ -20,7 +20,7 @@ namespace testMonogame
         //Attack
         public void Attack();
         //items
-        public void spawnBomb(GameManager game);
+        public void spawnBomb(GameManager game, Sounds sounds);
         public void spawnArrow(GameManager game);
         public void spawnBoomerang(GameManager game);
         public void spawnSwordProjectile(GameManager game);

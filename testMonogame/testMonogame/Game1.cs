@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace testMonogame
         private Texture2D wallmaster;
         private Texture2D playerProjectiles;
         Dictionary<string, Texture2D> sprites;
-
+        
+        Sounds sounds = new Sounds();
 
         IController keyController;
         IController mouseController;
@@ -88,11 +90,13 @@ namespace testMonogame
             sprites.Add("ItemSelection", ItemSelection);
             sprites.Add("MenuScreens", menuBackground);
 
-
+            //Loads all of the sounds
+            sounds.LoadSounds(Content);
+            
             SpriteFont font= Content.Load<SpriteFont>("HUDfont");
             SpriteFont header = Content.Load<SpriteFont>("HeaderFont");
 
-            manager = new GameManager(this, sprites,font,header);
+            manager = new GameManager(this, sprites,font,header, sounds);
 
             keyController = new KeyboardController(manager);
             mouseController = new MouseController(manager);

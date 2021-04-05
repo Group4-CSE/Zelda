@@ -32,6 +32,7 @@ namespace testMonogame
         };
         GameState state;
 
+        Sounds sound;
         Dictionary<String, Texture2D> sprites = new Dictionary<string, Texture2D>();
 
         //collision detectors
@@ -46,38 +47,36 @@ namespace testMonogame
         PlayerEnemyCollision PECol = new PlayerEnemyCollision();
         EnemyProjectileCollisionHandler EPCol;
 
-        public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, SpriteFont font, SpriteFont header)
+
+        public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, SpriteFont font, SpriteFont header, Sounds sounds)
         {
             this.game = game;
             sprites = spriteSheet;
             state = GameState.PLAYING;
 
             //load room 17 first
+
+            sound = sounds;
+
             roomLoad = new RoomLoader(sprites);
             rooms.Add("Room17", roomLoad.Load("Room17.txt"));
             roomKey = "Room17";
 
-            player = new Player(spriteSheet["playersheet"], new Vector2(500, 200), spriteSheet["PlayerProjectiles"]);
+            player = new Player(spriteSheet["playersheet"], new Vector2(500, 200), spriteSheet["PlayerProjectiles"], sound);
             hud = new HUD(spriteSheet["hudSheet"], font);
             itemScreen = new ItemSelectionScreen(spriteSheet["ItemSelection"]);
             pause = new PauseScreen(spriteSheet["MenuScreens"], font, header);
             gameOver = new GameOverScreen(spriteSheet["MenuScreens"], font, header);
             win = new WinScreen(spriteSheet["MenuScreens"]);
 
+
             EPCol = new EnemyProjectileCollisionHandler(this);
-
-
-
-            
 
 
         }
 
         public void Update()
         {
-
-
-
 
             //PLAYING
             if (state == GameState.PLAYING)
@@ -90,10 +89,10 @@ namespace testMonogame
                 EWCol.detectCollision(rooms[roomKey].GetEnemies(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect());
                 PPWCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
                 //PPBCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetBlocks(), this);
-                PPECol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetEnemies(), this, rooms[roomKey]);
+                PPECol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetEnemies(), this, rooms[roomKey], sound);
                 //EPWCol.detectCollision(rooms[roomKey].GetEnemeyProjectile(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
-                POCol.detectCollision(player, rooms[roomKey].GetItems(), rooms[roomKey].GetBlocks(), rooms[roomKey], this);
-                PECol.playerEnemyDetection(player, rooms[roomKey].GetEnemies(), rooms[roomKey]);
+                POCol.detectCollision(player, rooms[roomKey].GetItems(), rooms[roomKey].GetBlocks(), rooms[roomKey],this);
+                PECol.playerEnemyDetection(player, rooms[roomKey].GetEnemies(), rooms[roomKey], sound);
                 EPCol.handleEnemyProjCollision(rooms[roomKey], player);
             }
             //Item selection
