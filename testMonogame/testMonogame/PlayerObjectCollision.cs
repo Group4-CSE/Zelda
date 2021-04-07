@@ -17,8 +17,8 @@ namespace testMonogame
         const int height = 16;
         const int width = 16;
 
-        const int screenX = 150;
-        const int screenY = 70;
+        const int screenX = 130;
+        const int screenY = 110;
         //The factor that each block is scaled up by
         const int blockSizeMod = 2;
         //the base dimensions of a block square
@@ -140,7 +140,7 @@ namespace testMonogame
                             //go through open door
                             game.LoadRoom(door.getNextRoom());
                             int y = 10 + screenY + (5 * blockBaseDimension * blockSizeMod) - blockBaseDimension;
-                            int x = screenX + 30;
+                            int x = screenX + 24;
                             player.X = x;
                             player.Y = y;
                         }
