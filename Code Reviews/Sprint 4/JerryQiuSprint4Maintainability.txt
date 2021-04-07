@@ -1,0 +1,10 @@
+Sprint 4 Code Quality 
+Author: Jerry Qiu
+4/5/2021
+
+ItemSelectionScreen.cs
+Noah Hufnagel
+
+Code looks good. Class doesn't depend on much. There are quite a bit of magic numbers but those make sense to make rectangles for sprites and displaying on screen. This could get cleaned up maybe if we decide to make something to help with constants and loading in values.
+
+10 mins

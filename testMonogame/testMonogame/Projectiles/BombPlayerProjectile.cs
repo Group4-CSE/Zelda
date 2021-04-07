@@ -14,7 +14,7 @@ namespace testMonogame
         Rectangle sourceRect;
         public int X { get; set; }
         public int Y { get; set; }
-
+        Sounds sound;
         Color color = Color.White;
 
         int explosionInc = 30;
@@ -22,13 +22,13 @@ namespace testMonogame
         int fuse = 300;
         int countdown;
 
-        public BombPlayerProjectile(Texture2D inTexture, Vector2 position)
+        public BombPlayerProjectile(Texture2D inTexture, Vector2 position, Sounds sounds)
         {
             texture = inTexture;
             X = (int)position.X;
             Y = (int)position.Y;
 
-
+            sound = sounds;
 
             //sourceRect
             //directions, up, down, right, left
@@ -52,8 +52,10 @@ namespace testMonogame
         {
             return destRect;
         }
-        public void doDamage(IEnemy target)
+        public void doDamage(IEnemy target, Sounds sounds)
         {
+            
+            sounds.EnemyHitDie(0);
             target.takeDamage(1);
         }
 
@@ -78,9 +80,11 @@ namespace testMonogame
         {
             Move();
             //TEMP collision stuff
+            
             countdown++;
             if (countdown>fuse)
             {
+                sound.BombD(1);
                 //Boom
                 game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)X , (float)Y)));
                 game.AddPlayerProjectile(new ExplosionPlayerProjectile(texture, new Vector2((float)X + explosionInc, (float)Y + explosionInc)));

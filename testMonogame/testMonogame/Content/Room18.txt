@@ -1,5 +1,7 @@
 ﻿BACKGROUND
 WALLS
+ITEMS
+key,4,6
 BLOCKS
 dungeonblock,3,3
 dungeonblock,4,3
@@ -20,6 +22,8 @@ stalfos,8,5
 stalfos,10,2
 stalfos,11,6
 DOORS
-open,left
+open,left,17
 MAP
 4,6
+CONDITIONS
+hideitems

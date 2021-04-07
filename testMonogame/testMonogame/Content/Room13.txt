@@ -14,9 +14,11 @@ stalfos,4,5
 stalfos,8,3
 stalfos,7,4
 DOORS
-open,left
-open,right
-open,down,
-cave,up
+open,left,12
+open,right,14
+open,down,15
+cave,up,9
 MAP
 3,4
+CONDITIONS
+hideitems

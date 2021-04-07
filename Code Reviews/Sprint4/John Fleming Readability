@@ -1,0 +1,12 @@
+Author of code review: John Fleming
+Date of Code Review: 4/2/2021
+Sprint Number: 4
+
+Name of The .cs file: Game Manager.cs
+Author of the .cs file: Jerry Qiu
+Number of minutes taken to complete review: 15 Minutes
+
+Specific comments:
+Variable names make sense, there's a fair bit of over-acronynming and over-shortening of variable names.
+Comments are sparse, but it's self-documenting enough
+Could use more spacing, particularly in the Update method

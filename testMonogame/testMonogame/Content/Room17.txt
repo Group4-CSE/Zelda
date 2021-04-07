@@ -26,9 +26,9 @@ bluesandblock,7,7
 bluesandblock,8,7
 bluesandblock,9,7
 DOORS
-locked,up
-open,left
-open,down
-open,right
+locked,up,15
+open,left,16
+open,down,17
+open,right,18
 MAP
 3,6

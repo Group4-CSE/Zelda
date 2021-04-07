@@ -21,6 +21,7 @@ namespace testMonogame
         bool stasis;
 
         int xVel = -1;
+
         public LeftMovingPlayerState(Texture2D inTexture, Vector2 position,IPlayer inPlayer, Texture2D inProjectiles)
         {
             player = inPlayer;
@@ -80,10 +81,10 @@ namespace testMonogame
             return sprite.isMoving();
         }
 
-        public void spawnBomb(GameManager game)
+        public void spawnBomb(GameManager game, Sounds sounds)
         {
             if (!stasis) game.AddPlayerProjectile(new BombPlayerProjectile(projectiles, new Vector2((float)(player.X-20),
-                (float)(player.Y ))));
+                (float)(player.Y )), sounds));
         }
 
         public void spawnArrow(GameManager game)

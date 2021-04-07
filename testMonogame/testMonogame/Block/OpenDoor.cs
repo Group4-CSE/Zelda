@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using testMonogame.Interfaces;
 
 namespace testMonogame
 {
-    public class OpenDoor: ISprite, IObject
+    public class OpenDoor: ISprite, IObject, IDoor
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -14,8 +15,11 @@ namespace testMonogame
         Texture2D texture;
         Rectangle destRect;
         Rectangle sourceRect;
+        int side;
 
-        public OpenDoor(int direction, Vector2 pos, Texture2D texture, int key, Boolean closed)
+        int nextRoom;
+
+        public OpenDoor(int direction, Vector2 pos, Texture2D texture, int key, Boolean closed, int next)
         {
             this.texture = texture;
             X = (int)pos.X;
@@ -23,6 +27,8 @@ namespace testMonogame
             destRect = new Rectangle(X, Y, 65, 65);
             keyType = key;
             isClosed = closed;
+            side = direction;
+            nextRoom = next;
 
             switch (direction)
             {
@@ -77,6 +83,16 @@ namespace testMonogame
         public Boolean getIsClosed()
         {
             return isClosed;
+        }
+
+        public int getSide()
+        {
+            return side;
+        }
+
+        public int getNextRoom()
+        {
+            return nextRoom;
         }
     }
 }

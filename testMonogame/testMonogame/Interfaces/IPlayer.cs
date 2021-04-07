@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -9,6 +10,16 @@ namespace testMonogame
         //Had to Set this here
         public int X { get; set; }
         public int Y { get; set; }
+        public int Rupees { get; set; }
+        public int Keys { get; set; }
+        public int Bombs { get; set; }
+        public bool Compass { get; set; }
+        public bool Map { get; set; }
+        public void NextItem();
+        public void PreviousItem();
+        public string GetSelectedItem();
+        public void SelectItem(int i);
+        public List<String> GetInventory();
         public bool IsAttacking();
         public int GetDirection();
         //sets location of player object

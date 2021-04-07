@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,6 +11,10 @@ namespace testMonogame
     {
         public int X { get; set; }
         public int Y { get; set; }
+        Random randomNumber = new Random();
+        int directionCounter;
+        int directionFrame;
+        int direction;
         int health;
         public IGoriyaState state;
         Texture2D texture;
@@ -25,28 +30,22 @@ namespace testMonogame
             health = 3;
             X = (int)position.X;
             Y = (int)position.Y;
+            directionCounter = 0;
+            directionFrame = randomNumber.Next(200);
+            direction = randomNumber.Next(1, 4);
         }
         public int getHealth() { return health; }
         public void Move(int xChange, int yChange)
         {
             X += xChange;
             Y += yChange;
-            // TEMP: To show off movement
-            if (X > 792) {
-                changeState(3);
-
-            } else if (X < 8)
+            directionCounter += 1;
+            if (directionCounter > directionFrame)
             {
-                changeState(4);
-
-            } else if (Y > 472)
-            {
-                changeState(2);
-
-            } else if (Y < 8)
-            {
-                changeState(1);
-
+                directionCounter = 0;
+                directionFrame = randomNumber.Next(200);
+                direction = randomNumber.Next(1, 4);
+                changeState(direction);
             }
         }
 

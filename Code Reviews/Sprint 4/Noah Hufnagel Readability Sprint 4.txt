@@ -1,0 +1,10 @@
+Author of code review: Noah Hufnagel
+Date of Code Review: 4/5/2021
+Sprint Number: 4
+Name of The .cs file: GoriyaEnemy.cs
+Author of the .cs file: Logan Flory
+Number of minutes taken to complete review: 15 Minutes
+Specific comments:
+Some comments explaining how direction changing works could be good
+The comments linking integers to directions is very nice and helps a lot with understanding how changeDirection() works
+overall the code is very good at self documenting

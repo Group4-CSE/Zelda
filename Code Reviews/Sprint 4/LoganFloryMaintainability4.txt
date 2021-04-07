@@ -1,0 +1,18 @@
+Author: Logan Flory
+Date: 4-5-2021
+Sprint #4
+Name of .cs being reviewed: RoomLoader.cs
+Author of .cs being reviewed: Noah Hufnagel
+Minutes taken to complete: 15
+Specific Comments:
+- Lot of helper methods make it easier to make broader changes
+- The beginning of loadFromFile may not work on some machines but I'm not fully sure
+- Variables mostly named accordingly
+- loadFromFile is very easy to add more sections to if we wanted to parse more
+- Some of the values are not well defined / named
+- The use of screenX / blockSizeMod is really smart and would allow us to easily upscale blocks
+Hypothetical Change:
+- So the way adding enemies / other entities works is fine and would even be easy to maintain
+on a small scale, but if we upscaled a large amount and wanted to add say 50 enemies, it would be a LOT
+of cases in 1 switch statement, so a hypothetical change would to be to potentially make a method
+that replaces the switch statement in all of these adder methods

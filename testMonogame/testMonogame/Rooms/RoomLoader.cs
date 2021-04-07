@@ -20,8 +20,15 @@ namespace testMonogame.Rooms
         List<IObject> Items= new List<IObject>();
         List<IEnemy> Enemies=new List<IEnemy>();
 
-        const int screenX = 150;
-        const int screenY = 70;
+
+        //Conditions
+        bool hideItems;
+        Rectangle blockRect;
+        Rectangle bombRect;
+
+        const int screenX = 130;
+        const int screenY = 110;
+
         //The factor that each block is scaled up by
         const int blockSizeMod = 2;
         //the base dimensions of a block square
@@ -29,7 +36,10 @@ namespace testMonogame.Rooms
 
         public RoomLoader( Dictionary<String,Texture2D> spriteSheet)
         {
-            
+            hideItems = false;
+            Rectangle defaultRect = new Rectangle(-100, -100, 0, 0);
+            blockRect = defaultRect;
+            bombRect = defaultRect;
             sprites = spriteSheet;
         }
 
@@ -43,7 +53,7 @@ namespace testMonogame.Rooms
             Background = 0;
             Walls = false;
             loadFromFile(sourceFile);
-            return new Room(mapX, mapY, Background, Walls, sprites, Blocks, Items, Enemies);
+            return new Room(mapX, mapY, Background, Walls, sprites, Blocks, Items, Enemies,bombRect, blockRect,hideItems);
         }
         void loadFromFile(String sourceFile)
         {
@@ -107,6 +117,26 @@ namespace testMonogame.Rooms
                         case "MAP":
                             addMap(line);
                             break;
+                        case "CONDITIONS":
+                            string[] split = line.Split(',');
+                            //hide items
+                            if (split[0].Equals("hideitems")) hideItems = true;
+                            else if (split[0].Equals("block")) {
+                                //blockrect
+                                int x = ((Int32.Parse(split[1]) - 1) * blockBaseDimension * blockSizeMod) + screenX + (2 * blockBaseDimension * blockSizeMod);
+                                int y = ((Int32.Parse(split[2]) - 1) * blockBaseDimension * blockSizeMod) + screenY + (2 * blockBaseDimension * blockSizeMod);
+                                blockRect = new Rectangle(x, y, blockBaseDimension * blockSizeMod, blockBaseDimension * blockSizeMod);
+                            }
+                            else if (split[0].Equals("bomb"))
+                            {
+                                //bombrect
+                                int x = ((Int32.Parse(split[1]) - 1) * blockBaseDimension * blockSizeMod) + screenX + (2 * blockBaseDimension * blockSizeMod);
+                                int y = ((Int32.Parse(split[2]) - 1) * blockBaseDimension * blockSizeMod) + screenY + (2 * blockBaseDimension * blockSizeMod);
+                                int w = 3 * blockBaseDimension * blockSizeMod;
+                                int h = 3 * blockBaseDimension * blockSizeMod;
+                                blockRect = new Rectangle(x, y, w, h);
+                            }
+                            break;
                     }
                 }
 
@@ -155,20 +185,24 @@ namespace testMonogame.Rooms
                     direction = 0;
                     break;
             }
+
+            int nextDoor = int.Parse(split[2]);
+
             switch (split[0])
             {
+                
                 //keys temporarily set to 0. may have to do switch later to determine room number
                 case "closed":
-                    door = new ClosedDoor(direction, new Vector2(x, y), sprites["doors"], 0, false);
+                    door = new ClosedDoor(direction, new Vector2(x, y), sprites["doors"], 0, false,nextDoor);
                     break;
                 case "open":
-                    door = new OpenDoor(direction, new Vector2(x, y), sprites["doors"], 0, false);
+                    door = new OpenDoor(direction, new Vector2(x, y), sprites["doors"], 0, false, nextDoor);
                     break;
                 case "cave":
-                    door = new CaveDoor(direction, new Vector2(x, y), sprites["doors"]);
+                    door = new CaveDoor(direction, new Vector2(x, y), sprites["doors"], nextDoor);
                     break;
                 case "locked":
-                    door = new LockedDoor(direction, new Vector2(x, y), sprites["doors"], 0, true);
+                    door = new LockedDoor(direction, new Vector2(x, y), sprites["doors"], 0, true, nextDoor);
                     break;
                 default:
                     door = null;

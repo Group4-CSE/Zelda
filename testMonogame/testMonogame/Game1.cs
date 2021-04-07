@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
@@ -24,7 +25,8 @@ namespace testMonogame
         private Texture2D wallmaster;
         private Texture2D playerProjectiles;
         Dictionary<string, Texture2D> sprites;
-
+        
+        Sounds sounds = new Sounds();
 
         IController keyController;
         IController mouseController;
@@ -43,12 +45,14 @@ namespace testMonogame
         protected override void Initialize()
         {
             //test
-            sprites = new Dictionary<string, Texture2D>();
+            
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+
+            sprites = new Dictionary<string, Texture2D>();
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             aquaSheet = Content.Load<Texture2D>("aquamentus");
@@ -64,6 +68,10 @@ namespace testMonogame
             playerProjectiles = Content.Load<Texture2D>("PlayerProjectiles");
             Texture2D backgrounds = Content.Load<Texture2D>("Backgrounds");
             Texture2D map = Content.Load<Texture2D>("Level1Map");
+            Texture2D hudSheet = Content.Load<Texture2D>("HudSheet");
+            Texture2D ItemSelection = Content.Load<Texture2D>("ItemSelection");
+            Texture2D menuBackground = Content.Load<Texture2D>("MenuScreens");
+
 
             sprites.Add("aquamentus", aquaSheet);
             sprites.Add("basicenemy", basicEnemy);
@@ -78,9 +86,18 @@ namespace testMonogame
             sprites.Add("PlayerProjectiles", playerProjectiles);
             sprites.Add("map", map);
             sprites.Add("Backgrounds", backgrounds);
+            sprites.Add("hudSheet", hudSheet);
+            sprites.Add("ItemSelection", ItemSelection);
+            sprites.Add("MenuScreens", menuBackground);
 
+            //Loads all of the sounds
+            sounds.LoadSounds(Content);
+           
+           
+            SpriteFont font= Content.Load<SpriteFont>("HUDfont");
+            SpriteFont header = Content.Load<SpriteFont>("HeaderFont");
 
-            manager = new GameManager(this, sprites);
+            manager = new GameManager(this, sprites,font,header, sounds);
 
             keyController = new KeyboardController(manager);
             mouseController = new MouseController(manager);
