@@ -191,8 +191,80 @@ namespace testMonogame
                 }
             }
 
-
+            //make sure the door on other side is opened
+            unlockNextDoor(direction);
                 
+        }
+
+        public void unlockNextDoor(int direction)
+        {
+            switch (direction)
+            {
+                case 0:
+                    foreach (IObject block in rooms[roomKey].GetBlocks())
+                    {
+                        if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                        {
+                            IDoor door = (IDoor)block;
+
+                            //make sure door on the other side of the other room is also open
+                            if (door.getSide() == 3)
+                            {
+                                door.openDoor();
+                            }
+
+                        }
+                    }
+                    break;
+                case 1:
+                    foreach (IObject block in rooms[roomKey].GetBlocks())
+                    {
+                        if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                        {
+                            IDoor door = (IDoor)block;
+
+                            //make sure door on the other side of the other room is also open
+                            if (door.getSide() == 2)
+                            {
+                                door.openDoor();
+                            }
+
+                        }
+                    }
+                    break;
+                case 2:
+                    foreach (IObject block in rooms[roomKey].GetBlocks())
+                    {
+                        if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                        {
+                            IDoor door = (IDoor)block;
+
+                            //make sure door on the other side of the other room is also open
+                            if (door.getSide() == 1)
+                            {
+                                door.openDoor();
+                            }
+
+                        }
+                    }
+                    break;
+                case 3:
+                    foreach (IObject block in rooms[roomKey].GetBlocks())
+                    {
+                        if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                        {
+                            IDoor door = (IDoor)block;
+
+                            //make sure door on the other side of the other room is also open
+                            if (door.getSide() == 0)
+                            {
+                                door.openDoor();
+                            }
+
+                        }
+                    }
+                    break;
+            }
         }
 
         public IPlayer getPlayer()
