@@ -17,6 +17,8 @@ namespace testMonogame
         //how long the attack lasts
         int AttackTimer=30;
         int AttackCount;
+
+        const int hitboxShrink = 2;
         
         //int arrowCount;
         public int Rupees { get; set; }
@@ -93,7 +95,10 @@ namespace testMonogame
         public int GetDamageFrames() { return damageFrames; }
        public Rectangle getDestRect()
         {
-            return state.getDestRect();
+            Rectangle r= state.getDestRect();
+            Rectangle dest = r;
+            if(!attack)dest = new Rectangle(r.X+hitboxShrink, r.Y + hitboxShrink, r.Width-hitboxShrink, r.Height-hitboxShrink);
+            return dest;
         }
 
         public void Attack(GameManager game)

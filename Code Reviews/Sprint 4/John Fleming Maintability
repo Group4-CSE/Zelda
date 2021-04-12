@@ -1,0 +1,17 @@
+Author: John
+Date: 4-5-2021
+Sprint #4
+Name of .cs being reviewed: TrapEnemy.cs
+Author of .cs being reviewed: Logan Flory
+Minutes taken to complete: 15
+
+
+Specific Comments:
+- Splitting out isInLine was a good move
+- Good avoiding of magic numbers
+- more of a concision vs readibility thing, but using if (true) then (set boolean true) is always a bit visually clunky, though perhaps less so with these long statements
+- good to keep the takedamage method around in case we decide it ever may take damage
+
+Hypothetical change:
+- if we were to change how the trap moves - ie add more than just 4 directions - than it could get clunky to have switch statements for every directions.
+- would be better then to have like a vector-based movement
