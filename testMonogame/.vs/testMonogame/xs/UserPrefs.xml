@@ -1,5 +1,6 @@
 ﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
+
   <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/GameOverScreen.cs">
     <Files>
       <File FileName="testMonogame/Enemies/AquamentusEnemy.cs" Line="1" Column="1" />
@@ -21,15 +22,18 @@
       <File FileName="testMonogame/Player/States/LeftMovingPlayerState.cs" />
       <File FileName="testMonogame/Player/States/RightMovingPlayerState.cs" Line="83" Column="57" />
       <File FileName="testMonogame/GameOverScreen.cs" Line="1" Column="1" />
+
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="testMonogame" expanded="True">
             <Node name="testMonogame" expanded="True">
+
               <Node name="Content" expanded="True" />
               <Node name="Player" expanded="True" />
               <Node name="GameOverScreen.cs" selected="True" />
+
             </Node>
           </Node>
         </State>

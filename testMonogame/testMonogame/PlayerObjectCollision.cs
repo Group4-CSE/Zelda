@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using testMonogame.Interfaces;
 using testMonogame.Rooms;
@@ -69,7 +70,7 @@ namespace testMonogame
         public void doorCollisionHandler(IPlayer player, IObject collided, GameManager game, Rectangle collisionRect)
         {
             IDoor door = (IDoor)collided;
-
+            //Debug.WriteLine("Door Collided");
             //handle collision
             switch (door.getSide())
             {
@@ -143,6 +144,7 @@ namespace testMonogame
                             int x = screenX + 24;
                             player.X = x;
                             player.Y = y;
+                            
                         }
                         
                     }
