@@ -1,0 +1,13 @@
+Author: Logan Flory
+Date: 4-5-2021
+Sprint #4
+Name of .cs being reviewed:GameManager.cs
+Author of .cs being reviewed:John Fleming
+Minutes taken to complete: 15
+Specific Comments:
+- Variables are mostly named accordingly
+- Comments help read some things like the enum
+- The order of some thingsd is really weird, like why is there an EPCol declared on 73?
+- The use of the enum makes the if else statements a lot easier to process
+- Lots of methods make the methods higher level, lot of offloading makes easier to skim
+- Order of methods is a little weird to me but doesn't affect too much

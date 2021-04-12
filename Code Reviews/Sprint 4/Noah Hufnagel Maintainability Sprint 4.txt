@@ -1,0 +1,15 @@
+Author of the code review: Noah Hufnagel
+Date of the code review: 4/5/2021
+Sprint number: 4
+Name of the .cs file being reviewed: Sounds.cs
+Author of the .cs file being reviewed: Tyler Liu
+
+Specific comments on code quality:
+Overall this Class appears to be quite clean
+it is relatively short
+It keeps all the sounds contained (High Cohesion and Low Coupling)
+It makes using sounds in other methods very easy, simple pass in sounds and play a specific sound!
+
+A hypothetical change to make to the game related to file being reviewed and how the current implementation could or could not easily support that change
+One hypothecical change that could easily be supported is the additiion of new sounds. to do this all we would need to do is load an extra sound and then write a method to play it and boom!
+Notably refactoring sounds into already existing code is a bit of effort since we have to add an extra paremeter, but any implementation would require this.

@@ -1,0 +1,23 @@
+Sprint 4 Reflection
+Team 4 (10:30) 
+
+Timeline: 
+As a team we decided to take the main tasks of the sprint (that being room layout, enemy updating/item drops, game states, HUD, and sounds) and split them among ourselves. we then made a seperate branch for each of these features and implemented them throughout the sprint.
+
+The first week and half were mostly planning and organizing. During this time we figured out how we were going to approach the sprint, organized our github, and set up branches.
+
+In the second half of the second week and during the third week we implemented the aforementioned changes. In doing so we introduced quite a few merge conflicts between our branches which we spent the tail end of the sprint refactoring to ensure that the merge was successful and the game behaved properly. After merging all of these branches we had a game that had a working HUD, a room layout, menu screens, sounds, and enemy drops.
+
+Highlights:
+1. Working on the code in seperate branches and seeing it all come together at the end was really awesome.
+2. Handling sounds in a dedicated sounds class that is really easy to use with other classes
+3. Rooms being properly linked.
+4. Interactable menues.
+
+Negatives:
+1. Merging branches was a bit of trouble but it was really good to get some practice.
+
+Goal for Sprint 5:
+1. Keep more organized, and start earlier
+2. Avoid random GitHub Issues (we had some trouble with using branches, being able to push and pull to the proper branch, etc)
+

@@ -1,0 +1,11 @@
+Sprint 4 Readability 
+Author: Jerry Qiu
+4/5/2021
+
+Sounds.cs
+Tyler Liu
+
+Class is very readable. getStuff method is vaguely named but is still understandable. Noting too complex going on, comments also help identify what is happening.
+
+
+7 mins
