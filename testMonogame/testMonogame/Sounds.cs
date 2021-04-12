@@ -16,14 +16,14 @@ namespace testMonogame
         SoundEffect EnemyHit;
         SoundEffect EnemyDies;
         SoundEffect PlayerHit;
-        //SoundEffect PlayerDies;
-        //SoundEffect LHealth;
+        SoundEffect PlayerDies;
+        SoundEffect LHealth;
         SoundEffect GetItems;
         SoundEffect GetHeart;
         SoundEffect GetRupee;
-        /*SoundEffect KeyAppear;
+        //SoundEffect KeyAppear;
         SoundEffect DoorUnlock;
-        SoundEffect AquaBoss;
+        /*SoundEffect AquaBoss;
         SoundEffect BossHurt;
         SoundEffect Stairs;*/
 
@@ -49,13 +49,13 @@ namespace testMonogame
             EnemyHit = contentManager.Load<SoundEffect>("LOZ_Enemy_Hit");
             EnemyDies = contentManager.Load<SoundEffect>("LOZ_Enemy_Die");
             PlayerHit = contentManager.Load<SoundEffect>("LOZ_Link_Hurt");
-            //PlayerDies = contentManager.Load<SoundEffect>("LOZ_Link_Hurt");
-            //LHealth = contentManager.Load<SoundEffect>("BMu");
+            PlayerDies = contentManager.Load<SoundEffect>("LOZ_Link_Die");
+            LHealth = contentManager.Load<SoundEffect>("LOZ_LowHealth");
             GetItems = contentManager.Load<SoundEffect>("LOZ_Get_Item");
             GetHeart = contentManager.Load<SoundEffect>("LOZ_Get_Heart");
             GetRupee = contentManager.Load<SoundEffect>("LOZ_Get_Rupee");
             //KeyAppear = contentManager.Load<SoundEffect>("BMu");
-            //DoorUnlock = contentManager.Load<SoundEffect>("LOZ_Door_Unlock");
+            DoorUnlock = contentManager.Load<SoundEffect>("LOZ_Door_Unlock");
             //AquaBoss = contentManager.Load<SoundEffect>("BMu");
             //BossHurt = contentManager.Load<SoundEffect>("BMu");
             //Stairs = contentManager.Load<SoundEffect>("BMu");
@@ -116,10 +116,20 @@ namespace testMonogame
             }
         }
             
-
+        public void lowHP()
+        {
+            LHealth.Play();
+        }
             
-        
+        public void pDies()
+        {
+            PlayerDies.Play();
+        }
 
+        public void Door()
+        {
+            DoorUnlock.Play();
+        }
 
     }
 }
