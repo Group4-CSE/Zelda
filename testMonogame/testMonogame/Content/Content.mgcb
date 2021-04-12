@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../../../../../ZSounds/LOZ_Link_Die.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../../../../../ZSounds/LOZ_Link_Die.wav;LOZ_Link_Die.wav
+
 #begin aquamentus.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -115,6 +121,13 @@
 /processorParam:TextureFormat=Color
 /build:goriyav2.png
 
+#begin HeaderFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:HeaderFont.spritefont
+
 #begin HUDfont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -152,6 +165,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:HudSheet.png
+
+#begin ItemSelection.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ItemSelection.png
 
 #begin itemset.png
 /importer:TextureImporter
@@ -195,11 +220,11 @@
 /processorParam:Quality=Best
 /build:LOZ_Bomb_Drop.wav
 
-#begin LOZ_Bomb_Drop.wav
+#begin LOZ_Door_Unlock.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:LOZ_Bomb_Drop.wav
+/build:LOZ_Door_Unlock.wav
 
 #begin LOZ_Enemy_Die.wav
 /importer:WavImporter
@@ -243,6 +268,12 @@
 /processorParam:Quality=Best
 /build:LOZ_Link_Hurt.wav
 
+#begin LOZ_LowHealth.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_LowHealth.wav
+
 #begin LOZ_Sword_Shoot.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -254,6 +285,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:LOZ_Sword_Slash.wav
+
+#begin MenuScreens.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MenuScreens.png
 
 #begin oldman.png
 /importer:TextureImporter

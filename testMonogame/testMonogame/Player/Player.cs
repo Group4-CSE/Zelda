@@ -157,6 +157,7 @@ namespace testMonogame
                     break;
                 case "Fiary":
                     health = maxHealth;
+                    sound1.getStuff(0);
                     break;
                 case "Heart":
                     health += 4;
@@ -178,14 +179,17 @@ namespace testMonogame
                     break;
                 case "Key":
                     Keys = Keys + 1;
+                    sound1.getStuff(0);
                     break;
                 case "Bomb":
                     Bombs = Bombs + 1;
-
+                    //sound1.getstuff(0);
+                    //Error due to the call in constructor, cannot make sound before game
                     if(!inventory.Contains(item))inventory.Add(item);
                     break;
                 case "Arrow":
                     if(!inventory.Contains(item))inventory.Add(item);
+                   
                     break;
                 case "Triforce":
                     ChangeState(5);
@@ -226,7 +230,10 @@ namespace testMonogame
                     AttackCount = 0;
                 }
             }
+            //Low Health Sounds
+            if (health <= 2) sound1.lowHP();
             if (health <= 0) game.SetState(3);
+            
             if (state is WinPlayerState) game.SetState(4);
         }
 
@@ -280,7 +287,7 @@ namespace testMonogame
             }
 
 
-            //sound1.Door()
+            
 
 
             return false;
