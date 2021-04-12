@@ -60,7 +60,12 @@ namespace testMonogame.Rooms
         Rectangle floorDestRect ;
 
 
-        
+        //transition stuff
+        //save initial positions for transitions
+        Rectangle originalWall;
+        Rectangle originalFloor;
+
+        Boolean isTransition;
 
         public Room(int inMapX, int inMapY, int inBG, bool inWalls, 
             Dictionary<String, Texture2D> spriteSheets, 
@@ -84,6 +89,9 @@ namespace testMonogame.Rooms
              floorDestRect = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
                 12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
 
+            originalFloor = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
+                12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
+            originalWall = new Rectangle(screenX, screenY, 16 * blockBaseDimension * blockSizeMod, 11 * blockBaseDimension * blockSizeMod);
 
             sprites = spriteSheets;
 
@@ -99,6 +107,7 @@ namespace testMonogame.Rooms
             mapX = inMapX;
             mapY = inMapY;
 
+            isTransition = false;
 
 
         }
@@ -153,10 +162,16 @@ namespace testMonogame.Rooms
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            
             if (Walls) spriteBatch.Draw(sprites["Backgrounds"], wallDestRect, wallSourceRect, Color.White);
             if (Background==1) spriteBatch.Draw(sprites["Backgrounds"], floorDestRect, floorSourceRect, Color.White);
             else if (Background == 2) spriteBatch.Draw(sprites["Backgrounds"], wallDestRect, undergroundSourceRect, Color.White);
             else if (Background == 3) spriteBatch.Draw(sprites["Backgrounds"], floorDestRect, floor2SourceRect, Color.White);
+
+            if (isTransition)
+            {
+                return;
+            }
 
             foreach (IObject block in Blocks)
             {
@@ -196,6 +211,11 @@ namespace testMonogame.Rooms
 
         public void Update(GameManager game)
         {
+            if (isTransition)
+            {
+                return;
+            }
+
             foreach (IObject block in Blocks)
             {
                 block.Update(game);
@@ -274,6 +294,66 @@ namespace testMonogame.Rooms
         {
             PlayerProjectiles.Clear();
             EnemyProjectiles.Clear();
+        }
+
+        public void setTransitionSide(int side)
+        {
+            
+            switch (side)
+            {
+                case 0:
+                    floorDestRect.Y = floorDestRect.Y - (11 * blockBaseDimension * blockSizeMod);
+                    wallDestRect.Y = wallDestRect.Y - (11 * blockBaseDimension * blockSizeMod);
+                    break;
+                case 1:
+                    floorDestRect.X = floorDestRect.X - (16 * blockBaseDimension * blockSizeMod);
+                    wallDestRect.X = wallDestRect.X - (16 * blockBaseDimension * blockSizeMod);
+                    break;
+                case 2:
+                    floorDestRect.X = floorDestRect.X + (16 * blockBaseDimension * blockSizeMod);
+                    wallDestRect.X = wallDestRect.X + (16 * blockBaseDimension * blockSizeMod);
+                    break;
+                case 3:
+                    floorDestRect.Y = floorDestRect.Y + (11 * blockBaseDimension * blockSizeMod);
+                    wallDestRect.Y = wallDestRect.Y + (11 * blockBaseDimension * blockSizeMod);
+                    break;
+            }
+        }
+        public void setTransitioning(Boolean transition)
+        {
+            this.isTransition = transition;
+        }
+        public Boolean isTransitioning()
+        {
+            return isTransition;
+        }
+        public void transitionShift(int x, int y)
+        {
+            
+            floorDestRect.X = floorDestRect.X + x;
+            floorDestRect.Y = floorDestRect.Y + y;
+            wallDestRect.X = wallDestRect.X + x;
+            wallDestRect.Y = wallDestRect.Y + y;
+
+            if (floorDestRect.X == originalFloor.X && floorDestRect.Y == originalFloor.Y)
+            {
+                isTransition = false;
+            }
+        }
+        public void resetToOriginalPos()
+        {
+            floorDestRect.X = originalFloor.X;
+            floorDestRect.Y = originalFloor.Y;
+            wallDestRect.X = originalWall.X;
+            wallDestRect.Y = originalWall.Y;
+        }
+
+        public void isShiftDone()
+        {
+            if (floorDestRect.X == originalFloor.X && floorDestRect.Y == originalFloor.Y)
+            {
+                isTransition = false;
+            }
         }
     }
 }

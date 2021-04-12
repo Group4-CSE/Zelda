@@ -28,5 +28,12 @@ namespace testMonogame.Interfaces
         public void RemovePlayerProjectile(IPlayerProjectile projectile);
         public void RemoveItem(IObject item);
         public void RemoveEnemy(IEnemy enemy);
+
+        public void setTransitionSide(int side);
+        public void setTransitioning(Boolean transition);
+        public Boolean isTransitioning();
+        public void transitionShift(int x, int y);
+        public void resetToOriginalPos();
+        public void isShiftDone();
     }
 }

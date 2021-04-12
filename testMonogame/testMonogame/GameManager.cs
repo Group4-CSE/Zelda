@@ -20,6 +20,7 @@ namespace testMonogame
         private RoomLoader roomLoad;
         Dictionary<String, IRoom> rooms = new Dictionary<string, IRoom>();
         String roomKey = "";
+        RoomTransition transitioner;
 
         
 
@@ -61,6 +62,7 @@ namespace testMonogame
             roomLoad = new RoomLoader(sprites);
             rooms.Add("Room17", roomLoad.Load("Room17.txt"));
             roomKey = "Room17";
+            transitioner = new RoomTransition();
 
             player = new Player(spriteSheet["playersheet"], new Vector2(500, 200), spriteSheet["PlayerProjectiles"], sound);
             hud = new HUD(spriteSheet["hudSheet"], font);
@@ -77,7 +79,10 @@ namespace testMonogame
 
         public void Update()
         {
-
+            if (transitioner.transitioning())
+            {
+                return;
+            }
             //PLAYING
             if (state == GameState.PLAYING)
             {
@@ -113,6 +118,11 @@ namespace testMonogame
         public void Draw(SpriteBatch spriteBatch)
         {
 
+            if (transitioner.transitioning())
+            {
+                transitioner.Draw(spriteBatch);
+                return;
+            }
 
             //NORMAL STUFF
             if (state == GameState.PLAYING)
@@ -186,6 +196,7 @@ namespace testMonogame
                     if (door.getNextRoom() == roomNum)
                     {
                         direction = door.getSide();
+                        break;
                     }
 
                 }
@@ -193,6 +204,7 @@ namespace testMonogame
 
             //make sure the door on other side is opened
             unlockNextDoor(direction);
+            //transitioner.transtion(rooms[curRoom], rooms[roomKey], direction);
                 
         }
 
