@@ -160,7 +160,7 @@ namespace testMonogame
             //game over
             else if (state == GameState.LOSE)
             {
-                sound.pDies();
+                //sound.pDies();
                 gameOver.Draw(spriteBatch);
             }
             else if (state == GameState.WIN)
