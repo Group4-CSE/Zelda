@@ -74,8 +74,8 @@ namespace testMonogame.Rooms
             switch (direction)
             {
                 case 0:
-                    current.transitionShift(0, -2);
-                    next.transitionShift(0, -2);
+                    current.transitionShift(0, 2);
+                    next.transitionShift(0, 2);
                     break;
                 case 1:
                     current.transitionShift(2, 0);
@@ -86,8 +86,8 @@ namespace testMonogame.Rooms
                     next.transitionShift(-2, 0);
                     break;
                 case 3:
-                    current.transitionShift(0, 2);
-                    next.transitionShift(0, 2);
+                    current.transitionShift(0, -2);
+                    next.transitionShift(0, -2);
                     break;
             }
         }

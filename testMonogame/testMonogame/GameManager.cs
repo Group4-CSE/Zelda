@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using testMonogame.Rooms;
 using testMonogame.Interfaces;
+using System.Diagnostics;
+
 namespace testMonogame
 {
     public class GameManager
@@ -21,6 +23,7 @@ namespace testMonogame
         Dictionary<String, IRoom> rooms = new Dictionary<string, IRoom>();
         String roomKey = "";
         RoomTransition transitioner;
+        int doorCollideCountdown = 0;
 
         
 
@@ -96,9 +99,18 @@ namespace testMonogame
                 //PPBCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetBlocks(), this);
                 PPECol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetEnemies(), this, rooms[roomKey], sound);
                 //EPWCol.detectCollision(rooms[roomKey].GetEnemeyProjectile(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
-                POCol.detectCollision(player, rooms[roomKey].GetItems(), rooms[roomKey].GetBlocks(), rooms[roomKey],this);
+                if (doorCollideCountdown <= 0)
+                {
+                    POCol.detectCollision(player, rooms[roomKey].GetItems(), rooms[roomKey].GetBlocks(), rooms[roomKey], this);
+                }
+                else
+                {
+                    doorCollideCountdown--;
+                }
+                    
                 PECol.playerEnemyDetection(player, rooms[roomKey].GetEnemies(), rooms[roomKey], sound);
                 EPCol.handleEnemyProjCollision(rooms[roomKey], player);
+                
             }
             //Item selection
             else if (state == GameState.ITEMSELECTION)
@@ -164,6 +176,7 @@ namespace testMonogame
 
         public void LoadRoom(int roomNum)
         {
+            //Debug.WriteLine(player.X);
             String name = "Room" + roomNum;
             if (rooms.ContainsKey(name))
             {
@@ -176,17 +189,18 @@ namespace testMonogame
                 //roomKey = name;
                 ChangeRoom(roomNum);
             }
-            player.X = 400;
-            player.Y = 324;
+            //player.X = 400;
+            //player.Y = 324;
         }
 
         public void ChangeRoom(int roomNum)
         {
+            
             String curRoom = roomKey;
             String name = "Room" + roomNum;
             roomKey = name;
             int direction = -1;
-
+            doorCollideCountdown = 5;
             foreach (IObject block in rooms[curRoom].GetBlocks())
             {
                 if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
@@ -204,7 +218,7 @@ namespace testMonogame
 
             //make sure the door on other side is opened
             unlockNextDoor(direction);
-            //transitioner.transtion(rooms[curRoom], rooms[roomKey], direction);
+            transitioner.transtion(rooms[curRoom], rooms[roomKey], direction);
                 
         }
 
