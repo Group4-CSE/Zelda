@@ -1,39 +1,31 @@
 ﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
-
-  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/GameOverScreen.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Player/Player.cs">
     <Files>
-      <File FileName="testMonogame/Enemies/AquamentusEnemy.cs" Line="1" Column="1" />
       <File FileName="testMonogame/Player/Player.cs" Line="191" Column="39" />
-      <File FileName="testMonogame/Game1.cs" Line="72" Column="1" />
+      <File FileName="testMonogame/Game1.cs" />
       <File FileName="testMonogame/Interfaces/IPlayer.cs" />
-      <File FileName="testMonogame/Sounds.cs" Line="28" Column="30" />
+      <File FileName="testMonogame/Sounds.cs" />
       <File FileName="testMonogame/PlayerProjectileEnemyCollision.cs" />
       <File FileName="testMonogame/Interfaces/IEnemy.cs" />
       <File FileName="testMonogame/GameManager.cs" />
       <File FileName="testMonogame/PlayerEnemyCollision.cs" />
       <File FileName="testMonogame/Interfaces/IPlayerState.cs" />
-      <File FileName="testMonogame/Projectiles/BombPlayerProjectile.cs" />
       <File FileName="testMonogame/Interfaces/IPlayerProjectile.cs" />
       <File FileName="testMonogame/Interfaces/IRoom.cs" />
       <File FileName="testMonogame/Rooms/Room.cs" />
-      <File FileName="testMonogame/Player/States/UpMovingPlayerState.cs" />
-      <File FileName="testMonogame/Player/States/DownMovingPlayerState.cs" />
-      <File FileName="testMonogame/Player/States/LeftMovingPlayerState.cs" />
-      <File FileName="testMonogame/Player/States/RightMovingPlayerState.cs" Line="83" Column="57" />
-      <File FileName="testMonogame/GameOverScreen.cs" Line="1" Column="1" />
-
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="testMonogame" expanded="True">
             <Node name="testMonogame" expanded="True">
-
               <Node name="Content" expanded="True" />
-              <Node name="Player" expanded="True" />
-              <Node name="GameOverScreen.cs" selected="True" />
-
+              <Node name="Enemies" expanded="True" />
+              <Node name="Interfaces" expanded="True" />
+              <Node name="Player" expanded="True">
+                <Node name="Player.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>

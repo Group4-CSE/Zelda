@@ -13,12 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../../../ZSounds/LOZ_Link_Die.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../../../../../ZSounds/LOZ_Link_Die.wav;LOZ_Link_Die.wav
-
 #begin aquamentus.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -135,25 +129,6 @@
 /processorParam:TextureFormat=Compressed
 /build:HUDfont.spritefont
 
-#begin HUDfont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:HUDfont.spritefont
-
-#begin HudSheet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:HudSheet.png
-
 #begin HudSheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -232,6 +207,12 @@
 /processorParam:Quality=Best
 /build:LOZ_Enemy_Die.wav
 
+#begin LOZ_Enemy_Die.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Enemy_Die.wav
+
 #begin LOZ_Enemy_Hit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -255,6 +236,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:LOZ_Get_Rupee.wav
+
+#begin LOZ_Link_Die.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:LOZ_Link_Die.wav
 
 #begin LOZ_Link_Die.wav
 /importer:WavImporter
