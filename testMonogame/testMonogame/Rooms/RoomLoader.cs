@@ -125,16 +125,16 @@ namespace testMonogame.Rooms
                                 //blockrect
                                 int x = ((Int32.Parse(split[1]) - 1) * blockBaseDimension * blockSizeMod) + screenX + (2 * blockBaseDimension * blockSizeMod);
                                 int y = ((Int32.Parse(split[2]) - 1) * blockBaseDimension * blockSizeMod) + screenY + (2 * blockBaseDimension * blockSizeMod);
-                                blockRect = new Rectangle(x, y, blockBaseDimension * blockSizeMod, blockBaseDimension * blockSizeMod);
+                                blockRect = new Rectangle(x, y, blockBaseDimension * blockSizeMod-2, blockBaseDimension * blockSizeMod-2);
                             }
                             else if (split[0].Equals("bomb"))
                             {
                                 //bombrect
                                 int x = ((Int32.Parse(split[1]) - 1) * blockBaseDimension * blockSizeMod) + screenX + (2 * blockBaseDimension * blockSizeMod);
                                 int y = ((Int32.Parse(split[2]) - 1) * blockBaseDimension * blockSizeMod) + screenY + (2 * blockBaseDimension * blockSizeMod);
-                                int w = 3 * blockBaseDimension * blockSizeMod;
-                                int h = 3 * blockBaseDimension * blockSizeMod;
-                                blockRect = new Rectangle(x, y, w, h);
+                                int w = 2 * blockBaseDimension * blockSizeMod;
+                                int h = 1 * blockBaseDimension * blockSizeMod;
+                                bombRect = new Rectangle(x, y, w, h);
                             }
                             break;
                     }
@@ -193,13 +193,13 @@ namespace testMonogame.Rooms
                 
                 //keys temporarily set to 0. may have to do switch later to determine room number
                 case "closed":
-                    door = new ClosedDoor(direction, new Vector2(x, y), sprites["doors"], 0, false,nextDoor);
+                    door = new ClosedDoor(direction, new Vector2(x, y), sprites["doors"], 0, true,nextDoor);
                     break;
                 case "open":
                     door = new OpenDoor(direction, new Vector2(x, y), sprites["doors"], 0, false, nextDoor);
                     break;
                 case "cave":
-                    door = new CaveDoor(direction, new Vector2(x, y), sprites["doors"], nextDoor);
+                    door = new CaveDoor(direction, new Vector2(x, y), sprites["doors"], nextDoor,split.Length>=4);
                     break;
                 case "locked":
                     door = new LockedDoor(direction, new Vector2(x, y), sprites["doors"], 0, true, nextDoor);

@@ -17,14 +17,14 @@ namespace testMonogame
 
         int nextRoom;
 
-        public CaveDoor(int direction, Vector2 pos, Texture2D texture, int next)
+        public CaveDoor(int direction, Vector2 pos, Texture2D texture, int next,Boolean closed)
         {
             this.texture = texture;
             X = (int)pos.X;
             Y = (int)pos.Y;
             destRect = new Rectangle(X, Y, 65, 65);
             side = direction;
-            isClosed = false;
+            isClosed = closed;
             nextRoom = next;
 
             switch (direction)
