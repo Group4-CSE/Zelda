@@ -1,17 +1,21 @@
-﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
+<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Block/ClosedDoor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Block/SolidBlock.cs">
     <Files>
-      <File FileName="testMonogame/Enemies/AquamentusEnemy.cs" Line="1" Column="1" />
-      <File FileName="testMonogame/Player/Player.cs" Line="290" Column="31" />
-      <File FileName="testMonogame/Game1.cs" Line="72" Column="1" />
-      <File FileName="testMonogame/Sounds.cs" Line="131" Column="31" />
-      <File FileName="testMonogame/PlayerProjectileEnemyCollision.cs" Line="46" Column="39" />
-      <File FileName="testMonogame/GameManager.cs" Line="163" Column="31" />
-      <File FileName="testMonogame/PlayerEnemyCollision.cs" Line="87" Column="42" />
-      <File FileName="testMonogame/Rooms/Room.cs" Line="1" Column="1" />
-      <File FileName="testMonogame/GameOverScreen.cs" Line="1" Column="1" />
-      <File FileName="testMonogame/Block/ClosedDoor.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/Player/Player.cs" Line="191" Column="39" />
+      <File FileName="testMonogame/Game1.cs" />
+      <File FileName="testMonogame/Interfaces/IPlayer.cs" />
+      <File FileName="testMonogame/Sounds.cs" />
+      <File FileName="testMonogame/GameManager.cs" />
+      <File FileName="testMonogame/Interfaces/IRoom.cs" />
+      <File FileName="testMonogame/Rooms/Room.cs" />
+      <File FileName="testMonogame/Block/StairsBlock.cs" />
+      <File FileName="testMonogame/Interfaces/IDoor.cs" />
+      <File FileName="testMonogame/PlayerObjectCollision.cs" />
+      <File FileName="testMonogame/Content/Room3.txt" />
+      <File FileName="testMonogame/Commands/PlayerChangeDirectionCommand.cs" />
+      <File FileName="testMonogame/Rooms/RoomTransition.cs" />
+      <File FileName="testMonogame/Block/SolidBlock.cs" Line="41" Column="10" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -19,8 +23,9 @@
           <Node name="testMonogame" expanded="True">
             <Node name="testMonogame" expanded="True">
               <Node name="Block" expanded="True">
-                <Node name="ClosedDoor.cs" selected="True" />
+                <Node name="SolidBlock.cs" selected="True" />
               </Node>
+              <Node name="Commands" expanded="True" />
               <Node name="Interfaces" expanded="True" />
               <Node name="Player" expanded="True" />
               <Node name="Rooms" expanded="True" />

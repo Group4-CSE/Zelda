@@ -57,7 +57,7 @@ namespace testMonogame.Rooms
 
             next.setTransitionSide(direct);
             direction = direct;
-            delay = 120;
+            delay = 90;
             transition = true;
         }
 
@@ -85,6 +85,8 @@ namespace testMonogame.Rooms
                     current.transitionShift(-2, 0);
                     next.transitionShift(-2, 0);
                     break;
+                case 4:
+                    //do same as case 3
                 case 3:
                     current.transitionShift(0, -2);
                     next.transitionShift(0, -2);

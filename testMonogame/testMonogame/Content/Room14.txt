@@ -5,8 +5,6 @@ dungeonblock,3,2
 dungeonblock,10,2
 dungeonblock,3,6
 dungeonblock,10,6
-ITEMS
-compass,11,4
 ENEMIES
 keese,4,1
 keese,7,3
@@ -16,8 +14,12 @@ keese,9,5
 keese,11,2
 keese,11,6
 keese,12,4
+ITEMS
+compass,11,4
 DOORS
 open,left,13
-cave,up,10
+cave,up,10,closed
 MAP
 4,4
+CONDITIONS
+bomb,6,0

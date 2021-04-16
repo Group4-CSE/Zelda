@@ -99,6 +99,8 @@ namespace testMonogame
                 //PPBCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetBlocks(), this);
                 PPECol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetEnemies(), this, rooms[roomKey], sound);
                 //EPWCol.detectCollision(rooms[roomKey].GetEnemeyProjectile(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
+                PECol.playerEnemyDetection(player, rooms[roomKey].GetEnemies(), rooms[roomKey], sound);
+                EPCol.handleEnemyProjCollision(rooms[roomKey], player);
                 if (doorCollideCountdown <= 0)
                 {
                     POCol.detectCollision(player, rooms[roomKey].GetItems(), rooms[roomKey].GetBlocks(), rooms[roomKey], this);
@@ -108,8 +110,7 @@ namespace testMonogame
                     doorCollideCountdown--;
                 }
                     
-                PECol.playerEnemyDetection(player, rooms[roomKey].GetEnemies(), rooms[roomKey], sound);
-                EPCol.handleEnemyProjCollision(rooms[roomKey], player);
+                
                 
             }
             //Item selection
@@ -124,6 +125,9 @@ namespace testMonogame
             {
                 player.Update(this);
             }
+
+            //Debug.WriteLine("Player X: " + player.X);
+            //Debug.WriteLine("Player Y: " + player.Y);
 
         }
 
@@ -204,7 +208,7 @@ namespace testMonogame
             doorCollideCountdown = 5;
             foreach (IObject block in rooms[curRoom].GetBlocks())
             {
-                if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor || block is StairsBlock))
                 {
                     IDoor door = (IDoor)block;
 
@@ -218,8 +222,11 @@ namespace testMonogame
             }
 
             //make sure the door on other side is opened
-            unlockNextDoor(direction);
-            transitioner.transtion(rooms[curRoom], rooms[roomKey], direction);
+            if (direction != -1)
+            {
+                unlockNextDoor(direction);
+                transitioner.transtion(rooms[curRoom], rooms[roomKey], direction);
+            }
                 
         }
 

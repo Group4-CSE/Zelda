@@ -13,7 +13,7 @@ namespace testMonogame.Rooms
 
     class Room : IRoom
     {
-        
+
         public int screenX { get; set; }
         public int screenY { get; set; }
 
@@ -45,6 +45,7 @@ namespace testMonogame.Rooms
         //Lists of stuff
         List<IObject> Blocks;
         List<IObject> Items;
+        List<IObject> HiddenItemList;
         List<IEnemy> Enemies;
         List<IPlayerProjectile> PlayerProjectiles;
         List<IEnemyProjectile> EnemyProjectiles;
@@ -55,9 +56,9 @@ namespace testMonogame.Rooms
         Rectangle wallSourceRect = new Rectangle(0, 0, 16 * blockBaseDimension, 11 * blockBaseDimension);
         Rectangle undergroundSourceRect = new Rectangle(265, 176, 16 * blockBaseDimension, 11 * blockBaseDimension);
         Rectangle floorSourceRect = new Rectangle(272, 32, 12 * blockBaseDimension, 7 * blockBaseDimension);
-        Rectangle floor2SourceRect= new Rectangle(560, 194, 12 * blockBaseDimension, 7 * blockBaseDimension);
+        Rectangle floor2SourceRect = new Rectangle(560, 194, 12 * blockBaseDimension, 7 * blockBaseDimension);
         Rectangle wallDestRect;
-        Rectangle floorDestRect ;
+        Rectangle floorDestRect;
 
 
         //transition stuff
@@ -67,8 +68,8 @@ namespace testMonogame.Rooms
 
         Boolean isTransition;
 
-        public Room(int inMapX, int inMapY, int inBG, bool inWalls, 
-            Dictionary<String, Texture2D> spriteSheets, 
+        public Room(int inMapX, int inMapY, int inBG, bool inWalls,
+            Dictionary<String, Texture2D> spriteSheets,
             List<IObject> inBlocks,
             List<IObject> inItems,
             List<IEnemy> inEnemies,
@@ -81,13 +82,13 @@ namespace testMonogame.Rooms
             bombRectangle = inBombRectangle;
             blockRectangle = inBlockRectangle;
             hiddenItems = inHideItems;
-            
+
             screenX = 130;
             screenY = 110;
 
-             wallDestRect = new Rectangle(screenX, screenY, 16 * blockBaseDimension * blockSizeMod, 11 * blockBaseDimension * blockSizeMod);
-             floorDestRect = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
-                12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
+            wallDestRect = new Rectangle(screenX, screenY, 16 * blockBaseDimension * blockSizeMod, 11 * blockBaseDimension * blockSizeMod);
+            floorDestRect = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
+               12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
 
             originalFloor = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
                 12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
@@ -99,7 +100,12 @@ namespace testMonogame.Rooms
             Walls = inWalls;
 
             Blocks = inBlocks;
-            Items = inItems;
+            if (!hiddenItems) Items = inItems;
+            else
+            {
+                HiddenItemList = inItems;
+                Items = new List<IObject>();
+            }
             Enemies = inEnemies;
             PlayerProjectiles = new List<IPlayerProjectile>();
             EnemyProjectiles = new List<IEnemyProjectile>();
@@ -149,22 +155,22 @@ namespace testMonogame.Rooms
         public void AddPlayerProjectile(IPlayerProjectile projectile) { PlayerProjectiles.Add(projectile); }
         public void RemovePlayerProjectile(IPlayerProjectile projectile) { PlayerProjectiles.Remove(projectile); }
         public void RemoveItem(IObject item) { Items.Remove(item); }
-        public void RemoveEnemy(IEnemy enemy) 
+        public void RemoveEnemy(IEnemy enemy)
         {
             IObject drop = getDrops(enemy);
             if (drop != null)
             {
                 Items.Add(drop);
             }
-            Enemies.Remove(enemy); 
+            Enemies.Remove(enemy);
         }
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            
+
             if (Walls) spriteBatch.Draw(sprites["Backgrounds"], wallDestRect, wallSourceRect, Color.White);
-            if (Background==1) spriteBatch.Draw(sprites["Backgrounds"], floorDestRect, floorSourceRect, Color.White);
+            if (Background == 1) spriteBatch.Draw(sprites["Backgrounds"], floorDestRect, floorSourceRect, Color.White);
             else if (Background == 2) spriteBatch.Draw(sprites["Backgrounds"], wallDestRect, undergroundSourceRect, Color.White);
             else if (Background == 3) spriteBatch.Draw(sprites["Backgrounds"], floorDestRect, floor2SourceRect, Color.White);
 
@@ -181,15 +187,14 @@ namespace testMonogame.Rooms
             {
                 enemy.Draw(spriteBatch);
             }
-            if (!hiddenItems)
-            {
-                foreach (IObject item in Items)
-                {
-                    item.Draw(spriteBatch);
-                }
-            }
-            
 
+            foreach (IObject item in Items)
+            {
+                item.Draw(spriteBatch);
+            }
+
+
+            //spriteBatch.Draw(sprites["Backgrounds"], bombRectangle, new Rectangle(40, 200, 3, 3), Color.Orange);
             IPlayerProjectile[] arrPlayer = PlayerProjectiles.ToArray();
             foreach (IPlayerProjectile projectile in arrPlayer)
             {
@@ -202,9 +207,9 @@ namespace testMonogame.Rooms
             }
 
 
-            
+
             //spriteBatch.Draw(sprites["map"], mapDestRect, mapSourceRect, Color.White);
-            spriteBatch.Draw(sprites["Backgrounds"], new Rectangle(mapOffsetX+(mapX * mapXGrid)+(mapXGrid/4), mapOffsetY+(mapY * mapYGrid), (mapXGrid-5)/2, mapYGrid-4), new Rectangle(40, 200, 3, 3), Color.Gray);
+            spriteBatch.Draw(sprites["Backgrounds"], new Rectangle(mapOffsetX + (mapX * mapXGrid) + (mapXGrid / 4), mapOffsetY + (mapY * mapYGrid), (mapXGrid - 5) / 2, mapYGrid - 4), new Rectangle(40, 200, 3, 3), Color.Gray);
 
 
         }
@@ -221,31 +226,54 @@ namespace testMonogame.Rooms
                 block.Update(game);
                 if (block.getDestRect().Intersects(blockRectangle))
                 {
-                    //open all closed doors. Will be added when doors are complemtely updated.
+                    foreach (IObject door in Blocks)
+                    {
+                        if (door is IDoor && door is ClosedDoor)
+                        {
+                            IDoor d = (IDoor)door;
+                            //Debug.WriteLine("open");
+                            d.openDoor();
+                            
+                        }
+                    }
                 }
             }
             foreach (IEnemy enemy in Enemies)
             {
                 enemy.Update(game);
             }
-            if (!hiddenItems)
+            if (hiddenItems && Enemies.Count == 0)
             {
-                foreach (IObject item in Items)
+                hiddenItems = false;
+                foreach (IObject item in HiddenItemList)
                 {
-                    item.Update(game);
+                    Items.Add(item);
                 }
+                HiddenItemList.Clear();
             }
-            else
+            foreach (IObject item in Items)
             {
-                if (Enemies.Count == 0) hiddenItems = false;
+                item.Update(game);
             }
+
+
+
             IPlayerProjectile[] arrPlayer = PlayerProjectiles.ToArray();
             foreach (IPlayerProjectile projectile in arrPlayer)
             {
                 projectile.Update(game);
-                if(projectile is BombPlayerProjectile && projectile.getDestRect().Intersects(bombRectangle))
+                if (projectile is ExplosionPlayerProjectile && projectile.getDestRect().Intersects(bombRectangle))
                 {
-                    //make all cave doors display. Will be added when doors are completely updated
+                    //Debug.WriteLine("BOOM");
+                    foreach (IObject door in Blocks)
+                    {
+                        if (door is IDoor && door is CaveDoor)
+                        {
+                            IDoor d = (IDoor)door;
+                            d.openDoor();
+                            
+                        }
+                    }
                 }
             }
             IEnemyProjectile[] arrEnemy = EnemyProjectiles.ToArray();
@@ -298,7 +326,7 @@ namespace testMonogame.Rooms
 
         public void setTransitionSide(int side)
         {
-            
+
             switch (side)
             {
                 case 0:
@@ -313,6 +341,8 @@ namespace testMonogame.Rooms
                     floorDestRect.X = floorDestRect.X + (16 * blockBaseDimension * blockSizeMod);
                     wallDestRect.X = wallDestRect.X + (16 * blockBaseDimension * blockSizeMod);
                     break;
+                case 4:
+                    //do same as case 3 -- case 4 only happens for stairs
                 case 3:
                     floorDestRect.Y = floorDestRect.Y + (11 * blockBaseDimension * blockSizeMod);
                     wallDestRect.Y = wallDestRect.Y + (11 * blockBaseDimension * blockSizeMod);
@@ -329,7 +359,7 @@ namespace testMonogame.Rooms
         }
         public void transitionShift(int x, int y)
         {
-            
+
             floorDestRect.X = floorDestRect.X + x;
             floorDestRect.Y = floorDestRect.Y + y;
             wallDestRect.X = wallDestRect.X + x;

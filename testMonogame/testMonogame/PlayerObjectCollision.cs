@@ -39,7 +39,7 @@ namespace testMonogame
                 collisionRect = Rectangle.Intersect(playerRect, objectRect);
                 if (block is BlueSandBlock || block is DragonBlock || block is FishBlock) isIgnored = true;
 
-                if (!collisionRect.IsEmpty && (block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                if (!collisionRect.IsEmpty && (block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor || block is StairsBlock))
                 {
                     isIgnored = true;
                     doorCollisionHandler(player, block, game, collisionRect);
@@ -173,6 +173,35 @@ namespace testMonogame
                             player.Y = y;
                         }
                         
+                    }
+                    else
+                    {
+                        blockCollisionHandler(collisionRect, player, collided);
+                    }
+                    break;
+                case 4:
+                    if (player.getState() is RightMovingPlayerState)
+                    {
+                        //test door open or closed
+                        if (door.getIsClosed())
+                        {
+                            //interact with closed door
+                            door.Interact(player);
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        else
+                        {
+                            //go down stairs
+                            game.LoadRoom(door.getNextRoom());
+                            int x = 226;
+                            int y = 172;
+                            player.X = x;
+                            player.Y = y;
+                            //set player to facing down
+                            player.ChangeState(1);
+                            player.getState().setMoving(false);
+                        }
+
                     }
                     else
                     {
