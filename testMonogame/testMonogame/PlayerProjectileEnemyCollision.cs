@@ -24,15 +24,17 @@ namespace testMonogame
         public void detectCollision(List<IPlayerProjectile> projectiles, List<IEnemy> enemies, GameManager game, IRoom room, Sounds sounds)
         {
             IPlayerProjectile[] projArry = projectiles.ToArray();
+
             foreach (var projectile in projArry)
             {
                 projectileRect = projectile.getDestRect();
                 IEnemy[] enemyArr = enemies.ToArray();
+                bool exception = projectile is SwordboomPlayerProjectile || projectile is BombPlayerProjectile || projectile is ExplosionPlayerProjectile;
                 foreach (var enemy in enemyArr)
                 {
                     enemyRect = enemy.getDestRect();
                     collision = Rectangle.Intersect(projectileRect, enemyRect);
-                    if (!collision.IsEmpty && !(projectile is SwordboomPlayerProjectile)) handleCollision(projectile,enemy, game,room, sounds );
+                    if (!collision.IsEmpty && !exception) handleCollision(projectile,enemy, game,room, sounds );
                 }
             }
         }

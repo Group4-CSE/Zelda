@@ -194,7 +194,7 @@ namespace testMonogame.Rooms
             }
 
 
-
+            //spriteBatch.Draw(sprites["Backgrounds"], bombRectangle, new Rectangle(40, 200, 3, 3), Color.Orange);
             IPlayerProjectile[] arrPlayer = PlayerProjectiles.ToArray();
             foreach (IPlayerProjectile projectile in arrPlayer)
             {
@@ -226,7 +226,16 @@ namespace testMonogame.Rooms
                 block.Update(game);
                 if (block.getDestRect().Intersects(blockRectangle))
                 {
-                    //open all closed doors. Will be added when doors are complemtely updated.
+                    foreach (IObject door in Blocks)
+                    {
+                        if (door is IDoor && door is ClosedDoor)
+                        {
+                            IDoor d = (IDoor)door;
+                            //Debug.WriteLine("open");
+                            d.openDoor();
+                            
+                        }
+                    }
                 }
             }
             foreach (IEnemy enemy in Enemies)
@@ -253,17 +262,18 @@ namespace testMonogame.Rooms
             foreach (IPlayerProjectile projectile in arrPlayer)
             {
                 projectile.Update(game);
-                if (projectile is BombPlayerProjectile && projectile.getDestRect().Intersects(bombRectangle))
+                if (projectile is ExplosionPlayerProjectile && projectile.getDestRect().Intersects(bombRectangle))
                 {
-                    //foreach(IObject door in Blocks)
-                    //{
-                    //    if(door is IDoor && door is CaveDoor)
-                    //    {
-                    //        IDoor d = (IDoor)door;
-                    //        d.openDoor();
-                    //        //may need to open next door too
-                    //    }
-                    //}
+                    //Debug.WriteLine("BOOM");
+                    foreach (IObject door in Blocks)
+                    {
+                        if (door is IDoor && door is CaveDoor)
+                        {
+                            IDoor d = (IDoor)door;
+                            d.openDoor();
+                            
+                        }
+                    }
                 }
             }
             IEnemyProjectile[] arrEnemy = EnemyProjectiles.ToArray();
