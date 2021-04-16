@@ -17,7 +17,7 @@ namespace testMonogame
         //how long the attack lasts
         int AttackTimer=30;
         int AttackCount;
-
+        int delay = 0;
         const int hitboxShrink = 2;
         
         //int arrowCount;
@@ -223,6 +223,7 @@ namespace testMonogame
         }
         public void Update(GameManager game)
         {
+            //int delay = 0;
             if (state.isMoving()) state.Move();
             state.Update(game);
 
@@ -236,8 +237,25 @@ namespace testMonogame
                 }
             }
             //Low Health Sounds
-            if (health <= 2) sound1.lowHP();
-            if (health <= 0) game.SetState(3);
+            if (health <= 2)
+            {
+                //Delay to keep sound as beep rather than eeeeee
+               
+                delay++;
+
+                if(delay == 20)
+                {
+                    sound1.lowHP();
+                    delay -= 20;
+                }
+
+            }
+            if (health <= 0)
+            {
+
+                //sound1.pDies();
+                game.SetState(3);
+            }
             
             if (state is WinPlayerState) game.SetState(4);
         }
@@ -287,8 +305,10 @@ namespace testMonogame
         {
             if (Keys > 0)
             {
+                sound1.Door();
                 Keys--;
                 return true;
+               
             }
 
 
