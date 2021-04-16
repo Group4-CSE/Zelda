@@ -331,6 +331,8 @@ namespace testMonogame.Rooms
                     floorDestRect.X = floorDestRect.X + (16 * blockBaseDimension * blockSizeMod);
                     wallDestRect.X = wallDestRect.X + (16 * blockBaseDimension * blockSizeMod);
                     break;
+                case 4:
+                    //do same as case 3 -- case 4 only happens for stairs
                 case 3:
                     floorDestRect.Y = floorDestRect.Y + (11 * blockBaseDimension * blockSizeMod);
                     wallDestRect.Y = wallDestRect.Y + (11 * blockBaseDimension * blockSizeMod);
