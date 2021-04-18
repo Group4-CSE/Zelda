@@ -329,21 +329,27 @@ namespace testMonogame.Rooms
 
             switch (side)
             {
+                case 5:
+                    //do same as case 0 -- case 5 only happens in room 3 stairs
                 case 0:
+                    //handle north transition, put room on top of the old room 
                     floorDestRect.Y = floorDestRect.Y - (11 * blockBaseDimension * blockSizeMod);
                     wallDestRect.Y = wallDestRect.Y - (11 * blockBaseDimension * blockSizeMod);
                     break;
                 case 1:
+                    //handle west transition, put room left of the old room 
                     floorDestRect.X = floorDestRect.X - (16 * blockBaseDimension * blockSizeMod);
                     wallDestRect.X = wallDestRect.X - (16 * blockBaseDimension * blockSizeMod);
                     break;
                 case 2:
+                    //handle east transition, put room right of the old room 
                     floorDestRect.X = floorDestRect.X + (16 * blockBaseDimension * blockSizeMod);
                     wallDestRect.X = wallDestRect.X + (16 * blockBaseDimension * blockSizeMod);
                     break;
                 case 4:
-                    //do same as case 3 -- case 4 only happens for stairs
+                    //do same as case 3 -- case 4 only happens for room 1 stairs
                 case 3:
+                    //handle south transition, put room bellow the old room 
                     floorDestRect.Y = floorDestRect.Y + (11 * blockBaseDimension * blockSizeMod);
                     wallDestRect.Y = wallDestRect.Y + (11 * blockBaseDimension * blockSizeMod);
                     break;
@@ -359,12 +365,13 @@ namespace testMonogame.Rooms
         }
         public void transitionShift(int x, int y)
         {
-
+            //shift floor and walls based on incoming x,y
             floorDestRect.X = floorDestRect.X + x;
             floorDestRect.Y = floorDestRect.Y + y;
             wallDestRect.X = wallDestRect.X + x;
             wallDestRect.Y = wallDestRect.Y + y;
 
+            //if room is shifted back to original position, transition is complete
             if (floorDestRect.X == originalFloor.X && floorDestRect.Y == originalFloor.Y)
             {
                 isTransition = false;
@@ -372,6 +379,7 @@ namespace testMonogame.Rooms
         }
         public void resetToOriginalPos()
         {
+            //reset room back to original position after a transition shift
             floorDestRect.X = originalFloor.X;
             floorDestRect.Y = originalFloor.Y;
             wallDestRect.X = originalWall.X;

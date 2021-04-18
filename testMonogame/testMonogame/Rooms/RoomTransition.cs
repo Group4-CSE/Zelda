@@ -26,6 +26,7 @@ namespace testMonogame.Rooms
         {
             if (!next.isTransitioning())
             {
+                //when the next room is done transitioning reset current room and stop transitioning
                 current.setTransitioning(false);
                 current.resetToOriginalPos();
                 next.Draw(spriteBatch);
@@ -34,8 +35,8 @@ namespace testMonogame.Rooms
             }
             if (delay == 0)
             {
+                //shift rooms for transition
                 roomShift();
-
             }
             else
             {
@@ -57,6 +58,7 @@ namespace testMonogame.Rooms
 
             next.setTransitionSide(direct);
             direction = direct;
+            //delay for rooms to be displayed side by side
             delay = 90;
             transition = true;
         }
@@ -66,6 +68,7 @@ namespace testMonogame.Rooms
             //next.isShiftDone();
             if (!next.isTransitioning())
             {
+                //when the next room is done transitioning reset current room and stop transitioning
                 current.setTransitioning(false);
                 current.resetToOriginalPos();
                 transition = false;
@@ -73,6 +76,8 @@ namespace testMonogame.Rooms
             }
             switch (direction)
             {
+                case 5:
+                    //do same transition as case 1
                 case 0:
                     current.transitionShift(0, 2);
                     next.transitionShift(0, 2);
@@ -86,7 +91,7 @@ namespace testMonogame.Rooms
                     next.transitionShift(-2, 0);
                     break;
                 case 4:
-                    //do same as case 3
+                    //do same trasition as case 3
                 case 3:
                     current.transitionShift(0, -2);
                     next.transitionShift(0, -2);

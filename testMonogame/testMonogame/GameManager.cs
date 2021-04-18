@@ -208,7 +208,7 @@ namespace testMonogame
             doorCollideCountdown = 5;
             foreach (IObject block in rooms[curRoom].GetBlocks())
             {
-                if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor || block is StairsBlock))
+                if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor || block is StairsBlock || block is SolidBlockDoor))
                 {
                     IDoor door = (IDoor)block;
 

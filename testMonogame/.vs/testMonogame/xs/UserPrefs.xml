@@ -1,37 +1,38 @@
-<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
+﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Block/SolidBlock.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/PlayerObjectCollision.cs">
     <Files>
       <File FileName="testMonogame/Player/Player.cs" Line="191" Column="39" />
       <File FileName="testMonogame/Game1.cs" />
-      <File FileName="testMonogame/Interfaces/IPlayer.cs" />
-      <File FileName="testMonogame/Sounds.cs" />
-      <File FileName="testMonogame/GameManager.cs" />
+      <File FileName="testMonogame/GameManager.cs" Line="130" Column="13" />
       <File FileName="testMonogame/Interfaces/IRoom.cs" />
       <File FileName="testMonogame/Rooms/Room.cs" />
-      <File FileName="testMonogame/Block/StairsBlock.cs" />
-      <File FileName="testMonogame/Interfaces/IDoor.cs" />
-      <File FileName="testMonogame/PlayerObjectCollision.cs" />
-      <File FileName="testMonogame/Content/Room3.txt" />
-      <File FileName="testMonogame/Commands/PlayerChangeDirectionCommand.cs" />
-      <File FileName="testMonogame/Rooms/RoomTransition.cs" />
-      <File FileName="testMonogame/Block/SolidBlock.cs" Line="41" Column="10" />
+      <File FileName="testMonogame/Block/StairsBlock.cs" Line="50" Column="9" />
+      <File FileName="testMonogame/PlayerObjectCollision.cs" Line="217" Column="30" />
+      <File FileName="testMonogame/Content/Room3.txt" Line="6" Column="15" />
+      <File FileName="testMonogame/Rooms/RoomTransition.cs" Line="91" Column="50" />
+      <File FileName="testMonogame/Rooms/RoomLoader.cs" Line="294" Column="89" />
+      <File FileName="testMonogame/Block/SolidBlock.cs" Line="38" Column="8" />
+      <File FileName="testMonogame/Block/SolidBlockDoor.cs" Line="64" Column="53" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="testMonogame" expanded="True">
             <Node name="testMonogame" expanded="True">
-              <Node name="Block" expanded="True">
-                <Node name="SolidBlock.cs" selected="True" />
-              </Node>
+              <Node name="Block" expanded="True" />
               <Node name="Commands" expanded="True" />
+              <Node name="Content" expanded="True" />
               <Node name="Interfaces" expanded="True" />
               <Node name="Player" expanded="True" />
               <Node name="Rooms" expanded="True" />
+              <Node name="PlayerObjectCollision.cs" selected="True" />
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>

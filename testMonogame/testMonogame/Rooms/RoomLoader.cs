@@ -157,6 +157,8 @@ namespace testMonogame.Rooms
             String[] split = line.Split(',');
             int direction;
             IObject door;
+
+            //calculate door location
             switch (split[1])
             {
                 case "up":
@@ -188,6 +190,7 @@ namespace testMonogame.Rooms
 
             int nextDoor = int.Parse(split[2]);
 
+            //create door object
             switch (split[0])
             {
                 
@@ -257,9 +260,11 @@ namespace testMonogame.Rooms
             String[] split = line.Split(',');
             IObject block;
             //Debug.WriteLine(split[0]);
+            //calculate block location
             float x = ((Int32.Parse(split[1]) - 1) * blockBaseDimension * blockSizeMod) + screenX + (2 * blockBaseDimension * blockSizeMod);
             float y = ((Int32.Parse(split[2]) - 1) * blockBaseDimension * blockSizeMod) + screenY + (2 * blockBaseDimension * blockSizeMod);
 
+            //create block objects
             switch (split[0])
             {
                 case "bluesandblock":
@@ -287,6 +292,11 @@ namespace testMonogame.Rooms
                     Color c = Color.Transparent;
                     if (split[3] == "blue") c = Color.Blue;
                     block = new SolidBlock(sprites["Backgrounds"], new Vector2(x, y), c);
+                    break;
+                case "solidblockdoor":
+                    Color c2 = Color.Transparent;
+                    if (split[3] == "blue") c = Color.Blue;
+                    block = new SolidBlockDoor(sprites["Backgrounds"], new Vector2(x, y), c2);
                     break;
                 default:
                     block = new DungeonBlock(sprites["tileset"], new Vector2(x, y));
