@@ -1,14 +1,16 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using testMonogame.Interfaces;
 
 namespace testMonogame
 {
-     class BlueSandBlock: IObject, ISprite
+     class BlueSandBlock: IObject, ISprite, IBlock
     {
         //Initialize
         Texture2D texture;
         Rectangle destRect;
+        Rectangle orig;
         Rectangle sourceRect = new Rectangle(17, 17, 16, 16);
         Color color = Color.White;
 
@@ -26,6 +28,7 @@ namespace testMonogame
             Y = (int)pos.Y;
 
             destRect = new Rectangle(X, Y, width, height);
+            orig = new Rectangle(X, Y, width, height);
 
         }
         public Rectangle getDestRect()
@@ -46,6 +49,17 @@ namespace testMonogame
         {
             throw new NotImplementedException();
             //Should be Null right now
+        }
+
+        public void transitionShift(int x, int y)
+        {
+            destRect.X = destRect.X + x;
+            destRect.Y = destRect.Y + y;
+        }
+        public void resetToOriginalPos()
+        {
+            destRect.X = orig.X;
+            destRect.Y = orig.Y;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿BACKGROUND
 WALLS
+ITEMS
+key,4,6
 BLOCKS
 dungeonblock,3,3
 dungeonblock,4,3
@@ -23,3 +25,5 @@ DOORS
 open,left,17
 MAP
 4,6
+CONDITIONS
+hideitems

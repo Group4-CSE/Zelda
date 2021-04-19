@@ -13,7 +13,10 @@ goriya,10,2
 goriya,9,5
 DOORS
 locked,left,9
-cave,down,14
+cave,down,14,closed
 open,right,11
 MAP
 4,3
+CONDITIONS
+hideitems
+bomb,6,7

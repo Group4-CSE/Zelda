@@ -1,10 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using testMonogame.Interfaces;
 
 namespace testMonogame
 {
-    public class LockedDoor : ISprite, IObject
+    public class LockedDoor : ISprite, IObject, IDoor, IBlock
     {
         public int X { get; set; }
         public int Y { get; set; }
@@ -13,6 +14,7 @@ namespace testMonogame
 
         Texture2D texture;
         Rectangle destRect;
+        Rectangle orig;
         Rectangle sourceRect;
         int side;
 
@@ -24,6 +26,7 @@ namespace testMonogame
             X = (int)pos.X;
             Y = (int)pos.Y;
             destRect = new Rectangle(X, Y, 65, 65);
+            orig = new Rectangle(X, Y, 65, 65);
             keyType = key;
             isLocked = locked;
             side = direction;
@@ -51,7 +54,7 @@ namespace testMonogame
 
             if (!isLocked)
             {
-                unlockDoor();
+                openDoor();
             }
         }
         public Rectangle getDestRect()
@@ -69,7 +72,7 @@ namespace testMonogame
             {
                 if (player.UseKey(keyType))
                 {
-                    unlockDoor();
+                    openDoor();
                 }
             }
             else
@@ -85,7 +88,7 @@ namespace testMonogame
             spriteBatch.Draw(texture, destRect, sourceRect, Color.White);
         }
 
-        public void unlockDoor()
+        public void openDoor()
         {
             isLocked = false;
             sourceRect.X = 0;
@@ -104,6 +107,17 @@ namespace testMonogame
         public int getNextRoom()
         {
             return nextRoom;
+        }
+
+        public void transitionShift(int x, int y)
+        {
+            destRect.X = destRect.X + x;
+            destRect.Y = destRect.Y + y;
+        }
+        public void resetToOriginalPos()
+        {
+            destRect.X = orig.X;
+            destRect.Y = orig.Y;
         }
     }
 }

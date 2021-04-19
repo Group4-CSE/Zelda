@@ -20,3 +20,5 @@ open,down,15
 cave,up,9
 MAP
 3,4
+CONDITIONS
+hideitems

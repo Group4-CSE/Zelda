@@ -92,7 +92,8 @@ namespace testMonogame
 
             //Loads all of the sounds
             sounds.LoadSounds(Content);
-            
+           
+           
             SpriteFont font= Content.Load<SpriteFont>("HUDfont");
             SpriteFont header = Content.Load<SpriteFont>("HeaderFont");
 
@@ -120,7 +121,7 @@ namespace testMonogame
         {
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,SamplerState.PointClamp);
 
             manager.Draw(_spriteBatch);
 

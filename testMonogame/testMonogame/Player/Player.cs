@@ -17,9 +17,10 @@ namespace testMonogame
         //how long the attack lasts
         int AttackTimer=30;
         int AttackCount;
-
+        int delay = 0;
+        const int hitboxShrink = 2;
         
-        int arrowCount;
+        //int arrowCount;
         public int Rupees { get; set; }
         public int Keys { get; set; }
         public int Bombs { get; set; }
@@ -48,8 +49,7 @@ namespace testMonogame
             Compass = false;
 
             ObtainItem("Bomb");
-            ObtainItem("Bow");
-            ObtainItem("Boomerang");
+            ObtainItem("Bomb");
             ObtainItem("Arrow");
 
             SelectItem(0);
@@ -64,6 +64,8 @@ namespace testMonogame
             if (i > inventory.Count - 1) i = 0;
             SelectItem(i);
         }
+
+
         public void PreviousItem()
         {
             int i = inventory.IndexOf(selectedItem) - 1;
@@ -93,7 +95,10 @@ namespace testMonogame
         public int GetDamageFrames() { return damageFrames; }
        public Rectangle getDestRect()
         {
-            return state.getDestRect();
+            Rectangle r= state.getDestRect();
+            Rectangle dest = r;
+            if(!attack)dest = new Rectangle(r.X+hitboxShrink, r.Y + hitboxShrink, r.Width-hitboxShrink, r.Height-hitboxShrink);
+            return dest;
         }
 
         public void Attack(GameManager game)
@@ -157,6 +162,7 @@ namespace testMonogame
                     break;
                 case "Fiary":
                     health = maxHealth;
+                    sound1.getStuff(0);
                     break;
                 case "Heart":
                     health += 4;
@@ -172,16 +178,23 @@ namespace testMonogame
                     health += 4;
                     break;
                 case "Rupee":
-
                     Rupees=Rupees+1;
                     sound1.getStuff(2);
+
                     break;
                 case "Key":
                     Keys = Keys + 1;
+                    sound1.getStuff(0);
                     break;
                 case "Bomb":
                     Bombs = Bombs + 1;
+                    //sound1.getstuff(0);
+                    //Error due to the call in constructor, cannot make sound before game
                     if(!inventory.Contains(item))inventory.Add(item);
+                    break;
+                case "Arrow":
+                    if(!inventory.Contains(item))inventory.Add(item);
+                   
                     break;
                 case "Triforce":
                     ChangeState(5);
@@ -210,6 +223,7 @@ namespace testMonogame
         }
         public void Update(GameManager game)
         {
+            //int delay = 0;
             if (state.isMoving()) state.Move();
             state.Update(game);
 
@@ -222,7 +236,27 @@ namespace testMonogame
                     AttackCount = 0;
                 }
             }
-            if (health <= 0) game.SetState(3);
+            //Low Health Sounds
+            if (health <= 2)
+            {
+                //Delay to keep sound as beep rather than eeeeee
+               
+                delay++;
+
+                if(delay == 20)
+                {
+                    sound1.lowHP();
+                    delay -= 20;
+                }
+
+            }
+            if (health <= 0)
+            {
+
+                //sound1.pDies();
+                game.SetState(3);
+            }
+            
             if (state is WinPlayerState) game.SetState(4);
         }
 
@@ -269,11 +303,17 @@ namespace testMonogame
         
         public bool UseKey(int keyType)
         {
-            //Add logic for opening doors later
-            //may need to be revised when doors are finalized
-            Keys--;
+            if (Keys > 0)
+            {
+                sound1.Door();
+                Keys--;
+                return true;
+               
+            }
 
-            //sound1.Door()
+
+            
+
 
             return false;
         }
