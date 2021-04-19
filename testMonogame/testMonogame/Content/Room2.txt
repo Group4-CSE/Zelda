@@ -33,6 +33,7 @@ goriya,8,3
 goriya,10,5
 DOORS
 locked,down,4
+locked,left,1
 MAP
 3,1
 CONDITIONS

@@ -7,6 +7,7 @@ solidblock,1,3,transparent
 solidblock,1,4,transparent
 solidblock,1,5,transparent
 solidblock,1,6,transparent
+solidblockdoor,2,0,transparent
 solidblock,3,0,transparent
 solidblock,3,1,transparent
 solidblock,3,2,transparent

@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using testMonogame.Rooms;
 using testMonogame.Interfaces;
+using System.Diagnostics;
+
 namespace testMonogame
 {
     public class GameManager
@@ -20,6 +22,8 @@ namespace testMonogame
         private RoomLoader roomLoad;
         Dictionary<String, IRoom> rooms = new Dictionary<string, IRoom>();
         String roomKey = "";
+        RoomTransition transitioner;
+        int doorCollideCountdown = 0;
 
         
 
@@ -61,6 +65,7 @@ namespace testMonogame
             roomLoad = new RoomLoader(sprites);
             rooms.Add("Room17", roomLoad.Load("Room17.txt"));
             roomKey = "Room17";
+            transitioner = new RoomTransition();
 
             player = new Player(spriteSheet["playersheet"], new Vector2(500, 200), spriteSheet["PlayerProjectiles"], sound);
             hud = new HUD(spriteSheet["hudSheet"], font);
@@ -77,7 +82,10 @@ namespace testMonogame
 
         public void Update()
         {
-
+            if (transitioner.transitioning())
+            {
+                return;
+            }
             //PLAYING
             if (state == GameState.PLAYING)
             {
@@ -91,9 +99,19 @@ namespace testMonogame
                 //PPBCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetBlocks(), this);
                 PPECol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetEnemies(), this, rooms[roomKey], sound);
                 //EPWCol.detectCollision(rooms[roomKey].GetEnemeyProjectile(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
-                POCol.detectCollision(player, rooms[roomKey].GetItems(), rooms[roomKey].GetBlocks(), rooms[roomKey],this);
                 PECol.playerEnemyDetection(player, rooms[roomKey].GetEnemies(), rooms[roomKey], sound);
                 EPCol.handleEnemyProjCollision(rooms[roomKey], player);
+                if (doorCollideCountdown <= 0)
+                {
+                    POCol.detectCollision(player, rooms[roomKey].GetItems(), rooms[roomKey].GetBlocks(), rooms[roomKey], this);
+                }
+                else
+                {
+                    doorCollideCountdown--;
+                }
+                    
+                
+                
             }
             //Item selection
             else if (state == GameState.ITEMSELECTION)
@@ -108,11 +126,19 @@ namespace testMonogame
                 player.Update(this);
             }
 
+            //Debug.WriteLine("Player X: " + player.X);
+            //Debug.WriteLine("Player Y: " + player.Y);
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
 
+            if (transitioner.transitioning())
+            {
+                transitioner.Draw(spriteBatch);
+                return;
+            }
 
             //NORMAL STUFF
             if (state == GameState.PLAYING)
@@ -138,6 +164,7 @@ namespace testMonogame
             //game over
             else if (state == GameState.LOSE)
             {
+                sound.pDies();
                 gameOver.Draw(spriteBatch);
             }
             else if (state == GameState.WIN)
@@ -154,6 +181,7 @@ namespace testMonogame
 
         public void LoadRoom(int roomNum)
         {
+            //Debug.WriteLine(player.X);
             String name = "Room" + roomNum;
             if (rooms.ContainsKey(name))
             {
@@ -166,33 +194,111 @@ namespace testMonogame
                 //roomKey = name;
                 ChangeRoom(roomNum);
             }
-            player.X = 400;
-            player.Y = 324;
+            //player.X = 400;
+            //player.Y = 324;
         }
 
         public void ChangeRoom(int roomNum)
         {
+            
             String curRoom = roomKey;
             String name = "Room" + roomNum;
             roomKey = name;
             int direction = -1;
-
+            doorCollideCountdown = 5;
             foreach (IObject block in rooms[curRoom].GetBlocks())
             {
-                if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor || block is StairsBlock || block is SolidBlockDoor))
                 {
                     IDoor door = (IDoor)block;
 
                     if (door.getNextRoom() == roomNum)
                     {
                         direction = door.getSide();
+                        break;
                     }
 
                 }
             }
 
-
+            //make sure the door on other side is opened
+            if (direction != -1)
+            {
+                unlockNextDoor(direction);
+                transitioner.transtion(rooms[curRoom], rooms[roomKey], direction);
+            }
                 
+        }
+
+        public void unlockNextDoor(int direction)
+        {
+            switch (direction)
+            {
+                case 0:
+                    foreach (IObject block in rooms[roomKey].GetBlocks())
+                    {
+                        if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                        {
+                            IDoor door = (IDoor)block;
+
+                            //make sure door on the other side of the other room is also open
+                            if (door.getSide() == 3)
+                            {
+                                door.openDoor();
+                            }
+
+                        }
+                    }
+                    break;
+                case 1:
+                    foreach (IObject block in rooms[roomKey].GetBlocks())
+                    {
+                        if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                        {
+                            IDoor door = (IDoor)block;
+
+                            //make sure door on the other side of the other room is also open
+                            if (door.getSide() == 2)
+                            {
+                                door.openDoor();
+                            }
+
+                        }
+                    }
+                    break;
+                case 2:
+                    foreach (IObject block in rooms[roomKey].GetBlocks())
+                    {
+                        if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                        {
+                            IDoor door = (IDoor)block;
+
+                            //make sure door on the other side of the other room is also open
+                            if (door.getSide() == 1)
+                            {
+                                door.openDoor();
+                            }
+
+                        }
+                    }
+                    break;
+                case 3:
+                    foreach (IObject block in rooms[roomKey].GetBlocks())
+                    {
+                        if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                        {
+                            IDoor door = (IDoor)block;
+
+                            //make sure door on the other side of the other room is also open
+                            if (door.getSide() == 0)
+                            {
+                                door.openDoor();
+                            }
+
+                        }
+                    }
+                    break;
+            }
         }
 
         public IPlayer getPlayer()
