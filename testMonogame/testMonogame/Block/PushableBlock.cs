@@ -63,6 +63,7 @@ namespace testMonogame
                         if (pushSide.Equals("top"))
                         {
                             Y = Y + destRect.Height;
+                            orig.Y = Y;
                             pushed = true;
                         }
                         }
@@ -71,6 +72,7 @@ namespace testMonogame
                         if (pushSide.Equals("bottom"))
                         {
                             Y = Y - destRect.Height;
+                            orig.Y = Y;
                             pushed = true;
                         }
                     }
@@ -83,6 +85,7 @@ namespace testMonogame
                         if (pushSide.Equals("left"))
                         {
                             X = X + destRect.Width;
+                            orig.X = X;
                             pushed = true;
                         }
                     }
@@ -91,6 +94,7 @@ namespace testMonogame
                         if (pushSide.Equals("right"))
                         {
                             X = X - destRect.Width;
+                            orig.X = X;
                             pushed = true;
                         }
                         }
@@ -101,13 +105,15 @@ namespace testMonogame
 
         public void transitionShift(int x, int y)
         {
-            destRect.X = destRect.X + x;
-            destRect.Y = destRect.Y + y;
+            //destRect.X = destRect.X + x;
+            //destRect.Y = destRect.Y + y;
+            X = X + x;
+            Y = Y + y;
         }
         public void resetToOriginalPos()
         {
-            destRect.X = orig.X;
-            destRect.Y = orig.Y;
+            X = orig.X;
+            Y = orig.Y;
         }
     }
 }

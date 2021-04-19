@@ -32,6 +32,6 @@ wallmaster,12,5
 wallmaster,13,6
 DOORS
 locked,up,5
-open,right,10
+open,left,10
 MAP
 5,3
