@@ -3,18 +3,18 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Rooms/RoomTransition.cs">
     <Files>
       <File FileName="testMonogame/Block/OpenDoor.cs" Line="100" Column="9" IsPinned="True" />
-      <File FileName="testMonogame/Player/Player.cs" Line="191" Column="39" />
+      <File FileName="testMonogame/Player/Player.cs" />
       <File FileName="testMonogame/Game1.cs" />
       <File FileName="testMonogame/GameManager.cs" />
-      <File FileName="testMonogame/Interfaces/IRoom.cs" Line="36" Column="42" />
-      <File FileName="testMonogame/Rooms/Room.cs" Line="422" Column="27" />
-      <File FileName="testMonogame/Block/StairsBlock.cs" Line="10" Column="56" />
+      <File FileName="testMonogame/Interfaces/IRoom.cs" />
+      <File FileName="testMonogame/Rooms/Room.cs" />
+      <File FileName="testMonogame/Block/StairsBlock.cs" />
       <File FileName="testMonogame/PlayerObjectCollision.cs" />
       <File FileName="testMonogame/Rooms/RoomTransition.cs" Line="32" Column="43" />
-      <File FileName="testMonogame/Rooms/RoomLoader.cs" Line="193" Column="33" />
-      <File FileName="testMonogame/Block/SolidBlock.cs" Line="50" Column="9" />
-      <File FileName="testMonogame/Block/SolidBlockDoor.cs" Line="38" Column="10" />
-      <File FileName="testMonogame/Interfaces/IBlock.cs" Line="2" Column="23" />
+      <File FileName="testMonogame/Rooms/RoomLoader.cs" />
+      <File FileName="testMonogame/Block/SolidBlock.cs" />
+      <File FileName="testMonogame/Block/SolidBlockDoor.cs" />
+      <File FileName="testMonogame/Interfaces/IBlock.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

@@ -34,5 +34,8 @@
     <Folder Include="Enemies\" />
     <Folder Include="Projectiles\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Collisions\" />
+    <Folder Include="Collisions\Enemy\" />
+    <Folder Include="Collisions\Player\" />
   </ItemGroup>
 </Project>
