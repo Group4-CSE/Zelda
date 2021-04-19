@@ -30,7 +30,8 @@ namespace testMonogame
                 Rectangle floorCollision = Rectangle.Intersect(projRect, floor);
                 //for true collision x and y are arbitrary, width and height matter
                 Rectangle trueCollision = new Rectangle(wallCollision.X, wallCollision.Y, floorCollision.Width - wallCollision.Width, floorCollision.Height - wallCollision.Height);
-                if (!wallCollision.Equals(floorCollision) && !(projectile is SwordboomPlayerProjectile)) handleCollision(projectile,game);
+                bool exception = projectile is SwordboomPlayerProjectile || projectile is BombPlayerProjectile || projectile is ExplosionPlayerProjectile;
+                if (!wallCollision.Equals(floorCollision) && !exception) handleCollision(projectile,game);
             }
         }
 

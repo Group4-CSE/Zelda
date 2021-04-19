@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using testMonogame.Interfaces;
 using testMonogame.Rooms;
@@ -38,7 +39,7 @@ namespace testMonogame
                 collisionRect = Rectangle.Intersect(playerRect, objectRect);
                 if (block is BlueSandBlock || block is DragonBlock || block is FishBlock) isIgnored = true;
 
-                if (!collisionRect.IsEmpty && (block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor))
+                if (!collisionRect.IsEmpty && (block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor || block is StairsBlock || block is SolidBlockDoor))
                 {
                     isIgnored = true;
                     doorCollisionHandler(player, block, game, collisionRect);
@@ -69,11 +70,14 @@ namespace testMonogame
         public void doorCollisionHandler(IPlayer player, IObject collided, GameManager game, Rectangle collisionRect)
         {
             IDoor door = (IDoor)collided;
-
+            //Debug.WriteLine("Door Collided");
             //handle collision
+
+            //handle door collisions
             switch (door.getSide())
             {
                 case 0:
+                    //handle north door 
                     if (player.getState() is UpMovingPlayerState)
                     {
                         //test door open or closed
@@ -87,6 +91,8 @@ namespace testMonogame
                         {
                             //go through open door
                             game.LoadRoom(door.getNextRoom());
+
+                            //set player x,y infront of door
                             int x = 10 + screenX + (6 * blockBaseDimension * blockSizeMod) + ((blockBaseDimension * blockSizeMod));
                             int y = screenY + (9 * blockBaseDimension * blockSizeMod) - 16 - 30;
                             player.X = x;
@@ -100,6 +106,7 @@ namespace testMonogame
                     }
                     break;
                 case 1:
+                    //handle west door 
                     if (player.getState() is LeftMovingPlayerState)
                     {
                         //test door open or closed
@@ -113,6 +120,8 @@ namespace testMonogame
                         {
                             //go through open door
                             game.LoadRoom(door.getNextRoom());
+
+                            //set player x,y infront of door
                             int y = 10 + screenY + (5 * blockBaseDimension * blockSizeMod) - blockBaseDimension;
                             int x = screenX + (blockSizeMod * blockBaseDimension * 14) - 30 - 16;
                             player.X = x;
@@ -126,6 +135,7 @@ namespace testMonogame
                     }
                     break;
                 case 2:
+                    //handle east door 
                     if (player.getState() is RightMovingPlayerState)
                     {
                         //test door open or closed
@@ -139,10 +149,13 @@ namespace testMonogame
                         {
                             //go through open door
                             game.LoadRoom(door.getNextRoom());
+
+                            //set player x,y infront of door
                             int y = 10 + screenY + (5 * blockBaseDimension * blockSizeMod) - blockBaseDimension;
                             int x = screenX + 24;
                             player.X = x;
                             player.Y = y;
+                            
                         }
                         
                     }
@@ -152,6 +165,7 @@ namespace testMonogame
                     }
                     break;
                 case 3:
+                    //handle south door 
                     if (player.getState() is DownMovingPlayerState)
                     {
                         //test door open or closed
@@ -165,12 +179,78 @@ namespace testMonogame
                         {
                             //go through open door
                             game.LoadRoom(door.getNextRoom());
+
+                            //set player x,y infront of door
                             int x = screenX + (6 * blockBaseDimension * blockSizeMod) + ((blockBaseDimension * blockSizeMod)) + 10;
                             int y = screenY + 30 + 16;
                             player.X = x;
                             player.Y = y;
                         }
                         
+                    }
+                    else
+                    {
+                        blockCollisionHandler(collisionRect, player, collided);
+                    }
+                    break;
+                case 4:
+                    //handle room 1 stairs
+                    if (player.getState() is RightMovingPlayerState)
+                    {
+                        //test door open or closed
+                        if (door.getIsClosed())
+                        {
+                            //interact with closed door
+                            door.Interact(player);
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        else
+                        {
+                            //go down stairs
+                            game.LoadRoom(door.getNextRoom());
+
+                            //set player x,y on stairs
+                            int x = 226;
+                            int y = 172;
+                            player.X = x;
+                            player.Y = y;
+                            //set player to facing down
+                            player.ChangeState(1);
+                            player.getState().setMoving(false);
+                        }
+
+                    }
+                    else
+                    {
+                        blockCollisionHandler(collisionRect, player, collided);
+                    }
+                    break;
+                case 5:
+                    //handle exiting room 3
+                    if (player.getState() is UpMovingPlayerState)
+                    {
+                        //test door open or closed
+                        if (door.getIsClosed())
+                        {
+                            //interact with closed door
+                            door.Interact(player);
+                            blockCollisionHandler(collisionRect, player, collided);
+                        }
+                        else
+                        {
+                            //go up stairs
+                            game.LoadRoom(door.getNextRoom());
+
+                            //set player x,y infront stairs
+                            int x = 353;
+                            int y = 270;
+                            player.X = x;
+                            player.Y = y;
+                            //set player to facing right
+                            player.ChangeState(3);
+                            player.getState().setMoving(false);
+                        }
+
                     }
                     else
                     {

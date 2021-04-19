@@ -7,7 +7,7 @@ using testMonogame.Interfaces;
 
 namespace testMonogame
 {
-    class StairsBlock : IObject, ISprite, IDoor, IBlock
+    public class SolidBlockDoor : IObject, ISprite, IDoor, IBlock
     {
 
         Texture2D texture;
@@ -16,18 +16,20 @@ namespace testMonogame
         public int X { get; set; }
         public int Y { get; set; }
 
-        Rectangle sourceRect = new Rectangle(51, 17, 16, 16);
-        Color color = Color.White;
+        Rectangle sourceRect = new Rectangle(30, 200, 16, 16);
+        Color color;
 
-        Boolean isClosed;
+        public Boolean isClosed;
 
-        public StairsBlock(Texture2D incTexture, Vector2 pos)
+        public SolidBlockDoor(Texture2D incTexture, Vector2 pos, Color inColor)
         {
             texture = incTexture;
             X = (int)pos.X;
             Y = (int)pos.Y;
             destRect = new Rectangle(X, Y, 32, 32);
             orig = new Rectangle(X, Y, 32, 32);
+
+            color = inColor;
             isClosed = false;
         }
         public Rectangle getDestRect()
@@ -46,7 +48,7 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            //Send player to room 3
+            // NULL
         }
 
         public void openDoor()
@@ -61,12 +63,14 @@ namespace testMonogame
 
         public int getSide()
         {
-            return 4;
+            //currently only used for special room 3
+            return 5;
         }
 
         public int getNextRoom()
         {
-            return 3;
+            //used to return to room 1
+            return 1;
         }
 
         public void transitionShift(int x, int y)

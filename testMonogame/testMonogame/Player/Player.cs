@@ -17,7 +17,7 @@ namespace testMonogame
         //how long the attack lasts
         int AttackTimer=30;
         int AttackCount;
-
+        int delay = 0;
         const int hitboxShrink = 2;
         
         //int arrowCount;
@@ -162,6 +162,7 @@ namespace testMonogame
                     break;
                 case "Fiary":
                     health = maxHealth;
+                    sound1.getStuff(0);
                     break;
                 case "Heart":
                     health += 4;
@@ -183,14 +184,17 @@ namespace testMonogame
                     break;
                 case "Key":
                     Keys = Keys + 1;
+                    sound1.getStuff(0);
                     break;
                 case "Bomb":
                     Bombs = Bombs + 1;
-
+                    //sound1.getstuff(0);
+                    //Error due to the call in constructor, cannot make sound before game
                     if(!inventory.Contains(item))inventory.Add(item);
                     break;
                 case "Arrow":
                     if(!inventory.Contains(item))inventory.Add(item);
+                   
                     break;
                 case "Triforce":
                     ChangeState(5);
@@ -219,6 +223,7 @@ namespace testMonogame
         }
         public void Update(GameManager game)
         {
+            //int delay = 0;
             if (state.isMoving()) state.Move();
             state.Update(game);
 
@@ -231,7 +236,27 @@ namespace testMonogame
                     AttackCount = 0;
                 }
             }
-            if (health <= 0) game.SetState(3);
+            //Low Health Sounds
+            if (health <= 2)
+            {
+                //Delay to keep sound as beep rather than eeeeee
+               
+                delay++;
+
+                if(delay == 20)
+                {
+                    sound1.lowHP();
+                    delay -= 20;
+                }
+
+            }
+            if (health <= 0)
+            {
+
+                //sound1.pDies();
+                game.SetState(3);
+            }
+            
             if (state is WinPlayerState) game.SetState(4);
         }
 
@@ -280,12 +305,14 @@ namespace testMonogame
         {
             if (Keys > 0)
             {
+                sound1.Door();
                 Keys--;
                 return true;
+               
             }
 
 
-            //sound1.Door()
+            
 
 
             return false;

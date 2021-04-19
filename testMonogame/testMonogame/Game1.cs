@@ -121,7 +121,7 @@ namespace testMonogame
         {
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,SamplerState.PointClamp);
 
             manager.Draw(_spriteBatch);
 
