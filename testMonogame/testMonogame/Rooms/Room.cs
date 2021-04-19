@@ -174,20 +174,24 @@ namespace testMonogame.Rooms
             else if (Background == 2) spriteBatch.Draw(sprites["Backgrounds"], wallDestRect, undergroundSourceRect, Color.White);
             else if (Background == 3) spriteBatch.Draw(sprites["Backgrounds"], floorDestRect, floor2SourceRect, Color.White);
 
+            //draw blocks
+            foreach (IObject block in Blocks)
+            {
+                block.Draw(spriteBatch);
+            }
+
             if (isTransition)
             {
                 return;
             }
 
-            foreach (IObject block in Blocks)
-            {
-                block.Draw(spriteBatch);
-            }
+            //draw enemies
             foreach (IEnemy enemy in Enemies)
             {
                 enemy.Draw(spriteBatch);
             }
 
+            //draw items
             foreach (IObject item in Items)
             {
                 item.Draw(spriteBatch);
@@ -196,6 +200,8 @@ namespace testMonogame.Rooms
 
             //spriteBatch.Draw(sprites["Backgrounds"], bombRectangle, new Rectangle(40, 200, 3, 3), Color.Orange);
             IPlayerProjectile[] arrPlayer = PlayerProjectiles.ToArray();
+
+            //draw projectiles
             foreach (IPlayerProjectile projectile in arrPlayer)
             {
                 projectile.Draw(spriteBatch);
@@ -324,6 +330,26 @@ namespace testMonogame.Rooms
             EnemyProjectiles.Clear();
         }
 
+        public void shiftBlocks(int x, int y)
+        {
+            //shift all the blocks by x and y value
+            foreach(IObject obj in Blocks)
+            {
+                IBlock block = (IBlock)obj;
+                block.transitionShift(x, y);
+            }
+        }
+
+        public void resetBlocks()
+        {
+            //reset all blocks to original positions
+            foreach (IObject obj in Blocks)
+            {
+                IBlock block = (IBlock)obj;
+                block.resetToOriginalPos();
+            }
+        }
+
         public void setTransitionSide(int side)
         {
 
@@ -335,16 +361,19 @@ namespace testMonogame.Rooms
                     //handle north transition, put room on top of the old room 
                     floorDestRect.Y = floorDestRect.Y - (11 * blockBaseDimension * blockSizeMod);
                     wallDestRect.Y = wallDestRect.Y - (11 * blockBaseDimension * blockSizeMod);
+                    shiftBlocks(0, -(11 * blockBaseDimension * blockSizeMod));
                     break;
                 case 1:
                     //handle west transition, put room left of the old room 
                     floorDestRect.X = floorDestRect.X - (16 * blockBaseDimension * blockSizeMod);
                     wallDestRect.X = wallDestRect.X - (16 * blockBaseDimension * blockSizeMod);
+                    shiftBlocks(-(16 * blockBaseDimension * blockSizeMod), 0);
                     break;
                 case 2:
                     //handle east transition, put room right of the old room 
                     floorDestRect.X = floorDestRect.X + (16 * blockBaseDimension * blockSizeMod);
                     wallDestRect.X = wallDestRect.X + (16 * blockBaseDimension * blockSizeMod);
+                    shiftBlocks((16 * blockBaseDimension * blockSizeMod), 0);
                     break;
                 case 4:
                     //do same as case 3 -- case 4 only happens for room 1 stairs
@@ -352,6 +381,7 @@ namespace testMonogame.Rooms
                     //handle south transition, put room bellow the old room 
                     floorDestRect.Y = floorDestRect.Y + (11 * blockBaseDimension * blockSizeMod);
                     wallDestRect.Y = wallDestRect.Y + (11 * blockBaseDimension * blockSizeMod);
+                    shiftBlocks(0, (11 * blockBaseDimension * blockSizeMod));
                     break;
             }
         }
@@ -371,6 +401,9 @@ namespace testMonogame.Rooms
             wallDestRect.X = wallDestRect.X + x;
             wallDestRect.Y = wallDestRect.Y + y;
 
+            //shift blocks with the x,y
+            shiftBlocks(x, y);
+
             //if room is shifted back to original position, transition is complete
             if (floorDestRect.X == originalFloor.X && floorDestRect.Y == originalFloor.Y)
             {
@@ -384,6 +417,10 @@ namespace testMonogame.Rooms
             floorDestRect.Y = originalFloor.Y;
             wallDestRect.X = originalWall.X;
             wallDestRect.Y = originalWall.Y;
+
+            //reset blocks
+            resetBlocks();
+
         }
 
         public void isShiftDone()

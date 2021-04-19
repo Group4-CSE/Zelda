@@ -6,11 +6,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace testMonogame
 {
-    class PushableBlock : IObject, ISprite
+    class PushableBlock : IObject, ISprite, IBlock
     {
 
         Texture2D texture;
         Rectangle destRect;
+        Rectangle orig;
         String pushSide;
         bool pushed;
         public int X { get; set; }
@@ -25,6 +26,7 @@ namespace testMonogame
             X = (int)pos.X;
             Y = (int)pos.Y;
             destRect = new Rectangle(X, Y, 32, 32);
+            orig = new Rectangle(X, Y, 32, 32);
             pushed = false;
             pushSide = pushSideIn;
         }
@@ -95,6 +97,17 @@ namespace testMonogame
                 }
             }
             
+        }
+
+        public void transitionShift(int x, int y)
+        {
+            destRect.X = destRect.X + x;
+            destRect.Y = destRect.Y + y;
+        }
+        public void resetToOriginalPos()
+        {
+            destRect.X = orig.X;
+            destRect.Y = orig.Y;
         }
     }
 }

@@ -3,15 +3,17 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using testMonogame.Interfaces;
 
 namespace testMonogame
 {
-    class DragonBlock : IObject, ISprite
+    class DragonBlock : IObject, ISprite, IBlock
     {
         //drawing stuff
         Texture2D texture;
         Rectangle sourceRect = new Rectangle(51, 0, 16, 16);
         Rectangle destRect;
+        Rectangle orig;
         Color color = Color.White;
 
         //location stuff
@@ -29,6 +31,7 @@ namespace testMonogame
 
             //Non-moving block so instantiate dest rectangle
             destRect = new Rectangle(X, Y, width, height);
+            orig = new Rectangle(X, Y, 65, 65);
         }
         public Rectangle getDestRect()
         {
@@ -47,6 +50,17 @@ namespace testMonogame
         public void Update(GameManager game)
         {
             //Nothing Needed here
+        }
+
+        public void transitionShift(int x, int y)
+        {
+            destRect.X = destRect.X + x;
+            destRect.Y = destRect.Y + y;
+        }
+        public void resetToOriginalPos()
+        {
+            destRect.X = orig.X;
+            destRect.Y = orig.Y;
         }
     }
 }

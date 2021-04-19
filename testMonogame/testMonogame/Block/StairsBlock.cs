@@ -7,11 +7,12 @@ using testMonogame.Interfaces;
 
 namespace testMonogame
 {
-    class StairsBlock : IObject, ISprite, IDoor
+    class StairsBlock : IObject, ISprite, IDoor, IBlock
     {
 
         Texture2D texture;
         Rectangle destRect;
+        Rectangle orig;
         public int X { get; set; }
         public int Y { get; set; }
 
@@ -26,6 +27,7 @@ namespace testMonogame
             X = (int)pos.X;
             Y = (int)pos.Y;
             destRect = new Rectangle(X, Y, 32, 32);
+            orig = new Rectangle(X, Y, 32, 32);
             isClosed = false;
         }
         public Rectangle getDestRect()
@@ -65,6 +67,17 @@ namespace testMonogame
         public int getNextRoom()
         {
             return 3;
+        }
+
+        public void transitionShift(int x, int y)
+        {
+            destRect.X = destRect.X + x;
+            destRect.Y = destRect.Y + y;
+        }
+        public void resetToOriginalPos()
+        {
+            destRect.X = orig.X;
+            destRect.Y = orig.Y;
         }
     }
 }

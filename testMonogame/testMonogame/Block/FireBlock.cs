@@ -3,15 +3,17 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using testMonogame.Interfaces;
 
 namespace testMonogame
 {
-    class FireBlock : IObject, ISprite
+    class FireBlock : IObject, ISprite, IBlock
     {
         //drawing stuff
         Texture2D texture;
         Rectangle sourceRect;
         Rectangle destRect;
+        Rectangle orig;
         Color color = Color.White;
         int currentframe;
         int framedelay;
@@ -31,7 +33,8 @@ namespace testMonogame
 
             //Non-moving block so instantiate dest rectangle
             destRect = new Rectangle(X, Y, width, height);
-            
+            orig = new Rectangle(X, Y, width, height);
+
         }
         public Rectangle getDestRect()
         {
@@ -64,6 +67,17 @@ namespace testMonogame
         public void Update(GameManager game)
         {
             //Nothing Needed here
+        }
+
+        public void transitionShift(int x, int y)
+        {
+            destRect.X = destRect.X + x;
+            destRect.Y = destRect.Y + y;
+        }
+        public void resetToOriginalPos()
+        {
+            destRect.X = orig.X;
+            destRect.Y = orig.Y;
         }
     }
 }

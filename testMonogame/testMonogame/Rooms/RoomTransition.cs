@@ -29,6 +29,7 @@ namespace testMonogame.Rooms
                 //when the next room is done transitioning reset current room and stop transitioning
                 current.setTransitioning(false);
                 current.resetToOriginalPos();
+                next.resetToOriginalPos();
                 next.Draw(spriteBatch);
                 transition = false;
                 return;
@@ -71,6 +72,7 @@ namespace testMonogame.Rooms
                 //when the next room is done transitioning reset current room and stop transitioning
                 current.setTransitioning(false);
                 current.resetToOriginalPos();
+                next.resetToOriginalPos();
                 transition = false;
                 return;
             }
