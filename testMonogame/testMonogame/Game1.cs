@@ -71,6 +71,7 @@ namespace testMonogame
             Texture2D hudSheet = Content.Load<Texture2D>("HudSheet");
             Texture2D ItemSelection = Content.Load<Texture2D>("ItemSelection");
             Texture2D menuBackground = Content.Load<Texture2D>("MenuScreens");
+            Texture2D startMenu = Content.Load<Texture2D>("StartMenu");
 
 
             sprites.Add("aquamentus", aquaSheet);
@@ -89,6 +90,7 @@ namespace testMonogame
             sprites.Add("hudSheet", hudSheet);
             sprites.Add("ItemSelection", ItemSelection);
             sprites.Add("MenuScreens", menuBackground);
+            sprites.Add("StartMenu", startMenu);
 
             //Loads all of the sounds
             sounds.LoadSounds(Content);
