@@ -62,5 +62,6 @@ namespace testMonogame
         public Rectangle getDestRect();
         public void SetDamageFrames(int frames);
         public int GetDamageFrames();
+        public void InitializeFromConstants();
     }
 }

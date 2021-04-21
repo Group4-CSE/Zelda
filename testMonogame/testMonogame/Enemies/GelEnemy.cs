@@ -77,8 +77,8 @@ namespace testMonogame
 
             if (X + xRand < 0 || X + width + xRand > 800) xRand *= -1;
             if (Y + yRand < 0 || Y + height + yRand > 480) yRand *= -1;
-            X += xRand;
-            Y += yRand;
+            X += xRand * (int)GameplayConstants.ENEMY_SPEED_MODIFIER;
+            Y += yRand * (int)GameplayConstants.ENEMY_SPEED_MODIFIER;
         }
 
         public void Attack(IPlayer player)

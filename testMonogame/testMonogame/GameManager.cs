@@ -59,6 +59,8 @@ namespace testMonogame
 
         public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, SpriteFont font, SpriteFont header, Sounds sounds)
         {
+            GameplayConstants.Initialize(1);//initialize constants to normal mode, just at the start so constants are somehting
+
             this.game = game;
             sprites = spriteSheet;
             state = GameState.START;
@@ -362,6 +364,12 @@ namespace testMonogame
         {
             return (int)state ;
         }
-        public void SetState(int inState) { state = (GameState)inState; }
+        public void SetState(int inState) {
+            if (state == GameState.START)
+            {
+                GameplayConstants.Initialize(difficulty);
+                player.InitializeFromConstants();//reinitialize from constants after we leave start menu and have decided difficulty
+            }
+            state = (GameState)inState; }
     }
 }
