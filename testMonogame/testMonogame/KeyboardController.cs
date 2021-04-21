@@ -23,6 +23,13 @@ namespace testMonogame
         ICommand Move;
         ICommand s2reset;
 
+        //stacks to build codes
+        Stack<Keys> cheatCode;
+        Stack<Keys> specialMove;
+
+        int specialMoveTimer;
+        int cheatCodeTimer;
+
         GameManager manager;
 
         public KeyboardController(GameManager game)
@@ -101,7 +108,7 @@ namespace testMonogame
             //PlayingKeyMap.Add(Keys.I, nextItem);
             //PlayingKeyMap.Add(Keys.O, prevEnemy);
             //PlayingKeyMap.Add(Keys.P, nextEnemy);
-            PlayingKeyMap.Add(Keys.R, s2reset);
+            //PlayingKeyMap.Add(Keys.R, s2reset);
             PlayingKeyMap.Add(Keys.Q, quit);
 
             direcPriority = new Dictionary<Keys, int>();
@@ -127,7 +134,12 @@ namespace testMonogame
 
             direcPressed = Keys.I;
             moveTotal = 0;
-            
+
+
+            cheatCode = new Stack<Keys>();
+            specialMove = new Stack<Keys>();
+            specialMoveTimer = 0;
+            cheatCodeTimer = 0;
         }
 
         public void Update()
@@ -161,7 +173,7 @@ namespace testMonogame
                 //                (prevState.IsKeyDown(Keys.D) && state.IsKeyUp(Keys.D)) ||
                 //                (prevState.IsKeyDown(Keys.S) && state.IsKeyUp(Keys.S))) Idle.Execute();
                 handleMovement(state);
-
+                checkSpecialMoves(state);
 
 
             }
@@ -175,6 +187,9 @@ namespace testMonogame
                         ItemSelectionKeyMap[k].Execute();
                     }
                 }
+
+                //check for cheat codes
+                checkCheatCodes(state);
             }
             //pause
             else if (manager.getState() == 2)
@@ -198,6 +213,131 @@ namespace testMonogame
             prevState = state;
         }
 
+        private void checkSpecialMoves(KeyboardState state)
+        {
+            if(specialMoveTimer == 0)
+            {
+                //make sure stack is clear
+                specialMove.Clear();
+
+                foreach (Keys k in state.GetPressedKeys())
+                {
+                    //check if key is pressed
+                    if (!prevState.IsKeyDown(k))
+                    {
+                        specialMove.Push(k);
+                        //user has 3 seconds to enter code sequence
+                        specialMoveTimer = 180;
+
+                        //in case user presses multiple keys at once
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                specialMoveTimer--;
+
+                if (prevState.IsKeyDown(specialMove.Peek()))
+                {
+                    //wait until most recent key is released
+                    return;
+                }
+                else
+                {
+                    foreach (Keys k in state.GetPressedKeys())
+                    {
+                        //check if key is pressed
+                        if (!prevState.IsKeyDown(k))
+                        {
+                            specialMove.Push(k);
+                            //in case user presses multiple keys at once
+                            break;
+                        }
+                    }
+
+                    if (specialMove.Count == 5)
+                    { 
+                        String code = "";
+
+                        while(specialMove.Count > 0)
+                        {
+                            code = code + specialMove.Pop().ToString();
+                        }
+
+                        //reset timer back to zero
+                        specialMoveTimer = 0;
+
+                        //send code string to manager
+                        manager.specialMove(code);
+                    }
+                }
+            }
+            
+        }
+
+        private void checkCheatCodes(KeyboardState state)
+        {
+            if (cheatCodeTimer == 0)
+            {
+                //make sure stack is clear
+                cheatCode.Clear();
+
+                foreach (Keys k in state.GetPressedKeys())
+                {
+                    //check if key is pressed
+                    if (!prevState.IsKeyDown(k))
+                    {
+                        cheatCode.Push(k);
+                        //user has 3 seconds to enter code sequence
+                        cheatCodeTimer = 180;
+
+                        //in case user presses multiple keys at once
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                cheatCodeTimer--;
+
+                if (prevState.IsKeyDown(cheatCode.Peek()))
+                {
+                    //wait until most recent key is released
+                    return;
+                }
+                else
+                {
+                    foreach (Keys k in state.GetPressedKeys())
+                    {
+                        //check if key is pressed
+                        if (!prevState.IsKeyDown(k))
+                        {
+                            cheatCode.Push(k);
+                            //in case user presses multiple keys at once
+                            break;
+                        }
+                    }
+
+                    if (cheatCode.Count == 5)
+                    {
+                        String code = "";
+
+                        while (cheatCode.Count > 0)
+                        {
+                            code = code + cheatCode.Pop().ToString();
+                        }
+
+                        //reset timer back to zero
+                        cheatCodeTimer = 0;
+
+                        //send code string to manager
+                        manager.cheatCode(code);
+                    }
+                }
+            }
+
+        }
         public void handleMovement(KeyboardState state)
         {
             if (!direcPressed.Equals(Keys.I))
