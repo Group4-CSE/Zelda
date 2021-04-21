@@ -12,7 +12,7 @@ namespace testMonogame
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
+        
         private Texture2D aquaSheet;
         private Texture2D basicEnemy;
         private Texture2D doors;
@@ -32,7 +32,7 @@ namespace testMonogame
         IController mouseController;
 
         GameManager manager;
-
+        GameTime gameTime;
 
         public Game1()
         {
@@ -99,7 +99,7 @@ namespace testMonogame
             SpriteFont font= Content.Load<SpriteFont>("HUDfont");
             SpriteFont header = Content.Load<SpriteFont>("HeaderFont");
 
-            manager = new GameManager(this, sprites,font,header, sounds);
+            manager = new GameManager(this, sprites,font,header, sounds, gameTime);
 
             keyController = new KeyboardController(manager);
             mouseController = new MouseController(manager);

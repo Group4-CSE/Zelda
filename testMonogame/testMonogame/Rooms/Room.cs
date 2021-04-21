@@ -68,6 +68,8 @@ namespace testMonogame.Rooms
 
         Boolean isTransition;
 
+        ESpawner EnemySpawner;
+
         public Room(int inMapX, int inMapY, int inBG, bool inWalls,
             Dictionary<String, Texture2D> spriteSheets,
             List<IObject> inBlocks,
@@ -75,13 +77,15 @@ namespace testMonogame.Rooms
             List<IEnemy> inEnemies,
             Rectangle inBombRectangle,
             Rectangle inBlockRectangle,
-            bool inHideItems
+            bool inHideItems,
+            ESpawner eSpawner
             )
         {
 
             bombRectangle = inBombRectangle;
             blockRectangle = inBlockRectangle;
             hiddenItems = inHideItems;
+            EnemySpawner = eSpawner;
 
             screenX = 130;
             screenY = 110;
@@ -220,7 +224,7 @@ namespace testMonogame.Rooms
 
         }
 
-        public void Update(GameManager game)
+        public void Update(GameManager game, GameTime gametime)
         {
             if (isTransition)
             {
@@ -248,6 +252,14 @@ namespace testMonogame.Rooms
             {
                 enemy.Update(game);
             }
+
+            //TODO: Wrap this in bool to switch to hordemode
+            if (game.IsHorde())
+            {
+                EnemySpawner.Update(game, gametime);
+            }
+            
+
             if (hiddenItems && Enemies.Count == 0)
             {
                 hiddenItems = false;
