@@ -30,6 +30,7 @@ namespace testMonogame.Rooms
         Rectangle bombRectangle;
         Rectangle blockRectangle;
         bool hiddenItems;
+        bool bossRoom;
 
         const int mapXGrid = 32;
         const int mapYGrid = 16;
@@ -75,7 +76,8 @@ namespace testMonogame.Rooms
             List<IEnemy> inEnemies,
             Rectangle inBombRectangle,
             Rectangle inBlockRectangle,
-            bool inHideItems
+            bool inHideItems,
+            bool inBossRoom
             )
         {
 
@@ -106,6 +108,8 @@ namespace testMonogame.Rooms
                 HiddenItemList = inItems;
                 Items = new List<IObject>();
             }
+            bossRoom = inBossRoom;
+
             Enemies = inEnemies;
             PlayerProjectiles = new List<IPlayerProjectile>();
             EnemyProjectiles = new List<IEnemyProjectile>();
@@ -163,6 +167,24 @@ namespace testMonogame.Rooms
                 Items.Add(drop);
             }
             Enemies.Remove(enemy);
+
+            if (bossRoom)
+            {
+                //open doors once all enemies are dead in boss room
+                if(Enemies.Count == 0)
+                {
+                    foreach (IObject block in this.GetBlocks())
+                    {
+                        if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor || block is StairsBlock || block is SolidBlockDoor))
+                        {
+                            IDoor door = (IDoor)block;
+                            //open door
+                            door.openDoor();
+
+                        }
+                    }
+                }
+            }
         }
 
 
