@@ -326,5 +326,15 @@ namespace testMonogame
             return (int)state ;
         }
         public void SetState(int inState) { state = (GameState)inState; }
+
+        public void specialMove(string code)
+        {
+            return;
+        }
+
+        public void cheatCode(string code)
+        {
+            return;
+        }
     }
 }
