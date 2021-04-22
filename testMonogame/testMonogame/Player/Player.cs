@@ -11,12 +11,12 @@ namespace testMonogame
         Texture2D texture;
         public int X { get; set; }
         public int Y { get; set; }
-        public boolean invincible = false;
         int damageFrames;
+        public bool invincible { get; set; }
+        
         public int health {  get; set; }
         
-        //does this look right?
-        public int maxHealth { get; set 12; }
+        public int maxHealth { get; set ; }
         //how long the attack lasts
         int AttackTimer=30;
         int AttackCount;
@@ -51,12 +51,15 @@ namespace testMonogame
             Map = false;
             Compass = false;
 
+
             ObtainItem("Bomb");
             ObtainItem("Bomb");
             ObtainItem("Arrow");
 
             SelectItem(0);
 
+            invincible = false;
+            maxHealth = 12;
             health = maxHealth;
             sound1 = sounds;
         }

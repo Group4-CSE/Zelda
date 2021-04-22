@@ -15,7 +15,7 @@ namespace testMonogame
         }
         public void Execute()
         {
-            player.rupees = 25;
+            player.Rupees = player.Rupees+ 25;
         }
     }
 }

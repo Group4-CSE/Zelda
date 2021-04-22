@@ -15,7 +15,7 @@ namespace testMonogame
         }
         public void Execute()
         {
-            player.bombs = 10000;
+            player.Bombs = 10000;
         }
     }
 }

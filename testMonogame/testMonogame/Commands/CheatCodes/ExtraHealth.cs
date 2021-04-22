@@ -16,7 +16,7 @@ namespace testMonogame
         public void Execute()
         {
             player.maxHealth = player.maxHealth * 2;
-            player.health = maxHealth;
+            player.health = player.maxHealth;
         }
     }
 }
