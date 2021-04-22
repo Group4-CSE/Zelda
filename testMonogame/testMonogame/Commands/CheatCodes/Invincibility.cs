@@ -7,11 +7,11 @@ namespace testMonogame
     class Invincibility : ICommand
     {
         IPlayer player;
-        GameManager game;
-        public Invincibility(IPlayer playerIn, GameManager gameIn)
+
+        public Invincibility(IPlayer playerIn)
         {
             player = playerIn;
-            game = gameIn;
+
         }
         public void Execute()
         {

@@ -51,6 +51,9 @@ namespace testMonogame
         PlayerEnemyCollision PECol = new PlayerEnemyCollision();
         EnemyProjectileCollisionHandler EPCol;
 
+        //cheat codes
+        Dictionary<String, ICommand> cheatCodes;
+
 
         public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, SpriteFont font, SpriteFont header, Sounds sounds)
         {
@@ -76,6 +79,20 @@ namespace testMonogame
 
 
             EPCol = new EnemyProjectileCollisionHandler(this);
+
+            //initailize cheat code dictionary
+            cheatCodes = new Dictionary<string, ICommand>();
+
+            //initailize cheat codes
+            ICommand extraHealth = new ExtraHealth(player);
+            ICommand extraRupees = new ExtraRupees(player);
+            ICommand invinc = new Invincibility(player);
+            ICommand bombs = new UnlimitedBombs(player);
+
+            cheatCodes.Add("NBKJH", extraHealth);
+            cheatCodes.Add("MNBVX", extraRupees);
+            cheatCodes.Add("ZZKNL", invinc);
+            cheatCodes.Add("GFGFG", bombs);
 
 
         }
@@ -334,6 +351,10 @@ namespace testMonogame
 
         public void cheatCode(string code)
         {
+            if (cheatCodes.ContainsKey(code))
+            {
+                cheatCodes[code].Execute();
+            }
             return;
         }
     }
