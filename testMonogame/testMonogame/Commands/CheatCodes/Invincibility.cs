@@ -15,7 +15,7 @@ namespace testMonogame
         }
         public void Execute()
         {
-            player.maxHealth = 1000000;
+            player.invincible = true;
         }
     }
 }
