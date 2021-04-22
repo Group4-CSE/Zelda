@@ -11,9 +11,12 @@ namespace testMonogame
         Texture2D texture;
         public int X { get; set; }
         public int Y { get; set; }
+        public boolean invincible = false;
         int damageFrames;
-        int health;
-        int maxHealth=12;
+        public int health {  get; set; }
+        
+        //does this look right?
+        public int maxHealth { get; set 12; }
         //how long the attack lasts
         int AttackTimer=30;
         int AttackCount;
@@ -214,7 +217,7 @@ namespace testMonogame
 
         public void TakeDamage(int damage)
         {
-            if (!state.getStasis())
+            if (!state.getStasis() && !invincible)
             {
                 health -= damage;
                 sound1.Link_Hurt();
