@@ -6,7 +6,7 @@ using System.Text;
 
 namespace testMonogame
 {
-    class FireBallEnemyProjectile : IEnemyProjectile, ISprite
+    class FireBallPlayerProjectile : IPlayerProjectile, ISprite
 
     {
         Texture2D texture;
@@ -24,7 +24,7 @@ namespace testMonogame
         LinkedListNode<Rectangle> currentFrame;
         int frameWait;
         int frameDelay = 2;
-        public FireBallEnemyProjectile(Texture2D inTexture, Vector2 position, Vector2 velocity)
+        public FireBallPlayerProjectile(Texture2D inTexture, Vector2 position, Vector2 velocity)
         {
             texture = inTexture;
             X = (int)position.X;
@@ -32,10 +32,10 @@ namespace testMonogame
             xVel = (int)velocity.X;
             yVel = (int)velocity.Y;
 
-            frames.AddLast(new Rectangle(75, 36, 8, 10));
-            frames.AddLast(new Rectangle(84, 36, 8, 10));
-            frames.AddLast(new Rectangle(93, 36, 8, 10));
-            frames.AddLast(new Rectangle(102, 36, 8, 10));
+            frames.AddLast(new Rectangle(0, 105, 8, 10));
+            frames.AddLast(new Rectangle(9, 105, 8, 10));
+            frames.AddLast(new Rectangle(18, 105, 8, 10));
+            frames.AddLast(new Rectangle(27, 105, 8, 10));
             currentFrame = frames.First;
 
 
@@ -53,13 +53,9 @@ namespace testMonogame
         }
         public void delete(GameManager game)
         {
-            game.RemoveEnemyProjectile(this);
+            game.RemovePlayerProjectile(this);
         }
 
-        public void doDamage(IPlayer player)
-        {
-            player.TakeDamage(1);
-        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -90,10 +86,15 @@ namespace testMonogame
         {
             Move();
             //TEMP collision stuff
-            if(X<0 || X > 800 || Y < 0 || Y > 480)
+            if (X < 0 || X > 800 || Y < 0 || Y > 480)
             {
                 delete(game);
             }
+        }
+
+        public void doDamage(IEnemy target, Sounds sounds)
+        {
+            target.takeDamage(1);
         }
     }
 }

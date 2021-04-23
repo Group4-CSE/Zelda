@@ -91,6 +91,11 @@ namespace testMonogame
             if (!stasis) game.AddPlayerProjectile(new ArrowPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
                 (float)(player.Y + vProjectileOffset)), new Vector2(0, -5), 0));
         }
+        public void spawnReapingArrow(GameManager game)
+        {
+            if (!stasis) game.AddPlayerProjectile(new ReapingArrowPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
+                (float)(player.Y + vProjectileOffset)), new Vector2(0, -5), 0,player));
+        }
 
         public void spawnBoomerang(GameManager game)
         {
@@ -102,6 +107,11 @@ namespace testMonogame
         {
             if (!stasis) game.AddPlayerProjectile(new SwordPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
                   (float)(player.Y + vProjectileOffset)), new Vector2(0, -3), 0));
+        }
+        public void PlaceRupeeShield(GameManager game)
+        {
+            if (!stasis) game.AddPlayerProjectile(new RupeeShieldPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
+                  (float)(player.Y + vProjectileOffset))));
         }
         public void damage()
         {

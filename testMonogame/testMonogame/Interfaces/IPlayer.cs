@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,6 +12,11 @@ namespace testMonogame
         public int Y { get; set; }
         public int Rupees { get; set; }
         public int Keys { get; set; }
+        public bool invincible { get; set; }
+
+        public int health { get; set; }
+
+        public int maxHealth { get; set; }
         public int Bombs { get; set; }
         public bool Compass { get; set; }
         public bool Map { get; set; }
@@ -63,5 +68,8 @@ namespace testMonogame
         public void SetDamageFrames(int frames);
         public int GetDamageFrames();
         public void InitializeFromConstants();
+        public void fireSpin(GameManager game);
+        public void PlaceRupeeShield(GameManager game);
+        public void UseReapingArrow(GameManager game);
     }
 }

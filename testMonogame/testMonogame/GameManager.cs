@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using testMonogame.Rooms;
 using testMonogame.Interfaces;
+using testMonogame.Commands.SpecialMoves;
 using System.Diagnostics;
 
 namespace testMonogame
@@ -27,8 +28,12 @@ namespace testMonogame
         int doorCollideCountdown = 0;
 
 
+
         int difficulty; //0=easy, 1=normal, 2=hard
         bool isHordeMode;
+
+        int gameOverWinScreenCooldown = 0;//This will ensure that the player sees the game over or victory screen without immediately skipping
+
         
 
         enum GameState {PLAYING,//0
@@ -55,6 +60,10 @@ namespace testMonogame
         PlayerObjectCollision POCol = new PlayerObjectCollision();
         PlayerEnemyCollision PECol = new PlayerEnemyCollision();
         EnemyProjectileCollisionHandler EPCol;
+
+        //cheat codes
+        Dictionary<String, ICommand> cheatCodes;
+        Dictionary<String, ICommand> specialMoves;
 
 
         public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, SpriteFont font, SpriteFont header, Sounds sounds)
@@ -91,7 +100,37 @@ namespace testMonogame
 
             EPCol = new EnemyProjectileCollisionHandler(this);
 
+            //initailize cheat code dictionary
+            cheatCodes = new Dictionary<string, ICommand>();
 
+            //initailize cheat codes
+            ICommand extraHealth = new ExtraHealth(player);
+            ICommand extraRupees = new ExtraRupees(player);
+            ICommand invinc = new Invincibility(player);
+            ICommand bombs = new UnlimitedBombs(player);
+
+            cheatCodes.Add("NBKJH", extraHealth);
+            cheatCodes.Add("MNBVX", extraRupees);
+            cheatCodes.Add("ZZKNL", invinc);
+            cheatCodes.Add("GFGFG", bombs);
+
+            //initailize special move code dictionary
+            specialMoves = new Dictionary<string, ICommand>();
+
+            //initailize special moves
+            ICommand fireSpin = new FireSpinSpecialMove(this);
+            ICommand reapingArrow = new ReapingArrowSpecialMove(this);
+            ICommand rupeeShied = new RupeeShieldSpecialMove(this);
+
+            specialMoves.Add("TYHGT", fireSpin);
+            specialMoves.Add("JKJKJ", reapingArrow);
+            specialMoves.Add("KJHGF", rupeeShied);
+
+
+        }
+        public bool IsWaitingWinLossState()
+        {            
+          return (gameOverWinScreenCooldown > 0);
         }
 
         public int GetDifficulty() { return difficulty; }
@@ -159,6 +198,8 @@ namespace testMonogame
             {
                 player.Update(this);
             }
+            //Debug.WriteLine(gameOverWinScreenCooldown);
+            if (gameOverWinScreenCooldown > 0) gameOverWinScreenCooldown=gameOverWinScreenCooldown-1;
 
             //Debug.WriteLine("Player X: " + player.X);
             //Debug.WriteLine("Player Y: " + player.Y);
@@ -211,6 +252,9 @@ namespace testMonogame
                 win.Draw(spriteBatch);
                 player.Draw(spriteBatch);
             }
+
+            //decrement delay if we are waiting on win or lose screen
+            //if (gameOverWinScreenCooldown > 0) gameOverWinScreenCooldown--;
         }
 
         public void AddEnemyProjectile(IEnemyProjectile projectile) { rooms[roomKey].AddEnemyProjectile(projectile); }
@@ -365,11 +409,31 @@ namespace testMonogame
             return (int)state ;
         }
         public void SetState(int inState) {
-            if (state == GameState.START)
+            int prevState = (int)state;
+            state = (GameState)inState;
+            if (prevState!=inState&&(state == GameState.LOSE || state == GameState.WIN))
             {
-                GameplayConstants.Initialize(difficulty);
-                player.InitializeFromConstants();//reinitialize from constants after we leave start menu and have decided difficulty
+                //Debug.WriteLine("a");
+                gameOverWinScreenCooldown = 180;//3 sec delay 
             }
-            state = (GameState)inState; }
+        }
+
+        public void specialMove(string code)
+        {
+            if (specialMoves.ContainsKey(code))
+            {
+                specialMoves[code].Execute();
+            }
+            return;
+        }
+
+        public void cheatCode(string code)
+        {
+            if (cheatCodes.ContainsKey(code))
+            {
+                cheatCodes[code].Execute();
+            }
+            return;
+        }
     }
 }

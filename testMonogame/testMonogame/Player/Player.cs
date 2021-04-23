@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -12,8 +12,11 @@ namespace testMonogame
         public int X { get; set; }
         public int Y { get; set; }
         int damageFrames;
-        int health;
-        int maxHealth=12;
+        public bool invincible { get; set; }
+        
+        public int health {  get; set; }
+        
+        public int maxHealth { get; set ; }
         //how long the attack lasts
         int AttackTimer=30;
         int AttackCount;
@@ -51,8 +54,11 @@ namespace testMonogame
             InitializeFromConstants();//initialize until changed
             ObtainItem("Arrow");
 
-            SelectItem(0);
 
+            SelectItem(1);
+
+            invincible = false;
+            maxHealth = 12;
             health = maxHealth;
             sound1 = sounds;
         }
@@ -66,7 +72,8 @@ namespace testMonogame
 
         }
         public string GetSelectedItem() { return selectedItem; }
-        public void SelectItem(int i) { if(!inventory[i].Equals("Arrow"))selectedItem = inventory[i]; }
+        public void SelectItem(int i) { if(!inventory[i].Equals("Arrow"))selectedItem = inventory[i];
+        }
         public void NextItem() {
             int i = inventory.IndexOf(selectedItem) + 1;
             if (i > inventory.Count - 1) i = 0;
@@ -214,6 +221,21 @@ namespace testMonogame
             }
         }
 
+        public void fireSpin(GameManager game)
+        {
+            Vector2 pos = new Vector2(X + state.getDestRect().Width / 2, Y + state.getDestRect().Height / 2);
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(-1, 0)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(-1, -1)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(0, -1)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(1, -1)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(1, 0)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(1,1)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(0, 1)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(-1, 1)));
+
+
+        }
+
         public void SetLocation(Vector2 location)
         {
             X = (int)location.X;
@@ -222,7 +244,7 @@ namespace testMonogame
 
         public void TakeDamage(int damage)
         {
-            if (!state.getStasis())
+            if (!state.getStasis() && !invincible)
             {
                 int damageDealt = (int)(damage * GameplayConstants.PLAYER_TAKE_DAMAGE_MODIFIER);
                 if (damageDealt < 1) damageDealt = 1;//make sure no damage is reduced to 0
@@ -341,6 +363,21 @@ namespace testMonogame
         public int getY()
         {
             return Y;
+        }
+
+        public void PlaceRupeeShield(GameManager game)
+        {
+            Rupees = Rupees - 1;
+            state.PlaceRupeeShield(game);
+        }
+        //instead of using a bow and arrow link uses his own health to send an arrow forth sapping him for 1/2 a heart, this will be healed back if the arrow hits
+        public void UseReapingArrow(GameManager game)
+        {
+            if (health > 2)
+            {
+                health = health - 2;
+                state.spawnReapingArrow(game);
+            }
         }
     }
 }

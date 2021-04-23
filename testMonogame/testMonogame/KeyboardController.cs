@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
@@ -23,6 +23,13 @@ namespace testMonogame
         ICommand Idle;
         ICommand Move;
         ICommand s2reset;
+
+        //stacks to build codes
+        Stack<Keys> cheatCode;
+        Stack<Keys> specialMove;
+
+        int specialMoveTimer;
+        int cheatCodeTimer;
 
         GameManager manager;
 
@@ -121,7 +128,7 @@ namespace testMonogame
             //PlayingKeyMap.Add(Keys.I, nextItem);
             //PlayingKeyMap.Add(Keys.O, prevEnemy);
             //PlayingKeyMap.Add(Keys.P, nextEnemy);
-            PlayingKeyMap.Add(Keys.R, s2reset);
+            //PlayingKeyMap.Add(Keys.R, s2reset);
             PlayingKeyMap.Add(Keys.Q, quit);
 
             direcPriority = new Dictionary<Keys, int>();
@@ -147,89 +154,225 @@ namespace testMonogame
 
             direcPressed = Keys.I;
             moveTotal = 0;
-            
-        }
 
+
+            cheatCode = new Stack<Keys>();
+            specialMove = new Stack<Keys>();
+            specialMoveTimer = 0;
+            cheatCodeTimer = 0;
+        }
+       
         public void Update()
         {
-            KeyboardState state = Keyboard.GetState();
-            //Debug.WriteLine(manager.getState());
-            if (manager.getState()==0)
-            {
-                direcPressed = Keys.I;
 
-                //run the command associated with any key pressed.
-                foreach (Keys k in state.GetPressedKeys())
+            //dont do anything if we are on cooldown from entering win or loss state
+            if (!manager.IsWaitingWinLossState())
+            {
+                KeyboardState state = Keyboard.GetState();
+                if (manager.getState() == 0)
                 {
-                    //only attempt to execute if the key is present in the dictionary
-                    if (PlayingKeyMap.ContainsKey(k) && !prevState.IsKeyDown(k))
+                    direcPressed = Keys.I;
+
+                    //run the command associated with any key pressed.
+                    foreach (Keys k in state.GetPressedKeys())
                     {
-                        PlayingKeyMap[k].Execute();
-                        if (k.Equals(Keys.W) || k.Equals(Keys.A) || k.Equals(Keys.S) || k.Equals(Keys.D) || k.Equals(Keys.Up) || k.Equals(Keys.Left) || k.Equals(Keys.Right) || k.Equals(Keys.Down))
+                        //only attempt to execute if the key is present in the dictionary
+                        if (PlayingKeyMap.ContainsKey(k) && !prevState.IsKeyDown(k))
                         {
-                            direcPressed = k;
+                            PlayingKeyMap[k].Execute();
+                            if (k.Equals(Keys.W) || k.Equals(Keys.A) || k.Equals(Keys.S) || k.Equals(Keys.D) || k.Equals(Keys.Up) || k.Equals(Keys.Left) || k.Equals(Keys.Right) || k.Equals(Keys.Down))
+                            {
+                                direcPressed = k;
+                            }
+                        }
+
+                    }
+                    //            if ((!prevState.IsKeyDown(Keys.A) && !state.IsKeyUp(Keys.A)) ||
+                    //                (!prevState.IsKeyDown(Keys.W) && !state.IsKeyUp(Keys.W)) ||
+                    //                (!prevState.IsKeyDown(Keys.D) && !state.IsKeyUp(Keys.D)) ||
+                    //                (!prevState.IsKeyDown(Keys.S) && !state.IsKeyUp(Keys.S))) Move.Execute();
+                    //            if ((prevState.IsKeyDown(Keys.A) && state.IsKeyUp(Keys.A)) ||
+                    //                (prevState.IsKeyDown(Keys.W) && state.IsKeyUp(Keys.W)) ||
+                    //                (prevState.IsKeyDown(Keys.D) && state.IsKeyUp(Keys.D)) ||
+                    //                (prevState.IsKeyDown(Keys.S) && state.IsKeyUp(Keys.S))) Idle.Execute();
+                    handleMovement(state);
+                    checkSpecialMoves(state);
+
+
+                }
+                //item selection
+                else if (manager.getState() == 1)
+                {
+                    foreach (Keys k in state.GetPressedKeys())
+                    {
+                        if (prevState.GetPressedKeyCount() == 0 && ItemSelectionKeyMap.ContainsKey(k))
+                        {
+                            ItemSelectionKeyMap[k].Execute();
                         }
                     }
 
+                    //check for cheat codes
+                    checkCheatCodes(state);
                 }
-                //            if ((!prevState.IsKeyDown(Keys.A) && !state.IsKeyUp(Keys.A)) ||
-                //                (!prevState.IsKeyDown(Keys.W) && !state.IsKeyUp(Keys.W)) ||
-                //                (!prevState.IsKeyDown(Keys.D) && !state.IsKeyUp(Keys.D)) ||
-                //                (!prevState.IsKeyDown(Keys.S) && !state.IsKeyUp(Keys.S))) Move.Execute();
-                //            if ((prevState.IsKeyDown(Keys.A) && state.IsKeyUp(Keys.A)) ||
-                //                (prevState.IsKeyDown(Keys.W) && state.IsKeyUp(Keys.W)) ||
-                //                (prevState.IsKeyDown(Keys.D) && state.IsKeyUp(Keys.D)) ||
-                //                (prevState.IsKeyDown(Keys.S) && state.IsKeyUp(Keys.S))) Idle.Execute();
-                handleMovement(state);
-
-
-
-            }
-            
-            //Start
-            else if (manager.getState() == 6)
-            {
-                foreach(Keys k in state.GetPressedKeys())
+                //pause
+                else if (manager.getState() == 2)
                 {
-                    if (prevState.GetPressedKeyCount() == 0 && StartKeyMap.ContainsKey(k))
+
+                    foreach (Keys k in state.GetPressedKeys())
                     {
-                        StartKeyMap[k].Execute();
+                        if (PauseKeyMap.ContainsKey(k))
+                        {
+
+                            PauseKeyMap[k].Execute();
+                        }
                     }
                 }
-            }
-            //item selection
-            else if (manager.getState() == 1)
-            {
-                foreach(Keys k in state.GetPressedKeys())
+                //win and lose
+                else if (manager.getState() == 3 || manager.getState() == 4)
                 {
-                    if (prevState.GetPressedKeyCount() == 0 && ItemSelectionKeyMap.ContainsKey(k))
-                    {
-                        ItemSelectionKeyMap[k].Execute();
-                    }
+                    if (prevState.GetPressedKeyCount() == 0 && state.GetPressedKeyCount()>0) s2reset.Execute();
                 }
-            }
-            //pause
-            else if (manager.getState() == 2)
-            {
-                
-                foreach (Keys k in state.GetPressedKeys())
+                            //Start
+                else if (manager.getState() == 6)
                 {
-                    if (PauseKeyMap.ContainsKey(k))
+                    foreach(Keys k in state.GetPressedKeys())
                     {
-                        
-                        PauseKeyMap[k].Execute();
-                    }
-                }
+                        if (prevState.GetPressedKeyCount() == 0 && StartKeyMap.ContainsKey(k))
+                        {
+                           StartKeyMap[k].Execute();
+                        }
+                   }
+               }
+
+                prevState = state;
             }
-            //win and lose
-            else if (manager.getState() == 3 || manager.getState()==4)
-            {
-                if(prevState.GetPressedKeyCount()==0)s2reset.Execute();
-            }
-            
-            prevState = state;
         }
 
+        private void checkSpecialMoves(KeyboardState state)
+        {
+            if(specialMoveTimer == 0)
+            {
+                //make sure stack is clear
+                specialMove.Clear();
+
+                foreach (Keys k in state.GetPressedKeys())
+                {
+                    //check if key is pressed
+                    if (!prevState.IsKeyDown(k))
+                    {
+                        specialMove.Push(k);
+                        //user has 3 seconds to enter code sequence
+                        specialMoveTimer = 180;
+
+                        //in case user presses multiple keys at once
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                specialMoveTimer--;
+
+                if (prevState.IsKeyDown(specialMove.Peek()))
+                {
+                    //wait until most recent key is released
+                    return;
+                }
+                else
+                {
+                    foreach (Keys k in state.GetPressedKeys())
+                    {
+                        //check if key is pressed
+                        if (!prevState.IsKeyDown(k))
+                        {
+                            specialMove.Push(k);
+                            //in case user presses multiple keys at once
+                            break;
+                        }
+                    }
+
+                    if (specialMove.Count == 5)
+                    { 
+                        String code = "";
+
+                        while(specialMove.Count > 0)
+                        {
+                            code = code + specialMove.Pop().ToString();
+                        }
+
+                        //reset timer back to zero
+                        specialMoveTimer = 0;
+
+                        //send code string to manager
+                        manager.specialMove(code);
+                    }
+                }
+            }
+            
+        }
+
+        private void checkCheatCodes(KeyboardState state)
+        {
+            if (cheatCodeTimer == 0)
+            {
+                //make sure stack is clear
+                cheatCode.Clear();
+
+                foreach (Keys k in state.GetPressedKeys())
+                {
+                    //check if key is pressed
+                    if (!prevState.IsKeyDown(k))
+                    {
+                        cheatCode.Push(k);
+                        //user has 3 seconds to enter code sequence
+                        cheatCodeTimer = 180;
+
+                        //in case user presses multiple keys at once
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                cheatCodeTimer--;
+
+                if (prevState.IsKeyDown(cheatCode.Peek()))
+                {
+                    //wait until most recent key is released
+                    return;
+                }
+                else
+                {
+                    foreach (Keys k in state.GetPressedKeys())
+                    {
+                        //check if key is pressed
+                        if (!prevState.IsKeyDown(k))
+                        {
+                            cheatCode.Push(k);
+                            //in case user presses multiple keys at once
+                            break;
+                        }
+                    }
+
+                    if (cheatCode.Count == 5)
+                    {
+                        String code = "";
+
+                        while (cheatCode.Count > 0)
+                        {
+                            code = code + cheatCode.Pop().ToString();
+                        }
+
+                        //reset timer back to zero
+                        cheatCodeTimer = 0;
+
+                        //send code string to manager
+                        manager.cheatCode(code);
+                    }
+                }
+            }
+
+        }
         public void handleMovement(KeyboardState state)
         {
             if (!direcPressed.Equals(Keys.I))
