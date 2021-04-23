@@ -250,7 +250,7 @@ namespace testMonogame
 
         private void checkSpecialMoves(KeyboardState state)
         {
-            if(specialMoveTimer == 0)
+            if (specialMoveTimer == 0)
             {
                 //make sure stack is clear
                 specialMove.Clear();
@@ -260,12 +260,17 @@ namespace testMonogame
                     //check if key is pressed
                     if (!prevState.IsKeyDown(k))
                     {
-                        specialMove.Push(k);
-                        //user has 3 seconds to enter code sequence
-                        specialMoveTimer = 180;
+                        //start tracking codes with key from start of a special move code
+                        if (k.Equals(Keys.T) || k.Equals(Keys.J) || k.Equals(Keys.F))
+                        {
+                            specialMove.Push(k);
+                            //user has 3 seconds to enter code sequence
+                            specialMoveTimer = 180;
 
-                        //in case user presses multiple keys at once
-                        break;
+                            //in case user presses multiple keys at once
+                            break;
+                        }
+                        
                     }
                 }
             }
@@ -292,10 +297,10 @@ namespace testMonogame
                     }
 
                     if (specialMove.Count == 5)
-                    { 
+                    {
                         String code = "";
 
-                        while(specialMove.Count > 0)
+                        while (specialMove.Count > 0)
                         {
                             code = code + specialMove.Pop().ToString();
                         }
@@ -308,7 +313,7 @@ namespace testMonogame
                     }
                 }
             }
-            
+
         }
 
         private void checkCheatCodes(KeyboardState state)
@@ -323,12 +328,17 @@ namespace testMonogame
                     //check if key is pressed
                     if (!prevState.IsKeyDown(k))
                     {
-                        cheatCode.Push(k);
-                        //user has 3 seconds to enter code sequence
-                        cheatCodeTimer = 180;
+                        //start tracking codes with key from start of a cheat code
+                        if (k.Equals(Keys.H) || k.Equals(Keys.X) || k.Equals(Keys.L) || k.Equals(Keys.G))
+                        {
+                            cheatCode.Push(k);
+                            //user has 3 seconds to enter code sequence
+                            cheatCodeTimer = 180;
 
-                        //in case user presses multiple keys at once
-                        break;
+                            //in case user presses multiple keys at once
+                            break;
+                        }
+                        
                     }
                 }
             }
