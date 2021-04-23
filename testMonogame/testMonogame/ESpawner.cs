@@ -42,11 +42,11 @@ namespace testMonogame
         public void Update()
         {
             spawn += 1;
-            if (spawn >= 10)
+            if (spawn >= 60)
             {
                 spawn = 0;
                 //Max 10 in a room
-                if (enemiesSpawn.Count() < 10)
+                if (enemiesSpawn.Count() < 15)
                 {
                     switch (eType)
                     {
