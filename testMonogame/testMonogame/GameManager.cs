@@ -19,6 +19,7 @@ namespace testMonogame
         PauseScreen pause;
         GameOverScreen gameOver;
         WinScreen win;
+        StartMenuScreen start;
 
         private RoomLoader roomLoad;
         Dictionary<String, IRoom> rooms = new Dictionary<string, IRoom>();
@@ -26,7 +27,13 @@ namespace testMonogame
         RoomTransition transitioner;
         int doorCollideCountdown = 0;
 
+
+
+        int difficulty; //0=easy, 1=normal, 2=hard
+        bool isHordeMode;
+
         int gameOverWinScreenCooldown = 0;//This will ensure that the player sees the game over or victory screen without immediately skipping
+
         
 
         enum GameState {PLAYING,//0
@@ -34,7 +41,8 @@ namespace testMonogame
             PAUSE,//2
             LOSE, //3
             WIN, //4
-            ROOMTRANSITION //5
+            ROOMTRANSITION, //5
+            START //6
         };
         GameState state;
 
@@ -60,9 +68,17 @@ namespace testMonogame
 
         public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, SpriteFont font, SpriteFont header, Sounds sounds)
         {
+            GameplayConstants.Initialize(1);//initialize constants to normal mode, just at the start so constants are somehting
+
             this.game = game;
             sprites = spriteSheet;
-            state = GameState.PLAYING;
+            state = GameState.START;
+
+
+            difficulty = 1;
+            isHordeMode = false;
+
+
 
             //load room 17 first
 
@@ -79,6 +95,7 @@ namespace testMonogame
             pause = new PauseScreen(spriteSheet["MenuScreens"], font, header);
             gameOver = new GameOverScreen(spriteSheet["MenuScreens"], font, header);
             win = new WinScreen(spriteSheet["MenuScreens"]);
+            start = new StartMenuScreen(spriteSheet["StartMenu"], font, header,this);
 
 
             EPCol = new EnemyProjectileCollisionHandler(this);
@@ -112,10 +129,25 @@ namespace testMonogame
 
         }
         public bool IsWaitingWinLossState()
-        {
-
-            return (gameOverWinScreenCooldown > 0);
+        {            
+          return (gameOverWinScreenCooldown > 0);
         }
+
+        public int GetDifficulty() { return difficulty; }
+        //set difficulty depending on prior difficulty. accounts for wraparound
+        public void ChangeDifficulty(int difference) { 
+            difficulty += difference;
+            if (difficulty < 0) difficulty = 2;
+            if (difficulty > 2) difficulty = 0;
+        }
+        public bool IsHorde() { return isHordeMode; }
+        public void SetHorde(bool b) { isHordeMode = b;}
+
+        //interfacing with start menu so that it can be controlled via commands
+        public int GetStartMenuSelectedBox(){return start.getSelectedBox();}
+        public void NextStartMenuBox() { start.nextOption(); }
+        public void PreviouStartMenuBox() { start.previousOption(); }
+
         public void Update()
         {
             if (transitioner.transitioning())
@@ -148,6 +180,11 @@ namespace testMonogame
                     
                 
                 
+            }
+            //START
+            else if(state == GameState.START)
+            {
+                start.Update(this);
             }
             //Item selection
             else if (state == GameState.ITEMSELECTION)
@@ -186,6 +223,11 @@ namespace testMonogame
                 rooms[roomKey].Draw(spriteBatch);
                 player.Draw(spriteBatch);
                 
+            }
+            //START
+            else if (state == GameState.START)
+            {
+                start.Draw(spriteBatch);
             }
             //item selection
             else if (state == GameState.ITEMSELECTION)
@@ -367,7 +409,6 @@ namespace testMonogame
             return (int)state ;
         }
         public void SetState(int inState) {
-
             int prevState = (int)state;
             state = (GameState)inState;
             if (prevState!=inState&&(state == GameState.LOSE || state == GameState.WIN))

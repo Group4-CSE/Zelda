@@ -125,7 +125,7 @@ namespace testMonogame
                 xVel *= -1;
                 directionWait = 0;
             }
-            X += xVel;
+            X += xVel * (int)GameplayConstants.ENEMY_SPEED_MODIFIER;
         }
 
         public void takeDamage(int dmg)

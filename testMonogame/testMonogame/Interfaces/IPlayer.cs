@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -67,6 +67,7 @@ namespace testMonogame
         public Rectangle getDestRect();
         public void SetDamageFrames(int frames);
         public int GetDamageFrames();
+        public void InitializeFromConstants();
         public void fireSpin(GameManager game);
         public void PlaceRupeeShield(GameManager game);
         public void UseReapingArrow(GameManager game);

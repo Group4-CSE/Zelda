@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -51,11 +51,9 @@ namespace testMonogame
             Map = false;
             Compass = false;
 
-            //MUST OBTAIN ARROW BEFORE ANYTHING ELSE
+            InitializeFromConstants();//initialize until changed
             ObtainItem("Arrow");
-            ObtainItem("Bomb");
-            ObtainItem("Bomb");
-            
+
 
             SelectItem(1);
 
@@ -63,6 +61,15 @@ namespace testMonogame
             maxHealth = 12;
             health = maxHealth;
             sound1 = sounds;
+        }
+        public void InitializeFromConstants()
+        {
+            maxHealth = GameplayConstants.STARTING_HEALTH;
+            health = maxHealth;
+            Rupees = GameplayConstants.PLAYER_STARTING_RUPEES;
+            if(GameplayConstants.PLAYER_STARTING_BOMBS>0)ObtainItem("Bomb");
+            Bombs = GameplayConstants.PLAYER_STARTING_BOMBS;
+
         }
         public string GetSelectedItem() { return selectedItem; }
         public void SelectItem(int i) { if(!inventory[i].Equals("Arrow"))selectedItem = inventory[i];
@@ -136,7 +143,7 @@ namespace testMonogame
         public void dealDamage(IEnemy enemy)
         {
             sound1.EnemyHitDie(0);
-            enemy.takeDamage(1);
+            enemy.takeDamage((int)(2.0*GameplayConstants.PLAYER_DEAL_DAMAGE_MODIFIER));
             
             //Figure out sound for enemy dying
         }
@@ -153,8 +160,8 @@ namespace testMonogame
 
         public void Move(int xChange, int yChange)
         {
-            X += xChange;
-            Y += yChange;
+            X += xChange * (int)GameplayConstants.PLAYER_SPEED_MODIFIER ;
+            Y += yChange* (int)GameplayConstants.PLAYER_SPEED_MODIFIER;
         }
 
         public void ObtainItem(String item)
@@ -239,7 +246,9 @@ namespace testMonogame
         {
             if (!state.getStasis() && !invincible)
             {
-                health -= damage;
+                int damageDealt = (int)(damage * GameplayConstants.PLAYER_TAKE_DAMAGE_MODIFIER);
+                if (damageDealt < 1) damageDealt = 1;//make sure no damage is reduced to 0
+                health -= damageDealt;
                 sound1.Link_Hurt();
                 state.damage();
             }

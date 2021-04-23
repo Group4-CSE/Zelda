@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
@@ -12,6 +12,7 @@ namespace testMonogame
         Dictionary<Keys, ICommand> PlayingKeyMap;
         Dictionary<Keys, ICommand> ItemSelectionKeyMap;
         Dictionary<Keys, ICommand> PauseKeyMap;
+        Dictionary<Keys, ICommand> StartKeyMap;
         KeyboardState prevState;
         List<Keys> moveKeys;
 
@@ -64,6 +65,25 @@ namespace testMonogame
             ICommand nextItemSelect = new NextItemCommand(game);
             ICommand prevItemSelect = new PreviousItemCommand(game);
             ICommand useSelectedItem = new UseSelectedItemCommand(game);
+            ICommand nextStartBox = new SelectNextOptionCommand(game);
+            ICommand prevStartBox = new SelectPreviousOptionCommand(game);
+            ICommand prevOption = new PreviousOptionBasedOnSelectionCommand(game);
+            ICommand nextOption = new NextOptionBasedOnSelectionCommand(game);
+
+
+            //start key map
+            StartKeyMap = new Dictionary<Keys, ICommand>();
+            StartKeyMap.Add(Keys.Q, quit);
+            StartKeyMap.Add(Keys.S, nextStartBox);
+            StartKeyMap.Add(Keys.Down, nextStartBox);
+            StartKeyMap.Add(Keys.W, prevStartBox);
+            StartKeyMap.Add(Keys.Up, prevStartBox);
+            StartKeyMap.Add(Keys.A, prevOption);
+            StartKeyMap.Add(Keys.Left, prevOption);
+            StartKeyMap.Add(Keys.D, nextOption);
+            StartKeyMap.Add(Keys.Right, nextOption);
+
+
 
             //item selection kepMap
             ItemSelectionKeyMap = new Dictionary<Keys, ICommand>();
@@ -144,6 +164,7 @@ namespace testMonogame
        
         public void Update()
         {
+
             //dont do anything if we are on cooldown from entering win or loss state
             if (!manager.IsWaitingWinLossState())
             {
@@ -211,6 +232,17 @@ namespace testMonogame
                 {
                     if (prevState.GetPressedKeyCount() == 0 && state.GetPressedKeyCount()>0) s2reset.Execute();
                 }
+                            //Start
+                else if (manager.getState() == 6)
+                {
+                    foreach(Keys k in state.GetPressedKeys())
+                    {
+                        if (prevState.GetPressedKeyCount() == 0 && StartKeyMap.ContainsKey(k))
+                        {
+                           StartKeyMap[k].Execute();
+                        }
+                   }
+               }
 
                 prevState = state;
             }

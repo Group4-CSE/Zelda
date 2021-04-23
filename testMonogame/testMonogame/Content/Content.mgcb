@@ -207,12 +207,6 @@
 /processorParam:Quality=Best
 /build:LOZ_Enemy_Die.wav
 
-#begin LOZ_Enemy_Die.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:LOZ_Enemy_Die.wav
-
 #begin LOZ_Enemy_Hit.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -236,12 +230,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:LOZ_Get_Rupee.wav
-
-#begin LOZ_Link_Die.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:LOZ_Link_Die.wav
 
 #begin LOZ_Link_Die.wav
 /importer:WavImporter
@@ -320,6 +308,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:playersheet.png
+
+#begin StartMenu.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:StartMenu.png
 
 #begin tileset.png
 /importer:TextureImporter

@@ -32,7 +32,7 @@ namespace testMonogame
         int startY;
         int updateFrame;
         int curFrame;
-        int enemyVel = 3;
+        int enemyVel = 3 * (int)GameplayConstants.ENEMY_SPEED_MODIFIER;
         IPlayer player;
         Rectangle playerDestRect;
         int maxX = 96;
