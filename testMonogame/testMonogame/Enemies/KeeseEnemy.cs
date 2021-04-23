@@ -19,6 +19,14 @@ namespace testMonogame
         int modifier;
         int directionFrame;
         int directionCounter;
+        IPlayer player;
+        Rectangle playerRect;
+
+        // TODO: GameManager.GetDifficulty();
+        int difficulty = 2;
+
+        int playerOffset = 16;
+        int trackingCooldown = 0;
 
         int enemyVel = 3;
         Random randomNumber = new Random();
@@ -81,9 +89,37 @@ namespace testMonogame
             Y += yRand;
         }
 
+        public void smartMove()
+        {
+            // Left and Right
+            // Need to go Right
+            if (X < playerRect.X + playerOffset)
+            {
+                X += enemyVel;
+            }
+            // Need to go Left
+            else if (X > playerRect.X + playerOffset)
+            {
+                X -= enemyVel;
+            }
+
+            // Up and Down
+            // Need to go Up
+            if (Y < playerRect.Y + playerOffset)
+            {
+                Y += enemyVel;
+            }
+            // Need to go Down
+            else if (Y > playerRect.Y + playerOffset)
+            {
+                Y -= enemyVel;
+            }
+        }
+
         public void Attack(IPlayer player)
         {
             player.TakeDamage(1);
+            trackingCooldown = 240;
         }
 
         public void takeDamage(int dmg)
@@ -110,7 +146,24 @@ namespace testMonogame
 
         public void Update(GameManager game)
         {
-            Move();
+            if (difficulty == 2)
+            {
+                player = game.getPlayer();
+                playerRect = player.getDestRect();
+                if (trackingCooldown == 0)
+                {
+                    smartMove();
+                }
+                else
+                {
+                    Move();
+                    trackingCooldown -= 1;
+                }
+            }
+            else
+            {
+                Move();
+            }
             // If (enemy collides with player) attack(player)
             // If (playerAttack || playerProjectile collides with self) takeDamage(dmg)
         }
