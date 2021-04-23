@@ -141,76 +141,79 @@ namespace testMonogame
             specialMoveTimer = 0;
             cheatCodeTimer = 0;
         }
-
+       
         public void Update()
         {
-            KeyboardState state = Keyboard.GetState();
-
-            if (manager.getState()==0)
+            //dont do anything if we are on cooldown from entering win or loss state
+            if (!manager.IsWaitingWinLossState())
             {
-                direcPressed = Keys.I;
-
-                //run the command associated with any key pressed.
-                foreach (Keys k in state.GetPressedKeys())
+                KeyboardState state = Keyboard.GetState();
+                if (manager.getState() == 0)
                 {
-                    //only attempt to execute if the key is present in the dictionary
-                    if (PlayingKeyMap.ContainsKey(k) && !prevState.IsKeyDown(k))
+                    direcPressed = Keys.I;
+
+                    //run the command associated with any key pressed.
+                    foreach (Keys k in state.GetPressedKeys())
                     {
-                        PlayingKeyMap[k].Execute();
-                        if (k.Equals(Keys.W) || k.Equals(Keys.A) || k.Equals(Keys.S) || k.Equals(Keys.D) || k.Equals(Keys.Up) || k.Equals(Keys.Left) || k.Equals(Keys.Right) || k.Equals(Keys.Down))
+                        //only attempt to execute if the key is present in the dictionary
+                        if (PlayingKeyMap.ContainsKey(k) && !prevState.IsKeyDown(k))
                         {
-                            direcPressed = k;
+                            PlayingKeyMap[k].Execute();
+                            if (k.Equals(Keys.W) || k.Equals(Keys.A) || k.Equals(Keys.S) || k.Equals(Keys.D) || k.Equals(Keys.Up) || k.Equals(Keys.Left) || k.Equals(Keys.Right) || k.Equals(Keys.Down))
+                            {
+                                direcPressed = k;
+                            }
+                        }
+
+                    }
+                    //            if ((!prevState.IsKeyDown(Keys.A) && !state.IsKeyUp(Keys.A)) ||
+                    //                (!prevState.IsKeyDown(Keys.W) && !state.IsKeyUp(Keys.W)) ||
+                    //                (!prevState.IsKeyDown(Keys.D) && !state.IsKeyUp(Keys.D)) ||
+                    //                (!prevState.IsKeyDown(Keys.S) && !state.IsKeyUp(Keys.S))) Move.Execute();
+                    //            if ((prevState.IsKeyDown(Keys.A) && state.IsKeyUp(Keys.A)) ||
+                    //                (prevState.IsKeyDown(Keys.W) && state.IsKeyUp(Keys.W)) ||
+                    //                (prevState.IsKeyDown(Keys.D) && state.IsKeyUp(Keys.D)) ||
+                    //                (prevState.IsKeyDown(Keys.S) && state.IsKeyUp(Keys.S))) Idle.Execute();
+                    handleMovement(state);
+                    checkSpecialMoves(state);
+
+
+                }
+                //item selection
+                else if (manager.getState() == 1)
+                {
+                    foreach (Keys k in state.GetPressedKeys())
+                    {
+                        if (prevState.GetPressedKeyCount() == 0 && ItemSelectionKeyMap.ContainsKey(k))
+                        {
+                            ItemSelectionKeyMap[k].Execute();
                         }
                     }
 
+                    //check for cheat codes
+                    checkCheatCodes(state);
                 }
-                //            if ((!prevState.IsKeyDown(Keys.A) && !state.IsKeyUp(Keys.A)) ||
-                //                (!prevState.IsKeyDown(Keys.W) && !state.IsKeyUp(Keys.W)) ||
-                //                (!prevState.IsKeyDown(Keys.D) && !state.IsKeyUp(Keys.D)) ||
-                //                (!prevState.IsKeyDown(Keys.S) && !state.IsKeyUp(Keys.S))) Move.Execute();
-                //            if ((prevState.IsKeyDown(Keys.A) && state.IsKeyUp(Keys.A)) ||
-                //                (prevState.IsKeyDown(Keys.W) && state.IsKeyUp(Keys.W)) ||
-                //                (prevState.IsKeyDown(Keys.D) && state.IsKeyUp(Keys.D)) ||
-                //                (prevState.IsKeyDown(Keys.S) && state.IsKeyUp(Keys.S))) Idle.Execute();
-                handleMovement(state);
-                checkSpecialMoves(state);
-
-
-            }
-            //item selection
-            else if (manager.getState() == 1)
-            {
-                foreach(Keys k in state.GetPressedKeys())
+                //pause
+                else if (manager.getState() == 2)
                 {
-                    if (prevState.GetPressedKeyCount() == 0 && ItemSelectionKeyMap.ContainsKey(k))
+
+                    foreach (Keys k in state.GetPressedKeys())
                     {
-                        ItemSelectionKeyMap[k].Execute();
+                        if (PauseKeyMap.ContainsKey(k))
+                        {
+
+                            PauseKeyMap[k].Execute();
+                        }
                     }
                 }
-
-                //check for cheat codes
-                checkCheatCodes(state);
-            }
-            //pause
-            else if (manager.getState() == 2)
-            {
-                
-                foreach (Keys k in state.GetPressedKeys())
+                //win and lose
+                else if (manager.getState() == 3 || manager.getState() == 4)
                 {
-                    if (PauseKeyMap.ContainsKey(k))
-                    {
-                        
-                        PauseKeyMap[k].Execute();
-                    }
+                    if (prevState.GetPressedKeyCount() == 0 && state.GetPressedKeyCount()>0) s2reset.Execute();
                 }
+
+                prevState = state;
             }
-            //win and lose
-            else if (manager.getState() == 3 || manager.getState()==4)
-            {
-                if(prevState.GetPressedKeyCount()==0)s2reset.Execute();
-            }
-            
-            prevState = state;
         }
 
         private void checkSpecialMoves(KeyboardState state)
