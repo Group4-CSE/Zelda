@@ -146,6 +146,7 @@ namespace testMonogame
 
         public void Update(GameManager game)
         {
+            difficulty = game.GetDifficulty();
             if (difficulty == 2)
             {
                 player = game.getPlayer();

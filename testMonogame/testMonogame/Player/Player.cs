@@ -51,8 +51,9 @@ namespace testMonogame
             Map = false;
             Compass = false;
 
-            InitializeFromConstants();//initialize until changed
             ObtainItem("Arrow");
+            InitializeFromConstants();//initialize until changed
+            
 
 
             SelectItem(1);

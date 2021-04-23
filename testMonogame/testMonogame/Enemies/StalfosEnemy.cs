@@ -23,7 +23,7 @@ namespace testMonogame
         Rectangle playerRect;
 
         // TODO: GameManager.GetDifficulty();
-        int difficulty = 2;
+        int difficulty;
 
         int playerOffset = 16;
         int trackingCooldown = 0;
@@ -48,6 +48,7 @@ namespace testMonogame
 
             // Stuff for state
             health = 2;
+
 
             // Stuff for movement
             directionFrame = randomNumber.Next(200);
@@ -151,6 +152,7 @@ namespace testMonogame
 
         public void Update(GameManager game)
         {
+            difficulty = game.GetDifficulty();
             if (difficulty == 2)
             {
                 player = game.getPlayer();

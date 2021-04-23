@@ -411,10 +411,16 @@ namespace testMonogame
         public void SetState(int inState) {
             int prevState = (int)state;
             state = (GameState)inState;
+
             if (prevState!=inState&&(state == GameState.LOSE || state == GameState.WIN))
             {
                 //Debug.WriteLine("a");
                 gameOverWinScreenCooldown = 180;//3 sec delay 
+            }
+            if (state == GameState.PLAYING && prevState == 6)
+            {
+                GameplayConstants.Initialize(difficulty);
+                player.InitializeFromConstants();
             }
         }
 
