@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using testMonogame.Rooms;
 using testMonogame.Interfaces;
+using testMonogame.Commands.SpecialMoves;
 using System.Diagnostics;
 
 namespace testMonogame
@@ -53,6 +54,7 @@ namespace testMonogame
 
         //cheat codes
         Dictionary<String, ICommand> cheatCodes;
+        Dictionary<String, ICommand> specialMoves;
 
 
         public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, SpriteFont font, SpriteFont header, Sounds sounds)
@@ -93,6 +95,18 @@ namespace testMonogame
             cheatCodes.Add("MNBVX", extraRupees);
             cheatCodes.Add("ZZKNL", invinc);
             cheatCodes.Add("GFGFG", bombs);
+
+            //initailize special move code dictionary
+            specialMoves = new Dictionary<string, ICommand>();
+
+            //initailize special moves
+            ICommand fireSpin = new FireSpinSpecialMove(this);
+            ICommand reapingArrow = new ReapingArrowSpecialMove(this);
+            ICommand rupeeShied = new RupeeShieldSpecialMove(this);
+
+            specialMoves.Add("TYHGT", fireSpin);
+            specialMoves.Add("JKJKJ", reapingArrow);
+            specialMoves.Add("KJHGF", rupeeShied);
 
 
         }
@@ -346,6 +360,10 @@ namespace testMonogame
 
         public void specialMove(string code)
         {
+            if (specialMoves.ContainsKey(code))
+            {
+                specialMoves[code].Execute();
+            }
             return;
         }
 
