@@ -23,6 +23,7 @@ namespace testMonogame.Rooms
 
         //Conditions
         bool hideItems;
+        bool bossRoom;
         Rectangle blockRect;
         Rectangle bombRect;
 
@@ -44,6 +45,7 @@ namespace testMonogame.Rooms
         public RoomLoader( Dictionary<String,Texture2D> spriteSheet, GameManager game)
         {
             hideItems = false;
+            bossRoom = false;
             Rectangle defaultRect = new Rectangle(-100, -100, 0, 0);
             blockRect = defaultRect;
             bombRect = defaultRect;
@@ -61,10 +63,13 @@ namespace testMonogame.Rooms
             Background = 0;
             Walls = false;
             loadFromFile(sourceFile);
+
             //Creating Enemy Spawner
             ESpawner eSpawn = new ESpawner(Game, Enemies, tempWord, sprites);
             ESpawner1 = eSpawn;
-            return new Room(mapX, mapY, Background, Walls, sprites, Blocks, Items, Enemies,bombRect, blockRect,hideItems, ESpawner1);
+
+            return new Room(mapX, mapY, Background, Walls, sprites, Blocks, Items, Enemies,bombRect, blockRect,hideItems, ESpawner1, bossRoom);
+
         }
         void loadFromFile(String sourceFile)
         {
@@ -146,6 +151,11 @@ namespace testMonogame.Rooms
                                 int w = 2 * blockBaseDimension * blockSizeMod;
                                 int h = 1 * blockBaseDimension * blockSizeMod;
                                 bombRect = new Rectangle(x, y, w, h);
+                            }
+                            else if (split[0].Equals("boss"))
+                            {
+                                //boss room
+                                bossRoom = true;
                             }
                             break;
                     }

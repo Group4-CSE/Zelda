@@ -62,7 +62,7 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            player.ObtainItem("heart");
+            player.ObtainItem("Heart");
         }
 
         public void Update(GameManager game)

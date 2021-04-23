@@ -86,10 +86,18 @@ namespace testMonogame
             //    (float)(player.Y - 20))));
         }
 
+        public void PlaceRupeeShield(GameManager game)
+        {
+            //na
+        }
         public void spawnArrow(GameManager game)
         {
             if (!stasis) game.AddPlayerProjectile(new ArrowPlayerProjectile(projectiles, new Vector2((float)(player.X + hProjectileOffset),
                 (float)(player.Y + vProjectileOffset)), new Vector2(0, -5), 0));
+        }
+        public void spawnReapingArrow(GameManager game)
+        {
+            //na
         }
 
         public void spawnBoomerang(GameManager game)

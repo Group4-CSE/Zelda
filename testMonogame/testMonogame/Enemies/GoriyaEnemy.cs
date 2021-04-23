@@ -37,8 +37,8 @@ namespace testMonogame
         public int getHealth() { return health; }
         public void Move(int xChange, int yChange)
         {
-            X += xChange;
-            Y += yChange;
+            X += xChange * (int)GameplayConstants.ENEMY_SPEED_MODIFIER;
+            Y += yChange * (int)GameplayConstants.ENEMY_SPEED_MODIFIER;
             directionCounter += 1;
             if (directionCounter > directionFrame)
             {
