@@ -21,7 +21,7 @@ namespace testMonogame
         int AttackTimer=30;
         int AttackCount;
         int delay = 0;
-        const int hitboxShrink = 2;
+        const int hitboxShrink = 4;
         
         //int arrowCount;
         public int Rupees { get; set; }
