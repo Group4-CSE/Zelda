@@ -125,6 +125,11 @@ namespace testMonogame.Rooms
 
             isTransition = false;
 
+            //if (EnemySpawner != null)
+            //{
+            //    if (hiddenItems) EnemySpawner.enabled = false;//if there are hidden items, allow the player to clear a room then immediately start spawning
+            //    else EnemySpawner.enabled = true;//if no hidden items then start spawning as soon as the room is entered
+            //}
 
         }
 
@@ -190,6 +195,11 @@ namespace testMonogame.Rooms
                         }
                     }
                 }
+            }
+            if (EnemySpawner != null && Enemies.Count==0)
+            {
+                //turn on the spawner once the original enemies are dead
+                EnemySpawner.enabled = true;
             }
         }
 

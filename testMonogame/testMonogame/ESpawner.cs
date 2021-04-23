@@ -22,60 +22,65 @@ namespace testMonogame
         //Spawn point for all new spawned enemies
         float x = 400, y = 200;
 
+
         /*
          Note: Game.IsHorde() is called on Room.cs, this might cause problems if want to
          add more features, but right now it works fine.
          */
-
-        public ESpawner(GameManager game, List<IEnemy> Enemies, String enemyType, Dictionary<String, Texture2D> spritesSheet)
+        //Spawn timer
+        float spawn = 0;
+        public bool enabled { get; set; }
+        public ESpawner(GameManager game, List<IEnemy> Enemies, String enemyType, Dictionary<String, Texture2D> spritesSheet,bool startEnabled)
         {
             //List of Enemies
             enemiesSpawn = Enemies;
             //Specifc Enemy for creating more spawns of
             eType = enemyType;
             sprites = spritesSheet;
-
+            spawn=28;
+            enabled = startEnabled;//this will be overwritten by room code no matter what
         }
-        //Spawn timer
-        float spawn = 0;
+
 
         public void Update()
         {
+            if (enabled) { 
             spawn += 1;
-            if (spawn >= 60)
-            {
-                spawn = 0;
-                //Max 10 in a room
-                if (enemiesSpawn.Count() < 15)
+                if (spawn >= 30)
                 {
-                    switch (eType)
+                    spawn = 0;
+                    //Max 10 in a room
+                    if (enemiesSpawn.Count() < 15)
                     {
-                        case "aquamentus":
-                            enemiesSpawn.Add(new AquamentusEnemy(sprites["aquamentus"], new Vector2(x, y)));
-                            break;
-                        case "gel":
-                            enemiesSpawn.Add(new GelEnemy(sprites["basicenemy"], new Vector2(x, y)));
-                            break;
-                        case "goriya":
-                            enemiesSpawn.Add(new GoriyaEnemy(sprites["goriya"], sprites["PlayerProjectiles"], new Vector2(x, y)));
-                            break;
-                        case "keese":
-                            enemiesSpawn.Add(new KeeseEnemy(sprites["basicenemy"], new Vector2(x, y)));
-                            break;
-                        case "oldman":
-                            enemiesSpawn.Add(new OldMan(sprites["oldman"], new Vector2(x + 8, y)));
-                            break;
-                        case "stalfos":
-                            enemiesSpawn.Add(new StalfosEnemy(sprites["basicenemy"], new Vector2(x, y)));
-                            break;
-                        case "trap":
-                            enemiesSpawn.Add(new TrapEnemy(sprites["basicenemy"], new Vector2(x, y)));
-                            break;
-                        case "wallmaster":
-                            enemiesSpawn.Add(new WallmasterEnemy(sprites["wallmasters"], new Vector2(x, y)));
-                            break;
-                        default:
-                            break;
+                        switch (eType)
+                        {
+                            case "aquamentus":
+                                enemiesSpawn.Add(new AquamentusEnemy(sprites["aquamentus"], new Vector2(x, y)));
+                                break;
+                            case "gel":
+                                enemiesSpawn.Add(new GelEnemy(sprites["basicenemy"], new Vector2(x, y)));
+                                break;
+                            case "goriya":
+                                enemiesSpawn.Add(new GoriyaEnemy(sprites["goriya"], sprites["PlayerProjectiles"], new Vector2(x, y)));
+                                break;
+                            case "keese":
+                                enemiesSpawn.Add(new KeeseEnemy(sprites["basicenemy"], new Vector2(x, y)));
+                                break;
+                            case "oldman":
+                                enemiesSpawn.Add(new OldMan(sprites["oldman"], new Vector2(x + 8, y)));
+                                break;
+                            case "stalfos":
+                                enemiesSpawn.Add(new StalfosEnemy(sprites["basicenemy"], new Vector2(x, y)));
+                                break;
+                            case "trap":
+                                enemiesSpawn.Add(new TrapEnemy(sprites["basicenemy"], new Vector2(x, y)));
+                                break;
+                            case "wallmaster":
+                                enemiesSpawn.Add(new WallmasterEnemy(sprites["wallmasters"], new Vector2(x, y)));
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }

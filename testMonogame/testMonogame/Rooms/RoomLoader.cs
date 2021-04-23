@@ -55,6 +55,11 @@ namespace testMonogame.Rooms
 
         public Room Load(String sourceFile)
         {
+            hideItems = false;
+            bossRoom = false;
+            Rectangle defaultRect = new Rectangle(-100, -100, 0, 0);
+            blockRect = defaultRect;
+            bombRect = defaultRect;
             Blocks = new List<IObject>();
             Items = new List<IObject>();
             Enemies = new List<IEnemy>();
@@ -65,8 +70,12 @@ namespace testMonogame.Rooms
             loadFromFile(sourceFile);
 
             //Creating Enemy Spawner
-            ESpawner eSpawn = new ESpawner(Game, Enemies, tempWord, sprites);
-            ESpawner1 = eSpawn;
+            Debug.WriteLine(hideItems);
+            if (!bossRoom)
+            {
+                ESpawner eSpawn = new ESpawner(Game, Enemies, tempWord, sprites, !hideItems);
+                ESpawner1 = eSpawn;
+            }
 
             return new Room(mapX, mapY, Background, Walls, sprites, Blocks, Items, Enemies,bombRect, blockRect,hideItems, ESpawner1, bossRoom);
 
