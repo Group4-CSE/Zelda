@@ -17,11 +17,10 @@
 - 3: Link uses Link uses Boomerang
 - Q: Quit
 - R: Reset program to initial state
-
-### Special Moves While Playing: (the following sequences will use special moves):
-- TGHYT: fire spin
-- JKJKJ: reaping arrow
-- FGHJK: rupee shield
+- Special Moves While Playing: (the following sequences will use special moves):
+  - TGHYT: fire spin
+  - JKJKJ: reaping arrow
+  - FGHJK: rupee shield
 
 ### In Start Menu:
 - W/Up Arrow: Select Previous Option 
@@ -33,12 +32,11 @@
 - A/Left Arrow: select Previous Item
 - D/Right Arrow: Select Next item
 - C: Close Item Selection Menu
-
-### Cheat Codes In Item Selection: (the following sequences will apply cheat codes)
-- HJKBN : 2x health
-- XVBNM : +extra rupees
-- LNKZZ : invincible
-- GFGFG : +10000 bombs
+- Cheat Codes In Item Selection: (the following sequences will apply cheat codes)
+  - HJKBN : 2x health
+  - XVBNM : +extra rupees
+  - LNKZZ : invincible
+  - GFGFG : +10000 bombs
 
 ### Pause Screen
 - C: Close Pause Screen
