@@ -2,7 +2,7 @@
 
 ## Controls:
 
-###While Playing:
+### While Playing:
 - W/Up Arrow: Move Link Up
 - A/Left Arrow Move Link Left
 - S/Down Arrow: Move Link Down
@@ -17,7 +17,7 @@
 - 3: Link uses Link uses Boomerang
 - Q: Quit
 - R: Reset program to initial state
-- 
+
 ### Special Moves While Playing: (the following sequences will use special moves):
 - TGHYT: fire spin
 - JKJKJ: reaping arrow
@@ -33,7 +33,7 @@
 - A/Left Arrow: select Previous Item
 - D/Right Arrow: Select Next item
 - C: Close Item Selection Menu
-- 
+
 ### Cheat Codes In Item Selection: (the following sequences will apply cheat codes)
 - HJKBN : 2x health
 - XVBNM : +extra rupees
@@ -49,7 +49,7 @@
 ### Known Bugs: 
 - Spamming some actions may cause the game to lag behind a little bit.
 
-
+## Notes
 Our team used Trello for project management, Photoshop/GIMP for spritesheet creation, and Discord for communication.
 Here are the share links for the trello and the github, to document our workflow:
 - https://trello.com/invite/b/e9PPVWKM/d9c854c4f14d79490c3d390d754b1470/cse3902-project
