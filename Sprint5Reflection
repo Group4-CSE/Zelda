@@ -1,0 +1,21 @@
+Sprint 5 Reflection
+Team 4 (10:30) 
+
+Timeline: 
+As a team we decided to take the main tasks of the sprint (Cheat Codes, Special Moves, Dificulty Mode, Horde Mode, Enemy Tracking) and split them among ourselves. we then made a seperate branch for each of these features and implemented them throughout the sprint.
+
+The first week were mostly planning, organizing, and getting approval from Professor Boggus on our additions. During this time we figured out how we were going to approach our tasks, organized our github, set up branches, set up Trello, and got to work.
+
+In the second week, everyone got most stuff implemented. All that was left to do were some fine tuning of the HordeMode class. One problem was that the new enemies spawned way too quickly for the player to collect items. This was eventually solved as well as other tasks.
+
+Highlights:
+1. Working on the code in seperate branches and seeing it all come together at the end was really awesome.
+2. Menu screen toggle works really well.
+3. Spawner class is able to generate enemies depending on room.
+4. Cheat codes and special moves work really well and help enchance the gameplay.
+5. In Hard Mode, enemies chases the player.
+
+Negatives:
+1. Merging branches was a bit of trouble but it was really good to get some practice.
+
+
