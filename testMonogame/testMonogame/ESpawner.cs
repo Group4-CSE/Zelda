@@ -42,7 +42,7 @@ namespace testMonogame
         public void Update()
         {
             spawn += 1;
-            if (spawn >= 1)
+            if (spawn >= 10)
             {
                 spawn = 0;
                 //Max 10 in a room

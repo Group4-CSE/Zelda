@@ -286,7 +286,7 @@ namespace testMonogame
             if (health <= 0)
             {
 
-                //sound1.pDies();
+                sound1.pDies();
                 game.SetState(3);
             }
             

@@ -1,19 +1,19 @@
 ﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Rooms/RoomLoader.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Rooms/Room.cs">
     <Files>
-      <File FileName="testMonogame/Player/Player.cs" Line="189" Column="29" />
+      <File FileName="testMonogame/Player/Player.cs" Line="205" Column="29" />
       <File FileName="testMonogame/Sounds.cs" />
       <File FileName="testMonogame/Projectiles/BombPlayerProjectile.cs" />
-      <File FileName="testMonogame/Game1.cs" Line="110" Column="1" />
-      <File FileName="testMonogame/GameManager.cs" Line="82" Column="62" />
-      <File FileName="testMonogame/ESpawner.cs" Line="52" Column="59" />
-      <File FileName="testMonogame/Rooms/RoomLoader.cs" Line="271" Column="15" />
-      <File FileName="testMonogame/Rooms/Room.cs" Line="261" Column="13" />
-      <File FileName="testMonogame/StartMenuScreen.cs" Line="114" Column="1" />
-      <File FileName="testMonogame/Enemies/GelEnemy.cs" Line="1" Column="1" />
-      <File FileName="testMonogame/Collisions/Enemy/EnemyWallCollision.cs" Line="1" Column="1" />
-      <File FileName="testMonogame/Interfaces/IRoom.cs" Line="12" Column="41" />
+      <File FileName="testMonogame/Game1.cs" />
+      <File FileName="testMonogame/GameManager.cs" />
+      <File FileName="testMonogame/ESpawner.cs" />
+      <File FileName="testMonogame/Rooms/RoomLoader.cs" />
+      <File FileName="testMonogame/Rooms/Room.cs" Line="66" Column="49" />
+      <File FileName="testMonogame/StartMenuScreen.cs" />
+      <File FileName="testMonogame/Enemies/GelEnemy.cs" />
+      <File FileName="testMonogame/Collisions/Enemy/EnemyWallCollision.cs" />
+      <File FileName="testMonogame/Interfaces/IRoom.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -27,14 +27,11 @@
               <Node name="Enemies" expanded="True" />
               <Node name="Interfaces" expanded="True" />
               <Node name="Rooms" expanded="True">
-                <Node name="RoomLoader.cs" selected="True" />
+                <Node name="Room.cs" selected="True" />
               </Node>
             </Node>
           </Node>
         </State>
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
