@@ -25,6 +25,7 @@ namespace testMonogame
         RoomTransition transitioner;
         int doorCollideCountdown = 0;
 
+        int gameOverWinScreenCooldown = 0;//This will ensure that the player sees the game over or victory screen without immediately skipping
         
 
         enum GameState {PLAYING,//0
@@ -96,7 +97,11 @@ namespace testMonogame
 
 
         }
+        public bool IsWaitingWinLossState()
+        {
 
+            return (gameOverWinScreenCooldown > 0);
+        }
         public void Update()
         {
             if (transitioner.transitioning())
@@ -142,6 +147,8 @@ namespace testMonogame
             {
                 player.Update(this);
             }
+            //Debug.WriteLine(gameOverWinScreenCooldown);
+            if (gameOverWinScreenCooldown > 0) gameOverWinScreenCooldown=gameOverWinScreenCooldown-1;
 
             //Debug.WriteLine("Player X: " + player.X);
             //Debug.WriteLine("Player Y: " + player.Y);
@@ -189,6 +196,9 @@ namespace testMonogame
                 win.Draw(spriteBatch);
                 player.Draw(spriteBatch);
             }
+
+            //decrement delay if we are waiting on win or lose screen
+            //if (gameOverWinScreenCooldown > 0) gameOverWinScreenCooldown--;
         }
 
         public void AddEnemyProjectile(IEnemyProjectile projectile) { rooms[roomKey].AddEnemyProjectile(projectile); }
@@ -342,7 +352,16 @@ namespace testMonogame
         {
             return (int)state ;
         }
-        public void SetState(int inState) { state = (GameState)inState; }
+        public void SetState(int inState) {
+
+            int prevState = (int)state;
+            state = (GameState)inState;
+            if (prevState!=inState&&(state == GameState.LOSE || state == GameState.WIN))
+            {
+                //Debug.WriteLine("a");
+                gameOverWinScreenCooldown = 180;//3 sec delay 
+            }
+        }
 
         public void specialMove(string code)
         {
