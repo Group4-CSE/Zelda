@@ -39,7 +39,7 @@ namespace testMonogame
         //Spawn timer
         float spawn = 0;
 
-        public void Update(GameManager Game, GameTime gameTime)
+        public void Update()
         {
             spawn += 1;
             if (spawn >= 1)

@@ -60,13 +60,11 @@ namespace testMonogame
         //ESpawner EnemySpawner = new ESpawner(this, )
        
 
-        public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, SpriteFont font, SpriteFont header, Sounds sounds, GameTime gametime
-            )
+        public GameManager(Game1 game, Dictionary<String, Texture2D> spriteSheet, SpriteFont font, SpriteFont header, Sounds sounds)
         {
             this.game = game;
             sprites = spriteSheet;
             state = GameState.START;
-            gameTime = gametime;
             
             difficulty = 1;
             isHordeMode = false;

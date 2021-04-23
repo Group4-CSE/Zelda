@@ -256,7 +256,7 @@ namespace testMonogame.Rooms
             //TODO: Wrap this in bool to switch to hordemode
             if (game.IsHorde())
             {
-                EnemySpawner.Update(game, gametime);
+                EnemySpawner.Update();
             }
             
 

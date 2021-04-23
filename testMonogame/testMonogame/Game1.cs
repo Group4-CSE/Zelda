@@ -99,7 +99,7 @@ namespace testMonogame
             SpriteFont font= Content.Load<SpriteFont>("HUDfont");
             SpriteFont header = Content.Load<SpriteFont>("HeaderFont");
 
-            manager = new GameManager(this, sprites,font,header, sounds, gameTime);
+            manager = new GameManager(this, sprites,font,header, sounds);
 
             keyController = new KeyboardController(manager);
             mouseController = new MouseController(manager);
