@@ -14,7 +14,7 @@ namespace testMonogame
         public int Y { get; set; }
         int health;
 
-        int maxHealth = 6;
+        int maxHealth = 12; //takes 12 hits to kill on easy and normal (by default), on hard this is increased to 24
 
 
         //drawing stuff
@@ -66,7 +66,8 @@ namespace testMonogame
             hurtFrames.AddLast(new Rectangle(50, 33, 24, 32));
             currentFrame = frames.First;
             hurtFlash = 0;
-            
+
+            maxHealth = maxHealth * (int)GameplayConstants.ENEMY_SPEED_MODIFIER;
 
             // Stuff for state
             health = maxHealth;
@@ -131,9 +132,13 @@ namespace testMonogame
         public void takeDamage(int dmg)
         {
             //if invulnerable during hurtflash then put all this inside if(hurtflash==0)
-            health -= dmg;
-            hurtFlash = 3;
-            currentFrame = hurtFrames.First;
+            //boss only takes 1 damage from all sources to ensure that he cant be cheesed
+            if (hurtFlash == 0)
+            {
+                health -= 1;
+                hurtFlash = 3;
+                currentFrame = hurtFrames.First;
+            }
             //flash colors
         }
         void spawnFireBalls(GameManager game)
