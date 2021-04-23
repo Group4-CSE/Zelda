@@ -13,6 +13,8 @@ namespace testMonogame
     public class GameManager
     {
         Game1 game;
+        //Maybe Delete
+        GameTime gameTime;
         IPlayer player;
         HUD hud;
         ItemSelectionScreen itemScreen;
@@ -61,6 +63,7 @@ namespace testMonogame
         PlayerEnemyCollision PECol = new PlayerEnemyCollision();
         EnemyProjectileCollisionHandler EPCol;
 
+
         //cheat codes
         Dictionary<String, ICommand> cheatCodes;
         Dictionary<String, ICommand> specialMoves;
@@ -73,18 +76,18 @@ namespace testMonogame
             this.game = game;
             sprites = spriteSheet;
             state = GameState.START;
-
-
+            
             difficulty = 1;
             isHordeMode = false;
 
-
+            
 
             //load room 17 first
 
+
             sound = sounds;
 
-            roomLoad = new RoomLoader(sprites);
+            roomLoad = new RoomLoader(sprites, this);
             rooms.Add("Room17", roomLoad.Load("Room17.txt"));
             roomKey = "Room17";
             transitioner = new RoomTransition();
@@ -159,7 +162,7 @@ namespace testMonogame
             {
                 hud.Update(this);
                 player.Update(this);
-                rooms[roomKey].Update(this);
+                rooms[roomKey].Update(this, gameTime);
                 EOCol.detectCollision(rooms[roomKey].GetEnemies(), rooms[roomKey].GetBlocks());
                 PWCol.detectCollision(player, rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect());
                 EWCol.detectCollision(rooms[roomKey].GetEnemies(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect());

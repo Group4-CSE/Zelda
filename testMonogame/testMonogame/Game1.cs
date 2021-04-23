@@ -12,7 +12,7 @@ namespace testMonogame
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
+        
         private Texture2D aquaSheet;
         private Texture2D basicEnemy;
         private Texture2D doors;
@@ -32,7 +32,7 @@ namespace testMonogame
         IController mouseController;
 
         GameManager manager;
-
+        GameTime gameTime;
 
         public Game1()
         {

@@ -11,7 +11,7 @@ namespace testMonogame.Interfaces
         public int screenX { get; set; }
         public int screenY { get; set; }
         public void Draw(SpriteBatch spriteBatch);
-        public void Update(GameManager game);
+        public void Update(GameManager game, GameTime gameTime);
 
         public List<IObject> GetBlocks();
         public List<IObject> GetItems();

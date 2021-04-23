@@ -35,7 +35,14 @@ namespace testMonogame.Rooms
         //the base dimensions of a block square
         const int blockBaseDimension = 16;
 
-        public RoomLoader( Dictionary<String,Texture2D> spriteSheet)
+        //For the Enemy Spawner
+        GameManager Game;
+        ESpawner ESpawner1;
+
+        float tempX, tempY;
+        string tempWord;
+
+        public RoomLoader( Dictionary<String,Texture2D> spriteSheet, GameManager game)
         {
             hideItems = false;
             bossRoom = false;
@@ -43,6 +50,7 @@ namespace testMonogame.Rooms
             blockRect = defaultRect;
             bombRect = defaultRect;
             sprites = spriteSheet;
+            Game = game;
         }
 
         public Room Load(String sourceFile)
@@ -55,7 +63,13 @@ namespace testMonogame.Rooms
             Background = 0;
             Walls = false;
             loadFromFile(sourceFile);
-            return new Room(mapX, mapY, Background, Walls, sprites, Blocks, Items, Enemies,bombRect, blockRect,hideItems, bossRoom);
+
+            //Creating Enemy Spawner
+            ESpawner eSpawn = new ESpawner(Game, Enemies, tempWord, sprites);
+            ESpawner1 = eSpawn;
+
+            return new Room(mapX, mapY, Background, Walls, sprites, Blocks, Items, Enemies,bombRect, blockRect,hideItems, ESpawner1, bossRoom);
+
         }
         void loadFromFile(String sourceFile)
         {
@@ -222,6 +236,7 @@ namespace testMonogame.Rooms
         }
         void addEnemy(String line)
         {
+            
             String[] split = line.Split(',');
             IEnemy enemy;
 
@@ -259,6 +274,11 @@ namespace testMonogame.Rooms
                     break;
             }
             Enemies.Add(enemy);
+            //Store into temp Variables for ESpawner
+            tempWord = split[0];
+            tempX = x;
+            tempY = y;
+            
 
         }
 
