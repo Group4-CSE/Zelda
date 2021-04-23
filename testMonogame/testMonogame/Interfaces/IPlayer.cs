@@ -67,5 +67,8 @@ namespace testMonogame
         public Rectangle getDestRect();
         public void SetDamageFrames(int frames);
         public int GetDamageFrames();
+        public void fireSpin(GameManager game);
+        public void PlaceRupeeShield(GameManager game);
+        public void UseReapingArrow(GameManager game);
     }
 }

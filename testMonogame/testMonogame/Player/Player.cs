@@ -51,12 +51,13 @@ namespace testMonogame
             Map = false;
             Compass = false;
 
-
-            ObtainItem("Bomb");
-            ObtainItem("Bomb");
+            //MUST OBTAIN ARROW BEFORE ANYTHING ELSE
             ObtainItem("Arrow");
+            ObtainItem("Bomb");
+            ObtainItem("Bomb");
+            
 
-            SelectItem(0);
+            SelectItem(1);
 
             invincible = false;
             maxHealth = 12;
@@ -64,7 +65,8 @@ namespace testMonogame
             sound1 = sounds;
         }
         public string GetSelectedItem() { return selectedItem; }
-        public void SelectItem(int i) { if(!inventory[i].Equals("Arrow"))selectedItem = inventory[i]; }
+        public void SelectItem(int i) { if(!inventory[i].Equals("Arrow"))selectedItem = inventory[i];
+        }
         public void NextItem() {
             int i = inventory.IndexOf(selectedItem) + 1;
             if (i > inventory.Count - 1) i = 0;
@@ -212,6 +214,21 @@ namespace testMonogame
             }
         }
 
+        public void fireSpin(GameManager game)
+        {
+            Vector2 pos = new Vector2(X + state.getDestRect().Width / 2, Y + state.getDestRect().Height / 2);
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(-1, 0)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(-1, -1)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(0, -1)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(1, -1)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(1, 0)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(1,1)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(0, 1)));
+            game.AddPlayerProjectile(new FireBallPlayerProjectile(projectiles, pos, new Vector2(-1, 1)));
+
+
+        }
+
         public void SetLocation(Vector2 location)
         {
             X = (int)location.X;
@@ -337,6 +354,21 @@ namespace testMonogame
         public int getY()
         {
             return Y;
+        }
+
+        public void PlaceRupeeShield(GameManager game)
+        {
+            Rupees = Rupees - 1;
+            state.PlaceRupeeShield(game);
+        }
+        //instead of using a bow and arrow link uses his own health to send an arrow forth sapping him for 1/2 a heart, this will be healed back if the arrow hits
+        public void UseReapingArrow(GameManager game)
+        {
+            if (health > 2)
+            {
+                health = health - 2;
+                state.spawnReapingArrow(game);
+            }
         }
     }
 }
