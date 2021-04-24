@@ -15,7 +15,6 @@ E- Link Takes Damage
 2- Link uses Bomb
 3- Link uses Link uses Boomerang
 Q- Quit
-R- Reset program to initial state
 Special Moves While Playing: (the following sequences will use special moves):
 TGHYT- fire spin
 JKJKJ- reaping arrow
