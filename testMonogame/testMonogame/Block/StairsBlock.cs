@@ -36,7 +36,7 @@ namespace testMonogame
         }
         public void Update(GameManager game)
         {
-            // COLLISION WILL GO HERE
+            //open door, no need to update anything
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -46,7 +46,7 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            //Send player to room 3
+            //open door, no need for interaction
         }
 
         public void openDoor()
@@ -61,11 +61,13 @@ namespace testMonogame
 
         public int getSide()
         {
+            //side is 4 for stairs chase
             return 4;
         }
 
         public int getNextRoom()
         {
+            //stairs lead to room 3
             return 3;
         }
 

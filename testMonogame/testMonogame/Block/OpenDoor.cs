@@ -60,15 +60,12 @@ namespace testMonogame
         }
         public void Update(GameManager game)
         {
-            //collision
+            //open door, no update required
         }
 
         public void Interact(IPlayer player)
         {
-            
-                // add level changing logic
-    
-
+            //open door, no interaction required
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -99,11 +96,13 @@ namespace testMonogame
 
         public void transitionShift(int x, int y)
         {
+            //shift location of door
             destRect.X = destRect.X + x;
             destRect.Y = destRect.Y + y;
         }
         public void resetToOriginalPos()
         {
+            //reset door to original position
             destRect.X = orig.X;
             destRect.Y = orig.Y;
         }

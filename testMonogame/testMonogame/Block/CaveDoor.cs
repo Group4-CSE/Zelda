@@ -55,12 +55,12 @@ namespace testMonogame
         }
         public void Update(GameManager game)
         {
-            //collision
+            //open door, no need for update
         }
 
         public void Interact(IPlayer player)
         {
-            // add level changing logic
+            //open door, no need for interaction
         }
 
         public void openDoor()
@@ -70,6 +70,7 @@ namespace testMonogame
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            //if the cave door is closed/hidden don't draw
             if (!isClosed)
             {
                 spriteBatch.Draw(texture, destRect, sourceRect, Color.White);

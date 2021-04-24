@@ -98,7 +98,6 @@ namespace testMonogame
 
 
              s2reset = new S2Reset(game);
-            //KeyMap.Add(Keys.A, new PlayerAttackCommand(game.player));
             PlayingKeyMap = new Dictionary<Keys, ICommand>();
             PlayingKeyMap.Add(Keys.P, pause);
             PlayingKeyMap.Add(Keys.I, inventorySelection);
@@ -106,7 +105,6 @@ namespace testMonogame
             PlayingKeyMap.Add(Keys.N, Attack);
             PlayingKeyMap.Add(Keys.X, useSelectedItem);
             PlayingKeyMap.Add(Keys.M, useSelectedItem);
-            //KeyMap.Add(Keys.A, Move);
             PlayingKeyMap.Add(Keys.D1, Arrow);
             PlayingKeyMap.Add(Keys.D2, Bomb);
             PlayingKeyMap.Add(Keys.D3, Boomerang);
@@ -119,16 +117,8 @@ namespace testMonogame
             PlayingKeyMap.Add(Keys.Left, Left);
             PlayingKeyMap.Add(Keys.Down, Down);
             PlayingKeyMap.Add(Keys.Right, Right);
-            //KeyMap.Add(Keys.Y, Idle);
 
             PlayingKeyMap.Add(Keys.Escape, quit);
-            //PlayingKeyMap.Add(Keys.T, prevBlock);
-            //PlayingKeyMap.Add(Keys.Y, nextBlock);
-            //PlayingKeyMap.Add(Keys.U, prevItem);
-            //PlayingKeyMap.Add(Keys.I, nextItem);
-            //PlayingKeyMap.Add(Keys.O, prevEnemy);
-            //PlayingKeyMap.Add(Keys.P, nextEnemy);
-            //PlayingKeyMap.Add(Keys.R, s2reset);
             PlayingKeyMap.Add(Keys.Q, quit);
 
             direcPriority = new Dictionary<Keys, int>();
@@ -187,14 +177,7 @@ namespace testMonogame
                         }
 
                     }
-                    //            if ((!prevState.IsKeyDown(Keys.A) && !state.IsKeyUp(Keys.A)) ||
-                    //                (!prevState.IsKeyDown(Keys.W) && !state.IsKeyUp(Keys.W)) ||
-                    //                (!prevState.IsKeyDown(Keys.D) && !state.IsKeyUp(Keys.D)) ||
-                    //                (!prevState.IsKeyDown(Keys.S) && !state.IsKeyUp(Keys.S))) Move.Execute();
-                    //            if ((prevState.IsKeyDown(Keys.A) && state.IsKeyUp(Keys.A)) ||
-                    //                (prevState.IsKeyDown(Keys.W) && state.IsKeyUp(Keys.W)) ||
-                    //                (prevState.IsKeyDown(Keys.D) && state.IsKeyUp(Keys.D)) ||
-                    //                (prevState.IsKeyDown(Keys.S) && state.IsKeyUp(Keys.S))) Idle.Execute();
+
                     handleMovement(state);
                     checkSpecialMoves(state);
 

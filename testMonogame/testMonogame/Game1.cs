@@ -44,8 +44,7 @@ namespace testMonogame
 
         protected override void Initialize()
         {
-            //test
-            
+
             base.Initialize();
         }
 
@@ -55,6 +54,7 @@ namespace testMonogame
             sprites = new Dictionary<string, Texture2D>();
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //load sprites
             aquaSheet = Content.Load<Texture2D>("aquamentus");
             basicEnemy = Content.Load<Texture2D>("basicenemy");
             doors = Content.Load<Texture2D>("doors");

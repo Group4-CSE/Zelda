@@ -1,34 +1,29 @@
 ﻿<Properties GitUserInfo="UsingMD" StartupConfiguration="{EE57A22F-0576-446E-83CF-099C3C98FD14}|Default">
   <MonoDevelop.Ide.ItemProperties.testMonogame PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Rooms/Room.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="testMonogame/Block/ClosedDoor.cs">
     <Files>
-      <File FileName="testMonogame/Player/Player.cs" Line="205" Column="29" />
-      <File FileName="testMonogame/Sounds.cs" />
-      <File FileName="testMonogame/Projectiles/BombPlayerProjectile.cs" />
-      <File FileName="testMonogame/Game1.cs" />
-      <File FileName="testMonogame/GameManager.cs" />
-      <File FileName="testMonogame/ESpawner.cs" />
-      <File FileName="testMonogame/Rooms/RoomLoader.cs" />
-      <File FileName="testMonogame/Rooms/Room.cs" Line="66" Column="49" />
-      <File FileName="testMonogame/StartMenuScreen.cs" />
-      <File FileName="testMonogame/Enemies/GelEnemy.cs" />
-      <File FileName="testMonogame/Collisions/Enemy/EnemyWallCollision.cs" />
-      <File FileName="testMonogame/Interfaces/IRoom.cs" />
+      <File FileName="testMonogame/Rooms/Room.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/Rooms/RoomTransition.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/Rooms/RoomLoader.cs" Line="1" Column="1" />
+      <File FileName="testMonogame/Collisions/Player/PlayerObjectCollision.cs" />
+      <File FileName="testMonogame/Block/SolidBlockDoor.cs" Line="51" Column="49" />
+      <File FileName="testMonogame/Block/StairsBlock.cs" Line="49" Column="49" />
+      <File FileName="testMonogame/Block/LockedDoor.cs" Line="77" Column="14" />
+      <File FileName="testMonogame/Block/CaveDoor.cs" Line="73" Column="27" />
+      <File FileName="testMonogame/Block/ClosedDoor.cs" Line="65" Column="49" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="testMonogame" expanded="True">
             <Node name="testMonogame" expanded="True">
-              <Node name="Collisions" expanded="True">
-                <Node name="Enemy" expanded="True" />
+              <Node name="Block" expanded="True">
+                <Node name="ClosedDoor.cs" selected="True" />
               </Node>
-              <Node name="Content" expanded="True" />
-              <Node name="Enemies" expanded="True" />
+              <Node name="Collisions" expanded="True" />
               <Node name="Interfaces" expanded="True" />
-              <Node name="Rooms" expanded="True">
-                <Node name="Room.cs" selected="True" />
-              </Node>
+              <Node name="Player" expanded="True" />
+              <Node name="Rooms" expanded="True" />
             </Node>
           </Node>
         </State>

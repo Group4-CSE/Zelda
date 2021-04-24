@@ -13,7 +13,7 @@ namespace testMonogame
     public class GameManager
     {
         Game1 game;
-        //Maybe Delete
+
         GameTime gameTime;
         IPlayer player;
         HUD hud;
@@ -56,9 +56,7 @@ namespace testMonogame
         PlayerWallCollision PWCol = new PlayerWallCollision();
         EnemyWallCollision EWCol = new EnemyWallCollision();
         PlayerProjectileWallCollision PPWCol = new PlayerProjectileWallCollision();
-        //PlayerProjectileBlockCollision PPBCol = new PlayerProjectileBlockCollision();
         PlayerProjectileEnemyCollision PPECol = new PlayerProjectileEnemyCollision();
-        //EnemyProjectileWallCollision EPWCol = new EnemyProjectileWallCollision();
         PlayerObjectCollision POCol = new PlayerObjectCollision();
         PlayerEnemyCollision PECol = new PlayerEnemyCollision();
         EnemyProjectileCollisionHandler EPCol;
@@ -84,7 +82,6 @@ namespace testMonogame
 
             //load room 17 first
 
-
             sound = sounds;
 
             roomLoad = new RoomLoader(sprites, this);
@@ -92,7 +89,10 @@ namespace testMonogame
             roomKey = "Room17";
             transitioner = new RoomTransition();
 
+            //initialize player
             player = new Player(spriteSheet["playersheet"], new Vector2(500, 200), spriteSheet["PlayerProjectiles"], sound);
+
+            //initailize screens
             hud = new HUD(spriteSheet["hudSheet"], font);
             itemScreen = new ItemSelectionScreen(spriteSheet["ItemSelection"]);
             pause = new PauseScreen(spriteSheet["MenuScreens"], font, header);
@@ -153,10 +153,12 @@ namespace testMonogame
 
         public void Update()
         {
+            //don't update when rooms are transitioning
             if (transitioner.transitioning())
             {
                 return;
             }
+
             //PLAYING
             if (state == GameState.PLAYING)
             {
@@ -167,9 +169,7 @@ namespace testMonogame
                 PWCol.detectCollision(player, rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect());
                 EWCol.detectCollision(rooms[roomKey].GetEnemies(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect());
                 PPWCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
-                //PPBCol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetBlocks(), this);
                 PPECol.detectCollision(rooms[roomKey].GetPlayerProjectiles(), rooms[roomKey].GetEnemies(), this, rooms[roomKey], sound);
-                //EPWCol.detectCollision(rooms[roomKey].GetEnemeyProjectile(), rooms[roomKey].GetWallDestRect(), rooms[roomKey].GetFloorDestRect(), this);
                 PECol.playerEnemyDetection(player, rooms[roomKey].GetEnemies(), rooms[roomKey], sound);
                 EPCol.handleEnemyProjCollision(rooms[roomKey], player);
                 if (doorCollideCountdown <= 0)
@@ -201,17 +201,14 @@ namespace testMonogame
             {
                 player.Update(this);
             }
-            //Debug.WriteLine(gameOverWinScreenCooldown);
             if (gameOverWinScreenCooldown > 0) gameOverWinScreenCooldown=gameOverWinScreenCooldown-1;
 
-            //Debug.WriteLine("Player X: " + player.X);
-            //Debug.WriteLine("Player Y: " + player.Y);
 
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            //use transitioner for drawing during rooom transition
             if (transitioner.transitioning())
             {
                 transitioner.Draw(spriteBatch);
@@ -267,21 +264,20 @@ namespace testMonogame
 
         public void LoadRoom(int roomNum)
         {
-            //Debug.WriteLine(player.X);
             String name = "Room" + roomNum;
+
+            //test if room is already loaded
             if (rooms.ContainsKey(name))
             {
-                //roomKey = name;
                 ChangeRoom(roomNum);
             }
             else
             {
+                //load room if it hasn't been loaded then change room
                 rooms.Add(name, roomLoad.Load(name + ".txt"));
-                //roomKey = name;
                 ChangeRoom(roomNum);
             }
-            //player.X = 400;
-            //player.Y = 324;
+
         }
 
         public void ChangeRoom(int roomNum)
@@ -307,10 +303,12 @@ namespace testMonogame
                 }
             }
 
-            //make sure the door on other side is opened
+           
             if (direction != -1)
             {
+                //make sure the door on other side is opened
                 unlockNextDoor(direction);
+                //transition if rooms are adjacent
                 transitioner.transtion(rooms[curRoom], rooms[roomKey], direction);
             }
                 
@@ -429,6 +427,7 @@ namespace testMonogame
 
         public void specialMove(string code)
         {
+            //checks if code recieved is usable
             if (specialMoves.ContainsKey(code))
             {
                 specialMoves[code].Execute();
@@ -438,6 +437,7 @@ namespace testMonogame
 
         public void cheatCode(string code)
         {
+            //checks if code recieved is usable
             if (cheatCodes.ContainsKey(code))
             {
                 cheatCodes[code].Execute();
