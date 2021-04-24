@@ -62,15 +62,12 @@ namespace testMonogame
         }
         public void Update(GameManager game)
         {
-            //collision
+            //door, no need for update
         }
 
         public void Interact(IPlayer player)
         {
-            if (!isClosed)
-            {
-                // add level changing logic
-            }
+            //closed door won't open unless openDoor is called 
 
         }
 

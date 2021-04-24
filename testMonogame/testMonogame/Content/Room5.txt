@@ -32,3 +32,4 @@ MAP
 5,2
 CONDITIONS
 hideitems
+boss

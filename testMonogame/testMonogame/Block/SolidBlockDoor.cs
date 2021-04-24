@@ -38,7 +38,7 @@ namespace testMonogame
         }
         public void Update(GameManager game)
         {
-            // COLLISION WILL GO HERE
+            //open door, no need to update anything
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -48,7 +48,7 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            // NULL
+            //open door, no need for interaction
         }
 
         public void openDoor()

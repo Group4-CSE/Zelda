@@ -1,0 +1,10 @@
+Sprint 5 Readability 
+Author: Jerry Qiu
+4/23/2021
+
+ExtraHealth.cs
+John Flemming
+
+Class is very readable. Short and implements ICommand as it needs to. 
+
+5 mins

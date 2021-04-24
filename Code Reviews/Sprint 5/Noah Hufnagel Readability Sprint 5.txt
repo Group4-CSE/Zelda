@@ -1,0 +1,13 @@
+Author of code review: Noah Hufnagel
+Date of Code Review: 4/23/2021
+Sprint Number: 5
+Name of The .cs file: StalfosEnemy.cs (specifically the new smartMove method)
+Author of the .cs file: Logan Flory
+Number of minutes taken to complete review: 15 Minutes
+Specific comments:
+This method is relatively well documented with comments.
+Just from first glance I can easily tell which if tests are used
+to determine which direction the enemy needs to move
+most of the variables are self documenting(X,Y, enemyVel). playerRect is not as apparent but relatively self explanatory
+playerOffset is a bit confusing for a variable name.
+overall though this code is quite easy to read and process

@@ -47,7 +47,6 @@ namespace testMonogame
 
         public void Interact(IPlayer player)
         {
-            throw new NotImplementedException();
             //Should be Null right now
         }
 

@@ -12,7 +12,7 @@ namespace testMonogame
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
+        
         private Texture2D aquaSheet;
         private Texture2D basicEnemy;
         private Texture2D doors;
@@ -32,7 +32,7 @@ namespace testMonogame
         IController mouseController;
 
         GameManager manager;
-
+        GameTime gameTime;
 
         public Game1()
         {
@@ -44,8 +44,7 @@ namespace testMonogame
 
         protected override void Initialize()
         {
-            //test
-            
+
             base.Initialize();
         }
 
@@ -55,6 +54,7 @@ namespace testMonogame
             sprites = new Dictionary<string, Texture2D>();
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            //load sprites
             aquaSheet = Content.Load<Texture2D>("aquamentus");
             basicEnemy = Content.Load<Texture2D>("basicenemy");
             doors = Content.Load<Texture2D>("doors");
@@ -71,6 +71,7 @@ namespace testMonogame
             Texture2D hudSheet = Content.Load<Texture2D>("HudSheet");
             Texture2D ItemSelection = Content.Load<Texture2D>("ItemSelection");
             Texture2D menuBackground = Content.Load<Texture2D>("MenuScreens");
+            Texture2D startMenu = Content.Load<Texture2D>("StartMenu");
 
 
             sprites.Add("aquamentus", aquaSheet);
@@ -89,6 +90,7 @@ namespace testMonogame
             sprites.Add("hudSheet", hudSheet);
             sprites.Add("ItemSelection", ItemSelection);
             sprites.Add("MenuScreens", menuBackground);
+            sprites.Add("StartMenu", startMenu);
 
             //Loads all of the sounds
             sounds.LoadSounds(Content);

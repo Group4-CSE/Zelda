@@ -30,6 +30,7 @@ namespace testMonogame.Rooms
         Rectangle bombRectangle;
         Rectangle blockRectangle;
         bool hiddenItems;
+        bool bossRoom;
 
         const int mapXGrid = 32;
         const int mapYGrid = 16;
@@ -68,6 +69,8 @@ namespace testMonogame.Rooms
 
         Boolean isTransition;
 
+        ESpawner EnemySpawner;
+
         public Room(int inMapX, int inMapY, int inBG, bool inWalls,
             Dictionary<String, Texture2D> spriteSheets,
             List<IObject> inBlocks,
@@ -75,13 +78,18 @@ namespace testMonogame.Rooms
             List<IEnemy> inEnemies,
             Rectangle inBombRectangle,
             Rectangle inBlockRectangle,
-            bool inHideItems
+            bool inHideItems,
+
+            ESpawner eSpawner,
+            bool inBossRoom
+
             )
         {
 
             bombRectangle = inBombRectangle;
             blockRectangle = inBlockRectangle;
             hiddenItems = inHideItems;
+            EnemySpawner = eSpawner;
 
             screenX = 130;
             screenY = 110;
@@ -106,6 +114,8 @@ namespace testMonogame.Rooms
                 HiddenItemList = inItems;
                 Items = new List<IObject>();
             }
+            bossRoom = inBossRoom;
+
             Enemies = inEnemies;
             PlayerProjectiles = new List<IPlayerProjectile>();
             EnemyProjectiles = new List<IEnemyProjectile>();
@@ -115,6 +125,11 @@ namespace testMonogame.Rooms
 
             isTransition = false;
 
+            //if (EnemySpawner != null)
+            //{
+            //    if (hiddenItems) EnemySpawner.enabled = false;//if there are hidden items, allow the player to clear a room then immediately start spawning
+            //    else EnemySpawner.enabled = true;//if no hidden items then start spawning as soon as the room is entered
+            //}
 
         }
 
@@ -163,6 +178,29 @@ namespace testMonogame.Rooms
                 Items.Add(drop);
             }
             Enemies.Remove(enemy);
+
+            if (bossRoom)
+            {
+                //open doors once all enemies are dead in boss room
+                if(Enemies.Count == 0)
+                {
+                    foreach (IObject block in this.GetBlocks())
+                    {
+                        if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor || block is StairsBlock || block is SolidBlockDoor))
+                        {
+                            IDoor door = (IDoor)block;
+                            //open door
+                            door.openDoor();
+
+                        }
+                    }
+                }
+            }
+            if (EnemySpawner != null && Enemies.Count==0)
+            {
+                //turn on the spawner once the original enemies are dead
+                EnemySpawner.enabled = true;
+            }
         }
 
 
@@ -220,7 +258,7 @@ namespace testMonogame.Rooms
 
         }
 
-        public void Update(GameManager game)
+        public void Update(GameManager game, GameTime gametime)
         {
             if (isTransition)
             {
@@ -248,6 +286,14 @@ namespace testMonogame.Rooms
             {
                 enemy.Update(game);
             }
+
+            //TODO: Wrap this in bool to switch to hordemode
+            if (game.IsHorde())
+            {
+                EnemySpawner.Update();
+            }
+            
+
             if (hiddenItems && Enemies.Count == 0)
             {
                 hiddenItems = false;

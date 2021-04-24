@@ -105,13 +105,13 @@ namespace testMonogame
 
         public void transitionShift(int x, int y)
         {
-            //destRect.X = destRect.X + x;
-            //destRect.Y = destRect.Y + y;
+            //update the block x,y
             X = X + x;
             Y = Y + y;
         }
         public void resetToOriginalPos()
         {
+            //reset block x,y
             X = orig.X;
             Y = orig.Y;
         }

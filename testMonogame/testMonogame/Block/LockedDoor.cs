@@ -63,7 +63,7 @@ namespace testMonogame
         }
         public void Update(GameManager game)
         {
-            //collision
+            //door, no need for interaction
         }
 
         public void Interact(IPlayer player)
@@ -75,11 +75,6 @@ namespace testMonogame
                     openDoor();
                 }
             }
-            else
-            {
-                // add level changing logic
-            }
-
 
         }
 

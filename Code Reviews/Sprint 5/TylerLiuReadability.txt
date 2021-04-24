@@ -1,0 +1,27 @@
+Code Review Readability
+
+Author of the code review: 
+Tyler Liu
+
+Date of the code review: 
+04/23/21
+
+Sprint number: 
+Sprint 5
+
+Name of the .cs file being reviewed:
+StartMenuScreen.cs
+
+Author of the .cs file being reviewed:
+Noah Hufnagel
+
+Number of minutes taken to complete the review:
+~15 Minutes
+
+Specific comments on what is readable and what is not:
+- Good use of variable naming, helps reader understand what the var stores without looking at documentation. (Self Explanatory)
+- Separation of different variable initialization help organize and see what each section of the code does what
+- Used int as a way to determine if current mode is Easy, Normal, or Hard
+- Used boolean for the HordeMode gameplay mode
+- One problem I noticed is the use of magic numbers for the rectangles
+- Interesting to change the colors (toggling colors based on mode)

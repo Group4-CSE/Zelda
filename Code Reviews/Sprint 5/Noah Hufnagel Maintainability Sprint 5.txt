@@ -1,0 +1,16 @@
+Author of the code review: Noah Hufnagel
+Date of the code review: 4/23/2021
+Sprint number: 5
+Name of the .cs file being reviewed: ESpawner.cs
+Author of the .cs file being reviewed: Tyler Liu
+
+Specific comments on code quality:
+overall this class is quite easy to maintain.
+You can change how long it takes to spawn enemies relatively easily.
+easy to enable and disable.
+all variables make sense and most constants can just be changed at the top
+personally I would reccomend making spawning Time a constant rather than just a number in an if test, but its not that bad to leave like it is.
+
+
+A hypothetical change to make to the game related to file being reviewed and how the current implementation could or could not easily support that change:
+This implementation can easily support changes regarding the type of enemy that is spawned, the location of the spawner, and the amount of time that the spawner takes to spawn a new enemy once enabled. Overall very easy to maintain.
