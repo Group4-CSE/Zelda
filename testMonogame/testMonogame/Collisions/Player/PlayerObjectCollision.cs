@@ -37,7 +37,7 @@ namespace testMonogame
                 objectRect = block.getDestRect();
                 //playerRect = player.getDestRect();
                 collisionRect = Rectangle.Intersect(playerRect, objectRect);
-                if (block is BlueSandBlock || block is DragonBlock || block is FishBlock) isIgnored = true;
+                if (block is BlueSandBlock || block is DragonBlock || block is FishBlock|| player.IsAttacking()) isIgnored = true;
 
                 if (!collisionRect.IsEmpty && (block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor || block is StairsBlock || block is SolidBlockDoor))
                 {
