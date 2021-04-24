@@ -1,0 +1,12 @@
+John Fleming
+Date of the code review: 4/23/2021
+Sprint number: 5
+Name of the .cs file being reviewed: RoomTransition.cs
+Author of the .cs file being reviewed: Jerry Qiu
+
+Specific comments on code quality:
+Very easy to maintain, not much dependability. Delay at 90 is the only Magic number. 
+
+Recommendation to improve:
+The case statements would be hard to adjust smoothly if we changed the way that worked.
+
