@@ -29,7 +29,7 @@ namespace testMonogame
 
         public void Update(GameManager game)
         {
-            // COLLISION WILL GO HERE
+            //no need to update block
         }
         public Rectangle getDestRect()
         {
