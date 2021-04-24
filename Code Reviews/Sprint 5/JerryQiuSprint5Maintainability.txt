@@ -1,0 +1,10 @@
+Sprint 5 Code Quality 
+Author: Jerry Qiu
+4/23/2021
+
+StalfosEnemy.cs
+Logan Flory
+
+Code looks good. Class doesn't depend on too much. New for this sprint looks like the player tracking stuff. SmartMove is well documented and makes sense what the method is trying to accomplish. Perhaps the game difficulty being set in update could be done better as the variable in the enemy only needs to be set once. however, as update is the only place in the class that gets the game manager, it makes sense.
+
+15 mins

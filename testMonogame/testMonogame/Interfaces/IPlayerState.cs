@@ -33,5 +33,7 @@ namespace testMonogame
         public void setStasis(bool stasisIn);
         public bool getStasis();
         public void Update(GameManager game);
+        public void PlaceRupeeShield(GameManager game);
+        public void spawnReapingArrow(GameManager game);
     }
 }

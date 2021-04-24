@@ -7,15 +7,15 @@ namespace testMonogame
     class ExtraRupees : ICommand
     {
         IPlayer player;
-        GameManager game;
-        public ExtraRupees(IPlayer playerIn, GameManager gameIn)
+
+        public ExtraRupees(IPlayer playerIn)
         {
             player = playerIn;
-            game = gameIn;
+
         }
         public void Execute()
         {
-            player.rupees = 25;
+            player.Rupees = player.Rupees+ 25;
         }
     }
 }

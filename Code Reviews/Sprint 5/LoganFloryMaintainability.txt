@@ -1,0 +1,18 @@
+Author: Logan Flory
+Date: 4-23-2021
+Sprint #5
+Name of .cs being reviewed: 
+Author of .cs being reviewed: Jerry Qiu
+Minutes taken to complete: 15
+Specific Comments:
+- The code is a bit hard to read and find out where I'm at
+- Using two methods for cheat codes and special moves is useful and would allow us to alter them separately 
+- Storing the input keys as a stack is a really good idea
+- Having 2 stacks of keys may be redundant
+- The way you used a timer is a good addition 
+- The giant if else would be a little bit difficult to maintain if we were to alter how input tracking was done 
+Hypothetical Change:
+- Overall I think the implementation is good because it also allows us to easily add more combinations of keys for cheat codes / special moves without 
+  having to change anything big. A hypothetical change I thing would prove difficult with this implementation is if we let the player choose / if we 
+  changed the assignment of keys used for things like movement or items, there could be conflicting keys, especially since they are hard coded, so maybe
+  if we implemented some sort of data structure that told us what keys are in use instead and then based the special inputs off of those. 

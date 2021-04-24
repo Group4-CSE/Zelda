@@ -25,6 +25,14 @@ namespace testMonogame
             {
                 this.handlePlayerCollision(proj, player);
             }
+            IPlayerProjectile[] playerProjArray = room.GetPlayerProjectiles().ToArray();
+            foreach(IEnemyProjectile enemyProj in enemyprojArry)
+            {
+                foreach(IPlayerProjectile playerProj in playerProjArray)
+                {
+                    if (playerProj is RupeeShieldPlayerProjectile && playerProj.getDestRect().Intersects(enemyProj.getDestRect())) handleRupeeShieldBlock(enemyProj, playerProj);
+                }
+            }
         }
         public void handlePlayerCollision(IEnemyProjectile proj, IPlayer player)
         {
@@ -37,6 +45,11 @@ namespace testMonogame
             }
 
             
+        }
+        public void handleRupeeShieldBlock(IEnemyProjectile proj, IPlayerProjectile r)
+        {
+            proj.collide(game);
+            r.collide(game);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace testMonogame.Rooms
 
     class Room : IRoom
     {
-        
+
         public int screenX { get; set; }
         public int screenY { get; set; }
 
@@ -30,6 +30,7 @@ namespace testMonogame.Rooms
         Rectangle bombRectangle;
         Rectangle blockRectangle;
         bool hiddenItems;
+        bool bossRoom;
 
         const int mapXGrid = 32;
         const int mapYGrid = 16;
@@ -45,6 +46,7 @@ namespace testMonogame.Rooms
         //Lists of stuff
         List<IObject> Blocks;
         List<IObject> Items;
+        List<IObject> HiddenItemList;
         List<IEnemy> Enemies;
         List<IPlayerProjectile> PlayerProjectiles;
         List<IEnemyProjectile> EnemyProjectiles;
@@ -55,35 +57,50 @@ namespace testMonogame.Rooms
         Rectangle wallSourceRect = new Rectangle(0, 0, 16 * blockBaseDimension, 11 * blockBaseDimension);
         Rectangle undergroundSourceRect = new Rectangle(265, 176, 16 * blockBaseDimension, 11 * blockBaseDimension);
         Rectangle floorSourceRect = new Rectangle(272, 32, 12 * blockBaseDimension, 7 * blockBaseDimension);
-        Rectangle floor2SourceRect= new Rectangle(560, 194, 12 * blockBaseDimension, 7 * blockBaseDimension);
+        Rectangle floor2SourceRect = new Rectangle(560, 194, 12 * blockBaseDimension, 7 * blockBaseDimension);
         Rectangle wallDestRect;
-        Rectangle floorDestRect ;
+        Rectangle floorDestRect;
 
 
-        
+        //transition stuff
+        //save initial positions for transitions
+        Rectangle originalWall;
+        Rectangle originalFloor;
 
-        public Room(int inMapX, int inMapY, int inBG, bool inWalls, 
-            Dictionary<String, Texture2D> spriteSheets, 
+        Boolean isTransition;
+
+        ESpawner EnemySpawner;
+
+        public Room(int inMapX, int inMapY, int inBG, bool inWalls,
+            Dictionary<String, Texture2D> spriteSheets,
             List<IObject> inBlocks,
             List<IObject> inItems,
             List<IEnemy> inEnemies,
             Rectangle inBombRectangle,
             Rectangle inBlockRectangle,
-            bool inHideItems
+            bool inHideItems,
+
+            ESpawner eSpawner,
+            bool inBossRoom
+
             )
         {
 
             bombRectangle = inBombRectangle;
             blockRectangle = inBlockRectangle;
             hiddenItems = inHideItems;
-            
+            EnemySpawner = eSpawner;
+
             screenX = 130;
             screenY = 110;
 
-             wallDestRect = new Rectangle(screenX, screenY, 16 * blockBaseDimension * blockSizeMod, 11 * blockBaseDimension * blockSizeMod);
-             floorDestRect = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
-                12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
+            wallDestRect = new Rectangle(screenX, screenY, 16 * blockBaseDimension * blockSizeMod, 11 * blockBaseDimension * blockSizeMod);
+            floorDestRect = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
+               12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
 
+            originalFloor = new Rectangle(screenX + (2 * blockBaseDimension * blockSizeMod), screenY + (2 * blockBaseDimension * blockSizeMod),
+                12 * blockBaseDimension * blockSizeMod, 7 * blockBaseDimension * blockSizeMod);
+            originalWall = new Rectangle(screenX, screenY, 16 * blockBaseDimension * blockSizeMod, 11 * blockBaseDimension * blockSizeMod);
 
             sprites = spriteSheets;
 
@@ -91,7 +108,14 @@ namespace testMonogame.Rooms
             Walls = inWalls;
 
             Blocks = inBlocks;
-            Items = inItems;
+            if (!hiddenItems) Items = inItems;
+            else
+            {
+                HiddenItemList = inItems;
+                Items = new List<IObject>();
+            }
+            bossRoom = inBossRoom;
+
             Enemies = inEnemies;
             PlayerProjectiles = new List<IPlayerProjectile>();
             EnemyProjectiles = new List<IEnemyProjectile>();
@@ -99,7 +123,13 @@ namespace testMonogame.Rooms
             mapX = inMapX;
             mapY = inMapY;
 
+            isTransition = false;
 
+            //if (EnemySpawner != null)
+            //{
+            //    if (hiddenItems) EnemySpawner.enabled = false;//if there are hidden items, allow the player to clear a room then immediately start spawning
+            //    else EnemySpawner.enabled = true;//if no hidden items then start spawning as soon as the room is entered
+            //}
 
         }
 
@@ -140,42 +170,76 @@ namespace testMonogame.Rooms
         public void AddPlayerProjectile(IPlayerProjectile projectile) { PlayerProjectiles.Add(projectile); }
         public void RemovePlayerProjectile(IPlayerProjectile projectile) { PlayerProjectiles.Remove(projectile); }
         public void RemoveItem(IObject item) { Items.Remove(item); }
-        public void RemoveEnemy(IEnemy enemy) 
+        public void RemoveEnemy(IEnemy enemy)
         {
             IObject drop = getDrops(enemy);
             if (drop != null)
             {
                 Items.Add(drop);
             }
-            Enemies.Remove(enemy); 
+            Enemies.Remove(enemy);
+
+            if (bossRoom)
+            {
+                //open doors once all enemies are dead in boss room
+                if(Enemies.Count == 0)
+                {
+                    foreach (IObject block in this.GetBlocks())
+                    {
+                        if ((block is CaveDoor || block is ClosedDoor || block is OpenDoor || block is LockedDoor || block is StairsBlock || block is SolidBlockDoor))
+                        {
+                            IDoor door = (IDoor)block;
+                            //open door
+                            door.openDoor();
+
+                        }
+                    }
+                }
+            }
+            if (EnemySpawner != null && Enemies.Count==0)
+            {
+                //turn on the spawner once the original enemies are dead
+                EnemySpawner.enabled = true;
+            }
         }
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
+
             if (Walls) spriteBatch.Draw(sprites["Backgrounds"], wallDestRect, wallSourceRect, Color.White);
-            if (Background==1) spriteBatch.Draw(sprites["Backgrounds"], floorDestRect, floorSourceRect, Color.White);
+            if (Background == 1) spriteBatch.Draw(sprites["Backgrounds"], floorDestRect, floorSourceRect, Color.White);
             else if (Background == 2) spriteBatch.Draw(sprites["Backgrounds"], wallDestRect, undergroundSourceRect, Color.White);
             else if (Background == 3) spriteBatch.Draw(sprites["Backgrounds"], floorDestRect, floor2SourceRect, Color.White);
 
+            //draw blocks
             foreach (IObject block in Blocks)
             {
                 block.Draw(spriteBatch);
             }
+
+            if (isTransition)
+            {
+                return;
+            }
+
+            //draw enemies
             foreach (IEnemy enemy in Enemies)
             {
                 enemy.Draw(spriteBatch);
             }
-            if (!hiddenItems)
-            {
-                foreach (IObject item in Items)
-                {
-                    item.Draw(spriteBatch);
-                }
-            }
-            
 
+            //draw items
+            foreach (IObject item in Items)
+            {
+                item.Draw(spriteBatch);
+            }
+
+
+            //spriteBatch.Draw(sprites["Backgrounds"], bombRectangle, new Rectangle(40, 200, 3, 3), Color.Orange);
             IPlayerProjectile[] arrPlayer = PlayerProjectiles.ToArray();
+
+            //draw projectiles
             foreach (IPlayerProjectile projectile in arrPlayer)
             {
                 projectile.Draw(spriteBatch);
@@ -187,45 +251,81 @@ namespace testMonogame.Rooms
             }
 
 
-            
+
             //spriteBatch.Draw(sprites["map"], mapDestRect, mapSourceRect, Color.White);
-            spriteBatch.Draw(sprites["Backgrounds"], new Rectangle(mapOffsetX+(mapX * mapXGrid)+(mapXGrid/4), mapOffsetY+(mapY * mapYGrid), (mapXGrid-5)/2, mapYGrid-4), new Rectangle(40, 200, 3, 3), Color.Gray);
+            spriteBatch.Draw(sprites["Backgrounds"], new Rectangle(mapOffsetX + (mapX * mapXGrid) + (mapXGrid / 4), mapOffsetY + (mapY * mapYGrid), (mapXGrid - 5) / 2, mapYGrid - 4), new Rectangle(40, 200, 3, 3), Color.Gray);
 
 
         }
 
-        public void Update(GameManager game)
+        public void Update(GameManager game, GameTime gametime)
         {
+            if (isTransition)
+            {
+                return;
+            }
+
             foreach (IObject block in Blocks)
             {
                 block.Update(game);
                 if (block.getDestRect().Intersects(blockRectangle))
                 {
-                    //open all closed doors. Will be added when doors are complemtely updated.
+                    foreach (IObject door in Blocks)
+                    {
+                        if (door is IDoor && door is ClosedDoor)
+                        {
+                            IDoor d = (IDoor)door;
+                            //Debug.WriteLine("open");
+                            d.openDoor();
+                            
+                        }
+                    }
                 }
             }
             foreach (IEnemy enemy in Enemies)
             {
                 enemy.Update(game);
             }
-            if (!hiddenItems)
+
+            //TODO: Wrap this in bool to switch to hordemode
+            if (game.IsHorde())
             {
-                foreach (IObject item in Items)
+                EnemySpawner.Update();
+            }
+            
+
+            if (hiddenItems && Enemies.Count == 0)
+            {
+                hiddenItems = false;
+                foreach (IObject item in HiddenItemList)
                 {
-                    item.Update(game);
+                    Items.Add(item);
                 }
+                HiddenItemList.Clear();
             }
-            else
+            foreach (IObject item in Items)
             {
-                if (Enemies.Count == 0) hiddenItems = false;
+                item.Update(game);
             }
+
+
+
             IPlayerProjectile[] arrPlayer = PlayerProjectiles.ToArray();
             foreach (IPlayerProjectile projectile in arrPlayer)
             {
                 projectile.Update(game);
-                if(projectile is BombPlayerProjectile && projectile.getDestRect().Intersects(bombRectangle))
+                if (projectile is ExplosionPlayerProjectile && projectile.getDestRect().Intersects(bombRectangle))
                 {
-                    //make all cave doors display. Will be added when doors are completely updated
+                    //Debug.WriteLine("BOOM");
+                    foreach (IObject door in Blocks)
+                    {
+                        if (door is IDoor && door is CaveDoor)
+                        {
+                            IDoor d = (IDoor)door;
+                            d.openDoor();
+                            
+                        }
+                    }
                 }
             }
             IEnemyProjectile[] arrEnemy = EnemyProjectiles.ToArray();
@@ -274,6 +374,107 @@ namespace testMonogame.Rooms
         {
             PlayerProjectiles.Clear();
             EnemyProjectiles.Clear();
+        }
+
+        public void shiftBlocks(int x, int y)
+        {
+            //shift all the blocks by x and y value
+            foreach(IObject obj in Blocks)
+            {
+                IBlock block = (IBlock)obj;
+                block.transitionShift(x, y);
+            }
+        }
+
+        public void resetBlocks()
+        {
+            //reset all blocks to original positions
+            foreach (IObject obj in Blocks)
+            {
+                IBlock block = (IBlock)obj;
+                block.resetToOriginalPos();
+            }
+        }
+
+        public void setTransitionSide(int side)
+        {
+
+            switch (side)
+            {
+                case 5:
+                    //do same as case 0 -- case 5 only happens in room 3 stairs
+                case 0:
+                    //handle north transition, put room on top of the old room 
+                    floorDestRect.Y = floorDestRect.Y - (11 * blockBaseDimension * blockSizeMod);
+                    wallDestRect.Y = wallDestRect.Y - (11 * blockBaseDimension * blockSizeMod);
+                    shiftBlocks(0, -(11 * blockBaseDimension * blockSizeMod));
+                    break;
+                case 1:
+                    //handle west transition, put room left of the old room 
+                    floorDestRect.X = floorDestRect.X - (16 * blockBaseDimension * blockSizeMod);
+                    wallDestRect.X = wallDestRect.X - (16 * blockBaseDimension * blockSizeMod);
+                    shiftBlocks(-(16 * blockBaseDimension * blockSizeMod), 0);
+                    break;
+                case 2:
+                    //handle east transition, put room right of the old room 
+                    floorDestRect.X = floorDestRect.X + (16 * blockBaseDimension * blockSizeMod);
+                    wallDestRect.X = wallDestRect.X + (16 * blockBaseDimension * blockSizeMod);
+                    shiftBlocks((16 * blockBaseDimension * blockSizeMod), 0);
+                    break;
+                case 4:
+                    //do same as case 3 -- case 4 only happens for room 1 stairs
+                case 3:
+                    //handle south transition, put room bellow the old room 
+                    floorDestRect.Y = floorDestRect.Y + (11 * blockBaseDimension * blockSizeMod);
+                    wallDestRect.Y = wallDestRect.Y + (11 * blockBaseDimension * blockSizeMod);
+                    shiftBlocks(0, (11 * blockBaseDimension * blockSizeMod));
+                    break;
+            }
+        }
+        public void setTransitioning(Boolean transition)
+        {
+            this.isTransition = transition;
+        }
+        public Boolean isTransitioning()
+        {
+            return isTransition;
+        }
+        public void transitionShift(int x, int y)
+        {
+            //shift floor and walls based on incoming x,y
+            floorDestRect.X = floorDestRect.X + x;
+            floorDestRect.Y = floorDestRect.Y + y;
+            wallDestRect.X = wallDestRect.X + x;
+            wallDestRect.Y = wallDestRect.Y + y;
+
+            //shift blocks with the x,y
+            shiftBlocks(x, y);
+
+            //if room is shifted back to original position, transition is complete
+            if (floorDestRect.X == originalFloor.X && floorDestRect.Y == originalFloor.Y)
+            {
+                isTransition = false;
+            }
+        }
+        public void resetToOriginalPos()
+        {
+            //reset room back to original position after a transition shift
+            floorDestRect.X = originalFloor.X;
+            floorDestRect.Y = originalFloor.Y;
+            wallDestRect.X = originalWall.X;
+            wallDestRect.Y = originalWall.Y;
+
+            //reset blocks
+            resetBlocks();
+
+        }
+
+        public void isShiftDone()
+        {
+            if (floorDestRect.X == originalFloor.X && floorDestRect.Y == originalFloor.Y)
+            {
+                isTransition = false;
+            }
         }
     }
 }

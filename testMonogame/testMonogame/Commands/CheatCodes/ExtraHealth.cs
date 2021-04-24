@@ -7,16 +7,16 @@ namespace testMonogame
     class ExtraHealth : ICommand
     {
         IPlayer player;
-        GameManager game;
-        public ExtraHealth(IPlayer playerIn, GameManager gameIn)
+
+        public ExtraHealth(IPlayer playerIn)
         {
             player = playerIn;
-            game = gameIn;
+
         }
         public void Execute()
         {
             player.maxHealth = player.maxHealth * 2;
-            player.health = maxHealth;
+            player.health = player.maxHealth;
         }
     }
 }

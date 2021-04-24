@@ -32,10 +32,10 @@ namespace testMonogame
             xVel = (int)velocity.X;
             yVel = (int)velocity.Y;
 
-            frames.AddLast(new Rectangle(75, 33, 8, 16));
-            frames.AddLast(new Rectangle(84, 33, 8, 16));
-            frames.AddLast(new Rectangle(93, 33, 8, 16));
-            frames.AddLast(new Rectangle(102, 33, 8, 16));
+            frames.AddLast(new Rectangle(75, 36, 8, 10));
+            frames.AddLast(new Rectangle(84, 36, 8, 10));
+            frames.AddLast(new Rectangle(93, 36, 8, 10));
+            frames.AddLast(new Rectangle(102, 36, 8, 10));
             currentFrame = frames.First;
 
 

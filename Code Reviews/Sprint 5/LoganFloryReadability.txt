@@ -1,0 +1,13 @@
+Author: Logan Flory
+Date: 4-23-2021
+Sprint #5
+Name of .cs being reviewed: StartMenuScreen.cs
+Author of .cs being reviewed: Noah Hufnagel
+Minutes taken to complete: 10
+Specific Comments:
+- Variable names are easy to follow
+- Helper methods are really small and make code a lot easier to follow 
+- There are a lot of magic numbers but that's kind of expected, maybe we could make global screen positional constants? That way 
+  we could move stuff around without having to change a bunch of numbers
+- Not sure why you're declaring stuff in the draw method instead of at the top (i.e. difficulty and color and diffValue, etc)
+- Overall really straight forward to read and figure out what's going on

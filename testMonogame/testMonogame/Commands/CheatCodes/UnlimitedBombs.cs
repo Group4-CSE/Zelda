@@ -7,15 +7,15 @@ namespace testMonogame
     class UnlimitedBombs : ICommand
     {
         IPlayer player;
-        GameManager game;
-        public UnlimitedBombs(IPlayer playerIn, GameManager gameIn)
+
+        public UnlimitedBombs(IPlayer playerIn)
         {
             player = playerIn;
-            game = gameIn;
+
         }
         public void Execute()
         {
-            player.bombs = 10000;
+            player.Bombs = 10000;
         }
     }
 }

@@ -158,7 +158,8 @@ namespace testMonogame
             //"Room7","Room8","Room9","Room10","Room11","Room12","Room13","Room14","Room15","Room16","Room17","Room18"};
             foreach (String key in roomKeys)
             {
-                spriteBatch.Draw(texture, mapDestRects[key], mapSourceRects[key], Color.White);
+                //room 3 does not have a room on this map
+                if(key!="Room3") spriteBatch.Draw(texture, mapDestRects[key], mapSourceRects[key], Color.White);
             }
 
             spriteBatch.Draw(texture, selectedItemDest, getItemSourceRect(selectedItem), Color.White);

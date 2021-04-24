@@ -23,6 +23,7 @@ namespace testMonogame.Rooms
 
         //Conditions
         bool hideItems;
+        bool bossRoom;
         Rectangle blockRect;
         Rectangle bombRect;
 
@@ -34,17 +35,31 @@ namespace testMonogame.Rooms
         //the base dimensions of a block square
         const int blockBaseDimension = 16;
 
-        public RoomLoader( Dictionary<String,Texture2D> spriteSheet)
+        //For the Enemy Spawner
+        GameManager Game;
+        ESpawner ESpawner1;
+
+        float tempX, tempY;
+        string tempWord;
+
+        public RoomLoader( Dictionary<String,Texture2D> spriteSheet, GameManager game)
         {
             hideItems = false;
+            bossRoom = false;
             Rectangle defaultRect = new Rectangle(-100, -100, 0, 0);
             blockRect = defaultRect;
             bombRect = defaultRect;
             sprites = spriteSheet;
+            Game = game;
         }
 
         public Room Load(String sourceFile)
         {
+            hideItems = false;
+            bossRoom = false;
+            Rectangle defaultRect = new Rectangle(-100, -100, 0, 0);
+            blockRect = defaultRect;
+            bombRect = defaultRect;
             Blocks = new List<IObject>();
             Items = new List<IObject>();
             Enemies = new List<IEnemy>();
@@ -53,7 +68,17 @@ namespace testMonogame.Rooms
             Background = 0;
             Walls = false;
             loadFromFile(sourceFile);
-            return new Room(mapX, mapY, Background, Walls, sprites, Blocks, Items, Enemies,bombRect, blockRect,hideItems);
+
+            //Creating Enemy Spawner
+            Debug.WriteLine(hideItems);
+            if (!bossRoom)
+            {
+                ESpawner eSpawn = new ESpawner(Game, Enemies, tempWord, sprites, !hideItems);
+                ESpawner1 = eSpawn;
+            }
+
+            return new Room(mapX, mapY, Background, Walls, sprites, Blocks, Items, Enemies,bombRect, blockRect,hideItems, ESpawner1, bossRoom);
+
         }
         void loadFromFile(String sourceFile)
         {
@@ -125,16 +150,21 @@ namespace testMonogame.Rooms
                                 //blockrect
                                 int x = ((Int32.Parse(split[1]) - 1) * blockBaseDimension * blockSizeMod) + screenX + (2 * blockBaseDimension * blockSizeMod);
                                 int y = ((Int32.Parse(split[2]) - 1) * blockBaseDimension * blockSizeMod) + screenY + (2 * blockBaseDimension * blockSizeMod);
-                                blockRect = new Rectangle(x, y, blockBaseDimension * blockSizeMod, blockBaseDimension * blockSizeMod);
+                                blockRect = new Rectangle(x, y, blockBaseDimension * blockSizeMod-2, blockBaseDimension * blockSizeMod-2);
                             }
                             else if (split[0].Equals("bomb"))
                             {
                                 //bombrect
                                 int x = ((Int32.Parse(split[1]) - 1) * blockBaseDimension * blockSizeMod) + screenX + (2 * blockBaseDimension * blockSizeMod);
                                 int y = ((Int32.Parse(split[2]) - 1) * blockBaseDimension * blockSizeMod) + screenY + (2 * blockBaseDimension * blockSizeMod);
-                                int w = 3 * blockBaseDimension * blockSizeMod;
-                                int h = 3 * blockBaseDimension * blockSizeMod;
-                                blockRect = new Rectangle(x, y, w, h);
+                                int w = 2 * blockBaseDimension * blockSizeMod;
+                                int h = 1 * blockBaseDimension * blockSizeMod;
+                                bombRect = new Rectangle(x, y, w, h);
+                            }
+                            else if (split[0].Equals("boss"))
+                            {
+                                //boss room
+                                bossRoom = true;
                             }
                             break;
                     }
@@ -157,6 +187,8 @@ namespace testMonogame.Rooms
             String[] split = line.Split(',');
             int direction;
             IObject door;
+
+            //calculate door location
             switch (split[1])
             {
                 case "up":
@@ -188,18 +220,19 @@ namespace testMonogame.Rooms
 
             int nextDoor = int.Parse(split[2]);
 
+            //create door object
             switch (split[0])
             {
                 
                 //keys temporarily set to 0. may have to do switch later to determine room number
                 case "closed":
-                    door = new ClosedDoor(direction, new Vector2(x, y), sprites["doors"], 0, false,nextDoor);
+                    door = new ClosedDoor(direction, new Vector2(x, y), sprites["doors"], 0, true,nextDoor);
                     break;
                 case "open":
                     door = new OpenDoor(direction, new Vector2(x, y), sprites["doors"], 0, false, nextDoor);
                     break;
                 case "cave":
-                    door = new CaveDoor(direction, new Vector2(x, y), sprites["doors"], nextDoor);
+                    door = new CaveDoor(direction, new Vector2(x, y), sprites["doors"], nextDoor,split.Length>=4);
                     break;
                 case "locked":
                     door = new LockedDoor(direction, new Vector2(x, y), sprites["doors"], 0, true, nextDoor);
@@ -212,6 +245,7 @@ namespace testMonogame.Rooms
         }
         void addEnemy(String line)
         {
+            
             String[] split = line.Split(',');
             IEnemy enemy;
 
@@ -249,6 +283,11 @@ namespace testMonogame.Rooms
                     break;
             }
             Enemies.Add(enemy);
+            //Store into temp Variables for ESpawner
+            tempWord = split[0];
+            tempX = x;
+            tempY = y;
+            
 
         }
 
@@ -257,9 +296,11 @@ namespace testMonogame.Rooms
             String[] split = line.Split(',');
             IObject block;
             //Debug.WriteLine(split[0]);
+            //calculate block location
             float x = ((Int32.Parse(split[1]) - 1) * blockBaseDimension * blockSizeMod) + screenX + (2 * blockBaseDimension * blockSizeMod);
             float y = ((Int32.Parse(split[2]) - 1) * blockBaseDimension * blockSizeMod) + screenY + (2 * blockBaseDimension * blockSizeMod);
 
+            //create block objects
             switch (split[0])
             {
                 case "bluesandblock":
@@ -287,6 +328,11 @@ namespace testMonogame.Rooms
                     Color c = Color.Transparent;
                     if (split[3] == "blue") c = Color.Blue;
                     block = new SolidBlock(sprites["Backgrounds"], new Vector2(x, y), c);
+                    break;
+                case "solidblockdoor":
+                    Color c2 = Color.Transparent;
+                    if (split[3] == "blue") c = Color.Blue;
+                    block = new SolidBlockDoor(sprites["Backgrounds"], new Vector2(x, y), c2);
                     break;
                 default:
                     block = new DungeonBlock(sprites["tileset"], new Vector2(x, y));

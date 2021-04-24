@@ -11,7 +11,7 @@ namespace testMonogame.Interfaces
         public int screenX { get; set; }
         public int screenY { get; set; }
         public void Draw(SpriteBatch spriteBatch);
-        public void Update(GameManager game);
+        public void Update(GameManager game, GameTime gameTime);
 
         public List<IObject> GetBlocks();
         public List<IObject> GetItems();
@@ -28,5 +28,12 @@ namespace testMonogame.Interfaces
         public void RemovePlayerProjectile(IPlayerProjectile projectile);
         public void RemoveItem(IObject item);
         public void RemoveEnemy(IEnemy enemy);
+
+        public void setTransitionSide(int side);
+        public void setTransitioning(Boolean transition);
+        public Boolean isTransitioning();
+        public void transitionShift(int x, int y);
+        public void resetToOriginalPos();
+        public void isShiftDone();
     }
 }

@@ -1,0 +1,15 @@
+Author of the code review: Tyler Liu
+Date of the code review: 04/23/21
+Sprint number: 5
+Name of the .cs file being reviewed: ExtraHealth.cs
+Author of the .cs file being reviewed: John Fleming
+
+Specific comments on code quality:
+Overall from first look, code looks clean and no code smell.
+Its pretty short but concise to where it executes well.
+It adds health to the player by updating the player's health.
+
+A hypothetical change to make to the game related to file being reviewed and how the current
+implementation could or could not easily support that change:
+
+You can add more or less health by changing the constants in the Execute() method. 
