@@ -70,7 +70,7 @@ namespace testMonogame.Rooms
             loadFromFile(sourceFile);
 
             //Creating Enemy Spawner
-            Debug.WriteLine(hideItems);
+           // Debug.WriteLine(hideItems);
             if (!bossRoom)
             {
                 ESpawner eSpawn = new ESpawner(Game, Enemies, tempWord, sprites, !hideItems);
